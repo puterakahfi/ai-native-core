@@ -8,7 +8,7 @@ It defines the shared domain model, philosophy, lifecycle, rules, workflows, tem
 
 ```text
 native-ai-core    = public core/domain/contracts/philosophy
-native-ai-app     = private app/product adapter that consumes this core
+native-ai-app     = app/product adapter that consumes this core; public or private by implementer choice
 native-ai-skills  = public runtime skill adapters that implement core skill contracts
 ```
 
@@ -39,15 +39,17 @@ runtime-specific installed skill copies
 
 ## Contract-Driven Usage
 
-A private app adapter should include this core and then bind a product instance to a runtime:
+An app adapter should include this core and then bind a product instance to a runtime:
 
 ```text
-private app repo
+app adapter repo
   -> includes native-ai-core
   -> adds product-specific contracts/context
   -> binds to runtime adapters such as Hermes
   -> verifies output against core + product contracts
 ```
+
+App adapter visibility is not part of the contract. It can be public for examples/open products or private for internal products. The contract only requires correct implementation of core contracts and clean separation of product/runtime-specific context.
 
 ## Current Status
 

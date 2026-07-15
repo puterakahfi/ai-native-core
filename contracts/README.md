@@ -8,7 +8,7 @@ A contract answers:
 What must be true, independent of which runtime or app implements it?
 ```
 
-Contracts are runtime-agnostic. Runtime-specific implementations belong in adapter repositories such as `native-ai-skills` or private app/runtime bindings.
+Contracts are runtime-agnostic. Runtime-specific implementations belong in adapter repositories such as `native-ai-skills` or app/runtime bindings. Those adapters may be public or private depending on product sensitivity.
 
 ## Initial Contract Areas
 
