@@ -23,7 +23,14 @@ workflows/        # reusable lifecycle workflows
 templates/        # generic artifact templates
 skills/           # human-readable shared skill methodology
 schemas/          # validation schemas when contracts stabilize
-docs/             # reusable concept and port documentation
+docs/             # public framework docs
+```
+
+Initial domain-contract skills include:
+
+```text
+skills/native-ai/native-ai-engineer.md
+contracts/skills/native-ai/native-ai-engineer.contract.yaml
 ```
 
 ## What Does Not Belong Here
