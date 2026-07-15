@@ -1,0 +1,63 @@
+# Engineering Contract Template
+# This contract defines technical decisions that all agents must follow.
+
+product:
+  name: ""
+  version: "0.1"
+  owner: ""
+
+architecture:
+  style: "Clean Architecture"
+  domain_modeling: "Domain-Driven Design"
+  modularity: "modular-monolith-first"
+  adr_required: true
+
+backend:
+  runtime: "Node.js"
+  framework: "NestJS"
+  database: "PostgreSQL"
+  orm: "Prisma"
+  api_style: "REST-first"
+  background_jobs: "Redis-backed queue when needed"
+
+frontend:
+  framework: "Next.js"
+  ui: "shadcn/ui"
+  styling: "Tailwind CSS"
+  state_management: "feature-local first"
+  accessibility: "required"
+
+ai:
+  provider: "OpenAI API"
+  prompt_flow_required: true
+  human_review_required_for_public_output: true
+  evaluation_required: true
+
+storage:
+  media: "S3-compatible storage or Cloudflare R2"
+  documents: "repository docs or database-backed knowledge base"
+
+security:
+  baseline: "OWASP"
+  secrets: "never hardcode"
+  auth_required: true
+  audit_log_for_sensitive_actions: true
+
+testing:
+  strategy: "Test-Driven Development where practical"
+  unit_tests: required
+  integration_tests: required_for_critical_flow
+  minimum_coverage: 85
+
+documentation:
+  readme: required
+  adr: required_for_major_decision
+  api_contract: required
+  feature_spec: required
+  evaluation_report: required_for_agent_output
+
+review:
+  architecture_review: required_for_new_module
+  code_review: required
+  security_review: required_for_sensitive_flow
+  human_approval_before_deploy: true

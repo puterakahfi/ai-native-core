@@ -1,0 +1,49 @@
+skill_registry:
+  category: "code_execution"
+  version: "0.1"
+  purpose: "Reusable coding procedures for code execution adapters."
+
+skills:
+  repository_inspection:
+    path: "skills/code-execution/repository-inspection.md"
+    purpose: "Inspect repository structure, source-of-truth files, package boundaries, and existing conventions before making changes."
+    required_for:
+      - "all_implementation_tasks"
+
+  task_contract_execution:
+    path: "skills/code-execution/task-contract-execution.md"
+    purpose: "Execute only from an approved implementation task contract with scoped files, constraints, and acceptance criteria."
+    required_for:
+      - "all_implementation_tasks"
+
+  package_boundary_review:
+    path: "skills/code-execution/package-boundary-review.md"
+    purpose: "Verify dependency direction and prevent invalid imports across apps, packages, domains, and adapters."
+    required_for:
+      - "monorepo_changes"
+      - "package_changes"
+
+  dependency_change_review:
+    path: "skills/code-execution/dependency-change-review.md"
+    purpose: "Review dependency additions, manifest updates, risk, and commands before installation or execution."
+    required_for:
+      - "dependency_changes"
+
+  ui_implementation:
+    path: "skills/code-execution/ui-implementation.md"
+    purpose: "Implement UI changes using approved design direction, component system, accessibility, and responsive behavior."
+    required_for:
+      - "frontend_changes"
+      - "ui_changes"
+
+  test_driven_change:
+    path: "skills/code-execution/test-driven-change.md"
+    purpose: "Add or update tests when behavior changes and report commands needed to verify the work."
+    required_for:
+      - "behavior_changes"
+
+  adapter_handoff_summary:
+    path: "skills/code-execution/adapter-handoff-summary.md"
+    purpose: "Return structured execution output including changed files, commands, risks, and review notes."
+    required_for:
+      - "all_implementation_tasks"

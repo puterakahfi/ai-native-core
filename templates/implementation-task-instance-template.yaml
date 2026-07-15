@@ -1,0 +1,111 @@
+task:
+  id: ""
+  title: ""
+  type: "implementation_task"
+  status: "draft"
+  product: ""
+  app: ""
+  module: ""
+  feature: ""
+  capability: ""
+
+source_of_truth:
+  product_config: "products/{product}/product.config.yaml"
+  legacy_project_config: "products/{product}/project.config.yaml"
+  app_config: "products/{product}/apps/{app}/app.config.yaml"
+  context_pack: "context-packs/{product}.yaml"
+  engineering_contract: "products/{product}/engineering-contract.yaml"
+  domain_model: "products/{product}/domain-model.md"
+  module_spec: "products/{product}/modules/{module}/module-spec.md"
+  app_module_spec: "products/{product}/apps/{app}/modules/{module}/module-spec.md"
+
+intent:
+  goal: ""
+  user_problem: ""
+  expected_output: ""
+  non_goals: []
+
+architecture:
+  product_layer: "products/"
+  runtime_layer: "platform/"
+  affected_product: ""
+  affected_app: ""
+  affected_module: ""
+  affected_packages: []
+  ports: []
+  adapters: []
+
+skill_resolution:
+  rule: "Merge task-specific skills, app-specific skills, product-required skills, and adapter-required skills."
+  priority:
+    - "task_specific"
+    - "app_specific"
+    - "product_required"
+    - "adapter_required"
+  sources:
+    task_specific: "this task contract"
+    app_specific: "products/{product}/apps/{app}/app.config.yaml"
+    product_required: "products/{product}/product.config.yaml or products/{product}/project.config.yaml"
+    adapter_required: "adapters/{adapter-category}/{adapter}.yaml"
+
+skill_requirements:
+  code_execution:
+    required:
+      - "skills/code-execution/repository-inspection.md"
+      - "skills/code-execution/task-contract-execution.md"
+      - "skills/code-execution/adapter-handoff-summary.md"
+    conditional: []
+  product: []
+  app: []
+  domain: []
+  frontend: []
+  design: []
+  testing: []
+
+scope:
+  in_scope: []
+  out_of_scope: []
+  can_create: []
+  can_update: []
+  preserve: []
+  avoid_updating: []
+
+context:
+  bounded_context: ""
+  ports_involved: []
+  adapters_involved: []
+  rules_required: []
+  skills_required: []
+
+behavior:
+  api: ""
+  ui: ""
+  ai: ""
+  data_model: ""
+  error_handling: ""
+
+acceptance_criteria: []
+
+tests_required: []
+
+review_gates:
+  - code_review
+  - architecture_review_when_needed
+  - test_review
+
+risk:
+  level: "low"
+  approval_required: false
+  notes: ""
+
+expected_adapter_output:
+  - understanding
+  - task_contract_used
+  - architecture_decision_applied
+  - files_created
+  - files_updated
+  - dependencies_added
+  - commands_to_run
+  - acceptance_criteria_check
+  - risks
+  - review_notes

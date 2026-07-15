@@ -1,0 +1,16 @@
+runtime_contract:
+  id: core-source
+  version: "0.1.0"
+  purpose: declare how an app adapter resolves Native AI Core contracts
+  required_fields:
+    - source
+    - local_path
+    - version
+  optional_fields:
+    - ref
+    - lock_file
+    - checksum
+  rules:
+    - app_adapters_may_vendor_or_package_core
+    - core_contracts_must_be_resolvable_locally_before_execution
+    - private_product_context_must_not_be_required_by_core

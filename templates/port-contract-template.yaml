@@ -1,0 +1,57 @@
+# Port Contract Template
+# A port defines a required capability without choosing implementation.
+
+port:
+  name: ""
+  version: "0.1"
+  owner_layer: "application"
+  status: "proposed"
+
+purpose: ""
+
+capability:
+  description: ""
+  business_reason: ""
+
+inputs:
+  required: []
+  optional: []
+
+outputs:
+  success: []
+  failure: []
+
+rules:
+  required: []
+  forbidden: []
+
+approval:
+  human_review_required: false
+  required_for: []
+
+risk:
+  level: "low | medium | high | critical"
+  notes: ""
+
+failure_behavior:
+  retry_allowed: false
+  fallback_required: false
+  escalation: ""
+
+adapter_requirements:
+  must_support: []
+  must_not_do: []
+  replaceable: true
+
+observability:
+  audit_required: false
+  metrics: []
+  logs: []
+
+evaluation:
+  criteria: []
+  decision_options:
+    - approved
+    - approved_with_comments
+    - needs_revision
+    - rejected

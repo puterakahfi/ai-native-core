@@ -1,0 +1,63 @@
+# Adapter Contract Template
+# Use this to define a replaceable implementation for a framework port.
+
+adapter:
+  name: ""
+  type: ""
+  version: "0.1"
+  status: "proposed"
+
+port:
+  name: ""
+  capability: ""
+  owner_layer: "application"
+
+purpose: ""
+
+inputs:
+  required: []
+  optional: []
+
+outputs:
+  success: []
+  failure: []
+
+capabilities: []
+
+limitations: []
+
+risk:
+  level: "low | medium | high | critical"
+  reason: ""
+
+permissions:
+  read: []
+  write: []
+  destructive_actions: []
+
+approval:
+  required: false
+  required_for: []
+
+failure_behavior:
+  retry: false
+  fallback_adapter: ""
+  escalation: ""
+
+observability:
+  log_inputs: false
+  log_outputs: false
+  audit_required: false
+
+security:
+  secrets_allowed: false
+  pii_handling: "not_allowed | masked | allowed_with_approval"
+
+validation:
+  preconditions: []
+  postconditions: []
+  evaluation_method: ""
+
+replacement:
+  alternatives: []
+  migration_notes: ""

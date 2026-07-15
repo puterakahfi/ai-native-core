@@ -1,0 +1,79 @@
+project:
+  id: ""
+  name: ""
+  version: "0.1"
+  category: ""
+  status: "draft"
+
+framework:
+  version: "0.2"
+  architecture: "Domain-Driven Ports and Adapters"
+  context_pack: "context-packs/{project}.yaml"
+
+source_of_truth:
+  intent: "products/{project}/intent.md"
+  blueprint: "products/{project}/product-blueprint.md"
+  domain_model: "products/{project}/domain-model.md"
+  feature_map: "products/{project}/feature-map.md"
+  engineering_contract: "products/{project}/engineering-contract.yaml"
+  port_map: "products/{project}/port-map.md"
+  adapter_map: "products/{project}/adapter-map.md"
+
+domain:
+  core_domain: ""
+  bounded_contexts: []
+
+default_ports:
+  model_inference: "ModelInferencePort"
+  code_execution: "CodeExecutionPort"
+  design_generation: "DesignGenerationPort"
+  design_review: "DesignReviewPort"
+  knowledge_retrieval: "KnowledgeRetrievalPort"
+  repository: "RepositoryPort"
+  database: "DatabasePort"
+  storage: "StoragePort"
+  publishing: "PublishingPort"
+  evaluation: "EvaluationPort"
+
+default_adapters:
+  model_inference: ""
+  code_execution: ""
+  design_generation: ""
+  design_review: ""
+  repository: ""
+  database: ""
+  storage: ""
+  publishing: ""
+  evaluation: ""
+
+required_rules: []
+
+required_skills: []
+
+review_gates:
+  architecture: []
+  code: []
+  design: []
+  publishing: []
+
+risk_policy:
+  architecture_change_requires_adr: true
+  adapter_change_requires_adr: true
+  dependency_change_requires_approval: true
+  database_migration_requires_approval: true
+  destructive_action_requires_approval: true
+  public_publishing_requires_approval: true
+
+outputs:
+  default_status_flow:
+    - idea
+    - drafted
+    - specified
+    - generated
+    - needs_review
+    - approved
+    - implemented
+    - tested
+    - shipped
+    - analyzed
+    - improved
