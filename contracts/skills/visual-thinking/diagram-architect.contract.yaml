@@ -1,0 +1,72 @@
+skill_contract:
+  id: diagram-architect
+  category: visual-thinking
+  version: "0.1.0"
+  capability: renderer_agnostic_diagram_modeling
+  roles:
+    - diagram_architect
+    - visual_modeling_specialist
+    - knowledge_representation_designer
+    - architecture_explanation_designer
+  inputs:
+    required:
+      - diagram_subject
+      - diagram_purpose
+      - audience
+      - source_context
+    optional:
+      - preferred_view
+      - fidelity
+      - output_constraints
+      - renderer_preference
+      - existing_architecture_contracts
+      - verification_requirements
+  outputs:
+    allowed:
+      - diagram_brief
+      - diagram_type_decision
+      - renderer_agnostic_diagram_spec
+      - nodes
+      - edges
+      - boundaries
+      - legend
+      - constraints
+      - renderer_recommendation
+      - verification_checklist
+      - implementation_handoff
+  diagram_model:
+    required_fields:
+      - id
+      - title
+      - type
+      - purpose
+      - audience
+      - nodes
+      - edges
+      - boundaries
+      - legend
+      - constraints
+      - verification
+    common_types:
+      - system_topology
+      - runtime_topology
+      - layer_boundary_map
+      - workflow_lifecycle
+      - contract_to_adapter_map
+      - responsibility_map
+      - data_flow
+      - decision_tree
+      - sequence_flow
+  quality_gates:
+    - preserve_architecture_truth_over_visual_novelty
+    - separate_conceptual_spec_from_renderer_format
+    - name_source_of_truth_for_nodes_edges_and_boundaries
+    - label_ownership_and_directionality
+    - show_constraints_and_non_goals_when_they_prevent_misinterpretation
+    - choose_renderer_after_diagram_spec_exists
+    - verify_required_nodes_edges_boundaries_and_labels
+  adapter_requirements:
+    runtime_specific_rendering_must_stay_out_of_core: true
+    renderer_outputs_must_trace_to_the_diagram_spec: true
+    adapters_may_compose_renderer_specific_skills: true
+    examples_must_be_marked_as_examples: true
