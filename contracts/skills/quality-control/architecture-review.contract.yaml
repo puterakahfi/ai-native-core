@@ -1,6 +1,7 @@
 skill_contract:
   id: architecture-review
   category: quality-control
+  type: skill
   version: "0.1.0"
   capability: engineering_contract_compliance_review
   roles:

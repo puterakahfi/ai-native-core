@@ -1,6 +1,7 @@
 skill_contract:
   id: design-review
   category: experience-design
+  type: skill
   version: "0.1.0"
   capability: design_system_compliance_and_slop_detection
   roles:

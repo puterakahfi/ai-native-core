@@ -1,6 +1,7 @@
 skill_contract:
   id: master-design
   category: experience-design
+  type: skill
   version: "0.1.0"
   capability: product_experience_design
   roles:

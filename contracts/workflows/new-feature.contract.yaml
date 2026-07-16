@@ -1,5 +1,6 @@
 workflow_contract:
   id: new-feature
+  type: workflow
   version: "0.2.0"
   category: engineering
   purpose: >

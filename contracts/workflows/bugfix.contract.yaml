@@ -1,5 +1,6 @@
 workflow_contract:
   id: bugfix
+  type: workflow
   version: "0.3.0"
   category: engineering
   purpose: >

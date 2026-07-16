@@ -1,6 +1,7 @@
 skill_contract:
   id: native-ai-engineer
   category: native-ai
+  type: skill
   version: "0.1.0"
   capability: native_ai_domain_contract_architecture
   roles:

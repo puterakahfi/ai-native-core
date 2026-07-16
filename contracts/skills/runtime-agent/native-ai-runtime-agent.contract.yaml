@@ -1,6 +1,7 @@
 skill_contract:
   id: native-ai-runtime-agent
   category: runtime-agent
+  type: skill
   version: "0.1.0"
   capability: product_adapter_runtime_execution
   roles:

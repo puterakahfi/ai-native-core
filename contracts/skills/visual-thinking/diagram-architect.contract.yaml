@@ -1,6 +1,7 @@
 skill_contract:
   id: diagram-architect
   category: visual-thinking
+  type: skill
   version: "0.1.0"
   capability: renderer_agnostic_diagram_modeling
   roles:

@@ -1,6 +1,7 @@
 skill_contract:
   id: systematic-debugging
   category: quality-control
+  type: skill
   version: "0.1.0"
   capability: root_cause_investigation_and_fix
   roles:

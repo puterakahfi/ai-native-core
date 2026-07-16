@@ -1,6 +1,7 @@
 skill_contract:
   id: native-ai-runtime-ops
   category: runtime-operations
+  type: skill
   version: "0.1.0"
   capability: canonical_runtime_operations
   roles:

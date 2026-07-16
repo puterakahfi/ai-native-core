@@ -1,6 +1,7 @@
 skill_contract:
   id: master-engineer
   category: software-engineering
+  type: skill
   version: "0.1.0"
   capability: software_architecture_and_system_design
   roles:
