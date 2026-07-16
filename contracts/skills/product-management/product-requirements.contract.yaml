@@ -2,7 +2,7 @@ skill_contract:
   id: product-requirements
   type: skill
   category: product-management
-  version: "0.1.0"
+  version: "0.2.0"
   capability: author_and_verify_product_requirements_documents
   roles:
     - prd_author
@@ -17,6 +17,7 @@ skill_contract:
     optional:
       - user_research
       - business_goals
+      - value_alignment_brief
       - technical_constraints
       - design_constraints
       - market_context
@@ -29,6 +30,7 @@ skill_contract:
       - requirements_summary
       - scope_boundary
       - acceptance_criteria
+      - user_and_business_value
       - success_metrics
       - risk_and_dependency_list
       - open_questions
@@ -37,6 +39,8 @@ skill_contract:
     - title
     - problem_statement
     - target_users
+    - user_value
+    - business_value
     - goals
     - non_goals
     - success_metrics
@@ -55,6 +59,7 @@ skill_contract:
     - problem_statement_must_be_user_or_business_outcome_not_solution
     - target_users_must_be_explicit
     - goals_and_non_goals_must_both_exist
+    - user_value_and_business_value_must_be_explicit
     - success_metrics_must_be_measurable
     - scope_in_and_scope_out_must_both_be_explicit
     - requirements_must_be_testable_or_traceable_to_testable_acceptance_criteria
@@ -69,6 +74,7 @@ skill_contract:
     requirement_to_acceptance_criteria: required
     acceptance_criteria_to_verification: required
     scope_to_mvp_slice: recommended
+    value_alignment_to_prd: required
   adapter_requirements:
     prd_format: product_defined
     requirement_id_format: product_defined

@@ -1,0 +1,45 @@
+skill_contract:
+  id: business-value-alignment
+  type: skill
+  category: business
+  version: "1.0.0"
+  capability: align_work_with_user_business_value_metrics_and_decision_rationale
+  roles:
+    - principal_product
+    - principal_business_value
+    - ai_native_engineer
+    - principal_software_engineer
+  inputs:
+    required:
+      - request_or_opportunity
+    optional:
+      - target_users
+      - business_context
+      - constraints
+      - alternatives
+      - current_metrics
+      - strategic_goals
+  outputs:
+    allowed:
+      - value_alignment_brief
+      - user_value_statement
+      - business_value_statement
+      - success_metrics
+      - guardrail_metrics
+      - assumptions
+      - risks
+      - recommendation
+      - stop_or_continue_verdict
+  quality_gates:
+    - user_value_must_be_explicit_before_solution_recommendation
+    - business_value_must_map_to_measurable_metric_or_learning_goal
+    - recommendation_must_include_assumptions_and_risks
+    - low_value_or_unclear_value_work_must_be_flagged_before_build
+    - metrics_must_distinguish_leading_lagging_and_guardrail_signals
+    - value_claims_must_be_evidence_labeled_as_known_assumed_or_unknown
+    - stop_continue_or_experiment_verdict_must_be_explicit
+  adapter_requirements:
+    value_framework: product_defined
+    metric_taxonomy: product_defined
+    decision_thresholds: product_defined
+    stakeholder_context_source: product_defined
