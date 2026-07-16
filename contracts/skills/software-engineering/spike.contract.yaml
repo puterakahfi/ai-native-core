@@ -1,0 +1,32 @@
+skill_contract:
+  id: spike
+  type: skill
+  category: software-engineering
+  version: "0.1.0"
+  capability: throwaway_experiment_before_build
+  roles:
+    - spike_author
+    - technical_investigator
+  inputs:
+    required:
+      - question_or_uncertainty
+    optional:
+      - time_box
+      - acceptance_criteria_for_spike
+  outputs:
+    allowed:
+      - spike_result
+      - feasibility_verdict
+      - approach_recommendation
+      - throwaway_prototype
+      - learnings_summary
+  quality_gates:
+    - spike_must_have_a_clear_question_to_answer
+    - spike_output_is_throwaway_not_production_code
+    - spike_must_produce_a_verdict_not_just_code
+    - time_box_must_be_respected
+    - spike_result_must_inform_real_implementation_plan
+    - do_not_ship_spike_code_directly
+  adapter_requirements:
+    time_box: product_defined
+    spike_format: product_defined
