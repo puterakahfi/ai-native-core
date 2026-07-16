@@ -1,0 +1,38 @@
+skill_contract:
+  id: context-manager
+  type: skill
+  category: context-management
+  version: "0.1.0"
+  capability: context_resolution_and_validation
+  roles:
+    - context_resolver
+    - context_pack_author
+    - execution_preparation_specialist
+  inputs:
+    required:
+      - task_or_workflow_ref
+      - product_ref
+    optional:
+      - app_ref
+      - existing_context_pack
+      - rules_ref
+      - skills_ref
+      - engineering_contract_ref
+  outputs:
+    allowed:
+      - context_pack
+      - missing_context_report
+      - stale_context_flag
+      - context_validation_verdict
+  quality_gates:
+    - context_must_be_resolved_before_agent_handoff
+    - missing_context_must_be_flagged_not_assumed
+    - stale_context_must_be_refreshed_before_use
+    - context_pack_must_include_rules_and_skills
+    - agent_must_not_execute_with_incomplete_context
+    - context_source_must_be_traceable
+  adapter_requirements:
+    context_storage: product_defined
+    staleness_policy: product_defined
+    required_context_fields: product_defined
+    context_pack_format: product_defined

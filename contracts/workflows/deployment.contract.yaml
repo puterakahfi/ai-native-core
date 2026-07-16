@@ -1,0 +1,70 @@
+workflow_contract:
+  id: deployment
+  type: workflow
+  version: "0.1.0"
+  category: operations
+  purpose: >
+    Defines the required phases, quality gates, and skill dependencies for a
+    deployment workflow. Product adapters define target environment, deployment
+    provider, approval policy, and rollback strategy.
+
+  required_phases:
+    - id: pre-deploy-check
+      order: 1
+      description: Verify all quality gates passed — tests, security, architecture review
+      gate: all_quality_gates_must_pass_before_deploy
+      skills:
+        required: [security-review]
+        optional: [architecture-review]
+
+    - id: context-load
+      order: 2
+      description: Load deployment context — environment config, secrets policy, rollback plan
+      gate: deployment_context_must_be_complete
+      skills:
+        required: [context-manager]
+
+    - id: deploy
+      order: 3
+      description: Execute deployment to target environment
+      gate: deployment_must_be_approved_before_production
+      skills:
+        required: []
+
+    - id: verify-deploy
+      order: 4
+      description: Verify deployment health — smoke tests, status checks, error monitoring
+      gate: health_check_required_after_deploy
+      skills:
+        required: []
+
+    - id: rollback-or-confirm
+      order: 5
+      description: Confirm deployment success or execute rollback
+      gate: explicit_confirm_or_rollback_required
+      skills:
+        required: []
+
+  skill_load_order:
+    - phase: pre-deploy-check
+      load: [security-review, architecture-review]
+    - phase: context-load
+      load: [context-manager]
+
+  quality_gates:
+    - all_tests_must_pass_before_deploy
+    - security_review_required_before_production_deploy
+    - no_production_deploy_without_approval
+    - deployment_context_must_be_complete
+    - health_check_required_after_deploy
+    - rollback_plan_must_exist_before_deploy
+    - no_secrets_in_deployment_config
+
+  adapter_requirements:
+    target_environment: product_defined
+    deployment_provider: product_defined
+    approval_policy: product_defined
+    rollback_strategy: product_defined
+    health_check_method: product_defined
+    smoke_test_command: product_defined
+    secret_management: product_defined
