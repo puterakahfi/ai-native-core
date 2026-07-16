@@ -1,0 +1,37 @@
+skill_contract:
+  id: observability-design
+  type: skill
+  category: runtime-ops
+  version: "0.1.0"
+  capability: design_logs_metrics_traces_stack_for_distributed_systems
+  roles:
+    - observability_architect
+    - sre_advisor
+  inputs:
+    required:
+      - system_description
+    optional:
+      - existing_stack
+      - sla_requirements
+      - team_size
+  outputs:
+    allowed:
+      - observability_stack_design
+      - instrumentation_guide
+      - alert_strategy
+      - dashboard_blueprint
+      - slo_definitions
+  quality_gates:
+    - three_pillars_must_all_be_addressed_logs_metrics_traces
+    - logs_must_be_structured_not_plaintext
+    - metrics_must_have_slo_and_alert_threshold
+    - traces_must_propagate_correlation_id_across_services
+    - no_pii_in_logs_or_traces
+    - alert_must_be_actionable_not_just_informational
+    - cardinality_explosion_must_be_prevented_in_metrics
+    - dashboards_must_answer_four_golden_signals
+  adapter_requirements:
+    logging_backend: product_defined
+    metrics_backend: product_defined
+    tracing_backend: product_defined
+    alerting_tool: product_defined
