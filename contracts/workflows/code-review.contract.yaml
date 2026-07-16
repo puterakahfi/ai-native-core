@@ -1,0 +1,70 @@
+workflow_contract:
+  id: code-review
+  type: workflow
+  version: "0.1.0"
+  category: quality-control
+  purpose: >
+    Defines the required phases, quality gates, and skill dependencies for a
+    code review workflow. Applies to any code submission — PR, MR, or patch —
+    before merge. Product adapters define approval policy, blocking criteria,
+    and issue tracker integration.
+
+  required_phases:
+    - id: load-context
+      order: 1
+      description: Load engineering contract and design system contract before reviewing
+      gate: contracts_loaded_before_review
+      skills:
+        required: []
+
+    - id: architecture-check
+      order: 2
+      description: Check code against engineering contract — stack, layers, dependencies, ADR requirements
+      gate: engineering_contract_compliance_verified
+      skills:
+        required: [architecture-review]
+
+    - id: design-check
+      order: 3
+      description: Check UI changes against design system contract — slop detection, token compliance, visual direction
+      gate: design_system_compliance_verified
+      optional: true
+      skills:
+        optional: [design-review]
+
+    - id: logic-check
+      order: 4
+      description: Review business logic, edge cases, error handling, and test coverage
+      gate: logic_and_test_coverage_verified
+      skills:
+        optional: [systematic-debugging, master-engineer]
+
+    - id: verdict
+      order: 5
+      description: Produce structured review verdict — approve, request changes, or block
+      gate: verdict_must_reference_specific_violations
+      skills:
+        required: []
+
+  skill_load_order:
+    - phase: architecture-check
+      load: [architecture-review]
+    - phase: design-check
+      load: [design-review]
+    - phase: logic-check
+      load: [systematic-debugging, master-engineer]
+
+  quality_gates:
+    - engineering_contract_must_be_loaded_before_review
+    - no_approval_without_architecture_check
+    - design_check_required_when_ui_changes_present
+    - verdict_must_cite_specific_violations_not_vague_feedback
+    - compiled_or_generated_code_does_not_imply_approval
+    - no_merge_without_explicit_approval_verdict
+
+  adapter_requirements:
+    approval_policy: product_defined
+    blocking_violation_criteria: product_defined
+    design_check_trigger: product_defined
+    issue_tracker: product_defined
+    ci_gate_required: product_defined
