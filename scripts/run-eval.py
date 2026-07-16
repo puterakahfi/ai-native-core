@@ -16,7 +16,7 @@ import yaml
 from datetime import datetime
 from pathlib import Path
 
-TESTS_DIR = Path(__file__).parent.parent / "contracts" / "tests"
+TESTS_DIR = Path(os.environ.get("SKILL_EVAL_TESTS_DIR", Path(__file__).parent.parent / "contracts" / "tests"))
 
 
 def load_test(skill_name: str) -> dict:
