@@ -1,0 +1,41 @@
+skill_contract:
+  id: product-manager
+  type: skill
+  category: product-management
+  version: "0.1.0"
+  capability: product_definition_and_task_breakdown
+  roles:
+    - product_manager
+    - prd_author
+    - task_breakdown_specialist
+    - acceptance_criteria_owner
+  inputs:
+    required:
+      - product_intent_or_feature_request
+    optional:
+      - existing_prd
+      - user_research
+      - engineering_constraints
+      - business_constraints
+      - existing_tasks
+  outputs:
+    allowed:
+      - product_intent_document
+      - prd
+      - feature_spec
+      - acceptance_criteria
+      - task_breakdown
+      - priority_list
+      - out_of_scope_list
+  quality_gates:
+    - acceptance_criteria_must_be_testable_not_vague
+    - scope_in_and_scope_out_must_both_be_explicit
+    - tasks_must_trace_to_acceptance_criteria
+    - no_implementation_detail_in_prd_without_engineering_review
+    - priority_must_be_explicit_not_implicit
+    - prd_must_define_success_metric
+  adapter_requirements:
+    prd_format: product_defined
+    task_tracker: product_defined
+    priority_framework: product_defined
+    stakeholder_approval_required: product_defined
