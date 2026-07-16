@@ -1,0 +1,59 @@
+skill_test:
+  skill: prompt-optimizer
+  version: "0.1.0"
+  description: Verify prompt-optimizer produces structured, precise prompts with scope/constraint/output/stop
+
+  cases:
+    - id: vague-to-precise
+      description: Vague input must produce structured output with all 5 components
+      trigger: "Optimize this prompt: improve this function"
+      must_contain:
+        - "Task:"
+        - "Scope"
+        - "Constraint:"
+        - "Output:"
+        - "Stop:"
+      must_not_contain:
+        - "improve this function"
+        - "Here are some ways"
+        - "You could"
+      quality_gates_tested:
+        - optimized_prompt_must_have_explicit_scope_in_and_out
+        - optimized_prompt_must_have_explicit_output_format
+        - optimized_prompt_must_have_stop_condition
+
+    - id: no-ambiguous-verbs
+      description: Ambiguous verbs must be replaced with specific actions
+      trigger: "Optimize this prompt: make this code better and cleaner"
+      must_not_contain:
+        - "make better"
+        - "make cleaner"
+        - "improve"
+      must_contain:
+        - "Task:"
+        - "Scope"
+      quality_gates_tested:
+        - no_ambiguous_verbs_like_improve_or_make_better
+
+    - id: scope-out-required
+      description: Every optimized prompt must declare what is out of scope
+      trigger: "Optimize this prompt: review the auth module"
+      must_contain:
+        - "Scope out"
+      must_not_contain:
+        - "review everything"
+        - "all files"
+      quality_gates_tested:
+        - optimized_prompt_must_have_explicit_scope_in_and_out
+
+    - id: generic-response-detection
+      description: Generic essay response = prompt-optimizer not applied
+      trigger: "How do I write better prompts?"
+      must_contain:
+        - "Task:"
+      must_not_contain:
+        - "Great question"
+        - "Here are some tips"
+        - "Generally speaking"
+      quality_gates_tested:
+        - prompt_must_not_require_agent_to_guess_intent
