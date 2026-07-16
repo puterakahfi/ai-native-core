@@ -12,7 +12,7 @@ This skill covers the full agent loop from issue intake to ready-for-review.
 
 Use this skill when:
 
-- A Jira, GitHub, or other issue tracker ticket is the starting point for work.
+- An issue tracker ticket is the starting point for work.
 - The work type is bugfix, security fix, small task, or scoped improvement.
 - The agent is expected to own the full cycle end-to-end with minimal human input.
 - The output must include a branch, a commit, a PR, and an issue tracker update.
@@ -26,10 +26,9 @@ Do not use this skill for:
 ## Required Input
 
 ```text
-- Issue tracker ticket ID (e.g. FSDB-4267)
+- Issue tracker ticket ID
 - Project repo path and remote
 - Active release branch or target branch for PR
-- Staging/test environment path (optional, for verification)
 - Stack context (language, framework, test runner)
 ```
 
@@ -40,7 +39,6 @@ Do not use this skill for:
 1. Read the issue: summary, description, acceptance criteria, reporter, latest comments.
 2. Identify affected files, modules, or code paths mentioned in the issue.
 3. Confirm the fix scope: what changes, what stays untouched.
-4. Note any scanner/tool findings and classify them (true positive, false positive, needs investigation).
 
 ### Phase 2: Pre-Work Git Checklist
 
@@ -52,17 +50,13 @@ Before touching any code:
 4. Confirm remote (`git remote -v`).
 5. Check recent commits (`git log --oneline -5`).
 6. Fetch latest remote state (`git fetch origin`).
-7. Identify the correct **source branch** (active release, main, or sprint branch per project SOP).
+7. Identify the correct **source branch** per project SOP.
 8. Stash or clean any unrelated local changes before branching.
 
 ### Phase 3: Branch
 
-1. Create a new branch from the source branch:
-   ```
-   git checkout -b <type>/<sprint-or-scope>/<author>/<TICKET-ID> origin/<source-branch>
-   ```
-2. Naming convention: `bugfix/<sprint>/<author>/<TICKET-ID>` for bugs, `task/<sprint>/<author>/<TICKET-ID>` for tasks.
-3. Confirm the new branch is clean and tracking the correct remote.
+1. Create a new branch from the source branch following the project's naming convention.
+2. Confirm the new branch is clean and tracking the correct remote.
 
 ### Phase 4: Inspect Affected Code
 
@@ -85,40 +79,23 @@ Before touching any code:
 3. If no automated test exists, write a targeted ad-hoc verification script or manual test steps.
 4. Confirm the fix handles all stated edge cases.
 5. Confirm no regression in adjacent code paths.
-6. For security fixes: test both the malicious input (should be rejected) and the valid input (should pass).
 
 ### Phase 7: Commit
 
 1. Stage only the files related to the fix.
-2. Commit message format:
-   ```
-   <TICKET-ID>: <short imperative summary>
-
-   - <what changed and why>
-   - <edge cases handled>
-   - <reclassification notes if scanner finding>
-   ```
+2. Write a commit message that references the ticket ID and summarises what changed and why.
 3. Push the branch to remote.
 
 ### Phase 8: Pull Request
 
 1. Open a PR from the fix branch targeting the source branch.
-2. PR title: `<TICKET-ID>: <short summary>`
-3. PR description must include:
-   - What the issue was
-   - What was changed
-   - How to verify
-   - Scanner/finding reclassification if applicable
-4. Do not merge the PR without explicit human approval.
+2. PR title and description must make the change reviewable without reading the diff — include what the issue was, what was changed, and how to verify.
+3. Do not merge the PR without explicit human approval.
 
 ### Phase 9: Issue Tracker Update
 
-1. Transition the issue status to the appropriate state (e.g. IN-PROGRESS on start, READY FOR REVIEW after PR).
-2. Post a comment on the issue with:
-   - Branch name and PR link
-   - Summary of what was fixed
-   - Verification steps for QA
-   - Any reclassification of scanner findings
+1. Transition the issue status at start of work and again after the PR is ready, per project workflow.
+2. Post a comment with the branch name, PR link, summary of what was fixed, and verification steps for QA.
 3. Draft the comment first; post only after human confirmation unless explicitly authorized to auto-post.
 
 ## Output
@@ -144,7 +121,7 @@ Risks                 — anything unverified, deferred, or out of scope
 - [ ] Branch created from correct source branch.
 - [ ] Fix is minimal — no unrelated changes.
 - [ ] Syntax/lint check passed.
-- [ ] Verification covers both valid and invalid inputs (for security fixes).
+- [ ] Verification covers relevant edge cases.
 - [ ] Commit message references ticket ID.
 - [ ] PR targets correct branch.
 - [ ] Issue tracker updated.
@@ -154,6 +131,5 @@ Risks                 — anything unverified, deferred, or out of scope
 
 - **Cannot reproduce the issue**: stop, document what was inspected, ask the reporter for clarification.
 - **Affected code has changed since the report**: re-read, re-analyze, re-confirm scope before fixing.
-- **Merge conflict with staging or shared branch**: follow project SOP (e.g. create a bridge branch; never merge staging into feature/bugfix branches).
-- **Scanner false positive**: document the analysis (why scheme/host/port are not attacker-controlled), reclassify in the PR and issue comment, do not skip the fix for the real risk.
+- **Merge conflict**: follow project SOP for conflict resolution — do not resolve by merging shared/staging branches into the fix branch.
 - **Verification fails**: do not push. Fix the root cause, re-verify, then push.
