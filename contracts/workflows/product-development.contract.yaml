@@ -13,10 +13,10 @@ workflow_contract:
   required_phases:
     - id: discovery
       order: 1
-      description: Understand target users, jobs-to-be-done, pains, alternatives, product opportunities, and business value
+      description: Understand target users, jobs-to-be-done, pains, alternatives, product opportunities, business value, and experiment needs
       gate: opportunity_and_business_value_must_be_explicit_before_prd
       skills:
-        required: [user-research, business-value-alignment, product-manager]
+        required: [user-research, business-value-alignment, experiment-design, product-manager]
         optional: [model-selection, decision-making]
 
     - id: requirements
@@ -29,10 +29,10 @@ workflow_contract:
 
     - id: mvp_slice
       order: 3
-      description: Select the smallest release slice that validates the product opportunity and success metric
+      description: Select the smallest release slice or experiment that validates the product opportunity and success metric
       gate: mvp_scope_must_be_explicit_before_technical_spec
       skills:
-        required: [business-value-alignment, product-manager, decision-making]
+        required: [business-value-alignment, experiment-design, product-manager, decision-making]
         optional: [spike]
 
     - id: technical_spec
@@ -93,11 +93,11 @@ workflow_contract:
 
   skill_load_order:
     - phase: discovery
-      load: [model-selection, user-research, business-value-alignment, product-manager, decision-making]
+      load: [model-selection, user-research, business-value-alignment, experiment-design, product-manager, decision-making]
     - phase: requirements
       load: [product-requirements, business-value-alignment, product-manager]
     - phase: mvp_slice
-      load: [business-value-alignment, product-manager, decision-making, spike]
+      load: [business-value-alignment, experiment-design, product-manager, decision-making, spike]
     - phase: technical_spec
       load: [spec-workflow, native-ai-engineer, master-engineer, api-contract, data-modeling]
     - phase: implementation
@@ -117,6 +117,7 @@ workflow_contract:
     - no_technical_spec_before_prd_readiness
     - opportunity_and_business_value_must_be_explicit_before_prd
     - prd_must_have_user_value_business_value_goals_non_goals_metrics_scope_and_acceptance_criteria
+    - experiment_first_verdict_must_produce_experiment_design_before_prd_or_build
     - mvp_scope_must_be_explicit_smaller_than_full_product_and_value_aligned
     - technical_spec_must_trace_to_prd_requirements
     - every_task_must_trace_to_acceptance_criteria
@@ -128,6 +129,7 @@ workflow_contract:
 
   stop_points:
     - after_discovery_recommendation
+    - after_experiment_design
     - after_prd_draft
     - after_mvp_plan
     - after_technical_spec

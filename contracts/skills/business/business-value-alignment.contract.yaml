@@ -30,6 +30,7 @@ skill_contract:
       - risks
       - recommendation
       - stop_or_continue_verdict
+      - experiment_recommendation
   quality_gates:
     - user_value_must_be_explicit_before_solution_recommendation
     - business_value_must_map_to_measurable_metric_or_learning_goal
@@ -38,6 +39,7 @@ skill_contract:
     - metrics_must_distinguish_leading_lagging_and_guardrail_signals
     - value_claims_must_be_evidence_labeled_as_known_assumed_or_unknown
     - stop_continue_or_experiment_verdict_must_be_explicit
+    - experiment_first_verdict_must_name_riskiest_assumption
   adapter_requirements:
     value_framework: product_defined
     metric_taxonomy: product_defined

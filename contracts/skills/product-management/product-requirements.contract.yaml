@@ -18,6 +18,8 @@ skill_contract:
       - user_research
       - business_goals
       - value_alignment_brief
+      - experiment_results
+      - experiment_design
       - technical_constraints
       - design_constraints
       - market_context
@@ -41,6 +43,7 @@ skill_contract:
     - target_users
     - user_value
     - business_value
+    - experiment_evidence_or_assumptions
     - goals
     - non_goals
     - success_metrics
@@ -60,6 +63,7 @@ skill_contract:
     - target_users_must_be_explicit
     - goals_and_non_goals_must_both_exist
     - user_value_and_business_value_must_be_explicit
+    - unvalidated_high_risk_assumptions_must_reference_experiment_design_or_open_questions
     - success_metrics_must_be_measurable
     - scope_in_and_scope_out_must_both_be_explicit
     - requirements_must_be_testable_or_traceable_to_testable_acceptance_criteria
@@ -75,6 +79,7 @@ skill_contract:
     acceptance_criteria_to_verification: required
     scope_to_mvp_slice: recommended
     value_alignment_to_prd: required
+    experiment_to_prd: recommended
   adapter_requirements:
     prd_format: product_defined
     requirement_id_format: product_defined
