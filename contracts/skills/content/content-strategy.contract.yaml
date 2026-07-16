@@ -1,0 +1,25 @@
+skill_contract:
+  id: content-strategy
+  category: content
+  type: skill
+  version: "1.0.0"
+  capability: microcopy_tone_of_voice_and_information_sequencing
+  roles:
+    - content_strategist
+    - ux_writer
+  inputs:
+    required:
+      - content_inventory
+      - audience_profile
+    optional:
+      - brand_voice_ref
+      - page_goal
+  outputs:
+    allowed:
+      - content_structure
+      - tone_guidelines
+      - microcopy_variants
+      - content_gate_scores
+  quality_gates:
+    - information_sequenced_by_user_mental_model
+    - tone_consistent_across_sections

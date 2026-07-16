@@ -1,0 +1,29 @@
+skill_contract:
+  id: cro
+  category: content
+  type: skill
+  version: "1.0.0"
+  capability: conversion_optimization_trust_signals_and_friction_audit
+  roles:
+    - cro_analyst
+    - ux_designer
+    - content_strategist
+  inputs:
+    required:
+      - page_artifact
+      - conversion_goal
+    optional:
+      - audience_profile
+      - trust_signal_inventory
+  outputs:
+    allowed:
+      - five_second_test_result
+      - trust_signal_audit
+      - friction_report
+      - persuasion_sequence_verdict
+      - cro_gate_scores
+  quality_gates:
+    - name_readable_within_3_seconds_above_fold
+    - role_or_value_prop_visible_without_scroll
+    - contact_reachable_in_one_click
+    - persuasion_sequence_identity_role_worldview_evidence_depth_access

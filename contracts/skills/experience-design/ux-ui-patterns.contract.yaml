@@ -1,0 +1,24 @@
+skill_contract:
+  id: ux-ui-patterns
+  category: experience-design
+  type: skill
+  version: "1.0.0"
+  capability: layout_pattern_library_and_hero_card_nav_decision_tree
+  roles:
+    - ux_designer
+    - layout_architect
+  inputs:
+    required:
+      - brief_signals
+      - content_inventory
+    optional:
+      - audience_profile
+      - existing_pattern_ref
+  outputs:
+    allowed:
+      - pattern_selection
+      - decision_tree_path
+      - pattern_gate_scores
+  quality_gates:
+    - pattern_selected_from_decision_tree_not_arbitrary
+    - hero_pattern_matches_content_volume

@@ -1,0 +1,30 @@
+skill_contract:
+  id: copywriting
+  category: content
+  type: skill
+  version: "1.0.0"
+  capability: messaging_hierarchy_headline_formulas_and_tone_calibration
+  roles:
+    - copywriter
+    - content_strategist
+    - ux_writer
+  inputs:
+    required:
+      - content_inventory
+      - audience_profile
+    optional:
+      - tone_target
+      - value_proposition_brief
+  outputs:
+    allowed:
+      - revised_copy
+      - headline_variants
+      - tone_audit
+      - value_proposition_statement
+      - copywriting_gate_scores
+  quality_gates:
+    - value_prop_not_generic_1000_person_test
+    - stance_45_words_or_less
+    - no_hedging_verbs
+    - no_buzzwords_passionate_innovative_etc
+    - at_least_one_concrete_detail_per_section

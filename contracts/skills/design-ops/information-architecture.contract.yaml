@@ -1,0 +1,26 @@
+skill_contract:
+  id: information-architecture
+  category: design-ops
+  type: skill
+  version: "1.0.0"
+  capability: site_map_nav_hierarchy_and_content_grouping
+  roles:
+    - information_architect
+    - ux_designer
+  inputs:
+    required:
+      - content_inventory
+      - user_goals
+    optional:
+      - existing_sitemap
+      - audience_profile
+  outputs:
+    allowed:
+      - sitemap
+      - nav_hierarchy
+      - content_grouping_verdict
+      - ia_gate_scores
+  quality_gates:
+    - nav_items_reflect_page_sections
+    - content_grouped_by_user_mental_model
+    - max_2_nav_levels

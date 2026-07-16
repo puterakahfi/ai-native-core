@@ -1,0 +1,24 @@
+skill_contract:
+  id: user-research
+  category: product-management
+  type: skill
+  version: "1.0.0"
+  capability: interview_synthesis_jtbd_and_insight_generation
+  roles:
+    - user_researcher
+    - product_manager
+  inputs:
+    required:
+      - research_goal
+    optional:
+      - existing_data
+      - audience_profile
+  outputs:
+    allowed:
+      - jtbd_statements
+      - insight_synthesis
+      - persona_sketch
+      - research_gate_scores
+  quality_gates:
+    - insights_grounded_in_evidence_not_assumption
+    - jtbd_framed_as_job_not_feature
