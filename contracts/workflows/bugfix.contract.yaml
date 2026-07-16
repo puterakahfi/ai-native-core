@@ -1,0 +1,53 @@
+workflow_contract:
+  id: bugfix
+  version: "0.1.0"
+  category: engineering
+  purpose: >
+    Defines the required phases, quality gates, and skill dependencies for a
+    bug fix workflow. Product adapters implement branch strategy, issue tracker
+    integration, and approval policy independently.
+
+  required_phases:
+    - id: reproduce
+      order: 1
+      description: Reproduce the bug with a tight, deterministic feedback loop
+      gate: red_loop_exists_before_any_fix
+    - id: investigate
+      order: 2
+      description: Find root cause — do not skip to fix
+      gate: root_cause_stated_before_fix
+    - id: fix
+      order: 3
+      description: Implement single fix targeting root cause
+      gate: one_change_at_a_time
+    - id: verify_local
+      order: 4
+      description: Run full test suite locally, confirm green
+      gate: local_verification_evidence_required
+    - id: pull_request
+      order: 5
+      description: Open PR referencing issue tracker item
+      gate: pr_must_reference_issue
+    - id: review
+      order: 6
+      description: Peer review and approval
+      gate: approval_required_before_merge
+
+  required_skills:
+    - systematic-debugging
+
+  quality_gates:
+    - red_loop_must_exist_before_fix
+    - root_cause_must_be_stated_before_fix
+    - local_verification_required_before_pr
+    - pr_must_reference_issue_tracker_item
+    - no_merge_without_approval
+    - fix_must_not_bundle_unrelated_changes
+
+  adapter_requirements:
+    branch_strategy: product_defined
+    base_branch: product_defined
+    issue_tracker: product_defined
+    issue_comment_required: true
+    approval_policy: product_defined
+    ci_required: product_defined
