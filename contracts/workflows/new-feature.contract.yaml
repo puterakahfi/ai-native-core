@@ -1,0 +1,61 @@
+workflow_contract:
+  id: new-feature
+  version: "0.1.0"
+  category: engineering
+  purpose: >
+    Defines the required phases, quality gates, and skill dependencies for a
+    new feature workflow. Product adapters implement branch strategy, spec format,
+    issue tracker integration, verification method, and approval policy independently.
+
+  required_phases:
+    - id: plan
+      order: 1
+      description: Define feature scope, acceptance criteria, and technical approach before any implementation
+      gate: spec_must_exist_before_implementation
+    - id: design
+      order: 2
+      description: Design the solution — system impact, contracts, data model, UI if applicable
+      gate: design_reviewed_before_implementation
+      optional: true
+    - id: implement
+      order: 3
+      description: Implement the feature following the agreed spec and design
+      gate: implementation_must_trace_to_spec
+    - id: verify
+      order: 4
+      description: Run test suite and confirm green — method is product_defined (local, CI, or both)
+      gate: verification_evidence_required
+    - id: submit
+      order: 5
+      description: Submit code for review — mechanism is product_defined (PR, MR, patch)
+      gate: submission_must_reference_spec_and_issue
+    - id: review
+      order: 6
+      description: Peer review and approval
+      gate: approval_required_before_merge
+
+  required_skills:
+    - master-engineer
+
+  optional_skills:
+    - diagram-architect
+    - master-design
+
+  quality_gates:
+    - spec_must_exist_before_implementation
+    - implementation_must_not_exceed_spec_scope
+    - verification_evidence_required_before_submission
+    - submission_must_reference_spec_and_issue_tracker_item
+    - no_merge_without_approval
+    - no_unrelated_changes_bundled
+
+  adapter_requirements:
+    branch_strategy: product_defined
+    base_branch: product_defined
+    spec_format: product_defined
+    issue_tracker: product_defined
+    issue_reference_method: product_defined
+    design_phase_required: product_defined
+    verification_method: product_defined
+    approval_policy: product_defined
+    ci_required: product_defined
