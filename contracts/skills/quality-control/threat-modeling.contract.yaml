@@ -1,0 +1,36 @@
+skill_contract:
+  id: threat-modeling
+  type: skill
+  category: quality-control
+  version: "0.1.0"
+  capability: proactive_security_threat_identification_before_implementation
+  roles:
+    - threat_modeler
+    - security_architect
+  inputs:
+    required:
+      - feature_or_system_description
+    optional:
+      - data_flow_diagram
+      - existing_architecture
+      - trust_boundaries
+  outputs:
+    allowed:
+      - threat_model_document
+      - stride_analysis
+      - trust_boundary_map
+      - mitigation_plan
+      - risk_rating_per_threat
+  quality_gates:
+    - threat_modeling_must_happen_before_implementation_not_after
+    - all_trust_boundaries_must_be_identified
+    - stride_must_be_applied_per_trust_boundary
+    - every_threat_must_have_explicit_mitigation_or_accepted_risk
+    - data_flows_must_be_mapped_including_external_dependencies
+    - privilege_escalation_paths_must_be_identified
+    - threat_model_must_be_updated_when_architecture_changes
+    - risk_rating_must_use_consistent_scoring
+  adapter_requirements:
+    risk_scoring: product_defined
+    threat_model_format: product_defined
+    review_process: product_defined
