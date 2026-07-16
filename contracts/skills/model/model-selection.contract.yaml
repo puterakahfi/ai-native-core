@@ -1,0 +1,91 @@
+skill_contract:
+  id: model-selection
+  type: skill
+  category: model
+  version: "0.1.0"
+  capability: select_model_class_for_ai_native_engineering_tasks
+  roles:
+    - model_orchestration_architect
+    - ai_runtime_operator
+  inputs:
+    required:
+      - task_intent
+      - task_risk
+      - required_capabilities
+      - context_constraints
+    optional:
+      - latency_budget
+      - cost_budget
+      - privacy_constraints
+      - available_models
+      - runtime_profile
+      - evaluation_history
+  outputs:
+    allowed:
+      - model_selection_decision
+      - model_routing_plan
+      - fallback_model_plan
+      - cost_latency_quality_tradeoff
+      - verification_plan
+      - escalation_policy
+  model_classes:
+    fast_general:
+      use_for:
+        - low_risk_summarization
+        - simple_classification
+        - routine_chat
+      avoid_for:
+        - architecture_decisions
+        - security_review
+        - multi_file_code_changes
+    reasoning:
+      use_for:
+        - architecture_decisions
+        - root_cause_debugging
+        - security_review
+        - cross_file_planning
+      avoid_for:
+        - cheap_bulk_transforms
+        - latency_sensitive_chat
+    coding_agent:
+      use_for:
+        - repository_edits
+        - test_driven_implementation
+        - refactoring
+        - pull_request_review
+      avoid_for:
+        - tasks_without_repo_context
+        - unsupported_tool_runtime
+    vision:
+      use_for:
+        - screenshot_analysis
+        - ui_review
+        - diagram_interpretation
+      avoid_for:
+        - text_only_tasks
+    local_private:
+      use_for:
+        - sensitive_context
+        - offline_work
+        - low_external_data_risk_tasks
+      avoid_for:
+        - tasks_requiring_best_available_reasoning_when_local_model_is_weak
+  quality_gates:
+    - task_intent_must_be_classified_before_model_choice
+    - required_capabilities_must_be_explicit
+    - privacy_constraints_must_override_cost_and_latency_preferences
+    - high_risk_tasks_must_use_reasoning_or_specialized_review_model
+    - coding_tasks_with_repo_changes_must_prefer_coding_agent_or_tool_capable_model
+    - vision_tasks_must_require_vision_capability
+    - fallback_must_be_defined_for_unavailable_or_failing_model
+    - decision_must_record_cost_latency_quality_tradeoff
+    - verification_plan_must_match_task_risk
+    - model_choice_must_not_claim_unsupported_capabilities
+  adapter_requirements:
+    model_registry: runtime_defined
+    provider_names: runtime_defined
+    cost_source: runtime_defined
+    latency_source: runtime_defined
+    privacy_policy: runtime_defined
+    fallback_policy: runtime_defined
+    evaluation_runner: runtime_defined
