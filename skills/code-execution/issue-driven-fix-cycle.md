@@ -79,7 +79,11 @@ Before touching any code:
 3. If no automated test exists, write a targeted ad-hoc verification script or manual test steps.
 4. Confirm the fix handles all stated edge cases.
 5. Confirm no regression in adjacent code paths.
-
+6. For security fixes: test both the malicious input (should be rejected) and the valid input (should pass).
+7. **Local E2E or manual test against the staging environment:**
+   - Prefer E2E tests (e.g. Playwright) if a test suite exists for the affected flow.
+   - If no E2E suite exists, run a manual test via browser or HTTP client against the local staging host.
+   - Document the test steps (URL, input, expected result) so QA can replicate them.
 ### Phase 7: Commit
 
 1. Stage only the files related to the fix.
