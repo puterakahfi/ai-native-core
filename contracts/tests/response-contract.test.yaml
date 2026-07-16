@@ -1,0 +1,53 @@
+skill_test:
+  skill: response-contract
+  version: "0.1.0"
+  description: Verify response-contract eliminates filler and enforces answer-first
+
+  cases:
+    - id: no-filler-opener
+      description: Response must not start with filler opener
+      trigger: "Why is my React component re-rendering on every keystroke?"
+      must_contain:
+        - "re-render"
+      must_not_contain:
+        - "Sure!"
+        - "Great question"
+        - "Happy to help"
+        - "Certainly!"
+        - "I'd be happy"
+      quality_gates_tested:
+        - no_filler_openers
+        - lead_with_answer_not_preamble
+
+    - id: no-conclusion-fluff
+      description: Response must not end with conclusion fluff
+      trigger: "What does useMemo do?"
+      must_not_contain:
+        - "I hope this helps"
+        - "Let me know if"
+        - "feel free to"
+        - "any questions"
+      quality_gates_tested:
+        - no_conclusion_fluff
+
+    - id: code-exact
+      description: Code blocks must never use ellipsis to skip lines
+      trigger: "Show me how to add JWT validation middleware in Express"
+      must_not_contain:
+        - "// ..."
+        - "// rest unchanged"
+        - "omitted for brevity"
+        - "similar pattern applies"
+      quality_gates_tested:
+        - code_and_commands_always_exact
+
+    - id: answer-first
+      description: Answer must come before explanation, not after preamble
+      trigger: "What is the difference between null and undefined in JavaScript?"
+      must_not_contain:
+        - "Let me explain"
+        - "To understand this"
+        - "Before I answer"
+        - "That is a good"
+      quality_gates_tested:
+        - lead_with_answer_not_preamble
