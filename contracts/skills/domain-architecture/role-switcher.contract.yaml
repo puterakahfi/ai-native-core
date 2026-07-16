@@ -1,6 +1,6 @@
 skill_contract:
   id: role-switcher
-  type: skill
+  type: meta-skill
   category: domain-architecture
   version: "0.1.0"
   capability: intent_detection_and_automatic_role_composition

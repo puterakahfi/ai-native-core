@@ -10,6 +10,21 @@ What must be true, independent of which runtime or app implements it?
 
 Contracts are runtime-agnostic. Runtime-specific implementations belong in adapter repositories such as `native-ai-skills` or app/runtime bindings. Those adapters may be public or private depending on product sensitivity.
 
+## Skill Type Taxonomy
+
+Every skill and workflow in `ai-native-skills` or any adapter repo must declare a `type` in frontmatter:
+
+| Type | Description | Example |
+|---|---|---|
+| `skill` | Atomic capability — standalone, no fixed phases | `systematic-debugging`, `security-review` |
+| `workflow` | Sequenced process — composes skills across phases | `bugfix-workflow`, `deployment-workflow` |
+| `skill-adapter` | Extends a base skill — product-specific override | `arbiter-git-workflow extends git-workflow` |
+| `meta-skill` | Orchestrates other skills dynamically | `role-switcher` |
+
+**Inheritance rule:** `skill-adapter` must declare `extends: <base-skill-ref>` and override only what is product-specific. The base skill handles invariant behavior.
+
+---
+
 ## Contract Areas
 
 ```text
