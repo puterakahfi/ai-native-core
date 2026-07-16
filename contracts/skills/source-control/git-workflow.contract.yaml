@@ -1,0 +1,42 @@
+skill_contract:
+  id: git-workflow
+  type: skill
+  category: source-control
+  version: "0.1.0"
+  capability: source_control_operations
+  roles:
+    - source_control_operator
+    - branch_manager
+    - commit_author
+    - pr_submitter
+  inputs:
+    required:
+      - intent
+    optional:
+      - base_branch
+      - branch_naming_convention
+      - commit_message_convention
+      - issue_ref
+      - pr_template
+  outputs:
+    allowed:
+      - branch_created
+      - commits_authored
+      - pr_or_mr_opened
+      - merge_executed
+      - conflict_report
+  quality_gates:
+    - branch_must_be_created_from_correct_base
+    - commit_message_must_follow_convention
+    - no_direct_push_to_protected_branch
+    - pr_must_reference_issue_before_submit
+    - conflicts_must_be_resolved_before_merge
+    - no_force_push_to_shared_branch
+  adapter_requirements:
+    base_branch: product_defined
+    branch_naming_convention: product_defined
+    commit_message_convention: product_defined
+    protected_branches: product_defined
+    pr_or_mr_mechanism: product_defined
+    issue_tracker: product_defined
+    merge_strategy: product_defined
