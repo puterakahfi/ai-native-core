@@ -1,0 +1,59 @@
+skill_test:
+  skill: role-switcher
+  version: "0.1.0"
+  description: Verify role-switcher detects intent and activates correct role composition
+
+  cases:
+    - id: design-audit
+      description: Design audit request must activate multi-lens roles
+      trigger: "Audit design ini — apa yang kurang?"
+      must_contain:
+        - "Roles active:"
+        - "master-design"
+        - "ux-psychology"
+        - "Synthesis"
+      must_not_contain:
+        - "I'll help you"
+        - "Here are some suggestions"
+        - "Generally speaking"
+      quality_gates_tested:
+        - intent_must_be_detected_before_role_selection
+        - multi_role_output_must_be_structured_by_lens
+        - agent_must_state_which_roles_were_activated
+
+    - id: code-review
+      description: Code review request must activate engineering roles
+      trigger: "Review kode ini sebelum PR"
+      must_contain:
+        - "Roles active:"
+        - "architecture-review"
+        - "master-engineer"
+      must_not_contain:
+        - "looks good to me"
+        - "LGTM"
+      quality_gates_tested:
+        - intent_must_be_detected_before_role_selection
+        - each_role_must_contribute_a_distinct_lens
+
+    - id: bug-report
+      description: Bug report must activate debugging roles
+      trigger: "Ada bug di feature login, user tidak bisa masuk"
+      must_contain:
+        - "Roles active:"
+        - "systematic-debugging"
+      must_not_contain:
+        - "try restarting"
+        - "probably a cache issue"
+      quality_gates_tested:
+        - intent_must_be_detected_before_role_selection
+
+    - id: generic-response-detection
+      description: Flat generic response without lens structure = skill not applied
+      trigger: "What should I improve about this UI?"
+      must_contain:
+        - "Roles active:"
+      must_not_contain:
+        - "Sure! Here are some tips"
+        - "Great question"
+      quality_gates_tested:
+        - agent_must_state_which_roles_were_activated

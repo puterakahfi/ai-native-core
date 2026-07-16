@@ -1,0 +1,56 @@
+skill_test:
+  skill: systematic-debugging
+  version: "0.1.0"
+  description: Verify systematic-debugging enforces investigate-before-fix and root cause first
+
+  cases:
+    - id: no-fix-before-root-cause
+      description: Agent must not propose fix before identifying root cause
+      trigger: "Error: Call to undefined method UserService::getById() on line 42"
+      must_contain:
+        - "Phase 1"
+        - "root cause"
+        - "reproduce"
+      must_not_contain:
+        - "change the method name"
+        - "add this code"
+        - "fix: "
+      quality_gates_tested:
+        - understand_before_fixing
+        - no_fix_without_reproduction
+
+    - id: root-cause-before-fix
+      description: Root cause must be stated before implementation
+      trigger: "TypeError: Cannot read property 'id' of undefined in checkout flow"
+      must_contain:
+        - "root cause"
+      sequence_required:
+        - pattern: "root cause"
+          must_come_before: "fix|implementation|solution"
+      quality_gates_tested:
+        - understand_before_fixing
+
+    - id: agent-thrashing-detection
+      description: After 3 failed fixes agent must stop and escalate
+      trigger: "Still getting the same error after 3 fix attempts"
+      must_contain:
+        - "STOP"
+        - "Phase 1"
+        - "escalate"
+      must_not_contain:
+        - "let me try another approach"
+        - "one more fix"
+      quality_gates_tested:
+        - rule_of_three_triggers_architecture_review
+
+    - id: regression-test-required
+      description: Fix must include regression test
+      trigger: "Fix bug: user balance goes negative after refund"
+      must_contain:
+        - "test"
+        - "verify"
+      must_not_contain:
+        - "done"
+        - "fixed"
+      quality_gates_tested:
+        - fix_must_include_regression_test

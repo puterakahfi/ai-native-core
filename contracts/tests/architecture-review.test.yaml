@@ -1,0 +1,55 @@
+skill_test:
+  skill: architecture-review
+  version: "0.1.0"
+  description: Verify architecture-review enforces contract compliance and catches violations
+
+  cases:
+    - id: stack-violation-detected
+      description: Must flag dependency not in engineering contract
+      trigger: "Review this PR that adds lodash and moment.js to a project that only allows native JS"
+      must_contain:
+        - "violation"
+        - "engineering contract"
+        - "not in approved stack"
+      must_not_contain:
+        - "looks fine"
+        - "LGTM"
+        - "no issues"
+      quality_gates_tested:
+        - all_dependencies_must_match_engineering_contract
+
+    - id: layer-boundary-violation
+      description: Must detect domain logic leaking into wrong layer
+      trigger: "Review: UserController directly queries the database instead of using repository"
+      must_contain:
+        - "layer"
+        - "boundary"
+        - "violation"
+      must_not_contain:
+        - "acceptable"
+        - "minor issue"
+      quality_gates_tested:
+        - layer_boundaries_must_not_be_violated
+
+    - id: verdict-required
+      description: Review must produce explicit APPROVED/REQUEST CHANGES verdict
+      trigger: "Review this PR"
+      must_contain_one_of:
+        - "APPROVED"
+        - "REQUEST CHANGES"
+        - "BLOCKED"
+      must_not_contain:
+        - "it depends"
+        - "up to you"
+      quality_gates_tested:
+        - review_must_produce_explicit_verdict
+
+    - id: no-subjective-feedback
+      description: Findings must cite specific contract rule not just opinion
+      trigger: "Review this code structure"
+      must_not_contain:
+        - "I think"
+        - "in my opinion"
+        - "generally better"
+      quality_gates_tested:
+        - findings_must_cite_contract_rule_not_opinion
