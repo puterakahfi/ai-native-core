@@ -6,7 +6,7 @@ skill_test:
   cases:
     - id: design-audit
       description: Design audit request must activate multi-lens roles
-      trigger: "Audit design ini — apa yang kurang?"
+      trigger: "Audit this design — what is missing or broken?"
       must_contain:
         - "Roles active:"
         - "master-design"
@@ -23,7 +23,7 @@ skill_test:
 
     - id: code-review
       description: Code review request must activate engineering roles
-      trigger: "Review kode ini sebelum PR"
+      trigger: "Review this code before opening a PR"
       must_contain:
         - "Roles active:"
         - "architecture-review"
@@ -37,7 +37,7 @@ skill_test:
 
     - id: bug-report
       description: Bug report must activate debugging roles
-      trigger: "Ada bug di feature login, user tidak bisa masuk"
+      trigger: "There is a bug in the login feature, users cannot sign in"
       must_contain:
         - "Roles active:"
         - "systematic-debugging"
