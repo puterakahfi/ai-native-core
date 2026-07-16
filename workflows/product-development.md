@@ -4,6 +4,20 @@
 
 This workflow defines how to move from product idea to evaluated AI-native product output.
 
+It is formalized by:
+
+```text
+contracts/workflows/product-development.contract.yaml
+```
+
+Runtime adapters may expose it as a single workflow entry point so users do not need to manually compose discovery, PRD, spec, implementation, release, deployment, and launch skills.
+
+Example invocation:
+
+```text
+Develop a digital product for affiliators from zero to launch. Start with discovery and stop after PRD/MVP recommendation for approval.
+```
+
 ## Workflow
 
 ```text

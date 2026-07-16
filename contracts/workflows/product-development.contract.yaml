@@ -1,0 +1,148 @@
+workflow_contract:
+  id: product-development
+  type: workflow
+  version: "0.1.0"
+  category: product-management
+  purpose: >
+    Defines the end-to-end AI-native workflow for developing a digital product
+    from initial idea through discovery, PRD, MVP planning, technical spec,
+    implementation, acceptance verification, release, deployment, launch, and
+    post-launch learning. Runtime adapters provide concrete storage, task
+    tracker, deployment, analytics, and approval mechanisms.
+
+  required_phases:
+    - id: discovery
+      order: 1
+      description: Understand target users, jobs-to-be-done, pains, alternatives, and product opportunities
+      gate: opportunity_must_be_ranked_before_prd
+      skills:
+        required: [user-research, product-manager]
+        optional: [model-selection, decision-making]
+
+    - id: requirements
+      order: 2
+      description: Author PRD with goals, non-goals, scope, success metrics, requirements, acceptance criteria, and launch criteria
+      gate: prd_must_be_ready_before_mvp_or_spec
+      skills:
+        required: [product-requirements]
+        optional: [product-manager]
+
+    - id: mvp_slice
+      order: 3
+      description: Select the smallest release slice that validates the product opportunity and success metric
+      gate: mvp_scope_must_be_explicit_before_technical_spec
+      skills:
+        required: [product-manager, decision-making]
+        optional: [spike]
+
+    - id: technical_spec
+      order: 4
+      description: Translate PRD and MVP slice into technical spec, architecture constraints, tasks, and context packs
+      gate: technical_spec_must_trace_to_prd
+      skills:
+        required: [spec-workflow, native-ai-engineer, master-engineer]
+        optional: [api-contract, domain-driven-design, data-modeling, diagram-architect]
+
+    - id: implementation
+      order: 5
+      description: Implement MVP tasks with tests and scope control
+      gate: implementation_must_trace_to_acceptance_criteria
+      skills:
+        required: [new-feature-workflow, test-driven-development, master-engineer]
+        optional: [systematic-debugging, refactoring]
+
+    - id: acceptance_verification
+      order: 6
+      description: Verify acceptance criteria with real evidence before release
+      gate: acceptance_criteria_must_have_evidence
+      skills:
+        required: [skill-eval, code-review-workflow]
+        optional: [security-review, threat-modeling, design-review, web-performance, accessibility]
+
+    - id: release
+      order: 7
+      description: Prepare release artifacts, changelog, version/tag, rollback note, and release signoff
+      gate: release_must_have_version_notes_and_rollback_plan
+      skills:
+        required: [git-workflow]
+        optional: [deployment-workflow]
+
+    - id: deploy
+      order: 8
+      description: Deploy through product-defined deployment mechanism and verify health
+      gate: deployment_health_must_be_verified
+      skills:
+        required: [deployment-workflow, observability-design]
+        optional: [resilience-engineering, incident-response]
+
+    - id: launch
+      order: 9
+      description: Launch to users with messaging, support handoff, analytics, monitoring, and feedback channel
+      gate: launch_must_include_monitoring_and_feedback_loop
+      skills:
+        required: [product-manager, content-strategy]
+        optional: [copywriting, cro, observability-design]
+
+    - id: learn
+      order: 10
+      description: Review metrics, feedback, incidents, and decide iterate/pivot/stop
+      gate: post_launch_learning_must_feed_next_prd_or_backlog
+      skills:
+        required: [product-manager, observability-design]
+        optional: [user-research, incident-response, decision-making]
+
+  skill_load_order:
+    - phase: discovery
+      load: [model-selection, user-research, product-manager, decision-making]
+    - phase: requirements
+      load: [product-requirements, product-manager]
+    - phase: mvp_slice
+      load: [product-manager, decision-making, spike]
+    - phase: technical_spec
+      load: [spec-workflow, native-ai-engineer, master-engineer, api-contract, data-modeling]
+    - phase: implementation
+      load: [new-feature-workflow, test-driven-development, master-engineer, systematic-debugging]
+    - phase: acceptance_verification
+      load: [skill-eval, code-review-workflow, security-review, design-review, web-performance]
+    - phase: release
+      load: [git-workflow, deployment-workflow]
+    - phase: deploy
+      load: [deployment-workflow, observability-design, resilience-engineering]
+    - phase: launch
+      load: [product-manager, content-strategy, copywriting, cro, observability-design]
+    - phase: learn
+      load: [product-manager, observability-design, user-research, decision-making]
+
+  quality_gates:
+    - no_technical_spec_before_prd_readiness
+    - opportunity_must_be_ranked_before_prd
+    - prd_must_have_goals_non_goals_metrics_scope_and_acceptance_criteria
+    - mvp_scope_must_be_explicit_and_smaller_than_full_product
+    - technical_spec_must_trace_to_prd_requirements
+    - every_task_must_trace_to_acceptance_criteria
+    - acceptance_criteria_must_have_verification_evidence
+    - release_must_have_notes_version_or_tag_and_rollback_plan
+    - deployment_health_must_be_verified_before_launch
+    - launch_must_define_support_analytics_and_feedback_loop
+    - post_launch_learning_must_feed_next_prd_or_backlog
+
+  stop_points:
+    - after_discovery_recommendation
+    - after_prd_draft
+    - after_mvp_plan
+    - after_technical_spec
+    - before_release
+    - after_post_launch_review
+
+  adapter_requirements:
+    product_artifact_storage: product_defined
+    prd_format: product_defined
+    task_tracker: product_defined
+    repository_strategy: product_defined
+    implementation_agent: product_defined
+    verification_method: product_defined
+    release_method: product_defined
+    deployment_provider: product_defined
+    analytics_provider: product_defined
+    launch_channel: product_defined
+    approval_policy: product_defined
