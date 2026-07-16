@@ -3,7 +3,7 @@ skill_contract:
   type: skill
   category: rule-management
   version: "0.1.0"
-  capability: enforce_english_as_lingua_franca_for_code_and_artifacts
+  capability: enforce_consistent_declared_language_across_engineering_artifacts
   roles:
     - language_enforcer
     - communication_standards_author
@@ -11,6 +11,7 @@ skill_contract:
     required:
       - artifact_type
       - content
+      - declared_language
     optional:
       - product_context
       - team_locale
@@ -20,15 +21,16 @@ skill_contract:
       - violation_list
       - corrected_artifact
   quality_gates:
-    - code_identifiers_must_be_english
-    - commit_messages_must_be_english
-    - pr_titles_and_descriptions_must_be_english
-    - issue_and_ticket_titles_must_be_english
-    - code_comments_must_be_english
-    - skill_and_contract_content_must_be_english
-    - test_cases_and_triggers_must_be_english
-    - team_language_exceptions_must_be_explicitly_declared
+    - artifact_language_must_be_explicitly_declared
+    - code_identifiers_must_match_declared_language
+    - commit_messages_must_match_declared_language
+    - pr_titles_and_descriptions_must_match_declared_language
+    - code_comments_must_match_declared_language
+    - no_mixed_language_within_same_artifact_type
+    - skill_and_test_content_must_match_declared_language
+    - commit_type_prefix_always_follows_conventional_commits_spec
   adapter_requirements:
-    team_locale: product_defined
+    artifact_language: product_defined
+    team_communication_language: product_defined
     allowed_exceptions: product_defined
     enforcement_level: product_defined
