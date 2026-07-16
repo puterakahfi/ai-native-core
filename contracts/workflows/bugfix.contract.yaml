@@ -1,6 +1,6 @@
 workflow_contract:
   id: bugfix
-  version: "0.2.0"
+  version: "0.3.0"
   category: engineering
   purpose: >
     Defines the required phases, quality gates, and skill dependencies for a
@@ -12,29 +12,52 @@ workflow_contract:
       order: 1
       description: Reproduce the bug with a tight, deterministic feedback loop
       gate: red_loop_exists_before_any_fix
+      skills:
+        required: []
+
     - id: investigate
       order: 2
       description: Find root cause — do not skip to fix
       gate: root_cause_stated_before_fix
+      skills:
+        required: [systematic-debugging]
+
     - id: fix
       order: 3
       description: Implement single fix targeting root cause
       gate: one_change_at_a_time
+      skills:
+        required: [systematic-debugging]
+        optional: [master-engineer]
+
     - id: verify
       order: 4
-      description: Run test suite and confirm green — method is product_defined (local, CI, or both)
+      description: Run test suite and confirm green — method is product_defined
       gate: verification_evidence_required
+      skills:
+        required: []
+
     - id: submit
       order: 5
-      description: Submit code for review — mechanism is product_defined (PR, patch, MR, etc)
+      description: Submit code for review — mechanism is product_defined
       gate: submission_must_reference_issue_tracker_item
+      skills:
+        required: []
+
     - id: review
       order: 6
       description: Peer review and approval
       gate: approval_required_before_merge
+      skills:
+        required: [architecture-review]
 
-  required_skills:
-    - systematic-debugging
+  skill_load_order:
+    - phase: investigate
+      load: [systematic-debugging]
+    - phase: fix
+      load: [systematic-debugging]
+    - phase: review
+      load: [architecture-review]
 
   quality_gates:
     - red_loop_must_exist_before_fix

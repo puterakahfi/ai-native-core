@@ -1,6 +1,6 @@
 workflow_contract:
   id: new-feature
-  version: "0.1.0"
+  version: "0.2.0"
   category: engineering
   purpose: >
     Defines the required phases, quality gates, and skill dependencies for a
@@ -12,34 +12,56 @@ workflow_contract:
       order: 1
       description: Define feature scope, acceptance criteria, and technical approach before any implementation
       gate: spec_must_exist_before_implementation
+      skills:
+        required: [master-engineer]
+
     - id: design
       order: 2
       description: Design the solution — system impact, contracts, data model, UI if applicable
       gate: design_reviewed_before_implementation
       optional: true
+      skills:
+        required: [master-engineer]
+        optional: [diagram-architect, master-design, design-review]
+
     - id: implement
       order: 3
       description: Implement the feature following the agreed spec and design
       gate: implementation_must_trace_to_spec
+      skills:
+        required: [master-engineer]
+
     - id: verify
       order: 4
-      description: Run test suite and confirm green — method is product_defined (local, CI, or both)
+      description: Run test suite and confirm green — method is product_defined
       gate: verification_evidence_required
+      skills:
+        required: []
+
     - id: submit
       order: 5
-      description: Submit code for review — mechanism is product_defined (PR, MR, patch)
+      description: Submit code for review — mechanism is product_defined
       gate: submission_must_reference_spec_and_issue
+      skills:
+        required: []
+
     - id: review
       order: 6
       description: Peer review and approval
       gate: approval_required_before_merge
+      skills:
+        required: [architecture-review]
+        optional: [design-review]
 
-  required_skills:
-    - master-engineer
-
-  optional_skills:
-    - diagram-architect
-    - master-design
+  skill_load_order:
+    - phase: plan
+      load: [master-engineer]
+    - phase: design
+      load: [master-engineer, diagram-architect, master-design, design-review]
+    - phase: implement
+      load: [master-engineer]
+    - phase: review
+      load: [architecture-review, design-review]
 
   quality_gates:
     - spec_must_exist_before_implementation
