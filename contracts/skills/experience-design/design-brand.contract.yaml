@@ -1,0 +1,32 @@
+skill_contract:
+  id: design-brand
+  category: experience-design
+  type: contract
+  version: "1.0.0"
+  capability: locked_external_design_system_brand_constraints
+  description: >
+    Contract for locked external design systems. Brand tokens, typeface,
+    component rules override genre picks. Foundation gates still apply.
+    Genre adapts within brand — never replaces it.
+  roles:
+    - visual_designer
+    - redesign_workflow
+  inputs:
+    required:
+      - brand_identifier
+    optional:
+      - design_md_path
+      - figma_token_file
+      - css_root_vars
+  outputs:
+    allowed:
+      - locked_tokens
+      - locked_typeface
+      - locked_palette
+      - flex_areas
+      - forbidden_overrides
+  quality_gates:
+    - foundation_gates_still_apply
+    - brand_tokens_respected_not_overridden
+    - genre_fills_gaps_only
+  extends: design-foundation

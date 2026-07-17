@@ -1,0 +1,26 @@
+skill_contract:
+  id: design-foundation
+  category: experience-design
+  type: contract
+  version: "1.0.0"
+  capability: universal_design_base_hierarchy_ma_kanso_tokens_a11y
+  description: >
+    Base contract all design systems must satisfy. Hierarchy, Ma, Kanso,
+    semantic tokens, accessibility. No genre or brand may override these gates.
+    Every design extends this — none replace it.
+  roles:
+    - visual_designer
+    - redesign_workflow
+    - design_reviewer
+  quality_gates:
+    - F1_hierarchy_h1_body_ratio_min_2_5x
+    - F2_contrast_primary_min_4_5_1
+    - F3_touch_target_min_44px
+    - F4_no_hardcoded_values_in_components
+    - F5_no_dead_space_no_min_height_100vh
+    - F6_no_decoration_without_function
+    - F7_aria_keyboard_accessible
+  extends: null
+  extended_by:
+    - design-genre
+    - design-brand
