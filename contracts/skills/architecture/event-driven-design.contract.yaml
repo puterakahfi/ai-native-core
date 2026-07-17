@@ -1,0 +1,38 @@
+skill_contract:
+  id: event-driven-design
+  type: skill
+  category: architecture
+  version: "0.1.0"
+  capability: design_event_schema_producer_consumer_contracts_and_saga_patterns
+  roles:
+    - event_architect
+    - async_systems_designer
+  inputs:
+    required:
+      - business_flow_or_domain_event
+    optional:
+      - existing_event_catalog
+      - delivery_guarantee_requirement
+      - transaction_boundary
+  outputs:
+    allowed:
+      - event_schema
+      - event_catalog_entry
+      - producer_consumer_contract
+      - saga_design
+      - dead_letter_queue_strategy
+      - idempotency_strategy
+  quality_gates:
+    - event_names_must_be_past_tense_and_domain_meaningful
+    - event_schema_must_be_versioned
+    - consumers_must_be_idempotent
+    - delivery_guarantee_must_be_explicit
+    - saga_must_define_compensating_transactions
+    - no_direct_db_sharing_between_producer_and_consumer
+    - dead_letter_queue_strategy_must_be_defined
+    - schema_evolution_must_be_backward_compatible
+  adapter_requirements:
+    message_broker: product_defined
+    schema_registry: product_defined
+    delivery_guarantee: product_defined
+    saga_pattern: product_defined

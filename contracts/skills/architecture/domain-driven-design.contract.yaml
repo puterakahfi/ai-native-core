@@ -1,0 +1,37 @@
+skill_contract:
+  id: domain-driven-design
+  type: skill
+  category: architecture
+  version: "0.1.0"
+  capability: model_domain_using_ddd_building_blocks_and_strategic_patterns
+  roles:
+    - domain_modeler
+    - bounded_context_designer
+  inputs:
+    required:
+      - domain_description
+    optional:
+      - existing_codebase
+      - team_context_map
+      - ubiquitous_language_glossary
+  outputs:
+    allowed:
+      - bounded_context_map
+      - aggregate_design
+      - ubiquitous_language_glossary
+      - domain_event_catalog
+      - context_map_relationships
+      - repository_interface_definitions
+  quality_gates:
+    - every_aggregate_must_have_a_single_root
+    - value_objects_must_be_immutable
+    - domain_events_must_be_named_in_past_tense
+    - ubiquitous_language_must_be_consistent_across_bounded_context
+    - repositories_must_only_return_aggregates_not_raw_entities
+    - no_domain_logic_in_application_or_infrastructure_layer
+    - bounded_context_boundaries_must_be_explicit
+    - context_map_must_define_upstream_downstream_relationships
+  adapter_requirements:
+    persistence_strategy: product_defined
+    event_bus: product_defined
+    context_map_notation: product_defined

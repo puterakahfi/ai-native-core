@@ -1,0 +1,32 @@
+skill_contract:
+  id: plan
+  type: skill
+  category: engineering
+  version: "0.1.0"
+  capability: actionable_plan_authoring_before_execution
+  roles:
+    - plan_author
+    - task_decomposer
+  inputs:
+    required:
+      - goal_or_task
+    optional:
+      - existing_codebase_context
+      - constraints
+      - acceptance_criteria
+  outputs:
+    allowed:
+      - plan_document
+      - task_list
+      - file_path_references
+      - approach_summary
+  quality_gates:
+    - plan_must_be_written_before_execution_starts
+    - plan_must_have_bite_sized_steps_not_vague_phases
+    - plan_must_reference_exact_file_paths
+    - plan_must_not_contain_execution_only_planning
+    - each_step_must_be_independently_verifiable
+    - plan_must_be_saved_to_file_not_just_in_context
+  adapter_requirements:
+    plan_storage: product_defined
+    plan_format: product_defined

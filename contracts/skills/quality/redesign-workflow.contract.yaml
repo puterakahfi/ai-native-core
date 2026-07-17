@@ -1,0 +1,30 @@
+skill_contract:
+  id: redesign-workflow
+  category: quality
+  type: workflow
+  version: "1.0.0"
+  capability: autonomous_redesign_loop_skill_first_gate_scored
+  roles:
+    - design_lead
+    - ux_reviewer
+    - frontend_engineer
+  inputs:
+    required:
+      - target_url_or_artifact
+    optional:
+      - goal
+      - products_in_scope
+      - max_iterations
+  outputs:
+    allowed:
+      - redesigned_html_artifact
+      - gate_score_report
+      - skill_patch_log
+      - score_progression
+      - loop_summary
+  quality_gates:
+    - all_27_gates_must_score_8_or_above
+    - skill_patched_before_html_fix_mandatory
+    - macrostructure_justified_from_brief_signals
+    - pre_emit_critique_all_dimensions_3_or_above
+    - reduced_motion_gate_is_hard_gate

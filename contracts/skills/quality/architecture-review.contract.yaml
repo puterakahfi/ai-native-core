@@ -1,0 +1,41 @@
+skill_contract:
+  id: architecture-review
+  category: quality
+  type: skill
+  version: "0.1.0"
+  capability: engineering_contract_compliance_review
+  roles:
+    - architecture_reviewer
+    - engineering_contract_enforcer
+  inputs:
+    required:
+      - code_or_pr_diff
+      - engineering_contract_ref
+    optional:
+      - adr_list
+      - existing_dependency_list
+      - folder_structure
+      - test_coverage_report
+  outputs:
+    allowed:
+      - compliance_verdict
+      - violation_list
+      - adr_required_flag
+      - new_dependency_flag
+      - architecture_smell_list
+      - recommendation_list
+  quality_gates:
+    - must_load_engineering_contract_before_review
+    - must_check_stack_compliance
+    - must_check_layer_boundary_violations
+    - must_check_unauthorized_dependencies
+    - must_check_architecture_style_compliance
+    - must_check_test_strategy_compliance
+    - must_flag_adr_requirement_when_contract_change_detected
+    - must_not_approve_generated_code_that_violates_contract
+    - treats_compiled_as_approved_is_forbidden
+  adapter_requirements:
+    engineering_contract_source: product_defined
+    adr_format: product_defined
+    violation_severity_policy: product_defined
+    blocking_vs_warning_policy: product_defined

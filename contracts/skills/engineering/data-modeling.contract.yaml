@@ -1,0 +1,27 @@
+skill_contract:
+  id: data-modeling
+  category: engineering
+  type: skill
+  version: "1.0.0"
+  capability: schema_design_migrations_and_domain_model_alignment
+  roles:
+    - backend_engineer
+    - domain_modeler
+    - architect
+  inputs:
+    required:
+      - domain_context
+      - entity_inventory
+    optional:
+      - existing_schema
+      - migration_history
+  outputs:
+    allowed:
+      - schema_definition
+      - migration_plan
+      - model_alignment_verdict
+      - data_modeling_gate_scores
+  quality_gates:
+    - schema_reflects_domain_not_database_convenience
+    - migrations_are_reversible_or_documented
+    - no_implicit_coupling_across_bounded_contexts

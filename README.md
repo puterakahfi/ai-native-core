@@ -34,7 +34,7 @@ This repository should stay free of private product context, credentials, deploy
    name: native-ai-runtime-agent
    metadata:
      ai-native-skills.type: skill
-     ai-native-skills.implements: ai-native-core/contracts/skills/runtime-agent/native-ai-runtime-agent.contract.yaml
+     ai-native-skills.implements: ai-native-core/contracts/skills/runtime/native-ai-runtime-agent.contract.yaml
    ```
 
 3. **Use templates as starting points** for your product artifacts (ADRs, blueprints, specs).
@@ -58,7 +58,7 @@ Every skill contract is a YAML file following this schema:
 ```yaml
 skill_contract:
   id: <skill-name>              # unique identifier
-  category: <category>          # e.g. experience-design, domain-architecture
+  category: <category>          # e.g. design, architecture, engineering
   type: contract
   version: "1.0.0"
   capability: <snake_case>      # machine-readable capability tag
@@ -100,7 +100,7 @@ docs/             # public framework docs, port specifications, architecture
 
 ## Skill Contracts
 
-### Experience Design (25)
+### Design (25)
 
 | Contract | Description |
 |---|---|
@@ -124,30 +124,13 @@ docs/             # public framework docs, port specifications, architecture
 | `design-layout` | Port — abstracts all spatial decisions (macrostructure, responsiveness, spacing) |
 | `design-interaction` | Port — abstracts behavioral decisions (patterns, states, feedback) |
 | `design-strategy` | Port — abstracts user-centered decisions (psychology, IA, CRO, content) |
-| `design-review` | Design system compliance, AI slop detection, visual hierarchy gates |
 | `ux-psychology` | Behavioral and psychological UX analysis |
 | `ux-ui-patterns` | Layout pattern library and hero/card/nav decision tree |
 | `accessibility` | WCAG 2.1 AA — semantic HTML, ARIA, keyboard nav, screen reader |
-| `micro-frontend` | MFE boundary, shell contract, CSS isolation |
-
-### Content (3)
-
-| Contract | Description |
-|---|---|
-| `copywriting` | Messaging hierarchy, headline formulas, and tone calibration |
-| `cro` | Conversion optimization, trust signals, and friction audit |
-| `content-strategy` | Microcopy, tone of voice, and information sequencing |
-
-### Design Ops (4)
-
-| Contract | Description |
-|---|---|
-| `redesign-workflow` | Autonomous redesign loop — skill-first, gate-scored |
 | `dark-light-theming` | FOUC prevention and token mapping for dark/light themes |
 | `information-architecture` | Site map, nav hierarchy, and content grouping |
-| `web-performance` | LCP, CLS, INP optimization and performance budget |
 
-### Domain Architecture (11)
+### Architecture (10)
 
 | Contract | Description |
 |---|---|
@@ -160,10 +143,9 @@ docs/             # public framework docs, port specifications, architecture
 | `ai-system-design` | Design AI-powered systems with RAG, agents, evals, and fallback |
 | `systems-thinking` | Analyze systems as wholes — feedback loops, emergence, unintended consequences |
 | `adr` | Author and maintain Architecture Decision Records |
-| `role-switcher` | Intent detection and automatic role composition |
-| `workflow-router` | Detect task type and route to correct workflow automatically |
+| `micro-frontend` | MFE boundary, module federation, shell contract, CSS isolation |
 
-### Software Engineering (7)
+### Engineering (8)
 
 | Contract | Description |
 |---|---|
@@ -174,20 +156,29 @@ docs/             # public framework docs, port specifications, architecture
 | `data-modeling` | Schema design, migrations, and domain model alignment |
 | `plan` | Actionable plan authoring before execution |
 | `spike` | Throwaway experiment before build |
+| `git-workflow` | Source control operations — branch, commit, PR, merge |
 
-### Quality Control (7)
+### Quality (8)
 
 | Contract | Description |
 |---|---|
 | `architecture-review` | Engineering contract compliance review |
 | `systematic-debugging` | 4-phase root cause — investigate, analyze, hypothesize, fix |
-| `security-review` | Security baseline validation |
-| `threat-modeling` | Proactive security threat identification before implementation |
+| `skill-eval` | Skill application verification and gate compliance testing |
 | `resilience-engineering` | Design for failure, chaos engineering, and graceful degradation |
 | `ethics-responsible-ai` | Ethical analysis, fairness audit, and responsible AI governance |
-| `skill-eval` | Skill application verification and gate compliance testing |
+| `design-review` | Design system compliance, AI slop detection, visual hierarchy gates |
+| `redesign-workflow` | Autonomous redesign loop — skill-first, gate-scored |
+| `web-performance` | LCP, CLS, INP optimization and performance budget |
 
-### Product Management (5)
+### Security (2)
+
+| Contract | Description |
+|---|---|
+| `security-review` | Security baseline validation |
+| `threat-modeling` | Proactive security threat identification before implementation |
+
+### Product (6)
 
 | Contract | Description |
 |---|---|
@@ -196,8 +187,17 @@ docs/             # public framework docs, port specifications, architecture
 | `user-research` | Interview synthesis, JTBD, and insight generation |
 | `experiment-design` | Design minimum viable experiments for product/business value |
 | `decision-making` | Reversibility analysis, premortem, and decision framing |
+| `business-value-alignment` | Align work with user/business value, metrics, and decision rationale |
 
-### Context Management (4)
+### Content (3)
+
+| Contract | Description |
+|---|---|
+| `copywriting` | Messaging hierarchy, headline formulas, and tone calibration |
+| `cro` | Conversion optimization, trust signals, and friction audit |
+| `content-strategy` | Microcopy, tone of voice, and information sequencing |
+
+### Context (4)
 
 | Contract | Description |
 |---|---|
@@ -206,58 +206,38 @@ docs/             # public framework docs, port specifications, architecture
 | `prompt-optimizer` | Transform intent into precise, token-efficient prompt |
 | `response-contract` | Enforce output verbosity and filler elimination |
 
-### Runtime Agent (2)
-
-| Contract | Description |
-|---|---|
-| `native-ai-runtime-agent` | Product adapter runtime execution |
-| `onboarding` | Bootstrap agent/engineer context for existing codebase |
-
-### Runtime Operations (3)
-
-| Contract | Description |
-|---|---|
-| `native-ai-runtime-ops` | Canonical runtime operations |
-| `incident-response` | Structured incident lifecycle and blameless postmortem |
-| `observability-design` | Design logs, metrics, traces stack for distributed systems |
-
-### Native AI (1)
+### Runtime (8)
 
 | Contract | Description |
 |---|---|
 | `native-ai-engineer` | Native AI domain contract architecture and layer placement |
-
-### Model (1)
-
-| Contract | Description |
-|---|---|
+| `native-ai-runtime-agent` | Product adapter runtime execution |
+| `native-ai-runtime-ops` | Canonical runtime operations |
+| `onboarding` | Bootstrap agent/engineer context for existing codebase |
+| `incident-response` | Structured incident lifecycle and blameless postmortem |
+| `observability-design` | Design logs, metrics, traces stack for distributed systems |
+| `profile-bootstrap` | Runtime profile bootstrap — skeleton, presets, verification |
 | `model-selection` | Select model class for AI-native engineering tasks |
 
-### Business (1)
+### Meta (2)
 
 | Contract | Description |
 |---|---|
-| `business-value-alignment` | Align work with user/business value, metrics, and decision rationale |
+| `role-switcher` | Intent detection and automatic role composition |
+| `workflow-router` | Detect task type and route to correct workflow automatically |
 
-### Governance & Standards (3)
+### Governance (2)
 
 | Contract | Description |
 |---|---|
 | `language-standards` | Enforce consistent declared language across artifacts |
 | `rule-manager` | Rule authoring, validation, and enforcement |
-| `git-workflow` | Source control operations — branch, commit, PR, merge |
 
 ### Visual Thinking (1)
 
 | Contract | Description |
 |---|---|
 | `diagram-architect` | Renderer-agnostic diagram modeling |
-
-### Runtime Profile (1)
-
-| Contract | Description |
-|---|---|
-| `profile-bootstrap` | Runtime profile bootstrap — skeleton, presets, verification |
 
 ---
 
@@ -356,7 +336,7 @@ Skills in `native-ai-skills` implement contracts defined here:
 name: native-ai-runtime-agent
 metadata:
   ai-native-skills.type: skill
-  ai-native-skills.implements: ai-native-core/contracts/skills/runtime-agent/native-ai-runtime-agent.contract.yaml
+  ai-native-skills.implements: ai-native-core/contracts/skills/runtime/native-ai-runtime-agent.contract.yaml
 ```
 
 ---

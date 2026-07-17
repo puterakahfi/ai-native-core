@@ -1,0 +1,39 @@
+skill_contract:
+  id: master-design
+  category: design
+  type: skill
+  version: "0.1.0"
+  capability: product_experience_design
+  roles:
+    - senior_product_designer
+    - saas_ui_ux_designer
+    - design_systems_specialist
+    - frontend_art_director
+  inputs:
+    required:
+      - product_intent
+      - product_blueprint
+      - target_user
+      - user_problem
+    optional:
+      - existing_design_system
+      - product_specific_rules
+      - screenshot
+      - route_url
+  outputs:
+    allowed:
+      - design_brief
+      - user_flow
+      - wireframe
+      - mockup_contract
+      - interaction_contract
+      - design_review
+  quality_gates:
+    - product_intent_alignment
+    - clear_information_hierarchy
+    - required_ui_states_covered
+    - accessibility_review
+    - implementation_handoff_ready
+  adapter_requirements:
+    runtime_specific_behavior_must_stay_out_of_core: true
+    product_specific_rules_must_be_layered_by_app_adapter: true

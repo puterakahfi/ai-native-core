@@ -1,0 +1,41 @@
+skill_contract:
+  id: iconography
+  category: design
+  type: contract
+  version: "1.0.0"
+  capability: expressive_icon_decisions_style_sizing_alignment_a11y
+  description: >
+    Defines what any iconography adapter must address — icon family selection,
+    sizing, optical alignment, usage rules, a11y. NOT SVG implementation.
+  roles:
+    - visual_designer
+    - redesign_workflow
+  inputs:
+    required:
+      - genre_selection
+    optional:
+      - typography_weight
+      - brand_constraints
+  outputs:
+    allowed:
+      - icon_family_selection
+      - sizing_spec
+      - stroke_weight_spec
+      - a11y_pattern
+  quality_gates:
+    - one_icon_family_per_product
+    - stroke_weight_matches_typography_weight
+    - all_icons_have_aria_label_or_hidden
+    - touch_target_minimum_44px
+    - no_icon_only_without_universally_understood_exception
+  boundary:
+    covers:
+      - icon_family_selection
+      - style_consistency_rules
+      - sizing_optical_alignment
+      - genre_to_icon_mapping
+      - a11y_attribute_rules
+    does_not_cover:
+      - svg_component_implementation  # → ui-components
+      - icon_animation                # → motion-design
+      - token_sizing_values           # → design-system

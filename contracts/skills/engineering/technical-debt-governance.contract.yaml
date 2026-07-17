@@ -1,0 +1,26 @@
+skill_contract:
+  id: technical-debt-governance
+  category: engineering
+  type: skill
+  version: "1.0.0"
+  capability: debt_inventory_classification_and_paydown_prioritization
+  roles:
+    - engineering_lead
+    - architect
+    - tech_lead
+  inputs:
+    required:
+      - codebase_ref
+    optional:
+      - debt_registry
+      - sprint_capacity
+  outputs:
+    allowed:
+      - debt_inventory
+      - classification_report
+      - paydown_priority_list
+      - debt_gate_scores
+  quality_gates:
+    - debt_classified_by_type_and_impact
+    - high_impact_debt_has_paydown_plan
+    - new_debt_logged_before_merging

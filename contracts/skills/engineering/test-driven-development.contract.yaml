@@ -1,0 +1,32 @@
+skill_contract:
+  id: test-driven-development
+  type: skill
+  category: engineering
+  version: "0.1.0"
+  capability: red_green_refactor_test_first_implementation
+  roles:
+    - tdd_practitioner
+    - test_author
+  inputs:
+    required:
+      - feature_or_behavior_to_implement
+    optional:
+      - existing_test_suite
+      - acceptance_criteria
+  outputs:
+    allowed:
+      - failing_test
+      - passing_implementation
+      - refactored_code
+      - test_suite
+  quality_gates:
+    - test_must_be_written_before_implementation
+    - test_must_fail_before_implementation_red
+    - implementation_must_make_test_pass_green
+    - refactor_must_not_break_tests
+    - no_implementation_without_test
+    - no_skipped_tests_in_final_output
+  adapter_requirements:
+    test_framework: product_defined
+    coverage_threshold: product_defined
+    test_type: product_defined

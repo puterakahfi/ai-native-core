@@ -1,0 +1,26 @@
+skill_contract:
+  id: decision-making
+  category: product
+  type: skill
+  version: "1.0.0"
+  capability: reversibility_analysis_premortem_and_decision_framing
+  roles:
+    - product_manager
+    - engineering_lead
+    - architect
+  inputs:
+    required:
+      - decision_context
+      - options_list
+    optional:
+      - constraints
+      - stakeholders
+  outputs:
+    allowed:
+      - reversibility_verdict
+      - premortem_risks
+      - recommended_option
+      - decision_gate_scores
+  quality_gates:
+    - reversibility_classified_before_deciding
+    - premortem_run_for_irreversible_decisions

@@ -1,0 +1,35 @@
+skill_contract:
+  id: skill-eval
+  type: skill
+  category: quality
+  version: "0.1.0"
+  capability: skill_application_verification_and_gate_compliance_testing
+  roles:
+    - skill_evaluator
+    - gate_compliance_auditor
+  inputs:
+    required:
+      - skill_name
+      - test_case
+    optional:
+      - skill_contract_ref
+      - agent_output
+  outputs:
+    allowed:
+      - eval_verdict
+      - gate_compliance_report
+      - applied_vs_ignored_classification
+      - regression_test_result
+  quality_gates:
+    - eval_must_test_behavior_not_just_presence_of_output
+    - every_gate_in_contract_must_have_at_least_one_test_case
+    - test_case_must_have_canonical_trigger_input
+    - test_case_must_define_must_contain_and_must_not_contain
+    - pass_requires_all_must_contain_criteria_met
+    - fail_on_any_must_not_contain_pattern_found
+    - generic_response_detection_is_mandatory
+  adapter_requirements:
+    test_runner: product_defined
+    llm_under_test: product_defined
+    output_format: product_defined
+    regression_schedule: product_defined

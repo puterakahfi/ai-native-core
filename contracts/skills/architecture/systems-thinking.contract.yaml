@@ -1,0 +1,37 @@
+skill_contract:
+  id: systems-thinking
+  type: skill
+  category: architecture
+  version: "0.1.0"
+  capability: analyze_systems_as_wholes_feedback_loops_emergence_and_unintended_consequences
+  roles:
+    - systems_thinker
+    - architectural_philosopher
+  inputs:
+    required:
+      - system_or_decision_description
+    optional:
+      - stakeholder_map
+      - existing_metrics
+      - historical_patterns
+  outputs:
+    allowed:
+      - feedback_loop_map
+      - emergence_analysis
+      - second_order_effects
+      - conways_law_analysis
+      - unintended_consequences_report
+      - leverage_points
+  quality_gates:
+    - feedback_loops_must_be_identified_reinforcing_and_balancing
+    - second_order_effects_must_be_analyzed_not_just_first
+    - conways_law_must_be_applied_to_team_and_architecture_alignment
+    - unintended_consequences_must_be_explicitly_considered
+    - goodharts_law_risk_must_be_assessed_for_any_new_metric
+    - leverage_points_must_be_identified_before_intervention
+    - emergence_must_be_considered_for_complex_systems
+    - whether_question_must_precede_how_question
+  adapter_requirements:
+    systems_notation: product_defined
+    stakeholder_scope: product_defined
+    time_horizon: product_defined

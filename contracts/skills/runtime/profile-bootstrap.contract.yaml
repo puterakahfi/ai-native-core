@@ -1,0 +1,71 @@
+skill_contract:
+  id: profile-bootstrap
+  category: runtime
+  type: skill
+  version: "0.1.0"
+  capability: runtime_profile_bootstrap
+  roles:
+    - runtime_profile_architect
+    - profile_distribution_designer
+    - skill_preset_curator
+    - runtime_adapter_boundary_guard
+  inputs:
+    required:
+      - runtime_target
+      - profile_name
+      - preset
+      - skill_catalog_source
+      - safety_constraints
+    optional:
+      - profile_distribution_source
+      - core_contract_source
+      - runtime_binding_context
+      - product_context_reference
+      - verification_policy
+      - toolset_policy
+      - model_policy
+  outputs:
+    allowed:
+      - profile_skeleton_spec
+      - skill_preset_manifest
+      - profile_distribution_manifest
+      - runtime_adapter_requirements
+      - install_plan
+      - verification_plan
+      - safety_exclusion_policy
+      - generation_handoff
+  layer_model:
+    core_contract: "Defines the runtime-agnostic requirements for reproducible profile bootstrap."
+    runtime_adapter: "Implements concrete commands and file paths for Hermes, Claude Code, Codex, CI, or another runtime."
+    profile_distribution: "Stores reusable profile shape: identity, config defaults, skills lock, install scripts, verification scripts, and docs."
+    live_runtime_state: "Runtime-owned state such as sessions, memory, auth, cron state, logs, and local secrets; never part of the reusable distribution."
+    product_instance: "Owns product-specific source-of-truth, constraints, and bindings; referenced by profile but not baked into reusable profile skeleton."
+  presets:
+    required:
+      - minimal
+      - engineering
+    optional:
+      - product
+      - runtime-ops
+      - full
+  skill_pack_requirements:
+    meta_skills_required: true
+    core_workflows_required: true
+    runtime_boundary_skills_required: true
+    preset_specific_packs_must_be_explicit: true
+  safety_gates:
+    - do_not_include_live_runtime_state
+    - do_not_include_credentials_or_secrets
+    - do_not_bake_product_specific_facts_into_reusable_profile
+    - keep_runtime_specific_commands_in_adapter
+    - make_skill_preset_reproducible
+    - verify_profile_after_generation
+    - report_missing_skills_or_unavailable_runtime_commands
+  adapter_requirements:
+    must_declare_runtime_target: true
+    must_define_profile_directory_layout: true
+    must_define_idempotent_generation_behavior: true
+    must_support_dry_run_or_plan_before_write: true
+    must_refuse_overwrite_without_explicit_force: true
+    must_verify_installed_skills_against_manifest: true
+    runtime_specific_paths_must_not_leak_into_core_contract: true

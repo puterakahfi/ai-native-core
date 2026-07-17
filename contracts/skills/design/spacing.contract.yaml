@@ -1,0 +1,40 @@
+skill_contract:
+  id: spacing
+  category: design
+  type: contract
+  version: "1.0.0"
+  capability: expressive_spacing_rhythm_ma_spatial_hierarchy
+  description: >
+    Defines what any spacing adapter must address — visual rhythm, Ma principle,
+    spatial hierarchy, breathing room vs dead space. NOT token values (design-system).
+  roles:
+    - visual_designer
+    - redesign_workflow
+  inputs:
+    required:
+      - genre_selection
+      - macrostructure
+    optional:
+      - content_density
+  outputs:
+    allowed:
+      - section_spacing_spec
+      - component_spacing_spec
+      - ma_rationale
+      - hierarchy_spacing_map
+  quality_gates:
+    - rhythm_consistent_across_sections
+    - ma_intentional_not_accidental
+    - more_space_above_headings_than_below
+    - no_min_height_100vh
+    - breathing_room_earned_by_content_not_default_padding
+  boundary:
+    covers:
+      - visual_rhythm_decisions
+      - ma_intentional_space
+      - spatial_hierarchy_logic
+      - breathing_room_vs_dead_space
+    does_not_cover:
+      - token_values        # → design-system
+      - 8px_grid_rules      # → design-system
+      - css_var_declarations # → design-system

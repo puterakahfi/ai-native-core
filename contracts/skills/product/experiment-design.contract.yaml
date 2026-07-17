@@ -1,0 +1,85 @@
+skill_contract:
+  id: experiment-design
+  type: skill
+  category: product
+  version: "1.0.0"
+  capability: design_minimum_viable_experiments_for_product_business_value_and_learning
+  roles:
+    - principal_product
+    - principal_business_value
+    - experiment_designer
+    - ai_native_engineer
+  inputs:
+    required:
+      - hypothesis_or_opportunity
+      - target_users
+      - riskiest_assumption
+    optional:
+      - value_alignment_brief
+      - business_goal
+      - current_evidence
+      - constraints
+      - channels
+      - budget_or_timebox
+      - ethical_or_policy_constraints
+  outputs:
+    allowed:
+      - experiment_spec
+      - hypothesis_statement
+      - riskiest_assumption
+      - smallest_test
+      - success_criteria
+      - guardrail_criteria
+      - decision_rule
+      - learning_plan
+      - no_build_recommendation
+  required_experiment_sections:
+    - hypothesis
+    - target_segment
+    - riskiest_assumption
+    - smallest_test
+    - experiment_type
+    - setup_steps
+    - success_criteria
+    - guardrail_criteria
+    - duration_or_timebox
+    - sample_or_signal_threshold
+    - data_collection_plan
+    - decision_rule
+    - risks_and_mitigations
+    - next_steps_by_outcome
+  experiment_types:
+    allowed:
+      - concierge_test
+      - landing_page_waitlist
+      - prototype_test
+      - fake_door_test
+      - wizard_of_oz
+      - manual_service_pilot
+      - interview_script
+      - smoke_test
+      - pricing_test
+      - content_or_offer_test
+      - technical_spike
+  quality_gates:
+    - hypothesis_must_be_falsifiable
+    - riskiest_assumption_must_be_named_before_test_design
+    - smallest_test_must_be_smaller_than_building_the_full_solution
+    - success_criteria_must_be_measurable_before_running_experiment
+    - guardrail_criteria_must_prevent_harm_or_misleading_learning
+    - decision_rule_must_define_pass_partial_fail_actions
+    - experiment_must_state_what_will_not_be_built_yet
+    - data_collection_plan_must_respect_privacy_and_consent
+    - learning_must_feed_prd_mvp_slice_or_stop_decision
+  traceability:
+    value_alignment_to_experiment: recommended
+    experiment_to_prd: recommended
+    hypothesis_to_success_criteria: required
+    assumption_to_test_method: required
+    result_to_decision_rule: required
+  adapter_requirements:
+    experiment_artifact_format: product_defined
+    evidence_store: product_defined
+    analytics_or_collection_method: product_defined
+    approval_policy: product_defined
+    privacy_review: product_defined

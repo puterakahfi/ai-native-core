@@ -1,0 +1,50 @@
+skill_contract:
+  id: native-ai-engineer
+  category: runtime
+  type: skill
+  version: "0.1.0"
+  capability: native_ai_domain_contract_architecture
+  roles:
+    - native_ai_framework_engineer
+    - domain_contract_architect
+    - runtime_boundary_architect
+    - agent_workflow_system_designer
+  inputs:
+    required:
+      - architecture_question
+      - existing_context
+      - target_layer_decision
+      - constraints
+    optional:
+      - core_contracts
+      - app_adapter_context
+      - runtime_binding
+      - skill_adapter_context
+      - product_instance_context
+  outputs:
+    allowed:
+      - layer_placement_decision
+      - domain_contract_update
+      - runtime_mapping
+      - adapter_boundary_review
+      - skill_contract_design
+      - workflow_contract_design
+      - learning_capture_decision
+      - implementation_handoff
+  layer_model:
+    core: "native-ai-core owns product-agnostic domain, contracts, workflows, rules, skills, and philosophy."
+    app_adapter: "native-ai-app/native-ai-fw implements core contracts for a product/runtime context and may be public or private."
+    skill_adapter: "native-ai-skills implements runtime-specific executable skills that satisfy core skill contracts."
+    runtime: "Hermes/Codex/Claude/CI/etc. execute capabilities through tools, sessions, memory, automation, and verification gates."
+    product_instance: "products/<product-id>/ owns product-specific source-of-truth, constraints, and context."
+  quality_gates:
+    - classify_by_responsibility_not_visibility
+    - keep_runtime_implementation_out_of_core_domain
+    - keep_product_specific_facts_out_of_public_core
+    - map_abstract_ports_to_runtime_capabilities
+    - define_contract_before_adapter_automation
+    - include_verification_and_learning_policy
+  adapter_requirements:
+    runtime_specific_behavior_must_stay_out_of_core: true
+    product_specific_constraints_must_be_layered_by_app_adapter: true
+    examples_must_be_marked_as_examples: true

@@ -1,0 +1,27 @@
+skill_contract:
+  id: motion-design
+  category: design
+  type: skill
+  version: "1.0.0"
+  capability: micro_and_cinematic_motion_with_reduced_motion_compliance
+  roles:
+    - motion_designer
+    - frontend_engineer
+    - ux_reviewer
+  inputs:
+    required:
+      - animation_inventory
+    optional:
+      - performance_budget
+      - reduced_motion_policy
+  outputs:
+    allowed:
+      - animation_verdict
+      - gpu_compliance_report
+      - reduced_motion_audit
+      - motion_gate_scores
+  quality_gates:
+    - every_animation_has_user_signal_purpose
+    - hover_transitions_200ms_or_less
+    - gpu_only_transform_and_opacity
+    - prefers_reduced_motion_media_query_present

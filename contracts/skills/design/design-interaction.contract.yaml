@@ -1,0 +1,22 @@
+skill_contract:
+  id: design-interaction
+  category: design
+  type: port
+  version: "1.0.0"
+  capability: interaction_ux_patterns_port_behavioral_design
+  description: >
+    Port contract for interaction and UX patterns. Abstracts behavioral
+    decisions — patterns, states, a11y behavior.
+  roles:
+    - interaction_designer
+    - redesign_workflow
+  adapters:
+    - id: ux-patterns-for-developers
+      concern: component_behavior_a11y_edge_cases
+      load_order: 1
+    - id: ux-ui-patterns
+      concern: page_section_patterns
+      load_order: 2
+  quality_gates:
+    - external_pattern_checked_before_implementation
+    - external_covers_behavior_internal_covers_css_only

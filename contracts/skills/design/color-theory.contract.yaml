@@ -1,0 +1,44 @@
+skill_contract:
+  id: color-theory
+  category: design
+  type: contract
+  version: "1.0.0"
+  capability: expressive_color_decisions_palette_harmony_psychology
+  description: >
+    Defines what any color adapter must address — palette construction,
+    harmony rules, temperature consistency, and genre-to-palette mapping.
+    This is the abstraction; design-color is the implementation.
+  roles:
+    - visual_designer
+    - design_reviewer
+  inputs:
+    required:
+      - genre_selection
+      - theme_default
+    optional:
+      - brand_constraints
+      - cultural_context
+  outputs:
+    allowed:
+      - palette_primitives
+      - semantic_role_mapping
+      - accent_definition
+      - temperature_rationale
+  quality_gates:
+    - palette_derives_from_genre_not_reverse
+    - max_one_accent_one_role
+    - temperature_consistent_across_palette
+    - no_hardcoded_hex_in_components
+    - contrast_ratio_delegated_to_readability_skill
+  boundary:
+    covers:
+      - hue_saturation_value_decisions
+      - palette_construction
+      - color_harmony_rules
+      - color_psychology_validation
+      - genre_to_palette_mapping
+    does_not_cover:
+      - contrast_ratio_wcag          # → readability skill
+      - semantic_token_naming        # → design-system skill
+      - dark_light_switching         # → dark-light-theming skill
+      - component_level_color        # → ui-components skill

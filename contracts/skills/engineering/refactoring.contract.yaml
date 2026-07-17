@@ -1,0 +1,36 @@
+skill_contract:
+  id: refactoring
+  type: skill
+  category: engineering
+  version: "0.1.0"
+  capability: structured_code_refactoring_without_behavior_change
+  roles:
+    - refactoring_strategist
+    - code_quality_enforcer
+  inputs:
+    required:
+      - code_or_module
+      - refactoring_goal
+    optional:
+      - test_coverage_report
+      - complexity_metrics
+      - architecture_contract
+  outputs:
+    allowed:
+      - refactored_code
+      - refactoring_plan
+      - test_suite_update
+      - complexity_delta
+  quality_gates:
+    - tests_must_be_green_before_refactoring_starts
+    - behavior_must_be_identical_before_and_after
+    - refactoring_steps_must_be_small_and_independently_verifiable
+    - no_feature_added_during_refactoring
+    - no_bug_fixed_during_refactoring
+    - test_coverage_must_not_decrease
+    - one_refactoring_type_per_commit
+    - code_smell_must_be_named_before_fix
+  adapter_requirements:
+    test_command: product_defined
+    complexity_threshold: product_defined
+    coverage_tool: product_defined

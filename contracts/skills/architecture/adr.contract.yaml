@@ -1,0 +1,35 @@
+skill_contract:
+  id: adr
+  type: skill
+  category: architecture
+  version: "0.1.0"
+  capability: author_and_maintain_architecture_decision_records
+  roles:
+    - decision_author
+    - architecture_historian
+  inputs:
+    required:
+      - decision_context
+      - options_considered
+    optional:
+      - existing_adr_log
+      - constraints
+      - stakeholders
+  outputs:
+    allowed:
+      - adr_document
+      - decision_log_entry
+      - superseded_adr_reference
+  quality_gates:
+    - adr_must_state_status_explicitly
+    - context_must_explain_why_decision_was_needed
+    - all_options_considered_must_be_listed
+    - decision_must_be_stated_in_one_sentence
+    - consequences_must_include_tradeoffs_not_just_benefits
+    - adr_must_be_immutable_once_accepted
+    - superseding_adr_must_reference_original
+    - decision_must_be_traceable_to_forcing_function
+  adapter_requirements:
+    adr_format: product_defined
+    storage_location: product_defined
+    review_process: product_defined

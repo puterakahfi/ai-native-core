@@ -1,0 +1,29 @@
+skill_contract:
+  id: composition
+  category: design
+  type: skill
+  version: "1.0.0"
+  capability: above_fold_composition_and_visual_anchoring
+  roles:
+    - layout_composer
+    - visual_designer
+    - ux_reviewer
+  inputs:
+    required:
+      - layout_pattern
+      - viewport_dimensions
+    optional:
+      - hero_content_inventory
+      - macrostructure_ref
+  outputs:
+    allowed:
+      - focal_point_report
+      - dead_space_verdict
+      - eye_flow_map
+      - anchoring_audit
+      - composition_gate_scores
+  quality_gates:
+    - focal_point_must_be_at_or_above_optical_center
+    - no_unframed_dead_space_above_hero
+    - every_element_anchored_to_grid_or_sibling
+    - spacing_multiples_of_8px_base_unit

@@ -1,0 +1,35 @@
+skill_contract:
+  id: ux-psychology
+  type: skill
+  category: design
+  version: "0.1.0"
+  capability: behavioral_and_psychological_ux_analysis
+  roles:
+    - ux_psychologist
+    - behavioral_designer
+    - cognitive_load_analyst
+  inputs:
+    required:
+      - ui_or_flow_to_analyze
+    optional:
+      - user_segment
+      - product_context
+      - user_goal
+  outputs:
+    allowed:
+      - cognitive_load_report
+      - habit_loop_analysis
+      - heuristic_violation_list
+      - behavioral_friction_map
+      - improvement_recommendations
+  quality_gates:
+    - findings_must_cite_specific_principle_not_just_opinion
+    - every_violation_must_have_actionable_recommendation
+    - cognitive_load_must_be_assessed_per_screen
+    - habit_loop_analysis_required_for_core_user_flows
+    - recommendations_must_be_prioritized_by_user_impact
+    - no_vague_feedback_like_confusing_or_overwhelming
+  adapter_requirements:
+    user_segment: product_defined
+    severity_scale: product_defined
+    primary_frameworks: product_defined

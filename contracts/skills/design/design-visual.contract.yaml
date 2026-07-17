@@ -1,0 +1,37 @@
+skill_contract:
+  id: design-visual
+  category: design
+  type: port
+  version: "1.0.0"
+  capability: visual_design_port_aesthetic_foundations
+  description: >
+    Port contract for visual design. Abstracts all aesthetic decisions —
+    genre, color, typography, motion, composition. Consumers depend on this
+    port, not on individual adapter skills.
+  roles:
+    - visual_designer
+    - redesign_workflow
+  adapters:
+    - id: design-genre
+      concern: genre_voice_slop_gates
+      load_order: 1
+    - id: design-color
+      concern: palette_harmony_psychology
+      load_order: 2
+      implements: color-theory.contract.yaml
+    - id: design-typography
+      concern: typeface_scale_hierarchy_rhythm
+      load_order: 3
+      implements: typography.contract.yaml
+    - id: motion-design
+      concern: motion_stance_animation
+      load_order: 4
+    - id: composition
+      concern: visual_weight_balance
+      load_order: 5
+    - id: readability
+      concern: legibility_metrics_gate
+      load_order: 6
+  quality_gates:
+    - genre_loaded_before_all_other_adapters
+    - no_visual_improvisation_without_adapter_backing

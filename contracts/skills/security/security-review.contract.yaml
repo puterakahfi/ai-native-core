@@ -1,0 +1,40 @@
+skill_contract:
+  id: security-review
+  type: skill
+  category: security
+  version: "0.1.0"
+  capability: security_baseline_validation
+  roles:
+    - security_reviewer
+    - security_gate_enforcer
+  inputs:
+    required:
+      - code_or_diff
+      - security_baseline_ref
+    optional:
+      - dependency_list
+      - environment_config
+      - api_surface
+  outputs:
+    allowed:
+      - security_verdict
+      - secret_detection_report
+      - vulnerability_list
+      - dependency_risk_report
+      - blocking_violations
+      - recommendations
+  quality_gates:
+    - no_hardcoded_secrets_or_credentials
+    - no_sql_injection_vectors
+    - input_sanitization_verified
+    - output_encoding_verified
+    - authorization_checks_present
+    - dependency_vulnerabilities_checked
+    - no_sensitive_data_in_logs
+    - security_verdict_required_before_deploy
+  adapter_requirements:
+    security_baseline_source: product_defined
+    secret_scanner: product_defined
+    dependency_scanner: product_defined
+    blocking_vs_warning_policy: product_defined
+    owasp_level: product_defined
