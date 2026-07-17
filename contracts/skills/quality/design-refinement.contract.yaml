@@ -1,0 +1,94 @@
+skill_contract:
+  id: design-refinement
+  category: quality
+  type: workflow
+  version: "1.0.0"
+  capability: targeted_design_gate_refinement_without_full_redesign
+  purpose: >
+    Defines the targeted design refinement lifecycle for improving specific failing
+    UI/UX quality gates while preserving an already-correct design direction. Runtime
+    adapters implement artifact access, browser tooling, patch mechanics, and score
+    calculation independently.
+  roles:
+    - design_lead
+    - ux_reviewer
+    - frontend_engineer
+  inputs:
+    required:
+      - target_url_or_artifact
+      - failing_gates
+    optional:
+      - prior_audit_report
+      - preserve_gates
+      - preserve_elements
+      - max_iterations
+      - output_mode
+  outputs:
+    allowed:
+      - refinement_scope
+      - targeted_patch_plan
+      - refined_artifact
+      - gate_score_delta_report
+      - regression_check_report
+      - skill_patch_log
+      - residual_gap_report
+  required_phases:
+    - id: load-audit-state
+      order: 1
+      description: Load prior audit/review state or run a quick critical-gate audit before fixing
+      gate: failing_gates_must_be_known_before_patch
+      skills:
+        required: [design-audit, design-review]
+    - id: declare-scope
+      order: 2
+      description: Declare exactly which gates will be fixed and which passing gates/elements must be preserved
+      gate: scope_must_identify_fix_and_preserve_sets
+      skills:
+        required: [design-review]
+    - id: skill-first-fix
+      order: 3
+      description: For each failing gate, identify the governing skill/rule before patching the surface
+      gate: root_cause_skill_checked_before_artifact_patch
+      skills:
+        required: [master-design]
+        optional: [accessibility, readability, responsiveness, motion-design, composition, visual-hierarchy, ui-components]
+    - id: targeted-verify
+      order: 4
+      description: Re-score fixed gates and adjacent/preserved gates to prove improvement without regression
+      gate: fixed_gates_and_preserve_set_must_be_rechecked
+      skills:
+        required: [design-review]
+    - id: deliver
+      order: 5
+      description: Deliver score deltas, changed artifacts, skills patched, and any residual gaps
+      gate: delta_report_required_before_completion
+      skills:
+        required: []
+  skill_load_order:
+    - phase: load-audit-state
+      load: [design-audit, design-review]
+    - phase: declare-scope
+      load: [design-review]
+    - phase: skill-first-fix
+      load: [master-design, ui-components, accessibility, readability, responsiveness]
+    - phase: targeted-verify
+      load: [design-review]
+  quality_gates:
+    - design_direction_must_be_good_enough_for_refinement
+    - failing_gates_must_be_explicit_before_fixing
+    - passing_gates_must_be_preserved_unless_user_expands_scope
+    - no_drive_by_redesign_or_surface_retheme
+    - skill_or_rule_checked_before_artifact_patch
+    - fixed_gate_scores_must_reach_8_or_report_residual_gap
+    - adjacent_and_preserved_gate_regressions_must_be_checked
+    - reduced_motion_touch_semantics_are_hard_regression_gates
+    - max_iterations_exit_must_include_honest_gap_report
+  adapter_requirements:
+    artifact_access_method: runtime_defined
+    patch_method: runtime_defined
+    visual_inspection_method: runtime_defined
+    dom_probe_method: runtime_defined
+    scoring_scale: "0_to_10"
+    pass_threshold: ">=8.0"
+    direction_threshold_for_refinement: ">=7.0_average_or_user_approved_direction"
+    full_redesign_fallback: redesign-workflow
