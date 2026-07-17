@@ -1,0 +1,181 @@
+runtime_contract:
+  id: development-loop
+  version: "1.0.0"
+  purpose: formalize the agent-driven development loop with gates between phases
+  description: >
+    Defines the canonical development loop that agents follow when executing work.
+    Each phase has entry conditions, exit gates, and allowed transitions.
+    This is the heartbeat of ADD — without it, agents skip phases or produce
+    unverified output.
+
+  # The canonical loop
+  phases:
+    - id: explore
+      purpose: understand the problem space before acting
+      activities:
+        - read_relevant_files
+        - search_codebase
+        - check_existing_tests
+        - understand_architecture
+      exit_gate: problem_space_understood_with_evidence
+      outputs:
+        - context_summary
+        - affected_files_list
+      rules:
+        - must_read_before_writing
+        - must_check_existing_tests_before_adding_new_ones
+
+    - id: plan
+      purpose: decide what to do and in what order
+      activities:
+        - define_approach
+        - identify_files_to_change
+        - estimate_blast_radius
+        - declare_verification_strategy
+      exit_gate: plan_is_specific_with_file_paths_and_approach
+      outputs:
+        - task_list_with_file_paths
+        - approach_summary
+        - verification_strategy
+      rules:
+        - plan_must_reference_exact_files_not_vague_areas
+        - plan_must_include_how_to_verify
+
+    - id: implement
+      purpose: make the changes
+      activities:
+        - edit_files
+        - add_imports_and_dependencies
+        - match_existing_code_style
+      exit_gate: all_planned_changes_applied
+      outputs:
+        - changed_files
+      rules:
+        - touch_only_what_the_task_needs
+        - no_drive_by_refactors
+        - add_required_imports_and_dependencies
+
+    - id: verify
+      purpose: prove the changes work
+      activities:
+        - run_tests
+        - run_linter
+        - run_build
+        - manual_inspection_where_automated_checks_insufficient
+      exit_gate: all_checks_pass_with_evidence
+      outputs:
+        - test_results
+        - lint_results
+        - build_results
+      rules:
+        - must_run_actual_commands_not_claim_it_works
+        - must_fix_failures_before_proceeding
+        - verification_must_be_reproducible
+
+    - id: review
+      purpose: check quality beyond pass/fail
+      activities:
+        - architecture_compliance_check
+        - security_scan
+        - performance_impact_assessment
+        - human_approval_gate_when_required
+      exit_gate: review_verdict_is_approve_or_changes_requested
+      outputs:
+        - review_verdict
+        - change_requests
+      rules:
+        - review_must_check_against_engineering_contract
+        - security_sensitive_changes_require_human_approval
+
+    - id: document
+      purpose: capture what changed and why
+      activities:
+        - write_commit_message
+        - update_docs_if_behavior_changed
+        - update_adr_if_architecture_decision_made
+        - update_agents_md_if_convention_changed
+      exit_gate: changes_are_documented_and_traceable
+      outputs:
+        - commit_message
+        - updated_docs
+      rules:
+        - commit_message_must_explain_why_not_just_what
+        - behavior_changes_must_update_docs
+
+    - id: deliver
+      purpose: ship the changes
+      activities:
+        - commit
+        - push
+        - open_pr_or_deploy
+      exit_gate: changes_are_in_target_branch_or_environment
+      outputs:
+        - commit_sha
+        - pr_url_or_deployment_url
+      rules:
+        - never_force_push_without_explicit_request
+        - rollback_plan_must_exist_for_production_deploys
+
+  # Phase transitions
+  transitions:
+    - from: explore
+      to: plan
+      condition: context_gathered
+
+    - from: plan
+      to: implement
+      condition: plan_approved_or_low_risk
+
+    - from: implement
+      to: verify
+      condition: changes_applied
+
+    - from: verify
+      to: implement
+      condition: verification_failed
+      note: fix and re-verify loop
+
+    - from: verify
+      to: review
+      condition: verification_passed
+
+    - from: review
+      to: implement
+      condition: changes_requested
+      note: address review feedback
+
+    - from: review
+      to: document
+      condition: review_approved
+
+    - from: document
+      to: deliver
+      condition: documentation_complete
+
+  # Shortcuts for low-risk work
+  shortcuts:
+    - name: trivial_fix
+      skip_phases: [review, document]
+      condition: single_file_change_under_10_lines_with_passing_tests
+
+    - name: documentation_only
+      skip_phases: [verify, review]
+      condition: only_markdown_or_comment_changes
+
+  # Quality gates
+  quality_gates:
+    - every_phase_must_produce_declared_outputs
+    - verify_phase_must_use_real_tool_output_not_claims
+    - no_phase_may_be_skipped_without_declared_shortcut
+    - explore_must_happen_before_implement
+    - failed_verification_must_loop_back_to_implement
+    - human_approval_required_for_security_sensitive_changes
+    - deliver_must_not_happen_before_verify
+
+  # Adapter requirements
+  adapter_requirements:
+    ci_integration: product_defined
+    approval_mechanism: product_defined
+    deployment_strategy: product_defined
+    rollback_mechanism: product_defined
+    notification_channels: product_defined

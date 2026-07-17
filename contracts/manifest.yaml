@@ -1,7 +1,7 @@
 version: "1.0.0"
-generated_at: "2026-07-17T11:16:04Z"
+generated_at: "2026-07-17T11:38:27Z"
 description: "Auto-generated contract manifest. Regenerate with: scripts/generate-manifest.sh"
-total_contracts: 91
+total_contracts: 93
 contracts:
   skills:
     architecture:
@@ -368,6 +368,12 @@ contracts:
       path: contracts/tests/systematic-debugging.test.yaml
       sha256: a5f6b0cf8f521c40
   runtime:
+    - id: agents-md
+      path: contracts/runtime/agents-md.contract.yaml
+      sha256: 9dcd55c5db03fc30
     - id: core-source
       path: contracts/runtime/core-source.contract.yaml
       sha256: 0590b76b0bb390e8
+    - id: development-loop
+      path: contracts/runtime/development-loop.contract.yaml
+      sha256: a65ab20af42c7803

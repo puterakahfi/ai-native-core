@@ -241,6 +241,16 @@ docs/             # public framework docs, port specifications, architecture
 
 ---
 
+## Runtime Contracts (3)
+
+| Contract | Description |
+|---|---|
+| `core-source` | How app adapters resolve core contracts (vendor, package, or submodule) |
+| `agents-md` | AGENTS.md standard — required sections, authoring rules, validation gates for project-level agent context |
+| `development-loop` | Canonical execution cycle — Explore → Plan → Implement → Verify → Review → Document → Deliver |
+
+---
+
 ## Workflow Contracts (6)
 
 | Contract | Description |
@@ -280,6 +290,10 @@ The `docs/` directory contains framework concepts and port specifications:
 | [engineering-contract](docs/engineering-contract.md) | Engineering contract specification |
 | [memory-vs-knowledge](docs/memory-vs-knowledge.md) | When to use memory vs documentation |
 | [adapter-registry](docs/adapter-registry.md) | Adapter registration and discovery |
+| **Core Concepts** | |
+| [agents-md](docs/agents-md.md) | AGENTS.md — project-level agent context standard |
+| [development-loop](docs/development-loop.md) | Development loop — canonical agent execution cycle |
+| [glossary](docs/glossary.md) | Domain glossary — all terms defined |
 | **Provider Ports** | |
 | [agent-runtime-port](docs/agent-runtime-port.md) | Agent runtime binding |
 | [deployment-provider-port](docs/deployment-provider-port.md) | Deployment provider abstraction |

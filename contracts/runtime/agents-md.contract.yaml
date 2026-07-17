@@ -1,0 +1,103 @@
+runtime_contract:
+  id: agents-md
+  version: "1.0.0"
+  purpose: standardize project-level agent context files (AGENTS.md, CLAUDE.md, .cursorrules)
+  description: >
+    Defines the required structure, authoring rules, and validation gates for
+    project-level agent context files. These files are the foundational ADD
+    artifact — they give agents persistent, project-specific context that
+    survives across sessions and tools.
+
+  # What this contract governs
+  scope:
+    - AGENTS.md (OpenAI Codex, general)
+    - CLAUDE.md (Anthropic Claude Code)
+    - .cursorrules / .cursor/rules/*.mdc (Cursor AI)
+    - Any runtime-specific equivalent
+
+  # Required sections in any agents-md file
+  required_sections:
+    - id: project_identity
+      purpose: what this project is, one paragraph
+      examples:
+        - "project name, purpose, primary language, framework"
+
+    - id: build_and_test
+      purpose: exact commands to build, test, lint, deploy
+      rules:
+        - must_be_copy_pasteable_commands
+        - must_include_test_command
+        - must_include_lint_command
+
+    - id: code_style
+      purpose: conventions the agent must follow
+      examples:
+        - "naming conventions, file organization, import order"
+      rules:
+        - must_be_specific_not_vague
+        - prefer_examples_over_prose
+
+    - id: architecture_constraints
+      purpose: structural decisions the agent must respect
+      examples:
+        - "layer boundaries, dependency direction, allowed imports"
+      rules:
+        - must_reference_adr_when_available
+
+    - id: do_not
+      purpose: explicit prohibitions — what the agent must never do
+      examples:
+        - "never commit .env files"
+        - "never use any as a type"
+        - "never refactor outside the task scope"
+      rules:
+        - must_have_at_least_3_items
+        - each_item_must_be_enforceable_not_aspirational
+
+  # Recommended but not required
+  optional_sections:
+    - id: workflow
+      purpose: how work flows through this project (branch strategy, PR process)
+
+    - id: dependencies
+      purpose: rules about adding/updating dependencies
+
+    - id: testing_strategy
+      purpose: what to test, coverage expectations, test file conventions
+
+    - id: security
+      purpose: security-sensitive areas, auth patterns, data handling rules
+
+    - id: context_sources
+      purpose: where to find additional context (docs, wikis, design files)
+
+    - id: tool_config
+      purpose: MCP servers, hooks, or tool-specific configuration
+
+  # Quality gates
+  quality_gates:
+    - agents_md_must_exist_in_project_root_or_dotfolder
+    - build_and_test_commands_must_be_runnable
+    - do_not_section_must_have_3_or_more_enforceable_items
+    - no_vague_instructions_like_follow_best_practices
+    - no_duplicate_rules_across_sections
+    - file_must_be_under_500_lines
+    - code_style_must_use_examples_not_just_prose
+    - architecture_constraints_must_be_structural_not_preferential
+
+  # Authoring rules
+  authoring_rules:
+    - concise_over_comprehensive_agents_ignore_bloated_files
+    - specific_over_general_every_rule_must_be_enforceable
+    - commands_over_descriptions_give_exact_commands_not_guidance
+    - examples_over_prose_show_dont_tell
+    - version_controlled_check_into_git_for_team_sharing
+    - single_source_do_not_duplicate_across_claude_md_and_cursorrules
+
+  # Adapter requirements
+  adapter_requirements:
+    file_name: product_defined
+    file_location: product_defined
+    runtime_loading_mechanism: product_defined
+    team_review_policy: product_defined
+    staleness_detection: product_defined
