@@ -330,27 +330,55 @@ runtime-specific installed skill copies
 
 ## Contract Sync Tooling
 
+Three layers of enforcement prevent core ↔ adapter drift:
+
+| Layer | Tool | What it checks |
+|---|---|---|
+| **Path exists** | `validate-implements.sh` | `implements` reference resolves to a real contract file |
+| **Version compatible** | `validate-implements.sh` | `contract-version` pin satisfies semver (`^` = major, `~` = minor) |
+| **Interface satisfied** | `validate-conformance.py` | Adapter covers contract's `quality_gates`, `outputs`, `inputs` |
+
 ### Manifest
 
-`contracts/manifest.yaml` is the auto-generated registry of all contracts with paths and checksums. Regenerate after adding/moving/deleting contracts:
+`contracts/manifest.yaml` is the auto-generated registry of all contracts with paths, versions, and checksums. Regenerate after adding/moving/deleting contracts:
 
 ```bash
 ./scripts/generate-manifest.sh
 ```
 
-### Validator
+### Version Pinning
 
-Adapter repos can validate that all `implements` references point to real contracts:
+Adapter skills pin to a contract version in frontmatter:
+
+```yaml
+metadata:
+  ai-native-skills.implements: ai-native-core/contracts/skills/design/design-depth.contract.yaml
+  ai-native-skills.contract-version: "^2.0.0"
+```
+
+| Pin | Meaning | Breaks when |
+|---|---|---|
+| `^2.0.0` | Major-compatible (≥2.0.0, <3.0.0) | Core bumps to 3.0.0 |
+| `~0.1` | Minor-compatible (≥0.1.0, <0.2.0) | Core bumps to 0.2.0 |
+
+### Path + Version Validator
 
 ```bash
 # From your adapter repo
 ../ai-native-core/scripts/validate-implements.sh ../ai-native-core
-
-# Or copy the script into your repo and point to core
-./scripts/validate-implements.sh /path/to/ai-native-core
 ```
 
-Exit code 0 = all valid, 1 = broken references found. Run this in CI to catch drift early.
+Checks both path existence and semver compatibility. Exit 0 = pass, 1 = broken or incompatible.
+
+### Conformance Validator
+
+```bash
+python3 ../ai-native-core/scripts/validate-conformance.py ../ai-native-core .
+```
+
+Checks whether adapter skill body actually covers the contract's `quality_gates`, `outputs`, and `inputs`. Uses fuzzy matching (snake_case variants, word overlap). Severity:
+- **ERROR**: < 50% `quality_gates` coverage — adapter is missing critical gates
+- **WARN**: partial coverage — improvement opportunity
 
 ---
 

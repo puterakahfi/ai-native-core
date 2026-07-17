@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 # Validate that all ai-native-core `implements` references in this repo
-# point to contracts that actually exist in the core manifest.
+# point to contracts that actually exist and are version-compatible.
 #
 # Usage:
 #   ./validate-implements.sh [path-to-core]
 #
-# If path-to-core is omitted, looks for ../ai-native-core or ./core (submodule).
+# Checks:
+#   1. Path exists (contract file on disk or in manifest)
+#   2. Version compatible (if adapter declares contract-version)
+#
 # Exit code 0 = all valid, 1 = broken references found.
 set -euo pipefail
 
@@ -33,60 +36,145 @@ echo "Core: $CORE"
 echo "Manifest: $MANIFEST"
 echo ""
 
-# ── Extract all valid paths from manifest ────────────────────────────────────
-valid_paths=$(grep '^\s*path:' "$MANIFEST" | sed 's/.*path:[[:space:]]*//' | tr -d '"' | tr -d "'")
+# ── Semver comparison helper ─────────────────────────────────────────────────
+# Check if actual_version satisfies pin (^x.y.z or ~x.y)
+check_semver() {
+  local pin="$1"      # e.g. ^1.0.0 or ~0.1
+  local actual="$2"   # e.g. 1.2.3
 
-# ── Find all implements references in current repo ───────────────────────────
-errors=0
-checked=0
-broken_files=""
+  # Strip quotes
+  pin=$(echo "$pin" | tr -d '"' | tr -d "'")
+  actual=$(echo "$actual" | tr -d '"' | tr -d "'")
 
+  local prefix="${pin:0:1}"
+  local pinver="${pin:1}"
+
+  # Parse actual
+  local a_major a_minor a_patch
+  IFS='.' read -r a_major a_minor a_patch <<< "$actual"
+  a_patch="${a_patch:-0}"
+
+  # Parse pin version
+  local p_major p_minor p_patch
+  IFS='.' read -r p_major p_minor p_patch <<< "$pinver"
+  p_patch="${p_patch:-0}"
+
+  if [ "$prefix" = "^" ]; then
+    # ^x.y.z: same major, >= minor.patch (for major > 0)
+    # ^0.y.z: same major AND minor, >= patch
+    if [ "$p_major" = "0" ]; then
+      [ "$a_major" = "$p_major" ] && [ "$a_minor" = "$p_minor" ] && [ "$a_patch" -ge "$p_patch" ]
+    else
+      [ "$a_major" = "$p_major" ] && \
+        ([ "$a_minor" -gt "$p_minor" ] || \
+         ([ "$a_minor" = "$p_minor" ] && [ "$a_patch" -ge "$p_patch" ]))
+    fi
+  elif [ "$prefix" = "~" ]; then
+    # ~x.y: same major.minor, any patch
+    [ "$a_major" = "$p_major" ] && [ "$a_minor" = "$p_minor" ]
+  else
+    # Exact match
+    [ "$actual" = "$pin" ]
+  fi
+}
+
+# ── Build valid paths + version map from manifest ────────────────────────────
+declare -A path_version_map
+current_path=""
 while IFS= read -r line; do
-  [ -z "$line" ] && continue
-  # Extract file path and the reference
-  file=$(echo "$line" | cut -d: -f1)
-  ref=$(echo "$line" | sed 's/.*ai-native-core\///' | tr -d '"' | tr -d "'" | xargs)
+  if [[ "$line" =~ path:\ *(.*) ]]; then
+    current_path="${BASH_REMATCH[1]}"
+    current_path=$(echo "$current_path" | tr -d '"' | tr -d "'")
+  elif [[ "$line" =~ version:\ *(.*) ]] && [ -n "$current_path" ]; then
+    ver="${BASH_REMATCH[1]}"
+    ver=$(echo "$ver" | tr -d '"' | tr -d "'")
+    path_version_map["$current_path"]="$ver"
+    current_path=""
+  fi
+done < "$MANIFEST"
+
+# ── Scan all SKILL.md files ──────────────────────────────────────────────────
+errors=0
+warnings=0
+checked=0
+
+find . -name 'SKILL.md' -not -path '*/.git/*' | sort | while IFS= read -r skillfile; do
+  # Extract implements path
+  impl=$(grep -oP 'ai-native-skills\.implements:\s*ai-native-core/\K\S+' "$skillfile" 2>/dev/null || true)
+  [ -z "$impl" ] && continue
 
   checked=$((checked + 1))
 
-  # Check if this path exists in manifest
-  if ! echo "$valid_paths" | grep -qF "$ref"; then
-    # Double-check: maybe the file exists on disk even if not in manifest
-    if [ ! -f "$CORE/$ref" ]; then
-      echo "BROKEN: $file"
-      echo "  → ai-native-core/$ref"
+  # Check 1: Path exists
+  if [ ! -f "$CORE/$impl" ]; then
+    if [ -z "${path_version_map[$impl]+x}" ]; then
+      echo "BROKEN: $skillfile"
+      echo "  → ai-native-core/$impl"
       echo "  (not found in manifest or on disk)"
       echo ""
       errors=$((errors + 1))
-      broken_files="$broken_files $file"
-    else
-      echo "WARN:   $file"
-      echo "  → ai-native-core/$ref"
-      echo "  (exists on disk but missing from manifest — run generate-manifest.sh)"
-      echo ""
+      continue
     fi
   fi
-done < <(grep -r 'ai-native-core/' --include='*.md' --include='*.yaml' --include='*.yml' -h . 2>/dev/null \
-  | grep -oP 'ai-native-core/contracts/\S+\.yaml' \
-  | sort -u \
-  | while read -r ref; do
-      # Find which file contains this reference
-      grep -rl "$ref" --include='*.md' --include='*.yaml' --include='*.yml' . 2>/dev/null | while read -r f; do
-        echo "$f:$ref"
-      done
-    done)
+
+  # Check 2: Version compatibility
+  pinned=$(grep -oP 'ai-native-skills\.contract-version:\s*\K\S+' "$skillfile" 2>/dev/null | tr -d '"' | tr -d "'" || true)
+  if [ -n "$pinned" ]; then
+    actual_ver="${path_version_map[$impl]:-}"
+    if [ -z "$actual_ver" ]; then
+      # Try reading from file directly
+      actual_ver=$(grep -m1 'version:' "$CORE/$impl" 2>/dev/null | sed 's/.*version:[[:space:]]*//' | tr -d '"' | tr -d "'" || true)
+    fi
+    if [ -n "$actual_ver" ]; then
+      if ! check_semver "$pinned" "$actual_ver"; then
+        echo "VERSION MISMATCH: $skillfile"
+        echo "  → ai-native-core/$impl"
+        echo "  pinned: $pinned, actual: $actual_ver"
+        echo ""
+        errors=$((errors + 1))
+      fi
+    fi
+  else
+    echo "WARN: $skillfile"
+    echo "  → no contract-version pinned (add ai-native-skills.contract-version)"
+    echo ""
+    warnings=$((warnings + 1))
+  fi
+done
+
+# Re-count since while loop runs in subshell
+errors=$(find . -name 'SKILL.md' -not -path '*/.git/*' -exec grep -l 'ai-native-skills.implements' {} \; | while IFS= read -r skillfile; do
+  impl=$(grep -oP 'ai-native-skills\.implements:\s*ai-native-core/\K\S+' "$skillfile" 2>/dev/null || true)
+  [ -z "$impl" ] && continue
+
+  # Path check
+  if [ ! -f "$CORE/$impl" ] && [ -z "${path_version_map[$impl]+x}" ]; then
+    echo "BROKEN"
+    continue
+  fi
+
+  # Version check
+  pinned=$(grep -oP 'ai-native-skills\.contract-version:\s*\K\S+' "$skillfile" 2>/dev/null | tr -d '"' | tr -d "'" || true)
+  if [ -n "$pinned" ]; then
+    actual_ver="${path_version_map[$impl]:-}"
+    [ -z "$actual_ver" ] && actual_ver=$(grep -m1 'version:' "$CORE/$impl" 2>/dev/null | sed 's/.*version:[[:space:]]*//' | tr -d '"' | tr -d "'" || true)
+    if [ -n "$actual_ver" ] && ! check_semver "$pinned" "$actual_ver"; then
+      echo "VERSION"
+    fi
+  fi
+done | wc -l)
+
+checked=$(find . -name 'SKILL.md' -not -path '*/.git/*' -exec grep -l 'ai-native-skills.implements' {} \; | wc -l)
 
 echo "────────────────────────────────────"
-echo "Checked: $checked references"
-echo "Broken:  $errors"
+echo "Checked: $checked adapter skills"
+echo "Errors:  $errors"
+echo ""
 
 if [ "$errors" -gt 0 ]; then
-  echo ""
-  echo "FAIL — $errors broken contract reference(s) found."
-  echo "Fix the implements paths or regenerate the core manifest."
+  echo "FAIL — $errors broken or incompatible contract reference(s)."
   exit 1
 else
-  echo ""
-  echo "PASS — all contract references are valid."
+  echo "PASS — all contract references are valid and version-compatible."
   exit 0
 fi
