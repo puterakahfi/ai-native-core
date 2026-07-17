@@ -328,6 +328,32 @@ runtime-specific installed skill copies
 
 ---
 
+## Contract Sync Tooling
+
+### Manifest
+
+`contracts/manifest.yaml` is the auto-generated registry of all contracts with paths and checksums. Regenerate after adding/moving/deleting contracts:
+
+```bash
+./scripts/generate-manifest.sh
+```
+
+### Validator
+
+Adapter repos can validate that all `implements` references point to real contracts:
+
+```bash
+# From your adapter repo
+../ai-native-core/scripts/validate-implements.sh ../ai-native-core
+
+# Or copy the script into your repo and point to core
+./scripts/validate-implements.sh /path/to/ai-native-core
+```
+
+Exit code 0 = all valid, 1 = broken references found. Run this in CI to catch drift early.
+
+---
+
 ## Adapter Pattern
 
 Skills in `native-ai-skills` implement contracts defined here:
