@@ -1,7 +1,7 @@
 version: "1.0.0"
-generated_at: "2026-07-17T11:38:27Z"
+generated_at: "2026-07-17T11:43:25Z"
 description: "Auto-generated contract manifest. Regenerate with: scripts/generate-manifest.sh"
-total_contracts: 93
+total_contracts: 97
 contracts:
   skills:
     architecture:
@@ -377,3 +377,15 @@ contracts:
     - id: development-loop
       path: contracts/runtime/development-loop.contract.yaml
       sha256: a65ab20af42c7803
+    - id: hook
+      path: contracts/runtime/hook.contract.yaml
+      sha256: f2f8d758c352a29e
+    - id: memory
+      path: contracts/runtime/memory.contract.yaml
+      sha256: 47bd03d6e2361f6b
+    - id: sop
+      path: contracts/runtime/sop.contract.yaml
+      sha256: 82783cafe567eaeb
+    - id: tool-registration
+      path: contracts/runtime/tool-registration.contract.yaml
+      sha256: eab231cf46c1a595

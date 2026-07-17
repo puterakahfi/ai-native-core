@@ -241,13 +241,17 @@ docs/             # public framework docs, port specifications, architecture
 
 ---
 
-## Runtime Contracts (3)
+## Runtime Contracts (7)
 
 | Contract | Description |
 |---|---|
 | `core-source` | How app adapters resolve core contracts (vendor, package, or submodule) |
 | `agents-md` | AGENTS.md standard — required sections, authoring rules, validation gates for project-level agent context |
 | `development-loop` | Canonical execution cycle — Explore → Plan → Implement → Verify → Review → Document → Deliver |
+| `memory` | Four memory types (session, persistent, episodic, procedural) — governance, promotion rules, knowledge boundary |
+| `hook` | Deterministic lifecycle gates — pre/post edit, commit, submit. Guaranteed execution, not advisory |
+| `tool-registration` | Tool capability declaration, risk classification (read-only → destructive), access control, MCP integration |
+| `sop` | Standard Operating Procedures — deployment, incident, release, infrastructure playbooks |
 
 ---
 

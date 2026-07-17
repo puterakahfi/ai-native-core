@@ -1,0 +1,123 @@
+runtime_contract:
+  id: sop
+  version: "1.0.0"
+  purpose: formalize standard operating procedures for recurring operational tasks
+  description: >
+    SOPs are codified operational procedures — step-by-step playbooks for
+    recurring tasks like deployment, incident response, release management,
+    and environment setup. SOPs differ from workflows: workflows define
+    development processes (feature → PR → merge), SOPs define operational
+    processes (deploy to prod, rotate secrets, onboard new service).
+
+  # SOP vs Workflow vs Skill
+  taxonomy:
+    sop:
+      what: operational procedure for recurring ops tasks
+      when: deploy, incident, release, migration, environment setup
+      who: operator (human or agent acting as operator)
+      examples:
+        - production deployment checklist
+        - incident response playbook
+        - database migration procedure
+        - secret rotation runbook
+        - new service onboarding
+    workflow:
+      what: development process that composes skills
+      when: build features, fix bugs, review code
+      who: developer (human or agent acting as developer)
+    skill:
+      what: atomic capability with defined inputs/outputs
+      when: single-domain task
+      who: agent executing a specific capability
+
+  # SOP definition schema
+  sop_schema:
+    required_fields:
+      - id
+      - name
+      - version
+      - purpose
+      - trigger
+      - steps
+      - verification
+      - rollback
+    optional_fields:
+      - description
+      - owner
+      - frequency
+      - prerequisites
+      - escalation
+      - timeout
+      - related_sops
+
+  # Step schema
+  step_schema:
+    required_fields:
+      - id
+      - action
+      - verification
+    optional_fields:
+      - condition
+      - timeout
+      - on_failure
+      - requires_approval
+      - notes
+
+  # SOP categories
+  categories:
+    - id: deployment
+      examples:
+        - deploy-to-staging
+        - deploy-to-production
+        - rollback-production
+        - canary-release
+
+    - id: incident
+      examples:
+        - incident-triage
+        - incident-mitigation
+        - postmortem-procedure
+
+    - id: release
+      examples:
+        - cut-release-branch
+        - tag-and-publish
+        - changelog-generation
+
+    - id: infrastructure
+      examples:
+        - provision-new-service
+        - rotate-secrets
+        - scale-up-down
+        - database-migration
+
+    - id: onboarding
+      examples:
+        - new-developer-setup
+        - new-service-setup
+        - new-environment-setup
+
+  # Execution rules
+  execution:
+    rules:
+      - every_step_must_have_verification
+      - rollback_plan_must_exist_before_execution
+      - destructive_steps_require_approval
+      - timeout_must_be_defined_for_long_running_steps
+      - sop_must_be_tested_in_staging_before_production
+
+  quality_gates:
+    - every_sop_must_have_rollback_procedure
+    - every_step_must_have_verification_criteria
+    - destructive_steps_must_require_human_approval
+    - sop_must_be_version_controlled
+    - sop_must_be_tested_before_production_use
+    - trigger_condition_must_be_explicit_not_implied
+    - escalation_path_must_be_defined_for_failures
+
+  adapter_requirements:
+    sop_storage_location: product_defined
+    approval_mechanism: product_defined
+    execution_engine: product_defined
+    audit_log_format: product_defined
+    testing_environment: product_defined

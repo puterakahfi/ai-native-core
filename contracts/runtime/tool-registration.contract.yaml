@@ -1,0 +1,119 @@
+runtime_contract:
+  id: tool-registration
+  version: "1.0.0"
+  purpose: formalize tool capability declaration, risk classification, and access control
+  description: >
+    Defines how external tools and MCP integrations are registered, classified,
+    and governed. Every tool an agent can access must be declared with its purpose,
+    risk level, and required approval. Prevents shadow tool usage and unaudited
+    external access.
+
+  # Tool registration schema
+  tool_schema:
+    required_fields:
+      - id
+      - name
+      - purpose
+      - risk_level
+      - allowed_actions
+    optional_fields:
+      - description
+      - allowed_agents
+      - required_approval
+      - audit_requirement
+      - rate_limit
+      - timeout
+      - sandbox_required
+
+  # Risk classification
+  risk_levels:
+    - id: read_only
+      description: tool only reads data, no side effects
+      examples:
+        - file reader
+        - search
+        - git log
+        - web fetch (GET)
+      default_approval: none
+      audit: optional
+
+    - id: local_write
+      description: tool writes to local filesystem or state
+      examples:
+        - file writer
+        - patch
+        - git commit
+        - package install
+      default_approval: none
+      audit: recommended
+
+    - id: external_read
+      description: tool reads from external services
+      examples:
+        - API GET requests
+        - database queries
+        - MCP data retrieval
+      default_approval: none
+      audit: recommended
+
+    - id: external_write
+      description: tool writes to external services — side effects outside local env
+      examples:
+        - API POST/PUT/DELETE
+        - database mutations
+        - sending messages
+        - deploying code
+      default_approval: human_required
+      audit: mandatory
+
+    - id: destructive
+      description: tool can cause irreversible changes
+      examples:
+        - rm -rf
+        - database DROP
+        - force push
+        - production deploy
+        - secret rotation
+      default_approval: human_required
+      audit: mandatory
+
+  # Access control
+  access_control:
+    principles:
+      - least_privilege_by_default
+      - explicit_grant_not_implicit_access
+      - deny_unknown_tools
+    patterns:
+      - allow_list: only registered tools may be used
+      - deny_list: all tools allowed except listed ones
+      - approval_required: tool registered but requires per-use approval
+    default_pattern: allow_list
+
+  # MCP integration
+  mcp_integration:
+    note: >
+      MCP (Model Context Protocol) servers are a specific class of tool.
+      They follow the same registration and risk classification. An MCP
+      server that writes to Notion is external_write. An MCP server that
+      reads from Figma is external_read.
+    registration: same schema as other tools
+    additional_fields:
+      - mcp_server_url
+      - mcp_transport_type
+      - mcp_capabilities
+
+  quality_gates:
+    - every_tool_must_be_registered_before_use
+    - external_write_tools_must_require_human_approval
+    - destructive_tools_must_have_mandatory_audit
+    - tool_purpose_must_be_declared_not_implied
+    - no_shadow_tool_usage_outside_registry
+    - tool_access_must_follow_least_privilege
+    - mcp_servers_must_be_classified_by_risk_level
+
+  adapter_requirements:
+    tool_registry_location: product_defined
+    approval_mechanism: product_defined
+    audit_log_storage: product_defined
+    mcp_server_management: product_defined
+    sandbox_enforcement: product_defined

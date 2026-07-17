@@ -1,0 +1,115 @@
+runtime_contract:
+  id: hook
+  version: "1.0.0"
+  purpose: formalize deterministic lifecycle gates that execute at specific points
+  description: >
+    Hooks are scripts that run at defined lifecycle points in agent execution.
+    Unlike advisory rules (which agents may interpret loosely), hooks guarantee
+    execution — they are deterministic, not probabilistic. Hooks enforce
+    constraints that agents cannot skip.
+
+  # Hook lifecycle points
+  lifecycle_points:
+    - id: pre_edit
+      when: before agent writes to a file
+      use_cases:
+        - block edits to protected files (.env, migrations after deploy)
+        - enforce file ownership rules
+        - validate edit scope (prevent drive-by refactors)
+
+    - id: post_edit
+      when: after agent writes to a file
+      use_cases:
+        - auto-format code (prettier, black, pint)
+        - run file-specific linter
+        - validate import order
+
+    - id: pre_command
+      when: before agent executes a shell command
+      use_cases:
+        - block dangerous commands (rm -rf, force push)
+        - require approval for production commands
+        - enforce sandbox boundaries
+
+    - id: post_command
+      when: after agent executes a shell command
+      use_cases:
+        - capture audit log
+        - check exit code and alert on failure
+        - validate output against expected patterns
+
+    - id: pre_commit
+      when: before git commit
+      use_cases:
+        - run test suite
+        - check for secrets in diff
+        - validate commit message format
+        - ensure no TODO/FIXME in committed code
+
+    - id: post_commit
+      when: after git commit
+      use_cases:
+        - trigger CI pipeline
+        - update issue tracker
+        - notify team channel
+
+    - id: pre_submit
+      when: before opening PR or deploying
+      use_cases:
+        - run full test suite
+        - security scan
+        - architecture review gate
+        - human approval for sensitive paths
+
+    - id: session_start
+      when: at the beginning of an agent session
+      use_cases:
+        - load project context (AGENTS.md)
+        - check for stale memory entries
+        - verify environment setup
+
+    - id: session_end
+      when: at the end of an agent session
+      use_cases:
+        - offer to save learned procedures as skills
+        - clean up temporary files
+        - summary of changes made
+
+  # Hook definition format
+  hook_schema:
+    required_fields:
+      - id
+      - lifecycle_point
+      - script_or_command
+    optional_fields:
+      - description
+      - condition
+      - timeout
+      - on_failure
+      - applies_to
+
+  # Execution semantics
+  execution:
+    deterministic: true
+    note: hooks always run — agents cannot skip or override them
+    failure_modes:
+      - block: hook failure prevents the action from proceeding
+      - warn: hook failure logs a warning but allows the action
+      - ask: hook failure prompts for human decision
+    default_failure_mode: block
+    timeout_default: 30s
+
+  quality_gates:
+    - hooks_must_be_deterministic_not_probabilistic
+    - hook_failure_must_block_by_default
+    - hooks_must_have_timeout_to_prevent_hangs
+    - hooks_must_not_modify_agent_intent_only_gate_it
+    - pre_commit_hooks_must_include_secret_detection
+    - hooks_must_be_version_controlled_with_the_project
+    - hook_execution_must_be_auditable
+
+  adapter_requirements:
+    hook_storage_location: product_defined
+    hook_execution_engine: product_defined
+    approval_mechanism: product_defined
+    audit_log_format: product_defined

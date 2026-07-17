@@ -1,0 +1,104 @@
+runtime_contract:
+  id: memory
+  version: "1.0.0"
+  purpose: formalize the four memory types and their governance rules
+  description: >
+    Defines how agents store, retrieve, and govern cross-session knowledge.
+    Memory is a retrieval aid, not a source of truth — it must point back to
+    documentation when a decision becomes official.
+
+  memory_types:
+    - id: session
+      description: conversation context within a single agent session
+      lifecycle: ephemeral — lost when session ends
+      examples:
+        - current task context
+        - file contents read this session
+        - tool output from this session
+      rules:
+        - do_not_rely_on_session_memory_for_durable_facts
+        - session_context_may_be_compacted_or_truncated
+
+    - id: persistent
+      description: cross-session facts stored in durable files
+      lifecycle: permanent until explicitly removed
+      examples:
+        - user preferences
+        - environment facts
+        - tool quirks
+        - stable conventions
+      rules:
+        - must_be_compact_and_high_signal
+        - must_be_declarative_facts_not_instructions
+        - must_not_store_task_progress_or_session_outcomes
+        - stale_facts_must_be_replaced_or_removed
+      storage: product_defined
+
+    - id: episodic
+      description: past session recall — searching conversation history
+      lifecycle: retained as long as session store exists
+      examples:
+        - "what did we do about X last week"
+        - "where did we leave the auth refactor"
+        - recovering context from prior work
+      rules:
+        - episodic_recall_is_secondary_to_source_inspection
+        - session_history_is_not_proof_of_current_state
+      storage: product_defined
+
+    - id: procedural
+      description: reusable approaches for recurring task types — skills
+      lifecycle: permanent, versioned, improvable
+      examples:
+        - bugfix workflow steps
+        - deployment checklist
+        - code review process
+      rules:
+        - must_be_stored_as_skills_not_memory_entries
+        - must_be_updated_when_found_outdated
+        - must_encode_pitfalls_discovered_during_use
+      storage: skill files (SKILL.md)
+
+  # Promotion rules — when memory becomes something else
+  promotion_rules:
+    - from: session
+      to: persistent
+      trigger: fact_will_matter_in_future_sessions
+      example: "user prefers concise responses"
+
+    - from: session
+      to: procedural
+      trigger: complex_task_succeeded_with_5_plus_steps
+      example: "discovered non-trivial workflow for deploying to staging"
+
+    - from: persistent
+      to: knowledge
+      trigger: decision_becomes_official
+      example: "team decided to use hexagonal architecture → write ADR"
+
+    - from: procedural
+      to: knowledge
+      trigger: skill_encodes_architecture_decision
+      example: "deployment skill defines rollback strategy → document in engineering contract"
+
+  # Memory vs knowledge boundary
+  boundary:
+    memory_is: decision history, retrieval aid, personal preferences, lessons learned
+    knowledge_is: source of truth, version-controlled, reviewable, team-shared
+    rule: when_a_decision_becomes_official_it_must_become_documentation
+
+  quality_gates:
+    - persistent_memory_must_be_declarative_not_imperative
+    - memory_must_not_store_task_progress_or_completed_work_logs
+    - stale_memory_must_be_pruned_within_one_week
+    - memory_must_not_contradict_source_of_truth_documentation
+    - procedural_memory_must_live_in_skills_not_memory_entries
+    - episodic_recall_must_not_substitute_for_source_inspection
+    - promotion_to_knowledge_must_happen_when_decision_is_official
+
+  adapter_requirements:
+    memory_storage_backend: product_defined
+    session_store_format: product_defined
+    memory_size_limit: product_defined
+    staleness_detection: product_defined
+    pruning_policy: product_defined
