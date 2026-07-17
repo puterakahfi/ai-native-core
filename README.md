@@ -4,8 +4,6 @@ Native AI Core is the public, runtime-agnostic contract layer for AI-native engi
 
 It defines the shared domain model, philosophy, lifecycle, rules, workflows, templates, ports, and skill contracts used by app adapters and runtime adapters.
 
-**68 skill contracts · 6 workflow contracts · 5 test contracts · 1 runtime contract**
-
 ## Repository Role
 
 ```text
@@ -16,6 +14,74 @@ native-ai-skills  = public runtime skill adapters that implement core skill cont
 
 This repository should stay free of private product context, credentials, deployment secrets, and runtime-specific profile state.
 
+---
+
+## Getting Started
+
+### As a Consumer (App Adapter)
+
+1. **Add core as a submodule or dependency:**
+
+   ```bash
+   git submodule add https://github.com/puterakahfi/ai-native-core.git core
+   ```
+
+2. **Reference contracts in your adapter skills:**
+
+   Each adapter skill declares which core contract it implements:
+
+   ```yaml
+   name: native-ai-runtime-agent
+   metadata:
+     ai-native-skills.type: skill
+     ai-native-skills.implements: ai-native-core/contracts/skills/runtime-agent/native-ai-runtime-agent.contract.yaml
+   ```
+
+3. **Use templates as starting points** for your product artifacts (ADRs, blueprints, specs).
+
+4. **Follow workflow contracts** — they define required phases and gates. Your adapter fills in team-specific details (branch strategy, CI, approvals).
+
+### As a Contributor
+
+- Contracts go in `contracts/` — runtime-agnostic, stable interfaces.
+- Skills (human-readable methodology) go in `skills/`.
+- Rules (enforcement constraints) go in `rules/`.
+- Templates (artifact starting points) go in `templates/`.
+- Framework docs go in `docs/`.
+
+---
+
+## Contract Format
+
+Every skill contract is a YAML file following this schema:
+
+```yaml
+skill_contract:
+  id: <skill-name>              # unique identifier
+  category: <category>          # e.g. experience-design, domain-architecture
+  type: contract
+  version: "1.0.0"
+  capability: <snake_case>      # machine-readable capability tag
+  description: >                # what any adapter for this contract must address
+    ...
+  roles:                        # which agent roles use this contract
+    - visual_designer
+  inputs:
+    required: [...]             # what the skill needs to begin
+    optional: [...]
+  outputs:
+    allowed: [...]              # what the skill may produce
+  quality_gates:                # conditions that must pass
+    - gate_name_snake_case
+  boundary:
+    covers: [...]               # what this contract owns
+    does_not_cover: [...]       # explicit delegation to other contracts
+```
+
+Workflow contracts follow a similar pattern but define **phases** and **gates** instead of inputs/outputs.
+
+---
+
 ## What Belongs Here
 
 ```text
@@ -23,31 +89,44 @@ contracts/        # stable public contracts for skills, workflows, runtime bindi
 rules/            # reusable framework rules
 workflows/        # reusable lifecycle workflows
 templates/        # generic artifact templates
-skills/           # human-readable shared skill methodology
-schemas/          # validation schemas when contracts stabilize
-docs/             # public framework docs
+skills/           # human-readable shared skill methodology (see note below)
+schemas/          # validation schemas (planned — not yet populated)
+docs/             # public framework docs, port specifications, architecture
 ```
+
+> **`skills/` vs `contracts/skills/`**: Contract YAML files define the *interface* — what any adapter must satisfy. Skill markdown files provide *human-readable methodology* — rationale, examples, and teaching material. Not every skill markdown has a contract (e.g. `code-execution/` series are methodology-only), and not every contract has a skill markdown. Over time, high-traffic contracts should have both.
 
 ---
 
 ## Skill Contracts
 
-### Experience Design (14)
+### Experience Design (25)
 
 | Contract | Description |
 |---|---|
-| `master-design` | Senior Product Designer — Eight Universal Rules, genre, macrostructures |
-| `macrostructures` | Layout archetypes — Marquee Hero, Studio, Editorial |
-| `design-genre` | Editorial dark, minimal light, bold brand — token selection per genre |
-| `design-system` | Token architecture, component library, design language governance |
-| `composition` | Focal point, optical center, dead space vs breathing room, eye-flow |
-| `visual-hierarchy` | Dominant/supporting/accent triad, H2 ≤ 60% H1, heading role taxonomy |
-| `readability` | Line length, contrast, type size, cognitive ease |
-| `responsiveness` | Mobile-first, wide/ultrawide breakpoints, max-width containers |
-| `motion-design` | Animation tokens, easing, reduced-motion, stagger patterns |
-| `ux-ui-patterns` | Component patterns, interaction states, behavior specs |
-| `ux-psychology` | Cognitive load, habit loops, Fitts's Law, Nielsen heuristics |
+| `master-design` | Senior Product Designer — product experience design orchestrator |
+| `design-foundation` | Base contract all design systems must satisfy — hierarchy, Ma, Kanso, tokens, accessibility |
+| `design-brand` | Locked external design systems — brand tokens, typeface, component rules override genre |
+| `design-genre` | Genre detection, signal matching, and slop prevention |
+| `design-system` | Design token decisions and semantic roles |
+| `macrostructures` | Page shape selection and layout pattern enforcement |
+| `composition` | Above-fold composition and visual anchoring |
+| `visual-hierarchy` | Typographic hierarchy and weight decay |
+| `readability` | Legibility scoring and dead space detection |
+| `responsiveness` | Breakpoint strategy, fluid grid, and touch targets |
+| `motion-design` | Micro and cinematic motion with reduced-motion compliance |
+| `color-theory` | Palette construction, harmony rules, temperature consistency, genre-to-palette mapping |
+| `typography` | Typeface selection, modular scale, hierarchy, line-height |
+| `spacing` | Visual rhythm, Ma principle, spatial hierarchy, breathing room |
+| `iconography` | Icon family selection, sizing, optical alignment |
+| `design-depth` | Layer stack declaration, atmosphere techniques, typography interleave |
+| `design-visual` | Port — abstracts all aesthetic decisions (genre, color, typography, motion, depth) |
+| `design-layout` | Port — abstracts all spatial decisions (macrostructure, responsiveness, spacing) |
+| `design-interaction` | Port — abstracts behavioral decisions (patterns, states, feedback) |
+| `design-strategy` | Port — abstracts user-centered decisions (psychology, IA, CRO, content) |
 | `design-review` | Design system compliance, AI slop detection, visual hierarchy gates |
+| `ux-psychology` | Behavioral and psychological UX analysis |
+| `ux-ui-patterns` | Layout pattern library and hero/card/nav decision tree |
 | `accessibility` | WCAG 2.1 AA — semantic HTML, ARIA, keyboard nav, screen reader |
 | `micro-frontend` | MFE boundary, shell contract, CSS isolation |
 
@@ -55,130 +134,130 @@ docs/             # public framework docs
 
 | Contract | Description |
 |---|---|
-| `copywriting` | Messaging hierarchy, value prop 1000-person test, buzzword blacklist |
-| `cro` | Attention flow, trust signals, 8-second window, persuasion sequence |
-| `content-strategy` | Content architecture, tone, editorial workflow |
+| `copywriting` | Messaging hierarchy, headline formulas, and tone calibration |
+| `cro` | Conversion optimization, trust signals, and friction audit |
+| `content-strategy` | Microcopy, tone of voice, and information sequencing |
 
 ### Design Ops (4)
 
 | Contract | Description |
 |---|---|
-| `redesign-workflow` | Full redesign loop — Phase 0.5 brief-signal, 35+ gates, skill-first fix |
-| `dark-light-theming` | Theme switching, token mapping, prefers-color-scheme |
-| `information-architecture` | Content hierarchy, navigation taxonomy, mental models |
-| `web-performance` | Core Web Vitals, bundle size, render blocking, caching |
+| `redesign-workflow` | Autonomous redesign loop — skill-first, gate-scored |
+| `dark-light-theming` | FOUC prevention and token mapping for dark/light themes |
+| `information-architecture` | Site map, nav hierarchy, and content grouping |
+| `web-performance` | LCP, CLS, INP optimization and performance budget |
 
-### Domain Architecture (10)
+### Domain Architecture (11)
 
 | Contract | Description |
 |---|---|
-| `domain-driven-design` | Bounded contexts, aggregates, value objects, domain events |
-| `ports-and-adapters` | Hexagonal architecture — port definition, adapter implementation |
-| `design-patterns` | GoF patterns + CQRS, Saga, Outbox |
-| `service-design` | Service boundary by bounded context, sync vs async, data ownership |
-| `api-contract` | OpenAPI, versioning, breaking change detection |
-| `event-driven-design` | Event schema, saga, idempotency, DLQ, Outbox, CQRS |
-| `ai-system-design` | RAG, agent memory, LLM evals, prompt injection defense |
-| `systems-thinking` | Feedback loops, second-order effects, Conway's Law, leverage points |
-| `adr` | Architecture Decision Records — immutable, superseding pattern |
-| `role-switcher` | Intent detection, automatic role composition |
-| `workflow-router` | Route to correct workflow from task intent |
+| `domain-driven-design` | Model domain using DDD building blocks and strategic patterns |
+| `ports-and-adapters` | Design hexagonal architecture with explicit ports and adapters |
+| `design-patterns` | Identify and apply appropriate design patterns for given forces |
+| `service-design` | Design service boundaries and inter-service communication |
+| `api-contract` | Design, enforce, and version API contracts between services |
+| `event-driven-design` | Design event schema, producer/consumer contracts, and saga patterns |
+| `ai-system-design` | Design AI-powered systems with RAG, agents, evals, and fallback |
+| `systems-thinking` | Analyze systems as wholes — feedback loops, emergence, unintended consequences |
+| `adr` | Author and maintain Architecture Decision Records |
+| `role-switcher` | Intent detection and automatic role composition |
+| `workflow-router` | Detect task type and route to correct workflow automatically |
 
 ### Software Engineering (7)
 
 | Contract | Description |
 |---|---|
-| `master-engineer` | Senior Software Engineer — system design, architecture decisions |
-| `refactoring` | Named code smells, green-first, small steps |
+| `master-engineer` | Software architecture and system design |
+| `refactoring` | Structured code refactoring without behavior change |
 | `test-driven-development` | RED-GREEN-REFACTOR — tests before implementation |
-| `technical-debt-governance` | Debt taxonomy, prioritization, paydown strategy |
-| `data-modeling` | Entity design, normalization, indexing, migration strategy |
-| `plan` | Actionable markdown plan with exact file paths |
-| `spike` | Throwaway experiment — validate idea, produce verdict |
+| `technical-debt-governance` | Debt inventory, classification, and paydown prioritization |
+| `data-modeling` | Schema design, migrations, and domain model alignment |
+| `plan` | Actionable plan authoring before execution |
+| `spike` | Throwaway experiment before build |
 
 ### Quality Control (7)
 
 | Contract | Description |
 |---|---|
-| `architecture-review` | Contract compliance — layer violations, DDD gates, dependency drift |
+| `architecture-review` | Engineering contract compliance review |
 | `systematic-debugging` | 4-phase root cause — investigate, analyze, hypothesize, fix |
-| `security-review` | OWASP baseline, secrets detection, injection vectors, auth gaps |
-| `threat-modeling` | STRIDE per trust boundary, data flow mapping, risk rating |
-| `resilience-engineering` | Failure mode analysis, circuit breakers, chaos engineering |
-| `ethics-responsible-ai` | Fairness audit, harm assessment, transparency, consent |
-| `skill-eval` | APPLIED/PARTIAL/GHOST — verify skills are actually applied |
+| `security-review` | Security baseline validation |
+| `threat-modeling` | Proactive security threat identification before implementation |
+| `resilience-engineering` | Design for failure, chaos engineering, and graceful degradation |
+| `ethics-responsible-ai` | Ethical analysis, fairness audit, and responsible AI governance |
+| `skill-eval` | Skill application verification and gate compliance testing |
 
 ### Product Management (5)
 
 | Contract | Description |
 |---|---|
-| `product-manager` | PRD authoring, acceptance criteria, task breakdown |
-| `product-requirements` | Goals, non-goals, scope, metrics, acceptance criteria |
-| `user-research` | User interviews, synthesis, insights, personas, JTBD |
-| `experiment-design` | Hypothesis, riskiest assumption, smallest test, decision rule |
-| `decision-making` | Decision framework, tradeoff analysis, reversibility |
+| `product-manager` | Product definition and task breakdown |
+| `product-requirements` | Author and verify product requirements documents |
+| `user-research` | Interview synthesis, JTBD, and insight generation |
+| `experiment-design` | Design minimum viable experiments for product/business value |
+| `decision-making` | Reversibility analysis, premortem, and decision framing |
 
 ### Context Management (4)
 
 | Contract | Description |
 |---|---|
-| `context-engineering` | AGENTS.md authoring — encode constraints, guardrails, domain knowledge |
-| `context-manager` | Context pack resolution — build precise context before execution |
-| `prompt-optimizer` | Vague intent → precise prompt: scope, constraint, output format |
-| `response-contract` | Persistent output verbosity — no filler, answer-first, code exact |
+| `context-engineering` | Institutional context authoring and curation |
+| `context-manager` | Context resolution and validation |
+| `prompt-optimizer` | Transform intent into precise, token-efficient prompt |
+| `response-contract` | Enforce output verbosity and filler elimination |
 
 ### Runtime Agent (2)
 
 | Contract | Description |
 |---|---|
-| `native-ai-runtime-agent` | Runtime agent in ai-native-fw product adapters |
-| `onboarding` | Bootstrap agent/engineer context — recon codebase, produce AGENTS.md |
+| `native-ai-runtime-agent` | Product adapter runtime execution |
+| `onboarding` | Bootstrap agent/engineer context for existing codebase |
 
 ### Runtime Operations (3)
 
 | Contract | Description |
 |---|---|
-| `native-ai-runtime-ops` | Ops for AI-native canonical runtime hosts |
-| `incident-response` | Structured incident lifecycle, blameless postmortem |
-| `observability-design` | Logs + metrics + traces — three pillars, four golden signals, SLO |
+| `native-ai-runtime-ops` | Canonical runtime operations |
+| `incident-response` | Structured incident lifecycle and blameless postmortem |
+| `observability-design` | Design logs, metrics, traces stack for distributed systems |
 
 ### Native AI (1)
 
 | Contract | Description |
 |---|---|
-| `native-ai-engineer` | Layer placement, runtime boundary, contract authoring |
+| `native-ai-engineer` | Native AI domain contract architecture and layer placement |
 
 ### Model (1)
 
 | Contract | Description |
 |---|---|
-| `model-selection` | Select model class by task intent, risk, capabilities, fallback |
+| `model-selection` | Select model class for AI-native engineering tasks |
 
 ### Business (1)
 
 | Contract | Description |
 |---|---|
-| `business-value-alignment` | User value, business value, metrics, assumptions, verdict |
+| `business-value-alignment` | Align work with user/business value, metrics, and decision rationale |
 
 ### Governance & Standards (3)
 
 | Contract | Description |
 |---|---|
-| `language-standards` | Consistent declared language across artifacts |
-| `rule-manager` | AGENTS.md/.cursorrules authoring and enforcement |
-| `git-workflow` | Branch, commit, PR, merge — generic source control |
+| `language-standards` | Enforce consistent declared language across artifacts |
+| `rule-manager` | Rule authoring, validation, and enforcement |
+| `git-workflow` | Source control operations — branch, commit, PR, merge |
 
 ### Visual Thinking (1)
 
 | Contract | Description |
 |---|---|
-| `diagram-architect` | Architecture diagrams — SVG, Excalidraw, Mermaid |
+| `diagram-architect` | Renderer-agnostic diagram modeling |
 
 ### Runtime Profile (1)
 
 | Contract | Description |
 |---|---|
-| `profile-bootstrap` | Profile skeleton, skill presets, install plan, verification policy |
+| `profile-bootstrap` | Runtime profile bootstrap — skeleton, presets, verification |
 
 ---
 
@@ -207,6 +286,55 @@ docs/             # public framework docs
 
 ---
 
+## Documentation
+
+The `docs/` directory contains framework concepts and port specifications:
+
+| Document | Topic |
+|---|---|
+| **Architecture** | |
+| [architecture-v0.2](docs/architecture-v0.2.md) | Framework architecture overview |
+| [ports-and-adapters](docs/ports-and-adapters.md) | Hexagonal architecture approach |
+| [port-taxonomy](docs/port-taxonomy.md) | Port classification and naming |
+| [domain-driven-model](docs/domain-driven-model.md) | Domain model design |
+| [engineering-contract](docs/engineering-contract.md) | Engineering contract specification |
+| [memory-vs-knowledge](docs/memory-vs-knowledge.md) | When to use memory vs documentation |
+| [adapter-registry](docs/adapter-registry.md) | Adapter registration and discovery |
+| **Provider Ports** | |
+| [agent-runtime-port](docs/agent-runtime-port.md) | Agent runtime binding |
+| [deployment-provider-port](docs/deployment-provider-port.md) | Deployment provider abstraction |
+| [domain-provider-port](docs/domain-provider-port.md) | Domain provider abstraction |
+| [environment-provider-port](docs/environment-provider-port.md) | Environment provider abstraction |
+| [observability-provider-port](docs/observability-provider-port.md) | Observability provider abstraction |
+| [persistence-port](docs/persistence-port.md) | Data persistence abstraction |
+| [infrastructure-integration-port](docs/infrastructure-integration-port.md) | Infrastructure integration abstraction |
+| **Product Ports** | |
+| [assistant-product-port](docs/assistant-product-port.md) | AI assistant product surface |
+| [content-product-port](docs/content-product-port.md) | Content product surface |
+| [creative-rendering-port](docs/creative-rendering-port.md) | Creative rendering surface |
+| [learning-product-port](docs/learning-product-port.md) | Learning product surface |
+| [media-product-port](docs/media-product-port.md) | Media product surface |
+| [template-product-port](docs/template-product-port.md) | Template product surface |
+| [product-output-port](docs/product-output-port.md) | Product output abstraction |
+| **System Ports** | |
+| [context-management-port](docs/context-management-port.md) | Context management abstraction |
+| [execution-run-port](docs/execution-run-port.md) | Execution run abstraction |
+| [product-management-port](docs/product-management-port.md) | Product management abstraction |
+| [quality-control-port](docs/quality-control-port.md) | Quality control abstraction |
+| [review-approval-port](docs/review-approval-port.md) | Review and approval abstraction |
+| [rule-management-port](docs/rule-management-port.md) | Rule management abstraction |
+| [security-baseline-port](docs/security-baseline-port.md) | Security baseline abstraction |
+| [skill-management-port](docs/skill-management-port.md) | Skill management abstraction |
+| [tool-integration-port](docs/tool-integration-port.md) | Tool integration abstraction |
+| [ui-design-system-port](docs/ui-design-system-port.md) | UI design system abstraction |
+| [ui-surface-port](docs/ui-surface-port.md) | UI surface abstraction |
+| [workflow-orchestration-port](docs/workflow-orchestration-port.md) | Workflow orchestration abstraction |
+| **Product-Specific** | |
+| [ai-coding-adapter](docs/ai-coding-adapter.md) | AI coding adapter specification |
+| [product-ui-design-system-contract](docs/product-ui-design-system-contract.md) | Product UI design system contract |
+
+---
+
 ## What Does Not Belong Here
 
 ```text
@@ -217,22 +345,6 @@ private deployment config
 private screenshots or customer/product data
 runtime-specific installed skill copies
 ```
-
----
-
-## Contract-Driven Usage
-
-An app adapter should include this core and then bind a product instance to a runtime:
-
-```text
-app adapter repo
-  -> includes native-ai-core
-  -> adds product-specific contracts/context
-  -> binds to runtime adapters such as Hermes
-  -> verifies output against core + product contracts
-```
-
-App adapter visibility is not part of the contract. It can be public for examples/open products or private for internal products.
 
 ---
 
@@ -251,6 +363,6 @@ metadata:
 
 ## Related
 
-- [ai-native-skills](https://github.com/puterakahfi/ai-native-skills) — skill adapter implementations (76 skills)
+- [ai-native-skills](https://github.com/puterakahfi/ai-native-skills) — skill adapter implementations
 - [ai-native-fw](https://github.com/puterakahfi/ai-native-fw) — product runtime adapter
 - [skills.sh](https://skills.sh) — open skills ecosystem standard
