@@ -1,0 +1,26 @@
+skill_contract:
+  id: design-layout
+  category: experience-design
+  type: port
+  version: "1.0.0"
+  capability: layout_structure_port_spatial_organization
+  description: >
+    Port contract for layout and structure. Abstracts all spatial decisions —
+    macrostructure, responsiveness, component structure.
+  roles:
+    - visual_designer
+    - redesign_workflow
+  adapters:
+    - id: macrostructures
+      concern: page_level_spatial_pattern
+      load_order: 1
+    - id: ui-components
+      concern: component_structure_nav_hero_sections
+      load_order: 2
+    - id: responsiveness
+      concern: breakpoints_fluid_grid
+      load_order: 3
+  quality_gates:
+    - macrostructure_picked_before_component_layout
+    - no_min_height_100vh_on_hero
+    - responsiveness_applied_from_start
