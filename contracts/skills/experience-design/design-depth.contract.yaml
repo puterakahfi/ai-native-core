@@ -1,0 +1,43 @@
+skill_contract:
+  id: design-depth
+  category: experience-design
+  type: contract
+  version: "1.0.0"
+  capability: visual_depth_layering_atmosphere_interleave
+  description: >
+    Defines what any depth adapter must address — layer stack declaration,
+    atmosphere techniques, typography interleave, scale-as-distance.
+    Flat is valid when Kanso applies; depth requires intent and assets.
+  roles:
+    - visual_designer
+    - redesign_workflow
+  inputs:
+    required:
+      - genre_selection
+      - depth_mode
+    optional:
+      - art_assets
+      - illustration_system
+  outputs:
+    allowed:
+      - layer_stack_declaration
+      - atmosphere_spec
+      - interleave_spec
+      - scale_rule
+  quality_gates:
+    - layer_stack_declared_before_produce
+    - objects_have_no_hard_edges
+    - body_text_remains_readable_over_objects
+    - interleave_has_mobile_fallback
+    - depth_mode_matches_asset_availability
+  boundary:
+    covers:
+      - layer_z_architecture
+      - atmosphere_css_techniques
+      - typography_interleave
+      - scale_distance_perspective
+      - genre_depth_patterns
+    does_not_cover:
+      - motion_parallax         # → motion-design
+      - 3d_transforms_scroll    # → motion-design
+      - illustration_creation   # → external asset
