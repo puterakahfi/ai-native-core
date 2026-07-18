@@ -1,5 +1,5 @@
 version: "1.0.0"
-generated_at: "2026-07-18T12:24:07Z"
+generated_at: "2026-07-18T12:25:55Z"
 description: "Auto-generated contract manifest. Regenerate with: scripts/generate-manifest.sh"
 total_contracts: 101
 contracts:
@@ -229,8 +229,8 @@ contracts:
         sha256: b4f9163d6afecd27
       - id: workflow-router
         path: contracts/skills/meta/workflow-router.contract.yaml
-        version: "0.2.0"
-        sha256: 24d0c39b5df19015
+        version: "0.2.1"
+        sha256: 3b254a53795c7034
     product:
       - id: business-value-alignment
         path: contracts/skills/product/business-value-alignment.contract.yaml
