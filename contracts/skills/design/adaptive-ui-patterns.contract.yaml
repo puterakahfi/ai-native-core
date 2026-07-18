@@ -1,0 +1,106 @@
+skill_contract:
+  id: adaptive-ui-patterns
+  category: design
+  type: skill
+  version: "1.0.0"
+  capability: viewport_aware_component_and_interaction_pattern_selection
+  description: >
+    Selects and adapts UI components, navigation, content density, and
+    interaction patterns for mobile, tablet, and desktop from product intent,
+    user tasks, content characteristics, input modality, and available space.
+    Responsive design must preserve task usability, not merely resize CSS.
+  roles:
+    - responsive_product_designer
+    - adaptive_ui_architect
+    - interaction_designer
+    - frontend_design_systems_specialist
+  inputs:
+    required:
+      - product_intent
+      - user_tasks
+      - content_inventory
+      - component_inventory
+      - target_viewports
+    optional:
+      - existing_design_system
+      - reference_patterns
+      - device_capabilities
+      - input_modalities
+      - analytics_or_usage_evidence
+      - accessibility_requirements
+  outputs:
+    allowed:
+      - viewport_strategy
+      - component_adaptation_matrix
+      - navigation_pattern_selection
+      - content_density_strategy
+      - interaction_mode_mapping
+      - responsive_behavior_contract
+      - breakpoint_acceptance_criteria
+      - pattern_selection_rationale
+  adaptation_modes:
+    allowed:
+      - reflow
+      - resize
+      - collapse
+      - swap
+      - scroll
+      - disclose
+      - hide
+    hide_requires:
+      - non_critical_content
+      - documented_rationale
+  decision_factors:
+    required:
+      - task_priority
+      - content_volume
+      - available_space
+      - interaction_frequency
+      - input_modality
+      - accessibility
+    viewport_guidance:
+      mobile:
+        optimize_for:
+          - focused_task_completion
+          - touch
+          - constrained_width
+          - progressive_disclosure
+      tablet:
+        optimize_for:
+          - intermediate_density
+          - touch_and_pointer
+          - portrait_and_landscape
+          - explicit_non_scaled_desktop_layout
+      desktop:
+        optimize_for:
+          - information_density
+          - parallel_context
+          - pointer_and_keyboard
+          - persistent_navigation_when_justified
+  quality_gates:
+    - each_major_component_has_mobile_tablet_desktop_behavior
+    - component_pattern_selected_from_content_and_task_context
+    - tablet_is_designed_explicitly_not_treated_as_scaled_desktop
+    - adaptation_mode_declared_as_reflow_resize_collapse_swap_scroll_disclose_or_hide
+    - navigation_pattern_matches_viewport_and_information_architecture
+    - dense_data_has_explicit_small_screen_transformation
+    - tabs_and_horizontal_collections_expose_overflow_affordance
+    - touch_pointer_and_keyboard_interactions_are_defined
+    - hidden_content_is_non_critical_and_justified
+    - implementation_acceptance_criteria_cover_target_viewports
+  boundary:
+    covers:
+      - viewport_specific_component_selection
+      - responsive_pattern_transformation
+      - navigation_adaptation
+      - content_density_adaptation
+      - interaction_mode_adaptation
+    does_not_cover:
+      - visual_style_and_brand_expression
+      - page_level_macrostructure_selection
+      - implementation_framework_specific_code
+      - generic_breakpoint_and_fluid_grid_auditing
+  adapter_requirements:
+    component_library_mapping_is_product_defined: true
+    breakpoint_values_are_product_defined: true
+    runtime_specific_behavior_must_stay_out_of_core: true

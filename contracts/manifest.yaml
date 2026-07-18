@@ -1,7 +1,7 @@
 version: "1.0.0"
-generated_at: "2026-07-17T11:43:25Z"
+generated_at: "2026-07-18T10:00:00Z"
 description: "Auto-generated contract manifest. Regenerate with: scripts/generate-manifest.sh"
-total_contracts: 97
+total_contracts: 98
 contracts:
   skills:
     architecture:
@@ -76,6 +76,10 @@ contracts:
         version: "0.1.0"
         sha256: 635b308915c34581
     design:
+      - id: adaptive-ui-patterns
+        path: contracts/skills/design/adaptive-ui-patterns.contract.yaml
+        version: "1.0.0"
+        sha256: 56111f117302549e
       - id: accessibility
         path: contracts/skills/design/accessibility.contract.yaml
         version: "0.1.0"
@@ -114,8 +118,8 @@ contracts:
         sha256: 3e475671782654db
       - id: design-layout
         path: contracts/skills/design/design-layout.contract.yaml
-        version: "1.0.0"
-        sha256: 0ab0cbf8a4f454e1
+        version: "2.0.0"
+        sha256: b6dabdf4ba51d416
       - id: design-strategy
         path: contracts/skills/design/design-strategy.contract.yaml
         version: "1.0.0"
