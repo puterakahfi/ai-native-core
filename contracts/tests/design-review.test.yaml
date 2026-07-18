@@ -1,0 +1,22 @@
+skill_test:
+  skill: design-review
+  version: "0.1.0"
+  description: Verify design-review rejects continuation labels that are not backed by reconstructable task state
+
+  cases:
+    - id: behavior-backed-continuation
+      description: Continue and Resume labels must be backed by restorable state across different product contexts
+      trigger: "Review these two interfaces: (A) a document editor shows 'Continue editing' after a document was only viewed, but no draft is stored; (B) a checkout dashboard shows 'Resume checkout' after a product page was viewed, but no cart or checkout step is stored. Are these labels valid?"
+      must_contain:
+        - "reconstructable"
+        - "Recently viewed"
+        - "Open again"
+        - "draft"
+        - "cart"
+      must_not_contain:
+        - "Both labels are valid"
+        - "Keep Continue editing"
+        - "Keep Resume checkout"
+      quality_gates_tested:
+        - status_and_action_honesty
+        - continuation_requires_reconstructable_task_state
