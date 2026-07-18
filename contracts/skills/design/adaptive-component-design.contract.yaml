@@ -3,7 +3,9 @@ skill_contract:
   category: design
   type: skill
   version: "1.0.0"
-  capability: cross_device_component_pattern_selection_and_substitution
+  capability: viewport_aware_component_and_interaction_pattern_selection
+  capability_aliases:
+    - cross_device_component_pattern_selection_and_substitution
   aliases:
     - adaptive-ui-patterns
   supersedes:
