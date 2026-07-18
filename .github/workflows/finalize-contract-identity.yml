@@ -1,0 +1,42 @@
+name: Finalize contract identity enforcement
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/finalize-contract-identity.yml
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install validator dependency
+        run: python3 -m pip install --disable-pip-version-check pyyaml
+
+      - name: Regenerate and validate
+        shell: bash
+        run: |
+          set -euo pipefail
+          ./scripts/generate-manifest.sh
+          python3 scripts/validate-contract-identity.py
+          grep -q 'id: adaptive-component-design' contracts/manifest.yaml
+          ! grep -q 'path: contracts/skills/design/adaptive-ui-patterns.contract.yaml' contracts/manifest.yaml
+          rm .github/workflows/finalize-contract-identity.yml
+
+      - name: Commit generated manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add contracts/manifest.yaml .github/workflows/finalize-contract-identity.yml
+          git diff --cached --check
+          git commit -m "chore: regenerate manifest after identity stabilization"
+          git push
