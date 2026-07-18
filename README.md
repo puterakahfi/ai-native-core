@@ -100,11 +100,11 @@ docs/             # public framework docs, port specifications, architecture
 
 ## Skill Contracts
 
-### Design (25)
+### Design (26)
 
 | Contract | Description |
 |---|---|
-| `master-design` | Senior Product Designer — product experience design orchestrator |
+| `master-design` | Senior Product Designer — product experience design orchestrator |\n| `adaptive-ui-patterns` | Viewport-aware component and interaction selection for mobile, tablet, and desktop |
 | `design-foundation` | Base contract all design systems must satisfy — hierarchy, Ma, Kanso, tokens, accessibility |
 | `design-brand` | Locked external design systems — brand tokens, typeface, component rules override genre |
 | `design-genre` | Genre detection, signal matching, and slop prevention |
@@ -121,7 +121,7 @@ docs/             # public framework docs, port specifications, architecture
 | `iconography` | Icon family selection, sizing, optical alignment |
 | `design-depth` | Layer stack declaration, atmosphere techniques, typography interleave |
 | `design-visual` | Port — abstracts all aesthetic decisions (genre, color, typography, motion, depth) |
-| `design-layout` | Port — abstracts all spatial decisions (macrostructure, responsiveness, spacing) |
+| `design-layout` | Port — abstracts spatial decisions (macrostructure, adaptive components, responsiveness, spacing) |
 | `design-interaction` | Port — abstracts behavioral decisions (patterns, states, feedback) |
 | `design-strategy` | Port — abstracts user-centered decisions (psychology, IA, CRO, content) |
 | `ux-psychology` | Behavioral and psychological UX analysis |
