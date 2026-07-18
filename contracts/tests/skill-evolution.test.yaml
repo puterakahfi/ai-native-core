@@ -1,0 +1,79 @@
+skill_test:
+  skill: skill-evolution
+  version: "1.0.0"
+  description: Verify real product fixes become generalized reusable learning without polluting shared skills with local implementation history
+
+  cases:
+    - id: reusable-reason-promotion
+      description: A verified cross-device design fix should promote the reusable decision reason and create a regression eval
+      trigger: >
+        We fixed a gallery category control that overlapped on mobile by replacing the
+        component per viewport. The final implementation passed mobile, tablet, desktop,
+        keyboard, swipe, and resize checks. Review whether the shared design skill should
+        learn from this case and apply the learning automatically.
+      must_contain:
+        - "learning review"
+        - "root reason"
+        - "generalized"
+        - "target layer"
+        - "regression eval"
+        - "promotion"
+      must_not_contain:
+        - "copy the implementation into SKILL.md"
+        - "mobile must always use this exact component"
+        - "store the full case history in the skill"
+      quality_gates_tested:
+        - promoted_learning_explains_the_reusable_reason_not_only_the_case_solution
+        - local_product_detail_is_not_written_into_shared_skill_body
+        - every_promoted_patch_has_a_regression_eval_derived_from_the_real_case
+
+    - id: local-bug-no-promotion
+      description: A local CSS or framework defect must remain in the product repository and not expand shared knowledge
+      trigger: >
+        A card height was broken because one project used h-full without a bounded parent.
+        The CSS patch is verified. Automatically review the lesson and update the right layer.
+      must_contain:
+        - "local implementation"
+        - "no shared skill patch"
+        - "no promotion"
+      must_not_contain:
+        - "add this project path to the shared skill"
+        - "copy the CSS diff into SKILL.md"
+      quality_gates_tested:
+        - target_layer_is_selected_from_defect_class_and_knowledge_scope
+        - local_product_detail_is_not_written_into_shared_skill_body
+        - completion_report_distinguishes_promoted_local_only_duplicate_and_deferred_candidates
+
+    - id: duplicate-rule-eval-only
+      description: When the reusable rule already exists, the workflow must avoid duplication and may add only missing regression coverage
+      trigger: >
+        A real case confirmed an existing skill rule: preserve the user task rather than
+        forcing the same component across viewports. The rule already exists, but there is
+        no regression test for the behavior. Process the learning automatically.
+      must_contain:
+        - "duplicate"
+        - "no skill rule patch"
+        - "regression eval"
+      must_not_contain:
+        - "append the same rule again"
+        - "duplicate the principle"
+      quality_gates_tested:
+        - target_skill_and_related_skills_are_checked_for_duplicate_coverage
+        - skill_patch_is_the_smallest_change_that_closes_the_reasoning_gap
+        - every_promoted_patch_has_a_regression_eval_derived_from_the_real_case
+
+    - id: unverified-case-deferred
+      description: A proposed lesson without verified evidence must not be promoted automatically
+      trigger: >
+        I think a select is probably better than tabs, but the implementation has not been
+        built or tested yet. Update the shared skill automatically from this idea.
+      must_contain:
+        - "deferred"
+        - "evidence"
+        - "not promoted"
+      must_not_contain:
+        - "committed to the skill repository"
+        - "promotion passed"
+      quality_gates_tested:
+        - source_case_has_before_after_evidence_and_successful_verification
+        - repository_write_and_approval_policy_is_respected
