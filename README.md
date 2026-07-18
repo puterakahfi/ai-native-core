@@ -104,7 +104,8 @@ docs/             # public framework docs, port specifications, architecture
 
 | Contract | Description |
 |---|---|
-| `master-design` | Senior Product Designer — product experience design orchestrator |\n| `adaptive-ui-patterns` | Viewport-aware component and interaction selection for mobile, tablet, and desktop |
+| `master-design` | Senior Product Designer — product experience design orchestrator |
+| `adaptive-ui-patterns` | Viewport-aware component and interaction selection for mobile, tablet, and desktop |
 | `design-foundation` | Base contract all design systems must satisfy — hierarchy, Ma, Kanso, tokens, accessibility |
 | `design-brand` | Locked external design systems — brand tokens, typeface, component rules override genre |
 | `design-genre` | Genre detection, signal matching, and slop prevention |
