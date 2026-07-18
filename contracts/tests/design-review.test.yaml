@@ -1,7 +1,7 @@
 skill_test:
   skill: design-review
-  version: "0.1.0"
-  description: Verify design-review rejects continuation labels that are not backed by reconstructable task state
+  version: "0.2.0"
+  description: Verify design-review enforces truthful continuation actions and rendered runtime integrity
 
   cases:
     - id: behavior-backed-continuation
@@ -20,3 +20,22 @@ skill_test:
       quality_gates_tested:
         - status_and_action_honesty
         - continuation_requires_reconstructable_task_state
+
+    - id: rendered-runtime-integrity
+      description: A visually usable interface must fail review when executable assets receive HTML or produce unhandled page errors
+      trigger: "Review these rendered interfaces: (A) an admin dashboard looks usable, but the browser reports an unhandled SyntaxError because an analytics script received an HTML document; (B) a storefront shell renders, but its lazy-loaded recommendation JavaScript receives a login HTML page. A separate framework prefetch request was cancelled without causing a page error or missing UI. Can these interfaces pass design review?"
+      must_contain:
+        - "REQUEST CHANGES"
+        - "unhandled"
+        - "HTML"
+        - "executable"
+        - "prefetch"
+      must_not_contain:
+        - "APPROVED"
+        - "ignore the console"
+        - "visual looks fine"
+        - "cancelled prefetch is automatically a failure"
+      quality_gates_tested:
+        - rendered_runtime_integrity
+        - executable_assets_must_not_receive_html
+        - cancelled_prefetch_requires_user_visible_impact
