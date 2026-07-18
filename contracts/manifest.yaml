@@ -1,7 +1,7 @@
 version: "1.0.0"
-generated_at: "2026-07-18T12:25:55Z"
+generated_at: "2026-07-18T14:43:02Z"
 description: "Auto-generated contract manifest. Regenerate with: scripts/generate-manifest.sh"
-total_contracts: 101
+total_contracts: 102
 contracts:
   skills:
     architecture:
@@ -367,6 +367,9 @@ contracts:
     - id: architecture-review
       path: contracts/tests/architecture-review.test.yaml
       sha256: 7f5724d56e047306
+    - id: design-review
+      path: contracts/tests/design-review.test.yaml
+      sha256: 80b4e084b47a265b
     - id: prompt-optimizer
       path: contracts/tests/prompt-optimizer.test.yaml
       sha256: a120ba66597f2d03
