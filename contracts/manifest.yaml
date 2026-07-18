@@ -1,7 +1,7 @@
 version: "1.0.0"
-generated_at: "2026-07-18T12:18:03Z"
+generated_at: "2026-07-18T12:19:13Z"
 description: "Auto-generated contract manifest. Regenerate with: scripts/generate-manifest.sh"
-total_contracts: 99
+total_contracts: 100
 contracts:
   skills:
     architecture:
@@ -285,6 +285,10 @@ contracts:
         path: contracts/skills/quality/skill-eval.contract.yaml
         version: "0.1.0"
         sha256: 5066982a1e2daa9e
+      - id: skill-evolution
+        path: contracts/skills/quality/skill-evolution.contract.yaml
+        version: "1.0.0"
+        sha256: e3845ef4ee54bd64
       - id: systematic-debugging
         path: contracts/skills/quality/systematic-debugging.contract.yaml
         version: "0.1.0"
