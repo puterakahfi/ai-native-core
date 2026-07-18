@@ -76,6 +76,10 @@ contracts:
         version: "0.1.0"
         sha256: 635b308915c34581
     design:
+      - id: adaptive-ui-patterns
+        path: contracts/skills/design/adaptive-ui-patterns.contract.yaml
+        version: "1.0.0"
+        sha256: 56111f117302549e
       - id: accessibility
         path: contracts/skills/design/accessibility.contract.yaml
         version: "0.1.0"
