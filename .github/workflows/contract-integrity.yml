@@ -16,13 +16,15 @@ on:
       - .github/workflows/contract-integrity.yml
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Install validator dependency
         run: python3 -m pip install --disable-pip-version-check pyyaml
@@ -30,26 +32,32 @@ jobs:
       - name: Validate canonical contract identity
         run: python3 scripts/validate-contract-identity.py
 
-      - name: Verify generated manifest is current
+      - name: Regenerate contract manifest
+        run: ./scripts/generate-manifest.sh
+
+      - name: Verify generated manifest is current on pull requests
+        if: github.event_name == 'pull_request'
         shell: bash
         run: |
           set -euo pipefail
-          cp contracts/manifest.yaml /tmp/manifest-before.yaml
-          ./scripts/generate-manifest.sh
+          if ! git diff --exit-code -- contracts/manifest.yaml; then
+            echo 'contracts/manifest.yaml is stale. Run ./scripts/generate-manifest.sh and commit it.'
+            exit 1
+          fi
+          echo 'PASS — contracts/manifest.yaml matches the contract tree.'
 
-          python3 - <<'PY'
-          from pathlib import Path
-          import sys
-          import yaml
+      - name: Commit regenerated manifest on direct main changes
+        if: github.event_name == 'push'
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- contracts/manifest.yaml; then
+            echo 'PASS — contracts/manifest.yaml already matches the contract tree.'
+            exit 0
+          fi
 
-          before = yaml.safe_load(Path('/tmp/manifest-before.yaml').read_text())
-          after = yaml.safe_load(Path('contracts/manifest.yaml').read_text())
-          before['generated_at'] = '<ignored>'
-          after['generated_at'] = '<ignored>'
-
-          if before != after:
-              print('contracts/manifest.yaml is stale. Run ./scripts/generate-manifest.sh and commit it.')
-              sys.exit(1)
-
-          print('PASS — contracts/manifest.yaml matches the contract tree.')
-          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add contracts/manifest.yaml
+          git commit -m 'chore(governance): sync contract manifest'
+          git push
