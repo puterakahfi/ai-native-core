@@ -2,29 +2,359 @@ skill_contract:
   id: redesign-workflow
   category: quality
   type: workflow
-  version: "1.0.0"
-  capability: autonomous_redesign_loop_skill_first_gate_scored
+  version: "1.1.0"
+  capability: autonomous_redesign_loop_gate_scored
+  description: >
+    Runtime-agnostic contract for redesigning an existing visual surface through
+    route selection, context discovery, design direction, value alignment,
+    specification, production, verification, evidence-based review, bounded
+    correction loops, and explicit delivery decisions.
+
   roles:
     - design_lead
     - ux_reviewer
     - frontend_engineer
+
+  boundary:
+    covers:
+      - existing_visual_surface_redesign
+      - redesign_vs_refinement_vs_audit_routing
+      - brand_and_design_system_preservation
+      - design_direction_and_macrostructure_selection
+      - user_and_business_value_alignment
+      - production_and_runtime_verification
+      - evidence_based_design_review
+      - bounded_fix_iterations
+      - delivery_or_gap_reporting
+    does_not_cover:
+      - net_new_product_definition
+      - non_visual_feature_development
+      - general_bugfix_workflow
+      - deployment_or_publishing
+      - destructive_repository_operations
+
   inputs:
     required:
-      - target_url_or_artifact
+      - target
     optional:
       - goal
+      - surface_type
       - products_in_scope
+      - content_inventory
+      - audience
+      - primary_cta
+      - output_mode
+      - output_path
+      - approval_mode
       - max_iterations
-  outputs:
+
+    definitions:
+      target:
+        description: URL, screenshot, artifact path, repository path, or named app surface.
+        accepted_kinds:
+          - url
+          - screenshot
+          - artifact_path
+          - repository_path
+          - app_surface
+      output_mode:
+        allowed:
+          - audit-only
+          - spec-only
+          - prototype
+          - patch
+        default: prototype
+      approval_mode:
+        allowed:
+          - autonomous
+          - spec-gated
+          - patch-gated
+          - fully-gated
+        default: spec-gated
+      max_iterations:
+        type: integer
+        minimum: 1
+        default: 5
+
+    validation_rules:
+      - target_must_be_resolvable
+      - patch_mode_requires_repository_or_editable_artifact
+      - output_path_must_be_safe_and_writable_when_provided
+      - max_iterations_must_be_positive
+      - destructive_or_high_impact_actions_require_explicit_approval
+
+  phases:
+    required:
+      - route
+      - initialize_run
+      - preflight
+      - direction
+      - layered_plan
+      - value_alignment
+      - spec_confirmation
+      - production
+      - verification
+      - review
+      - defect_classification
+      - fix
+      - delivery
+
+    definitions:
+      route:
+        purpose: Select redesign, refinement, or audit-only path.
+        produces:
+          - route_decision
+      initialize_run:
+        purpose: Validate inputs and initialize durable workflow state.
+        produces:
+          - run_state
+      preflight:
+        purpose: Inspect brand, design system, content, theme, framework, and existing design signals.
+        produces:
+          - preflight_report
+      direction:
+        purpose: Select and justify genre, visual language, and macrostructure from brief signals.
+        produces:
+          - design_direction
+      layered_plan:
+        purpose: Classify work into foundation, structure, components, expression, interaction, and content layers.
+        produces:
+          - layered_redesign_plan
+      value_alignment:
+        purpose: Connect proposed changes to user value, business value, and measurable outcomes.
+        produces:
+          - value_alignment_report
+      spec_confirmation:
+        purpose: Lock scope, preserved elements, audience, content, CTA, theme, and acceptance criteria.
+        produces:
+          - redesign_spec
+      production:
+        purpose: Produce the requested artifact or repository change through delegated design capabilities.
+        produces:
+          - redesigned_artifact
+      verification:
+        purpose: Verify rendering, runtime behavior, responsiveness, accessibility, and implementation health.
+        produces:
+          - verification_report
+      review:
+        purpose: Score all applicable gates using explicit evidence.
+        produces:
+          - gate_score_report
+          - score_progression
+      defect_classification:
+        purpose: Classify each failed gate before selecting the correction layer.
+        produces:
+          - defect_report
+      fix:
+        purpose: Correct the appropriate skill, reference, workflow, or implementation layer and verify regressions.
+        produces:
+          - fix_report
+          - skill_patch_log
+      delivery:
+        purpose: Deliver a passing artifact or the best bounded attempt with an honest gap report.
+        produces:
+          - loop_summary
+          - delivery_manifest
+
+  transitions:
+    - from: route
+      to: initialize_run
+    - from: initialize_run
+      to: preflight
+    - from: preflight
+      to: direction
+    - from: direction
+      to: layered_plan
+    - from: layered_plan
+      to: value_alignment
+    - from: value_alignment
+      to: spec_confirmation
+    - from: spec_confirmation
+      to: production
+      when: approval_policy_satisfied
+    - from: production
+      to: verification
+    - from: verification
+      to: review
+    - from: review
+      to: delivery
+      when: delivery_gate_passed
+    - from: review
+      to: defect_classification
+      when: delivery_gate_failed_and_iterations_remain
+    - from: defect_classification
+      to: fix
+    - from: fix
+      to: verification
+    - from: review
+      to: delivery
+      when: max_iterations_reached
+
+  states:
     allowed:
-      - redesigned_html_artifact
+      - initialized
+      - routed
+      - preflight_complete
+      - direction_selected
+      - plan_ready
+      - spec_ready
+      - awaiting_approval
+      - producing
+      - verifying
+      - reviewing
+      - classifying_defect
+      - fixing
+      - approved
+      - delivered
+      - validation_failed
+      - production_failed
+      - verification_failed
+      - max_iterations_reached
+
+  outputs:
+    required:
+      - redesigned_artifact
       - gate_score_report
+      - loop_summary
+      - delivery_manifest
+    conditional:
+      - route_decision
+      - run_state
+      - preflight_report
+      - design_direction
+      - layered_redesign_plan
+      - value_alignment_report
+      - redesign_spec
+      - verification_report
+      - defect_report
+      - fix_report
       - skill_patch_log
       - score_progression
-      - loop_summary
+      - gap_report
+
+    evidence_requirements:
+      gate_score_report:
+        each_gate_requires:
+          - gate_id
+          - score_or_pass_fail
+          - status
+          - evidence
+          - affected_region
+          - recommended_fix_when_failed
+      skill_patch_log:
+        each_patch_requires:
+          - defect_class
+          - target_file_or_skill
+          - reason
+          - change_summary
+          - verification_result
+      loop_summary:
+        requires:
+          - final_status
+          - iterations_used
+          - delivery_decision
+          - unresolved_gaps
+
+  defect_classes:
+    - id: reusable_skill_defect
+      correction_order:
+        - patch_skill_or_rule
+        - regenerate_or_patch_artifact
+        - verify_regression
+    - id: reference_knowledge_defect
+      correction_order:
+        - patch_reference
+        - regenerate_or_patch_artifact
+        - verify_regression
+    - id: workflow_orchestration_defect
+      correction_order:
+        - patch_workflow
+        - resume_from_safe_phase
+        - verify_regression
+    - id: local_implementation_defect
+      correction_order:
+        - patch_artifact
+        - verify_regression
+
   quality_gates:
-    - all_27_gates_must_score_8_or_above
-    - skill_patched_before_html_fix_mandatory
-    - macrostructure_justified_from_brief_signals
-    - pre_emit_critique_all_dimensions_3_or_above
-    - reduced_motion_gate_is_hard_gate
+    scoring_policy:
+      applicable_gate_average_minimum: 8.0
+      applicable_gate_floor: 6.0
+      require_evidence_for_every_score: true
+      unscored_gate_without_evidence_is_failure: true
+
+    hard_gates:
+      - foundation_gates_pass
+      - accessibility_pass
+      - reduced_motion_pass
+      - touch_failures_zero
+      - artifact_renderable
+      - no_blocking_runtime_error
+      - design_system_lock_respected_when_present
+      - macrostructure_justified_from_brief_signals
+      - pre_emit_critique_all_dimensions_3_or_above
+
+    delivery_rule: >
+      Delivery passes only when every hard gate passes, the average score across
+      applicable scored gates is at least 8.0, no applicable scored gate is below
+      6.0, and every score includes review evidence.
+
+  approval_policy:
+    autonomous:
+      pauses_before: []
+    spec-gated:
+      pauses_before:
+        - production_when_scope_or_direction_materially_changes
+    patch-gated:
+      pauses_before:
+        - repository_patch
+        - full_file_rewrite
+    fully-gated:
+      pauses_before:
+        - production
+        - every_repository_patch
+        - full_file_rewrite
+    always_requires_approval:
+      - destructive_change
+      - irreversible_change
+      - production_environment_change
+      - deletion_of_user_content
+
+  iteration_policy:
+    default_max_iterations: 5
+    count_increment_at: completed_review
+    same_region_patch_limit: 2
+    after_same_region_patch_limit:
+      - reread_full_file
+      - identify_dependencies
+      - preserve_locked_regions
+      - create_rewrite_plan
+      - rewrite_only_when_justified
+      - run_full_verification
+    on_exhausted:
+      status: max_iterations_reached
+      action: deliver_best_attempt_with_gap_report
+
+  failure_handling:
+    validation_failed:
+      action: stop_before_production
+      output:
+        - validation_errors
+        - required_correction
+    production_failed:
+      action: preserve_last_known_good_artifact_and_report
+    verification_failed:
+      action: classify_defect_before_fix
+    missing_dependency:
+      action: stop_affected_phase_and_report_dependency
+    approval_denied:
+      action: preserve_artifacts_and_end_without_patch
+
+  compatibility:
+    previous_version: "1.0.0"
+    aliases:
+      target_url_or_artifact: target
+      redesigned_html_artifact: redesigned_artifact
+    notes:
+      - Existing adapters may continue using skill_contract as the root key.
+      - Version 1.1.0 adds workflow semantics without requiring a root-key migration.
