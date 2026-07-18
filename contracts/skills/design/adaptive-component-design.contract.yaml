@@ -1,0 +1,163 @@
+skill_contract:
+  id: adaptive-component-design
+  category: design
+  type: skill
+  version: "1.0.0"
+  capability: cross_device_component_pattern_selection_and_substitution
+  aliases:
+    - adaptive-ui-patterns
+  supersedes:
+    - contracts/skills/design/adaptive-ui-patterns.contract.yaml
+  description: >
+    Selects and substitutes the most appropriate UI component and interaction
+    pattern across mobile, tablet, laptop, and desktop based on product intent,
+    user task, content characteristics, real available width, input modality,
+    discoverability, density, accessibility, and interaction cost. Responsive
+    design must preserve the user task, state, semantics, and information
+    priority; it must not merely resize a desktop component.
+  roles:
+    - adaptive_ui_designer
+    - cross_device_interaction_designer
+    - responsive_product_designer
+    - adaptive_ui_architect
+    - interaction_designer
+    - frontend_design_systems_specialist
+  inputs:
+    required:
+      - product_intent
+      - user_tasks
+      - content_inventory
+      - component_inventory
+      - target_viewports
+    optional:
+      - existing_design_system
+      - reference_patterns
+      - real_content_width
+      - option_count_and_label_length
+      - content_priority_and_frequency
+      - device_capabilities
+      - input_modalities
+      - analytics_or_usage_evidence
+      - accessibility_requirements
+  outputs:
+    allowed:
+      - viewport_strategy
+      - component_substitution_matrix
+      - component_selection_rationale
+      - rejected_component_alternatives
+      - navigation_pattern_selection
+      - content_density_strategy
+      - interaction_mode_mapping
+      - shared_state_and_semantics_contract
+      - responsive_behavior_contract
+      - breakpoint_acceptance_criteria
+      - visual_verification_evidence
+  adaptation_modes:
+    allowed:
+      - preserve
+      - reflow
+      - resize
+      - collapse
+      - substitute
+      - scroll
+      - disclose
+      - hide
+    hide_requires:
+      - non_critical_content
+      - documented_product_rationale
+  decision_factors:
+    required:
+      - user_task
+      - task_priority
+      - content_volume
+      - option_count
+      - label_length
+      - real_available_width
+      - discoverability_requirement
+      - interaction_frequency
+      - input_modality
+      - accessibility
+    viewport_guidance:
+      mobile:
+        optimize_for:
+          - focused_task_completion
+          - touch
+          - constrained_width
+          - progressive_disclosure
+          - reachable_primary_actions
+      tablet:
+        optimize_for:
+          - intermediate_density
+          - touch_and_pointer
+          - portrait_and_landscape
+          - explicit_non_scaled_desktop_layout
+          - explicit_non_stretched_phone_layout
+      laptop_and_desktop:
+        optimize_for:
+          - information_density
+          - parallel_context
+          - pointer_and_keyboard
+          - persistent_navigation_when_justified
+  component_selection_rules:
+    - preserve_primary_discovery_choices_when_the_set_is_small_stable_and_high_value
+    - use_select_or_combobox_for_secondary_numerous_dynamic_searchable_or_long_options
+    - tabs_require_sufficient_width_readable_labels_persistent_state_and_reachable_options
+    - dense_comparison_requires_explicit_small_screen_transformation
+    - prefer_existing_design_system_primitives_when_they_fit_the_task
+    - custom_components_require_documented_reasoning
+  horizontal_rail_requirements:
+    - native_swipe_or_trackpad_scrolling
+    - visible_next_item_peek_or_edge_affordance
+    - right_control_at_start_paired_controls_in_middle_left_control_at_end
+    - controls_reflect_actual_scroll_state
+    - keyboard_reachable_controls_with_accessible_names
+    - controls_must_not_permanently_cover_items
+  quality_gates:
+    - each_major_component_has_mobile_tablet_laptop_desktop_behavior
+    - component_pattern_selected_from_user_task_content_and_context
+    - requested_component_is_treated_as_a_proposed_solution_not_an_immutable_requirement
+    - tablet_is_designed_explicitly_not_treated_as_scaled_desktop_or_stretched_phone
+    - adaptation_mode_is_declared_for_each_component_and_viewport
+    - primary_choices_are_not_hidden_without_product_rationale
+    - navigation_pattern_matches_viewport_and_information_architecture
+    - dense_data_has_explicit_small_screen_transformation
+    - tabs_and_horizontal_collections_expose_overflow_affordance
+    - horizontal_rail_controls_are_paired_and_scroll_state_aware
+    - touch_pointer_and_keyboard_interactions_are_defined
+    - interactive_targets_do_not_overlap_clip_or_fall_below_accessible_size
+    - component_variants_preserve_shared_value_state_event_semantics_analytics_and_accessible_labels
+    - hidden_content_is_non_critical_and_justified
+    - component_choice_includes_rejected_alternatives_and_tradeoffs
+    - implementation_acceptance_criteria_cover_target_and_boundary_viewports
+    - visual_verification_uses_realistic_content_and_interaction_evidence
+    - code_inspection_alone_is_not_accepted_as_visual_verification
+  boundary:
+    covers:
+      - viewport_specific_component_selection
+      - cross_device_component_substitution
+      - responsive_pattern_transformation
+      - navigation_component_adaptation
+      - content_density_adaptation
+      - interaction_mode_adaptation
+      - shared_state_and_semantics_across_variants
+      - overflow_affordance_behavior
+      - component_fitness_verification
+    does_not_cover:
+      - visual_style_and_brand_expression
+      - page_level_macrostructure_selection
+      - design_token_definition
+      - generic_breakpoint_and_fluid_grid_mechanics
+      - implementation_framework_specific_code
+      - product_specific_component_library_mapping
+    delegates_to:
+      visual_style_and_brand_expression: design-visual
+      page_level_macrostructure_selection: design-layout
+      interaction_states_and_feedback: design-interaction
+      breakpoint_and_fluid_grid_mechanics: responsiveness
+      final_compliance_review: design-review
+  adapter_requirements:
+    component_library_mapping_is_product_defined: true
+    breakpoint_values_are_product_defined: true
+    runtime_specific_behavior_must_stay_out_of_core: true
+    adapter_must_preserve_shared_state_and_semantics_across_variants: true
+    adapter_must_provide_visual_verification_evidence: true
