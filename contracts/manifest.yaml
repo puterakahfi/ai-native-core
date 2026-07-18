@@ -1,7 +1,7 @@
 version: "1.0.0"
-generated_at: "2026-07-18T10:00:00Z"
+generated_at: "2026-07-18T11:41:03Z"
 description: "Auto-generated contract manifest. Regenerate with: scripts/generate-manifest.sh"
-total_contracts: 98
+total_contracts: 99
 contracts:
   skills:
     architecture:
@@ -76,14 +76,14 @@ contracts:
         version: "0.1.0"
         sha256: 635b308915c34581
     design:
-      - id: adaptive-ui-patterns
-        path: contracts/skills/design/adaptive-ui-patterns.contract.yaml
-        version: "1.0.0"
-        sha256: 56111f117302549e
       - id: accessibility
         path: contracts/skills/design/accessibility.contract.yaml
         version: "0.1.0"
         sha256: 30e4235087db0f98
+      - id: adaptive-component-design
+        path: contracts/skills/design/adaptive-component-design.contract.yaml
+        version: "1.0.0"
+        sha256: 9deee2bc60d4f2ec
       - id: color-theory
         path: contracts/skills/design/color-theory.contract.yaml
         version: "1.0.0"
@@ -261,6 +261,10 @@ contracts:
         path: contracts/skills/quality/architecture-review.contract.yaml
         version: "0.1.0"
         sha256: 4d5ebe30dd17f8ab
+      - id: design-refinement
+        path: contracts/skills/quality/design-refinement.contract.yaml
+        version: "1.0.0"
+        sha256: 3244518c27b601af
       - id: design-review
         path: contracts/skills/quality/design-review.contract.yaml
         version: "0.1.0"
@@ -271,8 +275,8 @@ contracts:
         sha256: 7df8b8b20709c4ac
       - id: redesign-workflow
         path: contracts/skills/quality/redesign-workflow.contract.yaml
-        version: "1.0.0"
-        sha256: f7cf1717420c95b6
+        version: "1.1.0"
+        sha256: 06082a023037930e
       - id: resilience-engineering
         path: contracts/skills/quality/resilience-engineering.contract.yaml
         version: "0.1.0"
