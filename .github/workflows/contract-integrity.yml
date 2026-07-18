@@ -1,0 +1,55 @@
+name: Contract integrity
+
+on:
+  pull_request:
+    paths:
+      - contracts/**
+      - scripts/generate-manifest.sh
+      - scripts/validate-contract-identity.py
+      - .github/workflows/contract-integrity.yml
+  push:
+    branches: [main]
+    paths:
+      - contracts/**
+      - scripts/generate-manifest.sh
+      - scripts/validate-contract-identity.py
+      - .github/workflows/contract-integrity.yml
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install validator dependency
+        run: python3 -m pip install --disable-pip-version-check pyyaml
+
+      - name: Validate canonical contract identity
+        run: python3 scripts/validate-contract-identity.py
+
+      - name: Verify generated manifest is current
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp contracts/manifest.yaml /tmp/manifest-before.yaml
+          ./scripts/generate-manifest.sh
+
+          python3 - <<'PY'
+          from pathlib import Path
+          import sys
+          import yaml
+
+          before = yaml.safe_load(Path('/tmp/manifest-before.yaml').read_text())
+          after = yaml.safe_load(Path('contracts/manifest.yaml').read_text())
+          before['generated_at'] = '<ignored>'
+          after['generated_at'] = '<ignored>'
+
+          if before != after:
+              print('contracts/manifest.yaml is stale. Run ./scripts/generate-manifest.sh and commit it.')
+              sys.exit(1)
+
+          print('PASS — contracts/manifest.yaml matches the contract tree.')
+          PY
