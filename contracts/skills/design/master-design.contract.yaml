@@ -2,38 +2,184 @@ skill_contract:
   id: master-design
   category: design
   type: skill
-  version: "0.1.0"
-  capability: product_experience_design
+  version: "0.2.0"
+  capability: context_driven_product_experience_and_visual_direction_synthesis
+
+  purpose: >
+    Defines the active product-design ownership contract for translating product intent,
+    user tasks, content, brand equity, viewing context, and implementation constraints into
+    one coherent experience and visual direction. Specialist skills advise narrow concerns;
+    the design owner compares alternatives, resolves trade-offs, preserves valid locks, and
+    produces an evidence-ready handoff without turning one style recipe into a universal rule.
+
   roles:
     - senior_product_designer
-    - saas_ui_ux_designer
-    - design_systems_specialist
+    - product_experience_owner
+    - ui_ux_design_lead
     - frontend_art_director
+
   inputs:
     required:
       - product_intent
-      - product_blueprint
       - target_user
-      - user_problem
+      - primary_user_tasks
+      - target_surface
     optional:
+      - product_blueprint
+      - content_inventory
+      - information_architecture
       - existing_design_system
-      - product_specific_rules
-      - screenshot
-      - route_url
+      - brand_and_product_locks
+      - existing_product_equity
+      - reference_patterns
+      - viewing_contexts
+      - technical_constraints
+      - analytics_or_research_evidence
+      - accessibility_requirements
+      - requested_component_or_style
+
   outputs:
     allowed:
       - design_brief
       - user_flow
-      - wireframe
-      - mockup_contract
+      - information_architecture
+      - direction_candidates
+      - selected_design_direction
+      - visual_direction_contract
+      - component_strategy
+      - responsive_and_adaptive_strategy
       - interaction_contract
-      - design_review
+      - mockup_contract
+      - engineering_handoff
+      - verification_plan
+      - design_decision_record
+
+  ownership_contract:
+    owns:
+      - final_product_design_synthesis
+      - user_outcome_and_experience_direction
+      - direction_candidate_comparison
+      - final_visual_direction_selection
+      - specialist_delegation_and_reconciliation
+      - preservation_of_valid_product_brand_and_system_locks
+      - design_to_engineering_handoff
+    does_not_own:
+      - specialist_gate_definitions
+      - independent_acceptance_verdict
+      - repository_implementation
+      - product_scope_authority
+      - legal_or_regulatory_approval
+
+  direction_candidate_contract:
+    required_fields:
+      - candidate_id
+      - product_and_user_fit
+      - hierarchy_and_focal_strategy
+      - density_and_containment
+      - typography_role_strategy
+      - color_and_contrast_stance
+      - composition_and_flow
+      - depth_and_imagery_stance
+      - motion_stance
+      - component_and_interaction_implications
+      - responsive_implications
+      - supports
+      - risks
+      - conflicts_with_locks
+      - rejected_or_weaker_alternatives
+    rules:
+      - compare_at_least_two_materially_distinct_candidates_when_direction_is_not_locked
+      - candidates_must_differ_in_structure_or_expression_not_only_palette
+      - style_keywords_must_be_translated_into_observable_rules
+      - references_are_evidence_and_influence_not_copy_targets
+      - product_category_is_a_signal_not_an_automatic_genre
+      - candidate_selection_must_state_tradeoffs_and_rejected_reasons
+
+  visual_direction_contract:
+    required_fields:
+      - selected_candidate_id
+      - direction_statement
+      - hierarchy_roles
+      - composition_logic
+      - density_and_space_rhythm
+      - containment_grammar
+      - typography_roles
+      - color_roles
+      - depth_mode
+      - imagery_or_asset_strategy
+      - motion_stance
+      - voice_and_content_tone
+      - component_expression_rules
+      - responsive_continuity_rules
+      - intentional_tensions_or_asymmetries
+      - restraint_rules
+      - prohibited_generic_patterns
+      - evidence_plan
+    rules:
+      - each_visible_treatment_must_have_a_named_role_or_product_reason
+      - one_visual_technique_must_not_be_repeated_as_default_across_every_section
+      - hierarchy_can_use_more_than_three_levels_when_content_requires_it
+      - type_roles_do_not_require_different_font_families
+      - spacing_scale_values_are_product_or_system_defined
+      - symmetry_or_asymmetry_is_contextual
+      - flat_shallow_or_deep_composition_is_contextual
+      - accent_quantity_is_contextual_and_semantic
+      - premium_is_not_equivalent_to_gradient_shadow_blur_or_glass
+      - minimal_is_not_equivalent_to_excessive_empty_space
+      - editorial_is_not_equivalent_to_random_asymmetry
+
+  specialist_delegation:
+    strategy_and_content: design-strategy
+    visual_expression: design-visual
+    page_structure: design-layout
+    cross_context_component_fitness: adaptive-component-design
+    interaction_behavior: design-interaction
+    token_and_component_system: design-system
+    independent_acceptance: design-review
+    rules:
+      - delegate_only_when_the_concern_is_active
+      - specialist_output_must_return_evidence_tradeoffs_and_boundary
+      - final_synthesis_remains_with_master_design
+      - conflicting_specialist_recommendations_must_be_resolved_explicitly
+
+  anti_slop_contract:
+    failure_signals:
+      - style_label_without_observable_direction_rules
+      - generic_saas_hero_independent_of_product_content
+      - repeated_card_grid_for_unrelated_content_types
+      - gradient_glow_blur_or_glass_used_without_semantic_or_compositional_role
+      - every_section_using_the_same_container_heading_and_card_recipe
+      - invented_metrics_testimonials_badges_or_product_claims
+      - decorative_dashboard_or_mockup_that_does_not_show_real_product_value
+      - oversized_heading_used_as_the_only_hierarchy_strategy
+      - excessive_empty_space_labeled_as_premium_or_zen
+      - arbitrary_asymmetry_labeled_as_editorial
+      - visual_depth_added_without_assets_or_message_value
+      - reference_site_structure_copied_without_product_reason
+      - component_selected_because_it_is_familiar_or_available
+    rules:
+      - diagnose_the_repeated_design_grammar_not_only_individual_symptoms
+      - remove_or_replace_generic_treatments_that_have_no_named_role
+      - preserve_real_product_content_and_distinctive_equity
+      - do_not_solve_slop_by_randomly_adding_more_visual_effects
+
   quality_gates:
-    - product_intent_alignment
-    - clear_information_hierarchy
-    - required_ui_states_covered
-    - accessibility_review
-    - implementation_handoff_ready
+    - product_intent_and_primary_task_are_visible_in_the_design
+    - requested_solution_is_evaluated_not_followed_blindly
+    - selected_direction_is_compared_against_real_alternatives
+    - selected_direction_is_observable_and_engineering_ready
+    - hierarchy_grouping_flow_and_accessibility_are_resolved
+    - visual_expression_matches_content_audience_context_and_brand_equity
+    - component_strategy_matches_task_content_and_context
+    - valid_product_brand_and_design_system_locks_are_preserved
+    - generic_patterns_without_product_reason_are_removed
+    - required_states_and_responsive_continuity_are_defined
+    - specialist_findings_are_synthesized_into_one_coherent_decision
+    - verification_plan_matches_rendered_or_implemented_claims
+    - independent_design_review_is_required_for_acceptance
+
   adapter_requirements:
     runtime_specific_behavior_must_stay_out_of_core: true
     product_specific_rules_must_be_layered_by_app_adapter: true
+    visual_direction_must_not_hardcode_one_brand_or_product_example: true
+    style_numeric_thresholds_must_be_diagnostic_or_product_defined_not_universal: true
