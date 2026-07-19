@@ -1,48 +1,62 @@
 workflow_contract:
   id: code-review
   type: workflow
-  version: "0.1.0"
+  version: "0.2.0"
   category: quality-control
   purpose: >
-    Defines the required phases, quality gates, and skill dependencies for a
-    code review workflow. Applies to any code submission — PR, MR, or patch —
-    before merge. Product adapters define approval policy, blocking criteria,
-    and issue tracker integration.
+    Defines required phases, evidence gates, and reviewer boundaries for reviewing
+    any code submission before merge. Product adapters define approval policy,
+    blocking criteria, preview/runtime production, and issue-tracker integration.
 
   required_phases:
     - id: load-context
       order: 1
-      description: Load engineering contract and design system contract before reviewing
-      gate: contracts_loaded_before_review
+      description: Load the submission, specification, engineering rules, product design locks, and available verification evidence
+      gate: review_context_and_evidence_declared
+      skills:
+        required: []
+
+    - id: change-classification
+      order: 2
+      description: Classify architecture, logic, security, data, and user-facing design impact before selecting reviewers
+      gate: changed_domains_classified_before_review
       skills:
         required: []
 
     - id: architecture-check
-      order: 2
-      description: Check code against engineering contract — stack, layers, dependencies, ADR requirements
+      order: 3
+      description: Check code against engineering contracts, boundaries, dependencies, migrations, and ADR policy
       gate: engineering_contract_compliance_verified
       skills:
         required: [architecture-review]
 
     - id: design-check
-      order: 3
-      description: Check UI changes against design system contract — slop detection, token compliance, visual direction
-      gate: design_system_compliance_verified
+      order: 4
+      description: For user-facing visual or interaction changes, route through the design-review facade with fresh evidence appropriate to the artifact state
+      gate: facade_design_acceptance_resolved
       optional: true
       skills:
         optional: [design-review]
 
     - id: logic-check
-      order: 4
-      description: Review business logic, edge cases, error handling, and test coverage
+      order: 5
+      description: Review business logic, edge cases, error handling, state transitions, and relevant test coverage
       gate: logic_and_test_coverage_verified
       skills:
         optional: [systematic-debugging, master-engineer]
 
+    - id: security-check
+      order: 6
+      description: Run threat and security review when trust boundaries, authentication, authorization, secrets, or sensitive data are affected
+      gate: applicable_security_risk_resolved
+      optional: true
+      skills:
+        optional: [security-review, threat-modeling]
+
     - id: verdict
-      order: 5
-      description: Produce structured review verdict — approve, request changes, or block
-      gate: verdict_must_reference_specific_violations
+      order: 7
+      description: Map all domain verdicts and evidence gaps into approve, request changes, or block
+      gate: verdict_must_reference_specific_evidence_and_violations
       skills:
         required: []
 
@@ -53,18 +67,62 @@ workflow_contract:
       load: [design-review]
     - phase: logic-check
       load: [systematic-debugging, master-engineer]
+    - phase: security-check
+      load: [security-review, threat-modeling]
+
+  design_review_contract:
+    trigger_when:
+      - rendered appearance can change
+      - interaction or responsive behavior can change
+      - user-facing states, content fidelity, accessibility, or visual assets can change
+      - generated or exported visual artifacts are changed by code
+    required_route_fields:
+      - design_domain
+      - surface_profile
+      - artifact_state
+      - review_depth
+      - coverage_mode
+      - domain_reviewers
+      - evidence_available
+      - evidence_gaps
+    evidence_policy:
+      source_only:
+        - source and token compliance may be inspected
+        - visual, interaction, runtime, and export claims remain NOT_VERIFIED
+        - source-only evidence cannot approve a changed rendered result
+      rendered_interactive:
+        - required changed viewports, themes, states, and inputs must be exercised
+        - runtime and accessibility evidence are required when affected
+      rendered_static:
+        - final size, crop, fidelity, content, and export evidence are required when affected
+    merge_mapping:
+      PASS: eligible_for_approval
+      CONDITIONAL_PASS: eligible_only_when_all_remaining_risks_are_explicitly_accepted_and_non_blocking
+      NEEDS_WORK: request_changes
+      CRITICAL: block
+      LIMITED_REVIEW: block_complete_domain_approval
+      ROUTE_ELSEWHERE: block_until_required_reviewer_is_available
 
   quality_gates:
-    - engineering_contract_must_be_loaded_before_review
+    - review_context_and_available_evidence_must_be_declared
+    - changed_domains_must_be_classified_before_reviewer_selection
     - no_approval_without_architecture_check
-    - design_check_required_when_ui_changes_present
-    - verdict_must_cite_specific_violations_not_vague_feedback
-    - compiled_or_generated_code_does_not_imply_approval
+    - design_check_required_when_user_facing_visual_or_interaction_output_changes
+    - changed_rendered_output_requires_fresh_rendered_or_exported_evidence
+    - screenshot_does_not_prove_runtime_keyboard_or_hidden_states
+    - source_only_design_review_cannot_approve_visual_or_interaction_acceptance
+    - limited_domain_coverage_cannot_approve_complete_specialist_design_claims
+    - applicable_security_review_cannot_be_skipped
+    - verdict_must_cite_specific_evidence_and_violations
+    - compiled_generated_or_green_ci_does_not_imply_approval
     - no_merge_without_explicit_approval_verdict
 
   adapter_requirements:
     approval_policy: product_defined
     blocking_violation_criteria: product_defined
-    design_check_trigger: product_defined
+    design_change_detection: product_defined
+    preview_or_runtime_provisioning: product_defined
+    required_design_viewports_states_and_inputs: product_defined
+    accepted_risk_authority: product_defined
     issue_tracker: product_defined
     ci_gate_required: product_defined
