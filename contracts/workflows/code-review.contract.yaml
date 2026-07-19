@@ -1,27 +1,28 @@
 workflow_contract:
   id: code-review
   type: workflow
-  version: "0.2.0"
+  version: "0.3.0"
   category: quality-control
   purpose: >
-    Defines required phases, evidence gates, and reviewer boundaries for reviewing
-    any code submission before merge. Product adapters define approval policy,
-    blocking criteria, preview/runtime production, and issue-tracker integration.
+    Defines required phases, evidence gates, reviewer boundaries, decision-provenance
+    checks, and merge-authorization separation for reviewing any code submission.
+    Product adapters define approval policy, blocking criteria, preview/runtime
+    production, accepted-risk authorities, and issue-tracker integration.
 
   required_phases:
     - id: load-context
       order: 1
-      description: Load the submission, specification, engineering rules, product design locks, and available verification evidence
-      gate: review_context_and_evidence_declared
+      description: Load the submission, specification, decision sources, engineering rules, product design locks, approval policy, and available verification evidence
+      gate: review_context_evidence_and_decision_sources_declared
       skills:
-        required: []
+        optional: [decision-provenance]
 
     - id: change-classification
       order: 2
-      description: Classify architecture, logic, security, data, and user-facing design impact before selecting reviewers
-      gate: changed_domains_classified_before_review
+      description: Classify architecture, logic, security, data, user-facing design, and material authority claims before selecting reviewers
+      gate: changed_domains_and_material_decision_claims_classified_before_review
       skills:
-        required: []
+        optional: [decision-provenance]
 
     - id: architecture-check
       order: 3
@@ -55,12 +56,14 @@ workflow_contract:
 
     - id: verdict
       order: 7
-      description: Map all domain verdicts and evidence gaps into approve, request changes, or block
-      gate: verdict_must_reference_specific_evidence_and_violations
+      description: Map domain evidence into a technical review verdict, then independently verify accepted-risk and merge authorization provenance
+      gate: technical_verdict_and_merge_authorization_must_be_explicit
       skills:
-        required: []
+        required: [decision-provenance]
 
   skill_load_order:
+    - phase: load-context
+      load: [decision-provenance]
     - phase: architecture-check
       load: [architecture-review]
     - phase: design-check
@@ -69,6 +72,35 @@ workflow_contract:
       load: [systematic-debugging, master-engineer]
     - phase: security-check
       load: [security-review, threat-modeling]
+    - phase: verdict
+      load: [decision-provenance]
+
+  decision_provenance_contract:
+    check_when:
+      - submission_or_pr_body_claims_scope_approval
+      - submission_claims_required_dependency_or_exception
+      - reviewer_or_author_claims_a_risk_is_accepted
+      - submission_claims_a_lock_policy_or_required_review_is_waived
+      - technical_approval_is_being_mapped_to_merge_authorization
+      - destructive_migration_or_high_impact_change_requires_owner_approval
+    required_claim_fields:
+      - claim
+      - decision_type
+      - applies_to
+      - proposed_action
+      - source_ref
+      - observed_authority
+      - required_authority
+    rules:
+      - author_or_agent_authored_pr_text_is_not_owner_approval
+      - implementation_existence_or_commit_recency_does_not_prove_scope_or_authority
+      - technical_reviewer_verdict_does_not_self_grant_product_security_or_release_authority
+      - accepted_risk_requires_verified_authority_scope_mitigation_and_expiry_when_policy_requires_it
+      - missing_or_conflicted_provenance_blocks_the_dependent_merge_or_exception_claim
+      - product_policy_may_require_additional_approvers_even_when_technical_review_passes
+    output:
+      artifact: decision_provenance_report
+      verdicts: [PASS, PROVENANCE_BLOCKED, ROUTE_FOR_APPROVAL]
 
   design_review_contract:
     trigger_when:
@@ -96,16 +128,47 @@ workflow_contract:
       rendered_static:
         - final size, crop, fidelity, content, and export evidence are required when affected
     merge_mapping:
-      PASS: eligible_for_approval
-      CONDITIONAL_PASS: eligible_only_when_all_remaining_risks_are_explicitly_accepted_and_non_blocking
+      PASS: technical_design_requirement_may_pass
+      CONDITIONAL_PASS: requires_separately_verified_non_blocking_risk_acceptance
       NEEDS_WORK: request_changes
       CRITICAL: block
       LIMITED_REVIEW: block_complete_domain_approval
       ROUTE_ELSEWHERE: block_until_required_reviewer_is_available
 
+  verdict_contract:
+    technical_review_verdicts:
+      APPROVED:
+        meaning: every_affected_domain_passes_or_only_verified_non_blocking_flags_remain
+      REQUEST_CHANGES:
+        meaning: correctable_domain_or_evidence_gaps_remain
+      BLOCKED:
+        meaning: hard_failure_required_reviewer_gap_unsafe_condition_or_irresponsible_evaluation_boundary
+    merge_authorization:
+      AUTHORIZED:
+        requires:
+          - technical_review_verdict_is_APPROVED
+          - decision_provenance_verdict_is_PASS
+          - every_accepted_risk_has_verified_authority
+          - all_product_policy_approvals_are_satisfied
+      NOT_AUTHORIZED:
+        when:
+          - technical_review_is_REQUEST_CHANGES_or_BLOCKED
+          - provenance_is_PROVENANCE_BLOCKED
+          - required_owner_or_policy_approval_is_missing
+      ROUTE_FOR_APPROVAL:
+        when:
+          - technical_review_is_APPROVED_but_an_additional_required_authority_has_not_decided
+    rules:
+      - approved_to_merge_yes_requires_both_technical_approval_and_merge_authorization
+      - code_review_approval_must_not_be_presented_as_release_or_product_scope_approval
+      - conditional_domain_verdict_requires_verified_non_blocking_risk_acceptance
+      - missing_provenance_is_not_an_accepted_risk
+
   quality_gates:
-    - review_context_and_available_evidence_must_be_declared
+    - review_context_available_evidence_and_decision_sources_must_be_declared
     - changed_domains_must_be_classified_before_reviewer_selection
+    - material_scope_risk_exception_and_merge_claims_require_decision_provenance
+    - author_or_agent_authored_pr_text_is_not_owner_approval
     - no_approval_without_architecture_check
     - design_check_required_when_user_facing_visual_or_interaction_output_changes
     - changed_rendered_output_requires_fresh_rendered_or_exported_evidence
@@ -114,8 +177,10 @@ workflow_contract:
     - limited_domain_coverage_cannot_approve_complete_specialist_design_claims
     - applicable_security_review_cannot_be_skipped
     - verdict_must_cite_specific_evidence_and_violations
-    - compiled_generated_or_green_ci_does_not_imply_approval
-    - no_merge_without_explicit_approval_verdict
+    - compiled_generated_or_green_ci_does_not_imply_technical_approval
+    - technical_approval_does_not_self_authorize_merge
+    - accepted_risk_requires_verified_authority
+    - no_merge_without_explicit_technical_verdict_and_merge_authorization
 
   adapter_requirements:
     approval_policy: product_defined
@@ -124,5 +189,6 @@ workflow_contract:
     preview_or_runtime_provisioning: product_defined
     required_design_viewports_states_and_inputs: product_defined
     accepted_risk_authority: product_defined
+    merge_authority: product_defined
     issue_tracker: product_defined
     ci_gate_required: product_defined
