@@ -2,22 +2,25 @@ skill_contract:
   id: redesign-workflow
   category: quality
   type: workflow
-  version: "2.0.0"
-  capability: delegated_domain_aware_redesign_loop
+  version: "2.1.0"
+  capability: delegated_domain_aware_scope_safe_redesign_loop
 
   purpose: >
     Defines the lifecycle for redesigning an existing visual surface through
-    explicit routing, role composition, evidence-backed direction, delegated
-    production, domain-appropriate verification, facade review, bounded
-    correction, and honest delivery. The workflow owns orchestration; design,
-    engineering, and review specialists retain their own knowledge and gates.
+    explicit routing, role composition, confirmed delivery scope, evidence-backed
+    direction, delegated production, domain-appropriate verification, final-diff
+    integrity, facade review, bounded correction, and honest delivery. The
+    workflow owns orchestration and scope boundaries; design, engineering, and
+    review specialists retain their own knowledge and gates.
 
   boundary:
     covers:
       - existing_visual_surface_redesign
       - redesign_vs_refinement_vs_audit_routing
       - explicit_design_and_implementation_ownership
-      - brand_content_and_design_system_preservation
+      - confirmed_scope_and_baseline_capture
+      - final_effective_diff_integrity
+      - brand_content_asset_behavior_and_path_preservation
       - direction_macrostructure_and_layered_change_planning
       - user_and_business_value_alignment
       - delegated_visual_layout_strategy_interaction_and_system_work
@@ -31,6 +34,7 @@ skill_contract:
       - audit_only_work_after_route_handoff
       - known_narrow_refinement_after_route_handoff
       - non_visual_feature_development
+      - unrelated_product_feature_auth_data_or_infrastructure_changes
       - general_bugfix_workflow
       - deployment_or_publishing
       - legal_trademark_clearance
@@ -54,6 +58,8 @@ skill_contract:
       - required_assets
       - preservation_locks
       - viewing_context
+      - baseline_ref
+      - confirmed_scope
 
     definitions:
       target:
@@ -66,31 +72,37 @@ skill_contract:
           - brand-identity
           - other
       output_mode:
-        allowed:
-          - audit-only
-          - spec-only
-          - prototype
-          - patch
+        allowed: [audit-only, spec-only, prototype, patch]
         default: prototype
       approval_mode:
-        allowed:
-          - autonomous
-          - spec-gated
-          - patch-gated
-          - fully-gated
+        allowed: [autonomous, spec-gated, patch-gated, fully-gated]
         default: spec-gated
       max_iterations:
         type: integer
         minimum: 1
         default: 5
+      baseline_ref:
+        description: Merge base, approved commit, or original artifact used for the effective delivery diff.
+      confirmed_scope:
+        fields:
+          - products
+          - routes_or_surfaces
+          - allowed_paths
+          - allowed_change_types
+          - expected_generated_files
+          - expected_deletions
+          - preserved_paths
+          - out_of_scope
 
     validation_rules:
       - target_must_be_resolvable
       - route_must_be_resolved_before_production
       - patch_mode_requires_repository_or_editable_artifact
+      - patch_mode_requires_baseline_and_confirmed_scope_before_production
       - output_path_must_be_safe_and_writable_when_provided
       - max_iterations_must_be_positive
       - destructive_or_high_impact_actions_require_explicit_approval
+      - unrelated_product_auth_database_user_data_or_infrastructure_changes_are_not_inferred_as_design_scope
 
   role_contract:
     required_slots:
@@ -163,6 +175,7 @@ skill_contract:
       - external_patterns_own_behavior_accessibility_and_edge_cases_when_selected
       - internal_components_own_product_brand_tokens_and_visual_expression
       - copy_and_content_decisions_must_precede_layout_lock_when_they_change_structure
+      - production_must_remain_inside_confirmed_scope_or_reenter_approval_policy
 
   phases:
     required:
@@ -189,13 +202,13 @@ skill_contract:
         purpose: Assign design owner, conditional implementation owner, selected specialists, reviewer facade, and domain reviewer.
         produces: [role_composition, delegation_plan]
       initialize_run:
-        purpose: Validate inputs and initialize durable workflow state.
+        purpose: Validate inputs, capture baseline, and initialize durable workflow state.
         produces: [run_state]
       preflight:
-        purpose: Inspect target, brand, content, design system, framework, existing equity, constraints, and evidence gaps.
+        purpose: Inspect target, existing effective diff, brand, content, system, framework, equity, constraints, and evidence gaps.
         produces: [preflight_report]
       direction:
-        purpose: Select and justify direction using product, brand, audience, content, trust, complexity, and competitive signals.
+        purpose: Select and justify direction using product, brand, audience, content, trust, complexity, and category signals.
         produces: [design_direction]
       layered_plan:
         purpose: Mark strategy, foundation, structure, components, expression, interaction, content, and implementation as preserve, refine, replace, or not applicable.
@@ -204,25 +217,25 @@ skill_contract:
         purpose: Connect proposed changes to user value, business or delivery value, and measurable signals.
         produces: [value_alignment_report]
       spec_confirmation:
-        purpose: Lock scope, preservation, content, assets, viewing contexts, acceptance criteria, and approval boundary.
+        purpose: Lock scope, allowed paths and change types, exclusions, preservation, content, assets, viewing contexts, acceptance criteria, and approval boundary.
         produces: [redesign_spec]
       production:
-        purpose: Produce the requested artifact or repository change through the declared delegation plan.
+        purpose: Produce the requested artifact or repository change through the declared delegation plan and confirmed scope.
         produces: [redesigned_artifact, production_report]
       verification:
-        purpose: Collect fresh evidence appropriate to artifact state, design domain, changed layers, and declared delivery boundary.
-        produces: [verification_report]
+        purpose: Collect domain evidence and classify every effective changed entry against the confirmed scope.
+        produces: [verification_report, scope_diff_report]
       review:
-        purpose: Invoke the design-review facade and applicable domain reviewer using canonical gates and fresh verification evidence.
+        purpose: Invoke the design-review facade and applicable domain reviewer using canonical gates and fresh evidence after scope integrity passes.
         produces: [design_review_result]
       defect_classification:
-        purpose: Classify every failed or partial finding under its governing reviewer and correction owner.
+        purpose: Classify failed or partial design findings and route scope contamination to its causal owner.
         produces: [defect_report]
       fix:
-        purpose: Apply the smallest correct local or reusable correction, verify regression, and run learning review after verified fixes.
+        purpose: Apply the smallest correct correction, restore or split contamination, verify regression, and run learning review after verified reusable fixes.
         produces: [fix_report, learning_review]
       delivery:
-        purpose: Deliver an accepted artifact or a bounded attempt with explicit verdict, limitations, evidence gaps, and rollback information.
+        purpose: Deliver an accepted artifact or a bounded attempt with explicit verdict, scope status, limitations, evidence gaps, and rollback information.
         produces: [loop_summary, delivery_manifest]
 
   transitions:
@@ -236,12 +249,59 @@ skill_contract:
     - {from: value_alignment, to: spec_confirmation}
     - {from: spec_confirmation, to: production, when: approval_policy_satisfied}
     - {from: production, to: verification}
-    - {from: verification, to: review}
-    - {from: review, to: delivery, when: facade_verdict_allows_delivery}
+    - {from: verification, to: review, when: scope_integrity_passes_or_output_is_not_patch}
+    - {from: verification, to: defect_classification, when: scope_integrity_is_blocked}
+    - {from: review, to: delivery, when: facade_verdict_and_scope_allow_delivery}
     - {from: review, to: defect_classification, when: facade_verdict_requires_work_and_iterations_remain}
     - {from: defect_classification, to: fix}
     - {from: fix, to: verification}
     - {from: review, to: delivery, when: max_iterations_reached}
+
+  scope_diff_contract:
+    required_for:
+      - output_mode_patch
+      - repository_backed_prototype_with_delivery_claim
+    effective_diff:
+      compare: baseline_ref_to_target_ref
+      inspect:
+        - added_modified_deleted_and_renamed_paths
+        - binary_and_generated_artifacts
+        - submodule_or_dependency_pointer_changes
+        - preserved_path_violations
+    classifications:
+      - IN_SCOPE
+      - REQUIRED_DEPENDENCY
+      - EXPECTED_GENERATED
+      - OUT_OF_SCOPE
+      - UNKNOWN
+    required_entry_fields:
+      - path
+      - change_type
+      - classification
+      - owner
+      - rationale
+      - acceptance_criterion
+    blockers:
+      - any_out_of_scope_entry
+      - any_unknown_entry
+      - undeclared_database_or_schema_change
+      - undeclared_auth_authorization_entitlement_or_user_data_change
+      - undeclared_other_product_or_route
+      - preserved_path_deletion_or_mutation
+      - generated_or_binary_artifact_without_provenance
+      - unexplained_submodule_or_dependency_pointer_change
+      - unreproducible_baseline_or_target
+    rules:
+      - branch_history_may_be_noisy_but_effective_final_diff_must_be_clean
+      - every_changed_entry_must_be_classified
+      - required_dependency_needs_causal_reason_owner_and_acceptance_criterion
+      - mergeability_does_not_prove_scope_integrity
+      - contamination_is_a_workflow_blocker_not_a_design_score
+      - valuable_unrelated_work_must_be_preserved_elsewhere_before_removal
+      - contamination_must_be_restored_removed_split_or_reapproved_before_passing_delivery
+    output:
+      status: [PASS, BLOCKED]
+      artifact: scope_diff_report
 
   verification_contract:
     strategies:
@@ -286,33 +346,20 @@ skill_contract:
       - missing_evidence_is_not_a_zero_score
       - full_commands_may_be_deferred_during_creative_iteration_but_not_silently_passed
       - verification_must_recheck_preservation_locks
+      - patch_verification_must_include_scope_diff_report
 
   review_contract:
     facade: design-review
-    coverage_modes:
-      - BUILT_IN
-      - ADAPTER_COVERED
-      - LIMITED
-      - ROUTE_ELSEWHERE
-    gate_statuses:
-      - PASS
-      - FAIL
-      - PARTIAL
-      - NOT_VERIFIED
-      - NOT_APPLICABLE
-    verdicts:
-      - PASS
-      - CONDITIONAL_PASS
-      - NEEDS_WORK
-      - CRITICAL
-      - LIMITED_REVIEW
-      - ROUTE_ELSEWHERE
+    coverage_modes: [BUILT_IN, ADAPTER_COVERED, LIMITED, ROUTE_ELSEWHERE]
+    gate_statuses: [PASS, FAIL, PARTIAL, NOT_VERIFIED, NOT_APPLICABLE]
+    verdicts: [PASS, CONDITIONAL_PASS, NEEDS_WORK, CRITICAL, LIMITED_REVIEW, ROUTE_ELSEWHERE]
     rules:
       - every_selected_or_reported_gate_id_must_be_canonical_and_registered
       - evidence_coverage_and_primary_domain_coverage_must_be_separate
       - contextual_hard_gates_come_from_loaded_reviewers
-      - average_score_never_overrides_hard_gate_failure_or_missing_domain_coverage
+      - average_score_never_overrides_hard_gate_failure_missing_domain_coverage_or_scope_block
       - limited_review_cannot_be_reported_as_complete_domain_approval
+      - visual_observations_may_be_recorded_while_scope_is_blocked_but_cannot_authorize_delivery
 
   delivery_contract:
     decisions:
@@ -325,6 +372,7 @@ skill_contract:
           - sufficient_primary_domain_coverage
           - required_evidence_available
           - preservation_locks_pass
+          - scope_diff_pass_when_applicable
       CONDITIONAL_PASS:
         action: deliver_with_explicit_accepted_risks
         requires:
@@ -332,6 +380,7 @@ skill_contract:
           - no_verified_hard_gate_failure
           - remaining_gaps_are_non_blocking_and_within_approval_boundary
           - accepted_risk_owner_and_expiry_when_relevant
+          - scope_diff_pass_when_applicable
       NEEDS_WORK:
         action: return_to_defect_classification_when_iterations_remain
       CRITICAL:
@@ -340,6 +389,8 @@ skill_contract:
         action: load_domain_reviewer_narrow_claim_or_route_to_specialist
       ROUTE_ELSEWHERE:
         action: stop_unsupported_approval_claim
+      SCOPE_BLOCKED:
+        action: restore_remove_split_or_reapprove_required_dependency
       MAX_ITERATIONS_REACHED:
         action: deliver_best_preserved_attempt_with_gap_report
     prohibitions:
@@ -347,9 +398,11 @@ skill_contract:
       - do_not_use_average_score_as_the_only_delivery_rule
       - do_not_convert_not_verified_into_pass
       - do_not_apply_interactive_hard_gates_to_static_or_specialized_domains
+      - do_not_accept_scope_contamination_as_conditional_risk
+      - do_not_treat_mergeability_as_scope_approval
 
   defect_contract:
-    required_fields:
+    design_finding_required_fields:
       - canonical_gate_id
       - governing_reviewer
       - observed_failure
@@ -359,6 +412,13 @@ skill_contract:
       - defect_class
       - correction_owner
       - verification_required
+    scope_contamination_required_fields:
+      - path
+      - change_type
+      - classification
+      - causal_owner
+      - preservation_action
+      - approval_requirement
     classes:
       - reusable_skill_defect
       - reference_knowledge_defect
@@ -370,6 +430,7 @@ skill_contract:
       - visible_symptom_does_not_determine_correction_owner
       - shared_skills_must_not_receive_product_specific_facts
       - verified_reusable_fixes_require_learning_review_and_regression_eval
+      - scope_contamination_is_not_forced_into_a_design_gate
 
   iteration_policy:
     default_max_iterations: 5
@@ -406,6 +467,7 @@ skill_contract:
       - irreversible_change
       - production_environment_change
       - deletion_of_user_content
+      - material_scope_expansion
 
   outputs:
     required:
@@ -424,6 +486,7 @@ skill_contract:
       - redesigned_artifact
       - production_report
       - verification_report
+      - scope_diff_report
       - design_review_result
       - defect_report
       - fix_report
@@ -435,25 +498,29 @@ skill_contract:
     - exactly_one_design_owner_is_explicit
     - implementation_owner_is_explicit_when_patching
     - specialists_are_selected_from_declared_changed_layers
+    - baseline_and_confirmed_scope_are_recorded_before_patch_production
     - preservation_locks_are_recorded_and_rechecked
     - direction_uses_product_brand_audience_content_and_context_signals
     - production_follows_declared_delegation_plan
+    - production_remains_inside_confirmed_scope
     - verification_strategy_matches_primary_design_domain_and_artifact_state
+    - final_effective_diff_must_match_confirmed_scope
+    - every_changed_path_must_be_classified
+    - scope_contamination_blocks_review_and_delivery
     - review_uses_design_review_facade_and_loaded_domain_reviewer
     - gate_statuses_preserve_partial_not_verified_and_not_applicable
     - contextual_hard_gates_are_reviewer_owned
-    - facade_verdict_controls_delivery_and_fix_transitions
+    - facade_verdict_and_scope_integrity_control_delivery_and_fix_transitions
     - every_failed_or_partial_gate_has_governing_reviewer_and_evidence
     - defect_classification_precedes_fix
     - verified_reusable_fixes_run_learning_review_and_regression_eval
     - max_iteration_delivery_is_not_labeled_as_passed
 
   compatibility:
-    previous_version: "1.1.0"
-    breaking_changes:
-      - adds_compose_roles_phase
-      - replaces_global_ui_hard_gates_with_reviewer_owned_contextual_gates
-      - replaces_pass_fail_na_status_with_facade_gate_status_model
-      - replaces_average_score_delivery_rule_with_facade_verdict_mapping
-      - adds_domain_appropriate_verification_strategies
-      - separates_design_owner_implementation_owner_and_reviewer
+    previous_version: "2.0.0"
+    additive_changes:
+      - adds_baseline_and_confirmed_scope_inputs
+      - adds_scope_diff_report
+      - adds_final_effective_diff_integrity_gate
+      - blocks_unrelated_auth_database_user_data_product_and_infrastructure_changes
+      - requires_scope_pass_for_patch_delivery
