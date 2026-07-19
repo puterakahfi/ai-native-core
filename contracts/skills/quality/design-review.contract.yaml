@@ -2,47 +2,153 @@ skill_contract:
   id: design-review
   category: quality
   type: skill
-  version: "0.1.0"
-  capability: design_system_compliance_and_slop_detection
+  version: "0.2.0"
+  capability: evidence_backed_design_review_facade
+
+  purpose: >
+    Defines a unified design-review entry point that classifies the target,
+    selects applicable built-in or external domain reviewers, normalizes
+    evidence, resolves canonical gate identities, calculates score and coverage,
+    and produces a consistent verdict without owning every design discipline.
+
   roles:
-    - design_reviewer
-    - ui_quality_enforcer
-    - ai_slop_detector
+    - design_review_facade
+    - reviewer_router
+    - evidence_normalizer
+    - score_and_coverage_assembler
+    - verdict_reporter
+
   inputs:
     required:
-      - design_artifact
-      - design_system_contract_ref
+      - target
+      - design_domain
+      - artifact_state
+      - review_depth
+      - goal
     optional:
-      - page_pattern_contract_ref
-      - existing_component_list
-      - visual_direction_ref
-      - screenshot_or_mockup
+      - surface_profile
+      - viewing_context
+      - required_assets
+      - selected_gate_ids
+      - selected_components
+      - domain_reviewers
+      - evidence_available
+      - evidence_gaps
+
   outputs:
-    allowed:
-      - compliance_verdict
-      - slop_pattern_list
-      - violation_list
-      - intentionality_assessment
-      - consistency_verdict
-      - recommendation_list
-      - approved_flag
+    required:
+      - review_route
+      - design_domain
+      - coverage_mode
+      - loaded_reviewers
+      - gate_results
+      - evidence_coverage
+      - primary_domain_coverage
+      - hard_gate_status
+      - verdict
+      - prioritized_findings
+      - scope_limitations
+      - recommended_handoff
+
+  phases:
+    - classify
+    - route
+    - inspect
+    - universal_review
+    - domain_or_surface_review
+    - component_review
+    - evidence_and_score
+    - report
+
+  coverage_modes:
+    - BUILT_IN
+    - ADAPTER_COVERED
+    - LIMITED
+    - ROUTE_ELSEWHERE
+
+  verdicts:
+    - PASS
+    - CONDITIONAL_PASS
+    - NEEDS_WORK
+    - CRITICAL
+    - LIMITED_REVIEW
+    - ROUTE_ELSEWHERE
+
+  gate_registry_contract:
+    purpose: Provide stable gate identity without moving specialist knowledge into the facade.
+    required_gate_fields:
+      - id
+      - canonical_name
+      - title
+      - namespace
+      - owner
+      - design_domain
+      - status
+      - applicability
+      - default_weight
+      - hard_gate_policy
+    allowed_statuses:
+      - active
+      - deprecated
+      - reserved
+    requirements:
+      - every selected or reported gate id must exist in the canonical registry
+      - every active gate must resolve to exactly one governing owner
+      - the governing owner retains the full gate definition and evidence rules
+      - aliases and deprecated ids must resolve through an explicit migration map
+      - callers and eval contracts must not invent gate ids
+      - external domain reviewers must register a unique namespace before adding gates
+      - registry validation must detect missing definitions duplicate names invalid owners and broken migrations
+    extension_policy:
+      namespace_format: "^[A-Z][A-Z0-9]{0,5}$"
+      gate_id_format: "^<namespace>[1-9][0-9]*$"
+      collision_policy: reject
+      ownership_policy: one_canonical_owner_per_active_gate
+
+  evidence_policy:
+    statuses:
+      - PASS
+      - FAIL
+      - PARTIAL
+      - NOT_VERIFIED
+      - NOT_APPLICABLE
+    rules:
+      - score only verified applicable gates
+      - NOT_VERIFIED and NOT_APPLICABLE are not zero
+      - screenshot evidence cannot prove interaction runtime keyboard or hidden states
+      - universal visual evidence cannot prove specialist domain quality
+      - evidence coverage and primary domain coverage must be reported separately
+
+  scoring_policy:
+    default_pass_threshold: 8.0
+    critical_score_below: 5.0
+    rules:
+      - hard gates are contextual and owned by the applicable reviewer
+      - high score with limited domain coverage cannot produce complete approval
+      - repeated symptoms should reconcile to their governing root cause
+
   quality_gates:
-    - must_load_design_system_contract_before_review
-    - must_check_visual_direction_compliance
-    - must_detect_ai_template_patterns
-    - must_detect_generic_admin_panel_smell
-    - must_check_component_reuse_vs_one_off_styles
-    - must_check_color_token_compliance
-    - must_check_typography_compliance
-    - must_check_layout_pattern_compliance
-    - must_check_status_badge_rule_compliance
-    - must_check_responsive_rules
-    - must_check_accessibility_baseline
-    - must_flag_must_not_feel_like_violations
-    - vague_prompt_output_make_it_clean_is_forbidden
-    - random_page_level_styles_are_forbidden
+    - design_domain_and_artifact_state_must_be_classified_before_gate_selection
+    - universal_and_domain_specific_gates_must_remain_separate
+    - interactive_gates_must_not_be_applied_to_static_artifacts
+    - every_selected_or_reported_gate_id_must_be_registered
+    - every_active_gate_must_have_one_governing_owner
+    - gate_aliases_and_deprecations_must_have_explicit_migrations
+    - callers_and_eval_contracts_must_not_invent_gate_ids
+    - evidence_must_precede_gate_status_and_score
+    - score_must_exclude_not_verified_and_not_applicable_gates
+    - evidence_coverage_and_primary_domain_coverage_must_be_separate
+    - hard_gates_must_be_contextual_and_reviewer_owned
+    - unsupported_primary_domains_must_use_limited_review_or_route_elsewhere
+    - facade_must_not_copy_specialist_domain_knowledge
+    - review_must_not_silently_become_redesign_or_implementation
+
   adapter_requirements:
-    design_system_contract_source: product_defined
-    slop_severity_policy: product_defined
-    blocking_vs_warning_policy: product_defined
-    visual_direction_source: product_defined
+    canonical_gate_registry: required
+    gate_migration_map: required
+    gate_registry_validator: required
+    built_in_domain_reviewers: adapter_defined
+    external_domain_reviewer_loading: adapter_defined
+    evidence_capture_mechanism: runtime_defined
+    scoring_weights: profile_or_domain_defined
+    report_format: adapter_defined
