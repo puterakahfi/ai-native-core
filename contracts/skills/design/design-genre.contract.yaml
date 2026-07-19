@@ -2,25 +2,125 @@ skill_contract:
   id: design-genre
   category: design
   type: skill
-  version: "1.0.0"
-  capability: genre_detection_signal_matching_and_slop_prevention
+  version: "1.1.0"
+  capability: contextual_expression_family_selection_and_anti_slop_constraints
+
+  purpose: >
+    Defines genre as an expression family for density, containment, voice, texture,
+    color stance, imagery, and motion—not a product-category shortcut or one-word
+    style selector. Genre is resolved after foundation and product/brand context,
+    may include a bounded secondary influence, and must produce observable constraints.
+
   roles:
-    - design_reviewer
     - visual_designer
+    - product_design_owner
+    - design_reviewer
+
   inputs:
     required:
-      - brief_signals
-      - pre_flight_observations
+      - foundation_handoff
+      - product_intent
+      - audience_and_viewing_context
+      - content_characteristics
     optional:
-      - reference_sites
-      - audience_profile
+      - explicit_user_direction
+      - brand_and_design_system_locks
+      - existing_visual_equity
+      - reference_sites_or_artifacts
+      - category_expectations
+      - trust_requirement
+      - interaction_complexity
+      - asset_availability
+
   outputs:
     allowed:
-      - genre_selection
+      - genre_candidates
+      - selected_expression_family
+      - primary_genre
+      - secondary_influence
       - signal_justification
-      - slop_gate_results
-      - genre_gate_scores
+      - expression_constraints
+      - genre_reference_selection
+      - rejected_candidates
+      - anti_slop_constraints
+      - unresolved_direction_questions
+
+  candidate_contract:
+    required_fields:
+      - candidate_id
+      - primary_expression_family
+      - optional_secondary_influence
+      - signal_support
+      - audience_and_product_fit
+      - density_and_containment
+      - typography_and_voice_implications
+      - color_and_depth_implications
+      - motion_and_imagery_implications
+      - risks
+      - conflicts_with_locks
+      - generic_pattern_risks
+    rules:
+      - compare_materially_distinct_candidates_when_direction_is_not_locked
+      - product_category_is_only_one_signal
+      - references_must_be_transformed_through_product_content_and_constraints
+      - secondary_influence_must_be_bounded_and_named
+      - candidate_differences_must_be_more_than_palette
+
+  selection_contract:
+    rules:
+      - foundation_must_be_resolved_before_production
+      - brand_and_product_locks_constrain_expression
+      - explicit_user_direction_is_high_weight_but_must_be_translated_into_observable_rules
+      - insufficient_or_conflicting_signals_produce_unresolved_not_a_silent_default
+      - genre_label_without_loaded_constraints_is_unresolved
+      - genre_change_must_not_hide_foundation_failure
+      - selected_expression_family_must_state_rejected_alternatives_and_tradeoffs
+      - one_product_may_use_a_primary_genre_with_one_bounded_secondary_influence
+      - do_not_mix_multiple_genres_as_uncontrolled_variety
+
+  expression_contract:
+    required_fields:
+      - primary_genre
+      - secondary_influence
+      - voice
+      - density
+      - containment_grammar
+      - typography_stance
+      - color_stance
+      - depth_and_imagery_stance
+      - motion_stance
+      - composition_expression
+      - restraint_rules
+      - prohibited_patterns
+      - inherited_foundation_rules
+      - brand_and_product_locks
+    rules:
+      - zen_is_not_excessive_empty_space
+      - editorial_is_not_random_asymmetry
+      - modern_minimal_is_not_generic_saas_cards
+      - atmospheric_is_not_automatic_dark_gradient_glow
+      - playful_is_not_random_color_or_rounded_everything
+      - premium_is_not_a_genre_and_requires_specific_expression_rules
+
+  anti_slop_contract:
+    detect:
+      - product_category_to_genre_shortcut
+      - generic_saas_template_independent_of_content
+      - uncontrolled_genre_mixing
+      - palette_only_genre_change
+      - reference_site_copying
+      - effect_stack_used_as_genre_proof
+      - foundation_failure_relabelled_as_style
+      - identical_section_grammar_repeated_without_reason
+    correction_rule: return_to_foundation_context_and_candidate_comparison
+
   quality_gates:
-    - genre_must_match_primary_brief_signals
-    - no_ai_slop_patterns_detected
-    - visual_direction_coherent_with_genre
+    - foundation_and_locks_are_resolved_before_genre_production
+    - selected_expression_family_matches_product_audience_content_and_context
+    - selection_is_compared_against_real_alternatives
+    - genre_is_expressed_as_observable_constraints
+    - secondary_influence_is_bounded
+    - rejected_candidates_and_tradeoffs_are_recorded
+    - foundation_failure_is_not_relabelled_as_genre
+    - no_generic_genre_slop_patterns_are_accepted
+    - unresolved_direction_is_reported_honestly
