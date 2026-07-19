@@ -1,5 +1,5 @@
 version: "1.0.0"
-generated_at: "2026-07-19T04:12:19Z"
+generated_at: "2026-07-19T04:42:07Z"
 description: "Auto-generated contract manifest. Regenerate with: scripts/generate-manifest.sh"
 total_contracts: 104
 contracts:
@@ -358,7 +358,7 @@ contracts:
       sha256: 32973e22cff60007
     - id: code-review
       path: contracts/workflows/code-review.contract.yaml
-      sha256: 761bc9ff2217dfa0
+      sha256: 1ae47123b2903d9d
     - id: deployment
       path: contracts/workflows/deployment.contract.yaml
       sha256: 346ebc7cbec31070
