@@ -2,36 +2,140 @@ skill_contract:
   id: design-visual
   category: design
   type: port
-  version: "1.0.0"
-  capability: visual_design_port_aesthetic_foundations
+  version: "1.1.0"
+  capability: context_driven_visual_direction_and_expression_port
+
   description: >
-    Port contract for visual design. Abstracts all aesthetic decisions —
-    genre, color, typography, motion, composition. Consumers depend on this
-    port, not on individual adapter skills.
+    Port contract for visual-design reasoning. It resolves foundation, brand/context,
+    direction alternatives, and active visual concerns before loading narrow adapters.
+    Consumers depend on this port rather than hardcoding one genre-first recipe or
+    loading every visual skill defensively.
+
   roles:
-    - visual_designer
+    - visual_design_lead
+    - product_design_owner
     - redesign_workflow
-  adapters:
+
+  inputs:
+    required:
+      - foundation_handoff
+      - product_intent
+      - content_inventory
+      - target_surface
+    optional:
+      - selected_design_direction
+      - brand_and_design_system_locks
+      - audience_and_viewing_context
+      - reference_patterns
+      - existing_visual_equity
+      - required_assets
+      - active_visual_concerns
+      - prohibited_patterns
+
+  outputs:
+    allowed:
+      - visual_direction_candidates
+      - visual_direction_contract
+      - adapter_loading_plan
+      - composition_strategy
+      - hierarchy_role_map
+      - typography_role_strategy
+      - color_role_strategy
+      - depth_and_imagery_strategy
+      - iconography_strategy
+      - motion_stance
+      - readability_and_actual_context_plan
+      - anti_slop_diagnosis
+      - visual_verification_plan
+
+  adapter_catalog:
     - id: design-genre
-      concern: genre_voice_slop_gates
-      load_order: 1
+      concern: expression_family_voice_density_and_containment
     - id: design-color
-      concern: palette_harmony_psychology
-      load_order: 2
-      implements: color-theory.contract.yaml
+      concern: semantic_palette_harmony_and_contrast
     - id: design-typography
-      concern: typeface_scale_hierarchy_rhythm
-      load_order: 3
-      implements: typography.contract.yaml
-    - id: motion-design
-      concern: motion_stance_animation
-      load_order: 4
+      concern: typography_roles_pairing_scale_and_rhythm
     - id: composition
-      concern: visual_weight_balance
-      load_order: 5
+      concern: focal_order_weight_balance_alignment_and_flow
+    - id: visual-hierarchy
+      concern: page_section_group_and_item_role_relationships
+    - id: design-depth
+      concern: optional_layering_atmosphere_imagery_and_elevation
+    - id: design-iconography
+      concern: icon_semantics_style_and_optical_consistency
+    - id: motion-design
+      concern: motion_purpose_hierarchy_timing_and_reduced_motion
     - id: readability
-      concern: legibility_metrics_gate
-      load_order: 6
+      concern: actual_context_legibility_measure_and_cognitive_ease
+
+  loading_contract:
+    required_order:
+      - resolve_foundation
+      - apply_brand_and_product_locks
+      - compare_or_inherit_design_direction
+      - identify_active_visual_concerns
+      - load_only_relevant_adapters
+      - synthesize_one_visual_direction_contract
+      - prepare_verification_evidence
+    rules:
+      - genre_is_optional_when_a_clear_direction_contract_already_exists
+      - genre_must_not_precede_unresolved_foundation_or_brand_locks
+      - adapters_have_concern_dependencies_not_one_fixed_global_load_order
+      - composition_and_hierarchy_are_required_when_page_level_visual_direction_changes
+      - depth_is_loaded_only_when_layering_or_imagery_is_active
+      - motion_is_loaded_only_when_motion_is_present_or_required
+      - readability_is_loaded_for_actual_delivery_context_not_as_late_polish_only
+      - no_adapter_may_redefine_canonical_design_review_gate_identity
+
+  direction_contract:
+    required_fields:
+      - direction_statement
+      - hierarchy_roles
+      - composition_logic
+      - density_and_space_rhythm
+      - containment_grammar
+      - typography_roles
+      - color_roles
+      - depth_mode
+      - imagery_or_asset_strategy
+      - motion_stance
+      - voice
+      - restraint_rules
+      - prohibited_generic_patterns
+      - responsive_continuity
+      - evidence_plan
+    rules:
+      - visual_rules_must_be_observable_and_implementation_relevant
+      - one_style_keyword_is_not_a_complete_direction
+      - reference_sites_are_influences_not_templates
+      - flat_or_layered_expression_is_contextual
+      - type_pairing_may_use_one_or_multiple_families
+      - centered_or_asymmetric_composition_is_contextual
+      - repeated_treatments_need_a_system_role_not_filler
+
+  anti_slop_contract:
+    detect:
+      - generic_product_independent_hero
+      - repeated_heading_card_cta_section_recipe
+      - decorative_gradient_glow_blur_glass_without_role
+      - cardification_of_every_content_type
+      - fake_metrics_social_proof_or_product_claims
+      - oversized_type_without_hierarchy_or_content_reason
+      - empty_space_without_anchor_or_pacing_role
+      - illustration_or_mockup_that_does_not_prove_product_value
+      - reference_copying_without_product_specific_transformation
+      - inconsistent_visual_techniques_added_only_for_variety
+    correction_rule: diagnose_repeated_grammar_then_remove_or_replace_the_smallest_causal_set
+
   quality_gates:
-    - genre_loaded_before_all_other_adapters
-    - no_visual_improvisation_without_adapter_backing
+    - foundation_is_resolved_before_expression
+    - brand_product_and_system_locks_are_applied
+    - visual_direction_is_context_derived_and_observable
+    - only_active_visual_adapters_are_loaded
+    - hierarchy_and_composition_are_relational_not_numeric_recipes
+    - depth_motion_and_effects_have_named_roles
+    - visual_language_is_distinctive_without_becoming_inconsistent
+    - generic_patterns_without_product_reason_are_rejected
+    - actual_content_and_viewing_context_are_used
+    - verification_plan_matches_the_visual_claim
+    - canonical_review_gate_identity_remains_owned_by_design_review
