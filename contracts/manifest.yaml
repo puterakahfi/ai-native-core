@@ -1,5 +1,5 @@
 version: "1.0.0"
-generated_at: "2026-07-19T07:33:42Z"
+generated_at: "2026-07-19T07:34:27Z"
 description: "Auto-generated contract manifest. Regenerate with: scripts/generate-manifest.sh"
 total_contracts: 104
 contracts:
@@ -102,8 +102,8 @@ contracts:
         sha256: 121030b8887edea1
       - id: design-depth
         path: contracts/skills/design/design-depth.contract.yaml
-        version: "2.0.0"
-        sha256: 09290ce1997b55d3
+        version: "2.1.0"
+        sha256: 8122271e067a4191
       - id: design-foundation
         path: contracts/skills/design/design-foundation.contract.yaml
         version: "1.0.0"
