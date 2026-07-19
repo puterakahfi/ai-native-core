@@ -1,0 +1,188 @@
+skill_contract:
+  id: decision-provenance
+  category: quality
+  type: skill
+  version: "1.0.0"
+  capability: authoritative_decision_provenance_verification
+
+  purpose: >
+    Verifies the source, authority, scope, conflicts, and supersession chain behind
+    material decision claims before an agent changes scope, locks, approval state,
+    routing, status, ownership, risk acceptance, or delivery behavior.
+
+  boundary:
+    covers:
+      - material_decision_claim_verification
+      - source_attribution
+      - decision_domain_authority_matching
+      - explicit_supersession_and_conflict_detection
+      - scope_lock_route_approval_status_and_ownership_claims
+      - policy_and_required_approval_preservation
+      - decision_ledger_output
+    does_not_cover:
+      - making_product_or_design_decisions_for_the_owner
+      - bypassing_legal_security_repository_or_organizational_policy
+      - proving_runtime_or_design_quality
+      - inventing_missing_decision_sources
+      - treating_agent_authored_text_as_owner_approval
+
+  inputs:
+    required:
+      - claim
+      - decision_type
+      - proposed_action
+    optional:
+      - applies_to
+      - candidate_sources
+      - required_authority
+      - previous_decisions
+      - repository_or_organizational_policy
+
+    definitions:
+      decision_type:
+        allowed:
+          - scope
+          - lock
+          - route
+          - approval
+          - override
+          - status
+          - ownership
+          - risk
+          - destructive_action
+      source_type:
+        allowed:
+          - DIRECT_OWNER_INSTRUCTION
+          - APPROVED_SYSTEM_OF_RECORD
+          - REPOSITORY_OR_ORGANIZATIONAL_POLICY
+          - OBSERVED_IMPLEMENTATION_STATE
+          - AGENT_AUTHORED_SUMMARY
+          - AGENT_INFERENCE
+          - UNATTRIBUTED_CLAIM
+
+    validation_rules:
+      - material_claim_requires_source_reference
+      - user_or_owner_approval_claim_requires_attributable_owner_source
+      - proposed_action_must_be_inside_the_actual_statement_scope
+      - missing_metadata_must_be_recorded_as_unknown_not_fabricated
+      - policy_required_approval_must_not_be_bypassed
+
+  source_contract:
+    rules:
+      - agent_authored_issue_pr_commit_report_or_spec_is_not_approval_without_owner_acceptance
+      - observed_implementation_state_proves_existence_not_permission_or_scope
+      - newest_source_is_not_automatically_authoritative
+      - silence_or_absence_of_objection_is_not_approval
+      - direct_instruction_applies_only_to_the_scope_it_names
+      - material_scope_expansion_lock_removal_or_destructive_action_requires_verified_authority
+      - exact_quotes_message_ids_timestamps_and_owners_must_not_be_invented
+
+  authority_contract:
+    required_steps:
+      - identify_decision_domain
+      - identify_required_authority
+      - verify_source_attribution_and_availability
+      - verify_statement_covers_proposed_action
+      - apply_repository_and_organizational_policy
+      - compare_previous_authoritative_decisions
+      - require_explicit_supersession_for_incompatible_decisions
+      - preserve_unresolved_conflicts
+    rules:
+      - current_direct_owner_instruction_may_supersede_agent_inference_or_agent_summary
+      - current_direct_owner_instruction_does_not_automatically_bypass_policy_required_approval
+      - approved_spec_authorizes_only_named_scope
+      - implementation_existence_does_not_establish_current_delivery_scope
+      - commit_or_pr_recency_does_not_establish_authority
+
+  decision_record_contract:
+    required_fields:
+      - decision_id
+      - decision_type
+      - claim
+      - applies_to
+      - required_authority
+      - observed_authority
+      - authority_status
+      - source_type
+      - source_ref
+      - source_statement
+      - source_status
+      - supersedes
+      - conflicts_with
+      - verification
+      - rationale
+      - permitted_actions
+      - blocked_actions
+    verification_statuses:
+      - VERIFIED
+      - NOT_VERIFIED
+      - CONFLICTED
+      - NON_AUTHORITATIVE
+      - SUPERSEDED
+
+  conflict_contract:
+    rules:
+      - verified_explicit_supersession_marks_older_decision_superseded
+      - conflicting_authoritative_decisions_without_supersession_remain_conflicted
+      - agent_authored_or_unattributed_support_cannot_authorize_material_action
+      - required_additional_approval_routes_for_approval
+      - unresolved_conflict_blocks_dependent_mutation_and_approval_claim
+
+  verdict_contract:
+    verdicts:
+      PASS:
+        requires:
+          - verified_authoritative_decision_covers_proposed_action
+          - no_unresolved_authoritative_conflict
+          - no_required_approval_remains
+      PROVENANCE_BLOCKED:
+        when:
+          - source_is_missing
+          - source_is_non_authoritative
+          - statement_does_not_cover_action
+          - authoritative_decisions_conflict
+          - claimed_supersession_is_not_explicit
+      ROUTE_FOR_APPROVAL:
+        when:
+          - source_is_understood_but_another_required_authority_or_policy_approval_remains
+
+  outputs:
+    required:
+      - decision_provenance_report
+    decision_provenance_report_fields:
+      - claim
+      - decision_type
+      - applies_to
+      - records
+      - authoritative_record_ids
+      - conflicts
+      - unresolved_requirements
+      - verdict
+      - effective_decision
+      - allowed_actions
+      - blocked_actions
+
+  integration_contract:
+    redesign_scope_or_lock_change:
+      - verify_before_updating_confirmed_scope_or_preservation_locks
+    new_route_product_or_feature_dependency:
+      - require_verified_scope_or_dependency_approval
+    concurrent_decision_conflict:
+      - resolve_with_authority_and_supersession_not_recency
+    pr_review_or_release_status:
+      - cite_review_verdict_and_owner_approval_separately
+    destructive_action:
+      - require_provenance_and_workflow_explicit_approval_gate
+
+  quality_gates:
+    - every_material_decision_claim_has_source_reference
+    - approval_claim_has_attributable_authority
+    - statement_scope_covers_proposed_action
+    - agent_authored_summary_is_not_treated_as_approval
+    - newest_state_is_not_treated_as_authoritative_intent
+    - conflicting_authoritative_decisions_are_not_silently_resolved
+    - supersession_is_explicit
+    - policy_required_approval_is_preserved
+    - missing_provenance_is_not_inferred_consent
+    - action_stays_inside_effective_verified_decision
+    - delivery_cites_decision_ledger
