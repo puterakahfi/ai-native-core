@@ -1,0 +1,131 @@
+skill_contract:
+  id: brand-identity-review
+  category: quality
+  type: skill
+  version: "0.1.0"
+  capability: evidence_backed_brand_identity_system_review
+
+  purpose: >
+    Defines a specialist domain reviewer for logo and brand-identity systems.
+    It evaluates brand logic, concept-to-symbol translation, distinctiveness,
+    construction, optical quality, recognition, scalability, reproduction,
+    lockups, variants, typography, color, application fidelity, and similarity
+    risk while integrating with the design-review facade contract.
+
+  roles:
+    - brand_identity_domain_reviewer
+    - logo_system_quality_reviewer
+    - identity_evidence_interpreter
+    - identity_risk_reporter
+
+  inputs:
+    required:
+      - target
+      - brand_name
+      - brand_context
+      - identity_state
+      - intended_use_contexts
+      - review_depth
+    optional:
+      - naming_or_symbol_meaning
+      - audience
+      - positioning
+      - personality
+      - primary_mark
+      - secondary_marks
+      - wordmark
+      - lockups
+      - monochrome_and_inverse_variants
+      - vector_or_construction_source
+      - minimum_size_tests
+      - clear_space_rules
+      - typography_system
+      - color_system
+      - application_examples
+      - comparison_set
+      - approved_references
+      - evidence_available
+      - evidence_gaps
+
+  outputs:
+    required:
+      - domain_reviewer_identity
+      - canonical_gate_results
+      - evidence_coverage
+      - contextual_hard_gate_status
+      - domain_verdict
+      - prioritized_findings
+      - scope_limitations
+      - similarity_risk_handoff
+      - facade_finding_mapping
+
+  domain_reviewer_contract:
+    design_domain: brand-identity
+    gate_namespace: BI
+    facade_contract: contracts/skills/quality/design-review.contract.yaml
+    coverage_mode_when_loaded: ADAPTER_COVERED
+    finding_contract: design-review/finding
+    gate_statuses:
+      - PASS
+      - FAIL
+      - PARTIAL
+      - NOT_VERIFIED
+      - NOT_APPLICABLE
+
+  identity_states:
+    - concept-only
+    - primary-mark
+    - identity-system
+    - application-set
+    - source-only
+    - mixed
+
+  evidence_policy:
+    rules:
+      - rendered logo alone cannot prove construction consistency or master asset quality
+      - one large color mockup cannot prove small-size monochrome inverse or reproduction behavior
+      - application mockups cannot replace direct inspection of canonical marks and lockups
+      - similarity screening requires a declared comparison set and does not equal legal trademark clearance
+      - missing specialist evidence remains NOT_VERIFIED rather than zero
+      - supplied brand strategy and semantic intent must be treated as evidence not invented by the reviewer
+
+  hard_gate_policy:
+    contextual_only: true
+    examples:
+      - required_primary_mark_is_not_recognizable_at_declared_minimum_size
+      - master_variants_materially_change_core_construction
+      - required_monochrome_or_inverse_use_fails
+      - required_lockup_or_clear_space_system_is_unusable
+      - obvious_close_similarity_creates_material_identity_risk
+      - required_name_or_wordmark_is_unreadable
+
+  similarity_boundary:
+    reviewer_can:
+      - flag obvious visual or conceptual similarity risk
+      - identify comparison evidence and affected construction
+      - recommend legal or trademark specialist review
+    reviewer_cannot:
+      - declare trademark availability
+      - provide legal clearance
+      - guarantee originality across all jurisdictions or classes
+
+  quality_gates:
+    - brand_context_must_be_explicit_before_relevance_scoring
+    - every_reported_gate_id_must_use_the_registered_BI_namespace
+    - brand_logic_and_symbol_translation_must_be_reviewed_separately_from_polish
+    - construction_and_optical_balance_must_not_be_collapsed_into_one_gate
+    - small_size_monochrome_inverse_and_lockup_behavior_require_direct_evidence
+    - variants_must_preserve_one_recognizable_identity_system
+    - comparison_screening_must_not_be_presented_as_legal_clearance
+    - findings_must_map_to_the_design_review_facade_contract
+    - complete_domain_verdict_requires_sufficient_primary_domain_evidence
+    - review_must_not_silently_become_logo_generation_or_redesign
+
+  adapter_requirements:
+    canonical_gate_registry: required
+    gate_namespace_registration: BI
+    identity_gate_definitions: adapter_owned
+    evidence_capture_mechanism: runtime_defined
+    comparison_sources: user_or_research_defined
+    legal_review_provider: external_and_optional
+    report_format: design_review_facade_compatible
