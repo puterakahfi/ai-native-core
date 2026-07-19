@@ -2,47 +2,47 @@ skill_contract:
   id: redesign-workflow
   category: quality
   type: workflow
-  version: "2.1.0"
-  capability: delegated_domain_aware_scope_safe_redesign_loop
+  version: "2.2.0"
+  capability: delegated_domain_aware_scope_and_concurrency_safe_redesign_loop
 
   purpose: >
     Defines the lifecycle for redesigning an existing visual surface through
-    explicit routing, role composition, confirmed delivery scope, evidence-backed
-    direction, delegated production, domain-appropriate verification, final-diff
-    integrity, facade review, bounded correction, and honest delivery. The
-    workflow owns orchestration and scope boundaries; design, engineering, and
-    review specialists retain their own knowledge and gates.
+    explicit routing, role composition, confirmed delivery scope, expected-head
+    write leases, evidence-backed direction, delegated production,
+    domain-appropriate verification, final-diff and concurrency integrity,
+    facade review, bounded correction, and honest delivery.
 
   boundary:
     covers:
       - existing_visual_surface_redesign
       - redesign_vs_refinement_vs_audit_routing
-      - explicit_design_and_implementation_ownership
+      - explicit_design_implementation_and_repository_write_ownership
       - confirmed_scope_and_baseline_capture
       - final_effective_diff_integrity
-      - brand_content_asset_behavior_and_path_preservation
+      - concurrent_branch_write_detection_and_coordination
+      - brand_content_asset_behavior_route_and_path_preservation
       - direction_macrostructure_and_layered_change_planning
       - user_and_business_value_alignment
-      - delegated_visual_layout_strategy_interaction_and_system_work
+      - delegated_design_and_implementation_work
       - prototype_or_repository_patch_production
       - domain_appropriate_verification
       - design_review_facade_acceptance
-      - defect_ownership_and_bounded_fix_iterations
-      - passing_delivery_or_honest_gap_reporting
+      - bounded_fix_iterations_and_learning_promotion
+      - passing_delivery_or_honest_blocker_reporting
     does_not_cover:
       - net_new_product_definition
       - audit_only_work_after_route_handoff
       - known_narrow_refinement_after_route_handoff
       - non_visual_feature_development
-      - unrelated_product_feature_auth_data_or_infrastructure_changes
+      - unrelated_product_route_auth_data_or_infrastructure_changes
       - general_bugfix_workflow
       - deployment_or_publishing
       - legal_trademark_clearance
+      - force_overwrite_of_uninspected_concurrent_work
       - destructive_repository_operations_without_approval
 
   inputs:
-    required:
-      - target
+    required: [target]
     optional:
       - goal
       - design_domain
@@ -60,17 +60,14 @@ skill_contract:
       - viewing_context
       - baseline_ref
       - confirmed_scope
+      - repository_branch
+      - expected_head
 
     definitions:
       target:
         description: URL, screenshot, artifact path, repository path, or named visual surface.
       design_domain:
-        allowed:
-          - digital-interface
-          - visual-communication
-          - presentation
-          - brand-identity
-          - other
+        allowed: [digital-interface, visual-communication, presentation, brand-identity, other]
       output_mode:
         allowed: [audit-only, spec-only, prototype, patch]
         default: prototype
@@ -82,7 +79,7 @@ skill_contract:
         minimum: 1
         default: 5
       baseline_ref:
-        description: Merge base, approved commit, or original artifact used for the effective delivery diff.
+        description: Merge base, approved commit, or original artifact for the effective delivery diff.
       confirmed_scope:
         fields:
           - products
@@ -92,17 +89,21 @@ skill_contract:
           - expected_generated_files
           - expected_deletions
           - preserved_paths
+          - preserved_routes
           - out_of_scope
+      expected_head:
+        description: Exact branch head inspected when preparing the next repository mutation.
 
     validation_rules:
       - target_must_be_resolvable
       - route_must_be_resolved_before_production
       - patch_mode_requires_repository_or_editable_artifact
       - patch_mode_requires_baseline_and_confirmed_scope_before_production
+      - patch_mode_requires_repository_branch_and_expected_head_before_each_write
       - output_path_must_be_safe_and_writable_when_provided
       - max_iterations_must_be_positive
       - destructive_or_high_impact_actions_require_explicit_approval
-      - unrelated_product_auth_database_user_data_or_infrastructure_changes_are_not_inferred_as_design_scope
+      - unrelated_product_route_auth_database_user_data_or_infrastructure_changes_are_not_inferred_as_design_scope
 
   role_contract:
     required_slots:
@@ -117,13 +118,15 @@ skill_contract:
     conditional_slots:
       implementation_owner:
         capability: master-engineer_or_runtime_equivalent
-        required_when:
-          - output_mode_patch
-          - executable_prototype_requires_engineering
+        required_when: [output_mode_patch, executable_prototype_requires_engineering]
+      repository_write_owner:
+        capability: single_declared_writer_or_coordination_owner
+        required_when: [repository_mutation]
       specialists:
         capability: selected_by_changed_layers
     rules:
       - exactly_one_design_owner_must_be_explicit
+      - exactly_one_repository_write_owner_must_be_active_for_a_branch_decision
       - implementation_owner_must_not_override_design_direction
       - reviewer_facade_must_not_self_certify_production_decisions
       - domain_reviewer_must_match_primary_design_domain
@@ -134,48 +137,24 @@ skill_contract:
     ports:
       strategy:
         capability: design-strategy
-        adapters:
-          - content-strategy
-          - information-architecture
-          - copywriting
-          - ux-psychology
-          - cro_when_conversion_is_a_declared_goal
+        adapters: [content-strategy, information-architecture, copywriting, ux-psychology, cro_when_conversion_is_declared]
       visual:
         capability: design-visual
-        adapters:
-          - design-genre
-          - design-color
-          - design-typography
-          - design-depth_when_applicable
-          - design-iconography_when_applicable
-          - composition
-          - motion-design_when_applicable
+        adapters: [design-genre, design-color, design-typography, design-depth_when_applicable, design-iconography_when_applicable, composition, motion-design_when_applicable]
       layout:
         capability: design-layout
-        adapters:
-          - macrostructures
-          - responsiveness
-          - adaptive-component-design
-          - ui-components
-          - design-spacing
+        adapters: [macrostructures, responsiveness, adaptive-component-design, ui-components, design-spacing]
       interaction:
         capability: design-interaction
-        adapters:
-          - ux-patterns-for-developers
-          - ux-ui-patterns
-          - adaptive-component-design
+        adapters: [ux-patterns-for-developers, ux-ui-patterns, adaptive-component-design]
       system:
         capability: design-system
-        adapters:
-          - accessibility_when_applicable
-          - dark-light-theming_when_applicable
+        adapters: [accessibility_when_applicable, dark-light-theming_when_applicable]
     rules:
       - choose_adapters_from_changed_layers_and_acceptance_criteria
       - port_or_adapter_defaults_must_not_become_global_workflow_rules
-      - external_patterns_own_behavior_accessibility_and_edge_cases_when_selected
-      - internal_components_own_product_brand_tokens_and_visual_expression
-      - copy_and_content_decisions_must_precede_layout_lock_when_they_change_structure
       - production_must_remain_inside_confirmed_scope_or_reenter_approval_policy
+      - new_routes_absent_from_approved_baseline_require_explicit_feature_or_dependency_approval
 
   phases:
     required:
@@ -199,43 +178,43 @@ skill_contract:
         purpose: Select redesign, refinement, or audit-only lifecycle before production.
         produces: [route_decision]
       compose_roles:
-        purpose: Assign design owner, conditional implementation owner, selected specialists, reviewer facade, and domain reviewer.
+        purpose: Assign design owner, conditional implementation owner, repository write owner, selected specialists, reviewer facade, and domain reviewer.
         produces: [role_composition, delegation_plan]
       initialize_run:
-        purpose: Validate inputs, capture baseline, and initialize durable workflow state.
+        purpose: Validate inputs, capture baseline, branch, expected head, and initialize durable state.
         produces: [run_state]
       preflight:
-        purpose: Inspect target, existing effective diff, brand, content, system, framework, equity, constraints, and evidence gaps.
+        purpose: Inspect target, effective diff, concurrent automation, brand, content, system, framework, equity, constraints, and evidence gaps.
         produces: [preflight_report]
       direction:
         purpose: Select and justify direction using product, brand, audience, content, trust, complexity, and category signals.
         produces: [design_direction]
       layered_plan:
-        purpose: Mark strategy, foundation, structure, components, expression, interaction, content, and implementation as preserve, refine, replace, or not applicable.
+        purpose: Mark design and implementation layers as preserve, refine, replace, or not applicable.
         produces: [layered_redesign_plan]
       value_alignment:
-        purpose: Connect proposed changes to user value, business or delivery value, and measurable signals.
+        purpose: Connect changes to user value, business or delivery value, and measurable signals.
         produces: [value_alignment_report]
       spec_confirmation:
-        purpose: Lock scope, allowed paths and change types, exclusions, preservation, content, assets, viewing contexts, acceptance criteria, and approval boundary.
+        purpose: Lock scope, paths, routes, change types, exclusions, preservation, viewing contexts, evidence, owners, and approval boundary.
         produces: [redesign_spec]
       production:
-        purpose: Produce the requested artifact or repository change through the declared delegation plan and confirmed scope.
+        purpose: Validate expected-head lease and produce through declared delegation and confirmed scope.
         produces: [redesigned_artifact, production_report]
       verification:
-        purpose: Collect domain evidence and classify every effective changed entry against the confirmed scope.
-        produces: [verification_report, scope_diff_report]
+        purpose: Verify domain evidence, effective diff, stable actual head, and concurrency state.
+        produces: [verification_report, scope_diff_report, concurrency_report]
       review:
-        purpose: Invoke the design-review facade and applicable domain reviewer using canonical gates and fresh evidence after scope integrity passes.
+        purpose: Invoke design-review and domain reviewer after scope and concurrency integrity pass.
         produces: [design_review_result]
       defect_classification:
-        purpose: Classify failed or partial design findings and route scope contamination to its causal owner.
+        purpose: Classify design findings, scope contamination, and concurrent decision conflicts under governing owners.
         produces: [defect_report]
       fix:
-        purpose: Apply the smallest correct correction, restore or split contamination, verify regression, and run learning review after verified reusable fixes.
+        purpose: Apply smallest correction under a fresh lease, verify, and run learning review after reusable fixes.
         produces: [fix_report, learning_review]
       delivery:
-        purpose: Deliver an accepted artifact or a bounded attempt with explicit verdict, scope status, limitations, evidence gaps, and rollback information.
+        purpose: Deliver accepted artifact or explicit scope, concurrency, evidence, domain, or iteration blocker.
         produces: [loop_summary, delivery_manifest]
 
   transitions:
@@ -249,59 +228,88 @@ skill_contract:
     - {from: value_alignment, to: spec_confirmation}
     - {from: spec_confirmation, to: production, when: approval_policy_satisfied}
     - {from: production, to: verification}
-    - {from: verification, to: review, when: scope_integrity_passes_or_output_is_not_patch}
-    - {from: verification, to: defect_classification, when: scope_integrity_is_blocked}
-    - {from: review, to: delivery, when: facade_verdict_and_scope_allow_delivery}
-    - {from: review, to: defect_classification, when: facade_verdict_requires_work_and_iterations_remain}
-    - {from: defect_classification, to: fix}
+    - {from: production, to: defect_classification, when: expected_head_lease_is_invalid}
+    - {from: verification, to: review, when: scope_and_concurrency_integrity_pass}
+    - {from: verification, to: defect_classification, when: scope_is_blocked_or_compatible_drift_requires_reconciliation}
+    - {from: verification, to: delivery, when: concurrency_is_blocked}
+    - {from: review, to: delivery, when: facade_scope_and_concurrency_allow_delivery}
+    - {from: review, to: defect_classification, when: facade_requires_work_and_iterations_remain}
+    - {from: defect_classification, to: fix, when: automatic_fix_is_still_allowed}
     - {from: fix, to: verification}
     - {from: review, to: delivery, when: max_iterations_reached}
 
   scope_diff_contract:
-    required_for:
-      - output_mode_patch
-      - repository_backed_prototype_with_delivery_claim
-    effective_diff:
-      compare: baseline_ref_to_target_ref
-      inspect:
-        - added_modified_deleted_and_renamed_paths
-        - binary_and_generated_artifacts
-        - submodule_or_dependency_pointer_changes
-        - preserved_path_violations
-    classifications:
-      - IN_SCOPE
-      - REQUIRED_DEPENDENCY
-      - EXPECTED_GENERATED
-      - OUT_OF_SCOPE
-      - UNKNOWN
-    required_entry_fields:
-      - path
-      - change_type
-      - classification
-      - owner
-      - rationale
-      - acceptance_criterion
+    required_for: [output_mode_patch, repository_backed_prototype_with_delivery_claim]
+    classifications: [IN_SCOPE, REQUIRED_DEPENDENCY, EXPECTED_GENERATED, OUT_OF_SCOPE, UNKNOWN]
+    required_entry_fields: [path, change_type, classification, owner, rationale, acceptance_criterion]
     blockers:
       - any_out_of_scope_entry
       - any_unknown_entry
       - undeclared_database_or_schema_change
       - undeclared_auth_authorization_entitlement_or_user_data_change
       - undeclared_other_product_or_route
-      - preserved_path_deletion_or_mutation
+      - preserved_path_or_route_violation
       - generated_or_binary_artifact_without_provenance
       - unexplained_submodule_or_dependency_pointer_change
       - unreproducible_baseline_or_target
     rules:
       - branch_history_may_be_noisy_but_effective_final_diff_must_be_clean
       - every_changed_entry_must_be_classified
-      - required_dependency_needs_causal_reason_owner_and_acceptance_criterion
+      - required_dependency_needs_causal_reason_owner_acceptance_criterion_and_approval
       - mergeability_does_not_prove_scope_integrity
       - contamination_is_a_workflow_blocker_not_a_design_score
-      - valuable_unrelated_work_must_be_preserved_elsewhere_before_removal
       - contamination_must_be_restored_removed_split_or_reapproved_before_passing_delivery
     output:
       status: [PASS, BLOCKED]
       artifact: scope_diff_report
+
+  concurrent_write_contract:
+    required_for: [repository_mutation, parent_submodule_pointer_update]
+    write_lease_fields:
+      - repository
+      - branch
+      - expected_head
+      - baseline_ref
+      - intended_paths
+      - decision_or_defect
+      - acquired_at_phase
+    pre_write_rule:
+      - resolve_actual_head_immediately_before_mutation
+      - write_only_when_actual_head_equals_expected_head
+      - contents_api_blob_sha_refresh_does_not_replace_branch_head_validation
+    drift_classifications:
+      - COMPATIBLE
+      - DECISION_CONFLICT
+      - SCOPE_EXPANSION
+      - OVERLAPPING_IMPLEMENTATION
+      - UNKNOWN
+    drift_behavior:
+      COMPATIBLE:
+        action: inspect_absorb_recheck_scope_and_renew_lease
+      OVERLAPPING_IMPLEMENTATION:
+        action: reconcile_under_governing_owner_and_verify
+      DECISION_CONFLICT:
+        action: stop_automatic_writes_and_coordinate_owner_or_split_lifecycle
+      SCOPE_EXPANSION:
+        action: stop_automatic_writes_and_route_feature_or_scope_approval
+      UNKNOWN:
+        action: stop_and_handoff
+    contention_policy:
+      key: decision_plus_path_set
+      automatic_reversal_limit: 2
+      on_limit:
+        decision: CONCURRENT_WRITE_BLOCKED
+        action: stop_repository_writes_and_declare_single_owner_or_isolated_branch
+    prohibitions:
+      - no_force_push_over_uninspected_concurrent_commit
+      - no_blind_retry_from_stale_file_body_or_tree
+      - no_third_automatic_reversal_of_same_decision_and_paths
+      - no_parent_pointer_chasing_while_child_head_is_unstable
+      - no_delivery_manifest_or_pr_claim_from_stale_head
+      - newest_commit_is_not_automatically_authoritative
+    output:
+      status: [PASS, CONCURRENT_WRITE_BLOCKED]
+      artifact: concurrency_report
 
   verification_contract:
     strategies:
@@ -337,16 +345,14 @@ skill_contract:
           - vector_or_reproduction_evidence
           - similarity_risk_screening_without_legal_clearance_claim
       other:
-        required_when_applicable:
-          - evidence_declared_by_loaded_domain_reviewer
+        required_when_applicable: [evidence_declared_by_loaded_domain_reviewer]
     rules:
       - build_success_alone_is_not_design_verification
       - screenshot_alone_does_not_prove_interaction_runtime_or_hidden_states
       - source_only_visual_claims_remain_not_verified
       - missing_evidence_is_not_a_zero_score
-      - full_commands_may_be_deferred_during_creative_iteration_but_not_silently_passed
-      - verification_must_recheck_preservation_locks
-      - patch_verification_must_include_scope_diff_report
+      - patch_verification_must_include_scope_diff_and_concurrency_reports
+      - verification_artifacts_must_reference_actual_stable_head
 
   review_contract:
     facade: design-review
@@ -357,9 +363,8 @@ skill_contract:
       - every_selected_or_reported_gate_id_must_be_canonical_and_registered
       - evidence_coverage_and_primary_domain_coverage_must_be_separate
       - contextual_hard_gates_come_from_loaded_reviewers
-      - average_score_never_overrides_hard_gate_failure_missing_domain_coverage_or_scope_block
-      - limited_review_cannot_be_reported_as_complete_domain_approval
-      - visual_observations_may_be_recorded_while_scope_is_blocked_but_cannot_authorize_delivery
+      - average_score_never_overrides_hard_gate_domain_scope_or_concurrency_block
+      - visual_observations_may_be_recorded_while_integrity_is_blocked_but_cannot_authorize_delivery
 
   delivery_contract:
     decisions:
@@ -373,14 +378,14 @@ skill_contract:
           - required_evidence_available
           - preservation_locks_pass
           - scope_diff_pass_when_applicable
+          - concurrency_pass_when_applicable
       CONDITIONAL_PASS:
-        action: deliver_with_explicit_accepted_risks
+        action: deliver_with_explicit_non_blocking_risks
         requires:
           - facade_verdict_conditional_pass
           - no_verified_hard_gate_failure
-          - remaining_gaps_are_non_blocking_and_within_approval_boundary
-          - accepted_risk_owner_and_expiry_when_relevant
           - scope_diff_pass_when_applicable
+          - concurrency_pass_when_applicable
       NEEDS_WORK:
         action: return_to_defect_classification_when_iterations_remain
       CRITICAL:
@@ -391,15 +396,15 @@ skill_contract:
         action: stop_unsupported_approval_claim
       SCOPE_BLOCKED:
         action: restore_remove_split_or_reapprove_required_dependency
+      CONCURRENT_WRITE_BLOCKED:
+        action: stop_writes_report_heads_and_conflict_then_coordinate_owner
       MAX_ITERATIONS_REACHED:
         action: deliver_best_preserved_attempt_with_gap_report
     prohibitions:
-      - do_not_label_bounded_attempt_as_passed
-      - do_not_use_average_score_as_the_only_delivery_rule
+      - do_not_label_blocked_or_bounded_attempt_as_passed
+      - do_not_use_average_score_or_mergeability_as_delivery_rule
+      - do_not_accept_scope_contamination_or_write_contention_as_conditional_risk
       - do_not_convert_not_verified_into_pass
-      - do_not_apply_interactive_hard_gates_to_static_or_specialized_domains
-      - do_not_accept_scope_contamination_as_conditional_risk
-      - do_not_treat_mergeability_as_scope_approval
 
   defect_contract:
     design_finding_required_fields:
@@ -419,6 +424,16 @@ skill_contract:
       - causal_owner
       - preservation_action
       - approval_requirement
+    concurrency_required_fields:
+      - repository
+      - branch
+      - expected_head
+      - actual_head
+      - changed_paths
+      - drift_classification
+      - decision_conflicts
+      - contention_cycles
+      - action
     classes:
       - reusable_skill_defect
       - reference_knowledge_defect
@@ -428,54 +443,40 @@ skill_contract:
       - domain_specialist_defect
     rules:
       - visible_symptom_does_not_determine_correction_owner
-      - shared_skills_must_not_receive_product_specific_facts
+      - scope_or_concurrency_block_is_not_forced_into_a_design_gate
       - verified_reusable_fixes_require_learning_review_and_regression_eval
-      - scope_contamination_is_not_forced_into_a_design_gate
 
   iteration_policy:
     default_max_iterations: 5
-    count_increment_at: completed_review
+    count_increment_at: completed_design_review
     same_region_patch_limit: 2
-    after_same_region_patch_limit:
-      - reread_full_file_or_artifact
-      - identify_dependencies_and_governing_owner
-      - preserve_locked_regions
-      - create_rewrite_plan
-      - rewrite_only_when_justified_and_approved
-      - run_full_affected_verification
-    on_exhausted:
+    concurrent_reversal_limit: 2
+    on_design_exhausted:
       decision: MAX_ITERATIONS_REACHED
       action: deliver_best_preserved_attempt_with_gap_report
+    on_concurrent_reversal_limit:
+      decision: CONCURRENT_WRITE_BLOCKED
+      action: stop_automatic_writes
 
   approval_policy:
     autonomous:
       pauses_before: []
     spec-gated:
-      pauses_before:
-        - production_when_scope_or_direction_materially_changes
+      pauses_before: [production_when_scope_or_direction_materially_changes]
     patch-gated:
-      pauses_before:
-        - repository_patch
-        - full_file_rewrite
+      pauses_before: [repository_patch, full_file_rewrite]
     fully-gated:
-      pauses_before:
-        - production
-        - every_repository_patch
-        - full_file_rewrite
+      pauses_before: [production, every_repository_patch, full_file_rewrite]
     always_requires_approval:
       - destructive_change
       - irreversible_change
       - production_environment_change
       - deletion_of_user_content
       - material_scope_expansion
+      - unresolved_owner_or_concurrent_decision_conflict
 
   outputs:
-    required:
-      - route_decision
-      - role_composition
-      - delegation_plan
-      - loop_summary
-      - delivery_manifest
+    required: [route_decision, role_composition, delegation_plan, loop_summary, delivery_manifest]
     conditional:
       - run_state
       - preflight_report
@@ -487,6 +488,7 @@ skill_contract:
       - production_report
       - verification_report
       - scope_diff_report
+      - concurrency_report
       - design_review_result
       - defect_report
       - fix_report
@@ -497,30 +499,35 @@ skill_contract:
     - lifecycle_route_resolved_before_production
     - exactly_one_design_owner_is_explicit
     - implementation_owner_is_explicit_when_patching
+    - exactly_one_repository_write_owner_is_active
     - specialists_are_selected_from_declared_changed_layers
     - baseline_and_confirmed_scope_are_recorded_before_patch_production
     - preservation_locks_are_recorded_and_rechecked
-    - direction_uses_product_brand_audience_content_and_context_signals
     - production_follows_declared_delegation_plan
     - production_remains_inside_confirmed_scope
+    - every_repository_write_uses_expected_head_lease
+    - head_drift_is_inspected_before_retry
+    - repeated_decision_reversal_stops_automatic_writes
+    - parent_pointer_does_not_chase_unstable_child_head
     - verification_strategy_matches_primary_design_domain_and_artifact_state
     - final_effective_diff_must_match_confirmed_scope
     - every_changed_path_must_be_classified
     - scope_contamination_blocks_review_and_delivery
+    - concurrency_block_is_not_reported_as_pass
     - review_uses_design_review_facade_and_loaded_domain_reviewer
     - gate_statuses_preserve_partial_not_verified_and_not_applicable
     - contextual_hard_gates_are_reviewer_owned
-    - facade_verdict_and_scope_integrity_control_delivery_and_fix_transitions
-    - every_failed_or_partial_gate_has_governing_reviewer_and_evidence
+    - facade_scope_and_concurrency_control_delivery
     - defect_classification_precedes_fix
     - verified_reusable_fixes_run_learning_review_and_regression_eval
     - max_iteration_delivery_is_not_labeled_as_passed
 
   compatibility:
-    previous_version: "2.0.0"
+    previous_version: "2.1.0"
     additive_changes:
-      - adds_baseline_and_confirmed_scope_inputs
-      - adds_scope_diff_report
-      - adds_final_effective_diff_integrity_gate
-      - blocks_unrelated_auth_database_user_data_product_and_infrastructure_changes
-      - requires_scope_pass_for_patch_delivery
+      - adds_repository_branch_expected_head_and_write_owner
+      - adds_concurrency_report
+      - adds_expected_head_compare_and_swap_write_lease
+      - adds_head_drift_classification
+      - adds_anti_ping_pong_stop_after_two_reversals
+      - blocks_parent_pointer_chasing_of_unstable_child_head
