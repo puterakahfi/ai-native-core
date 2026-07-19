@@ -2,21 +2,23 @@ skill_contract:
   id: adaptive-component-design
   category: design
   type: skill
-  version: "1.0.0"
-  capability: viewport_aware_component_and_interaction_pattern_selection
+  version: "1.1.0"
+  capability: content_boundary_driven_component_selection_and_substitution
   capability_aliases:
+    - viewport_aware_component_and_interaction_pattern_selection
     - cross_device_component_pattern_selection_and_substitution
   aliases:
     - adaptive-ui-patterns
   supersedes:
     - contracts/skills/design/adaptive-ui-patterns.contract.yaml
+
   description: >
-    Selects and substitutes the most appropriate UI component and interaction
-    pattern across mobile, tablet, laptop, and desktop based on product intent,
-    user task, content characteristics, real available width, input modality,
-    discoverability, density, accessibility, and interaction cost. Responsive
-    design must preserve the user task, state, semantics, and information
-    priority; it must not merely resize a desktop component.
+    Selects, preserves, reflows, or substitutes UI component patterns across available
+    widths and input contexts based on the user task, real container width, realistic
+    content pressure, discoverability, interaction cost, accessibility, and shared-state
+    semantics. Device labels and common viewport numbers are observation samples, not
+    universal component-selection rules.
+
   roles:
     - adaptive_ui_designer
     - cross_device_interaction_designer
@@ -24,36 +26,60 @@ skill_contract:
     - adaptive_ui_architect
     - interaction_designer
     - frontend_design_systems_specialist
+
   inputs:
     required:
       - product_intent
       - user_tasks
       - content_inventory
       - component_inventory
-      - target_viewports
+      - target_contexts
     optional:
       - existing_design_system
       - reference_patterns
-      - real_content_width
+      - actual_container_width_samples
       - option_count_and_label_length
       - content_priority_and_frequency
+      - realistic_content_cases
+      - localization_and_zoom_cases
       - device_capabilities
       - input_modalities
       - analytics_or_usage_evidence
       - accessibility_requirements
+      - existing_component_contract
+      - preservation_requirements
+
   outputs:
     allowed:
+      - component_fitness_record
       - viewport_strategy
       - component_substitution_matrix
+      - adaptation_boundary_map
       - component_selection_rationale
       - rejected_component_alternatives
       - navigation_pattern_selection
       - content_density_strategy
       - interaction_mode_mapping
       - shared_state_and_semantics_contract
+      - affordance_state_contract
       - responsive_behavior_contract
-      - breakpoint_acceptance_criteria
-      - visual_verification_evidence
+      - boundary_acceptance_criteria
+      - realistic_content_stress_evidence
+      - rendered_interaction_evidence
+
+  diagnosis_contract:
+    allowed:
+      PATTERN_MISMATCH: the_component_family_does_not_fit_the_task_or_context
+      IMPLEMENTATION_DEFECT: the_component_family_is_fit_but_its_implementation_is_broken
+      CONTENT_PRESSURE: realistic_content_exceeds_the_current_component_contract
+      SYSTEM_CONSTRAINT: the_available_primitive_or_design_system_blocks_the_required_behavior
+    rules:
+      - visible_overflow_does_not_automatically_mean_pattern_mismatch
+      - component_selection_must_precede_framework_or_css_patch_selection
+      - implementation_defect_should_not_trigger_unnecessary_component_replacement
+      - pattern_mismatch_requires_an_explicit_substitution_decision
+      - content_pressure_may_require_information_architecture_copy_or_pattern_adaptation
+
   adaptation_modes:
     allowed:
       - preserve
@@ -67,6 +93,8 @@ skill_contract:
     hide_requires:
       - non_critical_content
       - documented_product_rationale
+      - preserved_access_path_when_the_content_remains_needed
+
   decision_factors:
     required:
       - user_task
@@ -79,71 +107,119 @@ skill_contract:
       - interaction_frequency
       - input_modality
       - accessibility
-    viewport_guidance:
-      mobile:
-        optimize_for:
-          - focused_task_completion
-          - touch
-          - constrained_width
-          - progressive_disclosure
-          - reachable_primary_actions
-      tablet:
-        optimize_for:
-          - intermediate_density
-          - touch_and_pointer
-          - portrait_and_landscape
-          - explicit_non_scaled_desktop_layout
-          - explicit_non_stretched_phone_layout
-      laptop_and_desktop:
-        optimize_for:
-          - information_density
-          - parallel_context
-          - pointer_and_keyboard
-          - persistent_navigation_when_justified
+    contextual:
+      - orientation
+      - localization
+      - zoom_or_text_scaling
+      - dynamic_content_growth
+      - information_density
+      - product_familiarity
+      - device_capabilities
+      - design_system_constraints
+    rules:
+      - derive_adaptation_from_actual_content_failure_boundaries_not_device_labels_alone
+      - common_viewports_are_test_samples_not_canonical_breakpoints
+      - test_immediately_before_and_after_each_substitution_or_failure_boundary
+      - tablet_and_intermediate_widths_require_explicit_evaluation
+      - rejected_alternatives_and_tradeoffs_must_be_recorded
+
   component_selection_rules:
     - preserve_primary_discovery_choices_when_the_set_is_small_stable_and_high_value
     - use_select_or_combobox_for_secondary_numerous_dynamic_searchable_or_long_options
-    - tabs_require_sufficient_width_readable_labels_persistent_state_and_reachable_options
-    - dense_comparison_requires_explicit_small_screen_transformation
+    - tabs_require_sufficient_real_width_readable_labels_persistent_state_and_reachable_options
+    - dense_comparison_requires_explicit_small_width_transformation
     - prefer_existing_design_system_primitives_when_they_fit_the_task
     - custom_components_require_documented_reasoning
+    - do_not_replace_a_fit_component_only_to_avoid_fixing_its_implementation
+    - do_not_preserve_an_unfit_component_only_because_it_exists_in_the_design_system
+
+  component_contract:
+    required_fields:
+      - component_role
+      - user_task
+      - content_contract
+      - adaptation_mode_by_context
+      - substitution_boundaries
+      - shared_value_and_state
+      - event_semantics
+      - analytics_identity
+      - accessible_name_and_relationships
+      - focus_and_input_behavior
+      - overflow_or_disclosure_affordance
+      - preserved_behavior
+    rules:
+      - variants_may_use_different_component_families
+      - variants_must_preserve_the_same_product_meaning_and_state
+      - component_identity_change_must_be_explicit_not_an_accidental_css_side_effect
+
   horizontal_rail_requirements:
     - native_swipe_or_trackpad_scrolling
-    - visible_next_item_peek_or_edge_affordance
-    - right_control_at_start_paired_controls_in_middle_left_control_at_end
+    - visible_next_item_peek_or_edge_affordance_when_more_content_exists
+    - previous_and_next_controls_appear_only_when_their_direction_is_available
     - controls_reflect_actual_scroll_state
     - keyboard_reachable_controls_with_accessible_names
     - controls_must_not_permanently_cover_items
+    - resize_content_change_and_selection_must_refresh_affordance_state
+
+  verification_contract:
+    required:
+      - realistic_content_cases
+      - actual_target_contexts
+      - boundary_samples
+      - shared_state_equivalence
+      - relevant_input_modes
+      - rendered_evidence_when_implemented
+    boundary_samples:
+      - widest_known_failure_width
+      - narrowest_known_passing_width
+      - immediately_before_substitution_boundary
+      - immediately_after_substitution_boundary
+      - intermediate_widths_when_layout_behavior_changes_non_linearly
+    stress_cases:
+      - longest_realistic_labels
+      - highest_expected_option_count
+      - selected_active_disabled_loading_and_empty_states_when_applicable
+      - localization_or_text_expansion_when_supported
+      - zoom_or_text_scaling_when_required
+      - dynamic_content_growth_when_expected
+    rules:
+      - fixed_viewport_lists_may_be_examples_but_not_universal_completion_requirements
+      - code_inspection_alone_is_not_visual_or_interaction_verification
+      - screenshots_alone_do_not_prove_state_equivalence_keyboard_or_dynamic_affordances
+
   quality_gates:
-    - each_major_component_has_mobile_tablet_laptop_desktop_behavior
+    - each_major_component_has_an_explicit_context_strategy
     - component_pattern_selected_from_user_task_content_and_context
     - requested_component_is_treated_as_a_proposed_solution_not_an_immutable_requirement
-    - tablet_is_designed_explicitly_not_treated_as_scaled_desktop_or_stretched_phone
-    - adaptation_mode_is_declared_for_each_component_and_viewport
+    - diagnosis_distinguishes_pattern_mismatch_from_implementation_defect
+    - adaptation_mode_is_declared_for_each_relevant_context
+    - substitution_boundaries_are_derived_from_real_content_and_available_width
     - primary_choices_are_not_hidden_without_product_rationale
-    - navigation_pattern_matches_viewport_and_information_architecture
-    - dense_data_has_explicit_small_screen_transformation
-    - tabs_and_horizontal_collections_expose_overflow_affordance
-    - horizontal_rail_controls_are_paired_and_scroll_state_aware
-    - touch_pointer_and_keyboard_interactions_are_defined
-    - interactive_targets_do_not_overlap_clip_or_fall_below_accessible_size
-    - component_variants_preserve_shared_value_state_event_semantics_analytics_and_accessible_labels
-    - hidden_content_is_non_critical_and_justified
+    - navigation_pattern_matches_information_architecture_and_context
+    - dense_data_has_explicit_small_width_transformation
+    - tabs_and_horizontal_collections_expose_truthful_overflow_affordance
+    - directional_controls_reflect_actual_scroll_availability
+    - touch_pointer_and_keyboard_interactions_are_defined_when_applicable
+    - interactive_targets_do_not_overlap_or_clip
+    - component_variants_preserve_shared_value_state_event_semantics_analytics_and_accessible_relationships
+    - hidden_content_is_non_critical_justified_and_still_reachable_when_required
     - component_choice_includes_rejected_alternatives_and_tradeoffs
-    - implementation_acceptance_criteria_cover_target_and_boundary_viewports
-    - visual_verification_uses_realistic_content_and_interaction_evidence
+    - acceptance_criteria_cover_actual_targets_and_adaptation_boundaries
+    - realistic_content_and_text_expansion_are_verified
     - code_inspection_alone_is_not_accepted_as_visual_verification
+
   boundary:
     covers:
-      - viewport_specific_component_selection
-      - cross_device_component_substitution
+      - component_fitness_diagnosis
+      - context_specific_component_selection
+      - cross_context_component_substitution
       - responsive_pattern_transformation
       - navigation_component_adaptation
       - content_density_adaptation
       - interaction_mode_adaptation
       - shared_state_and_semantics_across_variants
-      - overflow_affordance_behavior
-      - component_fitness_verification
+      - overflow_and_disclosure_affordance_behavior
+      - adaptation_boundary_verification
     does_not_cover:
       - visual_style_and_brand_expression
       - page_level_macrostructure_selection
@@ -156,10 +232,13 @@ skill_contract:
       page_level_macrostructure_selection: design-layout
       interaction_states_and_feedback: design-interaction
       breakpoint_and_fluid_grid_mechanics: responsiveness
+      information_architecture_or_content_pressure: design-strategy
       final_compliance_review: design-review
+
   adapter_requirements:
     component_library_mapping_is_product_defined: true
     breakpoint_values_are_product_defined: true
+    target_contexts_are_product_defined: true
     runtime_specific_behavior_must_stay_out_of_core: true
     adapter_must_preserve_shared_state_and_semantics_across_variants: true
-    adapter_must_provide_visual_verification_evidence: true
+    adapter_must_provide_rendered_verification_evidence: true
