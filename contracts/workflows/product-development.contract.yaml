@@ -105,7 +105,7 @@ workflow_contract:
     - phase: acceptance_verification
       load: [skill-eval, code-review-workflow]
     - phase: acceptance_domain_review
-      load_on_demand: [design-review, security-review, threat-modeling, web-performance, accessibility]
+      load: [design-review, security-review, threat-modeling, web-performance, accessibility]
     - phase: release
       load: [git-workflow, deployment-workflow]
     - phase: deploy
