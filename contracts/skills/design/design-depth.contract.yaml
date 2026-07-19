@@ -2,135 +2,153 @@ skill_contract:
   id: design-depth
   category: design
   type: contract
-  version: "2.0.0"
-  capability: visual_depth_layering_atmosphere_interleave
+  version: "2.1.0"
+  capability: optional_role_driven_visual_depth_layering_and_elevation
 
   description: >
-    Defines what any depth adapter must address — layer stack declaration,
-    atmosphere techniques, typography interleave, scale-as-distance.
-    Flat is valid when Kanso applies; depth requires intent and assets.
-    v2: adds elevation inheritance model (recursive depth resolution).
+    Defines depth as an optional compositional system for separation, atmosphere,
+    spatial storytelling, imagery integration, and interaction state. Flat, shallow,
+    and deep treatments are all valid when they support the message, task, assets,
+    viewing context, and genre. Depth techniques are selected by role rather than
+    applied as a premium-looking effect stack.
 
   roles:
     - visual_designer
+    - product_design_owner
     - redesign_workflow
-
-  # ─── Perceptual Depth Model ───────────────────────────────────────────────
-  #
-  # Humans perceive ~4 distinct depth planes before visual confusion.
-  # Every surface — page, section, or component — maps to exactly one plane.
-  # Transparent background = "plane inherited from parent", NOT "no plane".
-  #
-  depth_planes:
-    "0":
-      name: canvas
-      description: Viewport background. Never perceived directly — sets the tone.
-      css_z_index: 0
-      token: --depth-canvas
-    "1":
-      name: atmosphere
-      description: Ambient wash, blur, shadow, gradient. Felt, not seen.
-      css_z_index: 1
-      token: --depth-atmosphere
-    "2":
-      name: content
-      description: Primary content layer — text, illustrations, component surfaces.
-      css_z_index: 2
-      token: --depth-content
-    "3":
-      name: accent
-      description: Foreground accents — badges, tooltips, highlights, overlays.
-      css_z_index: 3
-      token: --depth-accent
-
-  # ─── Elevation Inheritance ────────────────────────────────────────────────
-  #
-  # Components declare their depth_plane (global) and content_elevation (internal).
-  # content_elevation is always RELATIVE (+n from component's own plane).
-  # Transparent background = inherit parent plane (NOT plane 0).
-  #
-  # Example: Hero section
-  #   depth_plane: 2 (content)
-  #   background: transparent → inherits page canvas (plane 0)
-  #   hero-name text: depth_plane 2 (same as section)
-  #   illustration: depth_plane 2 + content_elevation +1 = z-index 3
-  #   hero-bio text: depth_plane 2 + content_elevation +2 = z-index 4
-  #
-  # Rule: content_elevation ceiling = +2 within one component.
-  # If you need +3, split into a new component with its own depth_plane.
-  #
-  elevation_inheritance:
-    rule: relative_to_parent_plane
-    max_internal_elevation: 2
-    transparent_resolves_to: inherit_parent
-    overflow_action: split_component
-
-  # ─── Component Depth Declaration Schema ───────────────────────────────────
-  #
-  # Every component MUST declare depth metadata.
-  # Adapter/implementation fills these from the contract.
-  #
-  component_depth_schema:
-    required:
-      - depth_plane       # integer 0–3 (global plane)
-      - background        # color token | transparent | inherit
-    optional:
-      - content_elevation # integer +0 to +2 (internal sub-layers)
-      - blend_mode        # CSS mix-blend-mode for atmospheric integration
-      - isolation         # CSS isolation: isolate | auto
-
-  # ─── Layer Stack Declaration Rule ─────────────────────────────────────────
-  #
-  # MUST be declared before any implementation begins.
-  # Format: name | plane | internal_elevation | background | note
-  #
-  layer_stack_template: |
-    # Global Stack
-    canvas        | 0 | +0 | --bg                | page background
-    atmosphere    | 1 | +0 | transparent         | CSS radial/blur wash
-
-    # Per-section example (hero)
-    hero-section  | 2 | +0 | transparent→inherit | no border, no bg
-    hero-name     | 2 | +0 | —                   | text, behind object
-    hero-object   | 2 | +1 | transparent         | illustration/shape
-    hero-bio      | 2 | +2 | —                   | text, above object
 
   inputs:
     required:
-      - genre_selection
-      - depth_mode
+      - selected_design_direction
+      - depth_need_assessment
+      - target_surface
     optional:
       - art_assets
+      - photography
       - illustration_system
+      - interaction_overlays
+      - existing_elevation_tokens
+      - viewing_contexts
+      - performance_constraints
+      - accessibility_requirements
+
+  depth_modes:
+    allowed:
+      - flat
+      - shallow
+      - layered
+      - deep
+    rules:
+      - flat_is_valid_when_separation_and_flow_are_clear_without_layering
+      - shallow_is_preferred_when_only_surface_separation_is_needed
+      - layered_or_deep_requires_assets_message_value_or_interaction_need
+      - mode_must_not_be_selected_only_to_look_premium
+
+  depth_role_contract:
+    allowed_roles:
+      - canvas
+      - structural_separation
+      - content_plane
+      - atmosphere
+      - imagery_integration
+      - focus_or_emphasis
+      - interaction_overlay
+      - feedback_or_state
+    rules:
+      - every_depth_technique_has_a_named_role
+      - decorative_depth_without_role_is_removed
+      - one_technique_must_not_be_repeated_at_equal_strength_everywhere
+      - body_content_legibility_and_task_completion_override_visual_effect
+
+  layer_contract:
+    required_when:
+      - depth_mode_is_layered_or_deep
+      - overlapping_content_exists
+      - interaction_overlay_exists
+      - atmosphere_or_blending_affects_legibility
+    fields:
+      - layer_name
+      - role
+      - relative_plane
+      - background_or_blend
+      - content_relationship
+      - responsive_fallback
+      - legibility_constraints
+    rules:
+      - declare_only_meaningful_layers
+      - transparent_background_inherits_parent_context
+      - internal_elevation_is_relative_to_parent
+      - z_index_values_are_implementation_defined
+      - components_without_depth_behavior_need_not_declare_artificial_planes
+
+  technique_contract:
+    optional_techniques:
+      - elevation_and_shadow
+      - border_or_surface_contrast
+      - blur_or_atmosphere
+      - gradient_or_light_field
+      - scale_and_perspective
+      - overlap_and_crop
+      - edge_bleed
+      - hard_edge_containment
+      - typography_interleave
+      - parallax_or_motion_depth
+    rules:
+      - hard_edges_and_borders_are_valid_when_containment_or_system_language_requires_them
+      - edge_bleed_is_optional_not_a_universal_depth_rule
+      - typography_interleave_is_optional_and_requires_readability_and_responsive_fallback
+      - gradient_blur_glow_and_shadow_are_not_depth_proof_by_themselves
+      - technique_choice_must_match_assets_genre_and_performance_boundary
+      - mobile_or_reduced_motion_fallback_must_preserve_hierarchy_and meaning
 
   outputs:
     allowed:
-      - layer_stack_declaration    # table: name | plane | elevation | bg | note
-      - atmosphere_spec            # CSS technique + blend-mode
-      - interleave_spec            # which elements cross z-index boundary
-      - scale_rule                 # scale-as-distance guideline
-      - component_depth_metadata   # depth_plane + content_elevation per component
+      - depth_need_assessment
+      - depth_mode
+      - depth_role_map
+      - layer_stack_declaration
+      - atmosphere_spec
+      - elevation_or_surface_spec
+      - imagery_integration_spec
+      - optional_interleave_spec
+      - responsive_depth_fallback
+      - performance_and_accessibility_constraints
+      - depth_verification_plan
+
+  anti_slop_contract:
+    detect:
+      - glow_blur_gradient_and_shadow_stacked_without_role
+      - every_card_using_equal_elevation
+      - fake_3d_or_perspective_without_assets_or_message_value
+      - atmospheric_background_reducing_legibility
+      - typography_interleave_used_only_for_visual_novelty
+      - depth_added_to_data_dense_or_task_critical_surfaces_without_need
+      - all_sections_given_separate_floating_surfaces
+    correction_rule: remove_the_smallest_roleless_effect_set_and_restore_clear_planes
 
   quality_gates:
-    - layer_stack_declared_before_produce
-    - all_components_declare_depth_plane
-    - transparent_bg_resolved_to_parent_not_zero
-    - content_elevation_max_plus_2_per_component
-    - objects_have_no_hard_edges
-    - body_text_remains_readable_over_objects
-    - interleave_has_mobile_fallback
-    - depth_mode_matches_asset_availability
+    - depth_mode_is_justified_by_message_task_assets_and_context
+    - every_depth_technique_has_a_named_role
+    - layer_stack_is_declared_when_overlap_or_layering_requires_it
+    - flat_components_are_not_forced_to_declare_fake_depth_metadata
+    - body_text_and_controls_remain_legible_and_operable
+    - responsive_and_reduced_motion_fallbacks_preserve_hierarchy
+    - performance_cost_matches_delivery_context
+    - effects_do_not_replace_foundation_composition_or_content
+    - depth_is_not_used_as_a_generic_premium_recipe
 
   boundary:
     covers:
-      - layer_z_architecture
-      - atmosphere_css_techniques
-      - typography_interleave
-      - scale_distance_perspective
-      - genre_depth_patterns
-      - elevation_inheritance_model
-      - component_depth_declaration
+      - depth_need_assessment
+      - surface_and_elevation_relationships
+      - atmosphere_and_imagery_integration
+      - overlap_and_layer_architecture
+      - optional_typography_interleave
+      - responsive_depth_fallback
+      - depth_effect_restraint
     does_not_cover:
-      - motion_parallax         # → motion-design
-      - 3d_transforms_scroll    # → motion-design
-      - illustration_creation   # → external asset
+      - illustration_creation
+      - product_specific_elevation_token_values
+      - motion_timing_and_reduced_motion_implementation
+      - page_macrostructure
+      - independent_design_acceptance
