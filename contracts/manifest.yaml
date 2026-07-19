@@ -1,5 +1,5 @@
 version: "1.0.0"
-generated_at: "2026-07-19T05:12:16Z"
+generated_at: "2026-07-19T06:47:50Z"
 description: "Auto-generated contract manifest. Regenerate with: scripts/generate-manifest.sh"
 total_contracts: 104
 contracts:
@@ -82,8 +82,8 @@ contracts:
         sha256: 30e4235087db0f98
       - id: adaptive-component-design
         path: contracts/skills/design/adaptive-component-design.contract.yaml
-        version: "1.0.0"
-        sha256: 580039c8e7290ead
+        version: "1.1.0"
+        sha256: 1ce6838618a0e370
       - id: color-theory
         path: contracts/skills/design/color-theory.contract.yaml
         version: "1.0.0"
