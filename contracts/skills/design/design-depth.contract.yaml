@@ -99,7 +99,7 @@ skill_contract:
       - typography_interleave_is_optional_and_requires_readability_and_responsive_fallback
       - gradient_blur_glow_and_shadow_are_not_depth_proof_by_themselves
       - technique_choice_must_match_assets_genre_and_performance_boundary
-      - mobile_or_reduced_motion_fallback_must_preserve_hierarchy_and meaning
+      - mobile_or_reduced_motion_fallback_must_preserve_hierarchy_and_meaning
 
   outputs:
     allowed:
