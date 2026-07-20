@@ -48,6 +48,27 @@ class PortContractValidationTests(unittest.TestCase):
             / "control"
             / "execution-run-management.port.yaml"
         )
+        cls.review_path = (
+            ROOT
+            / "contracts"
+            / "ports"
+            / "control"
+            / "review-management.port.yaml"
+        )
+        cls.approval_path = (
+            ROOT
+            / "contracts"
+            / "ports"
+            / "control"
+            / "approval-decision.port.yaml"
+        )
+        cls.authorization_path = (
+            ROOT
+            / "contracts"
+            / "ports"
+            / "control"
+            / "authorization-assessment.port.yaml"
+        )
 
     def write_mutated_contract(
         self,
@@ -69,6 +90,14 @@ class PortContractValidationTests(unittest.TestCase):
         path.write_text(yaml.safe_dump(payload, sort_keys=False))
         return temp_root, path
 
+    @staticmethod
+    def transition_families(path: Path) -> set[str]:
+        contract = module.load_yaml(path)["port_contract"]
+        return {
+            transition["status_family"]
+            for transition in contract["state_transitions"]
+        }
+
     def test_schema_uses_standard_root_keywords(self):
         self.assertEqual("Native AI Engineering Port Contract", self.schema["title"])
         self.assertEqual("object", self.schema["type"])
@@ -83,12 +112,34 @@ class PortContractValidationTests(unittest.TestCase):
             [error.message for error in errors],
         )
 
-    def test_repository_representative_contracts_pass(self):
+    def test_repository_contracts_pass(self):
         paths = list((ROOT / "contracts" / "ports").rglob("*.port.yaml"))
         self.assertEqual(
             [],
             module.validate_paths(paths, schema_path=SCHEMA, root=ROOT),
         )
+
+    def test_review_approval_and_authorization_remain_separate(self):
+        self.assertEqual(
+            {"review_disposition"}, self.transition_families(self.review_path)
+        )
+        self.assertEqual(
+            {"approval_status"}, self.transition_families(self.approval_path)
+        )
+        self.assertEqual(set(), self.transition_families(self.authorization_path))
+
+        authorization = module.load_yaml(self.authorization_path)["port_contract"]
+        self.assertEqual("required", authorization["authorization"]["mode"])
+        self.assertTrue(
+            authorization["authorization"]["authority_reference_required"]
+        )
+
+    def test_retired_review_approval_alias_is_not_reintroduced(self):
+        aliases = set()
+        for path in (ROOT / "contracts" / "ports").rglob("*.port.yaml"):
+            contract = module.load_yaml(path)["port_contract"]
+            aliases.update(contract["compatibility"]["aliases"])
+        self.assertNotIn("review-approval", aliases)
 
     def test_negative_fixture_fails_schema_validation(self):
         payload = module.load_yaml(INVALID_FIXTURE)
