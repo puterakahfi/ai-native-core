@@ -1,0 +1,208 @@
+skill_contract:
+  id: component-family-design
+  category: design
+  type: skill
+  version: "1.0.0"
+  capability: cross_route_component_family_and_template_consistency
+  capability_aliases:
+    - organism_and_template_family_architecture
+    - atomic_design_hierarchy_and_variant_governance
+    - shared_interface_family_composition
+
+  description: >
+    Classifies interface elements by composition level, discovers or defines canonical
+    component families, and ensures that route-specific organisms and page templates are
+    instances or bounded variants of shared family contracts rather than unrelated local
+    implementations. Content, menus, and actions may vary while invariant anatomy,
+    interaction vocabulary, visual rhythm, semantics, and adaptive identity remain coherent.
+
+  roles:
+    - component_system_architect
+    - design_systems_designer
+    - interface_architect
+    - frontend_design_systems_specialist
+    - product_ui_architect
+
+  inputs:
+    required:
+      - product_intent
+      - target_surfaces
+      - component_inventory
+      - route_inventory
+      - existing_design_system
+    optional:
+      - existing_component_families
+      - existing_templates
+      - current_route_implementations
+      - content_and_action_variants
+      - adaptive_contexts
+      - repository_component_inventory
+      - migration_constraints
+      - preservation_requirements
+      - rendered_cross_route_evidence
+
+  outputs:
+    allowed:
+      - interface_hierarchy_classification
+      - canonical_component_family_inventory
+      - organism_family_contracts
+      - template_family_contracts
+      - invariant_anatomy_map
+      - configurable_slot_map
+      - bounded_variant_matrix
+      - route_to_family_instance_map
+      - adaptive_family_contract
+      - family_reuse_extension_or_creation_decisions
+      - family_drift_findings
+      - family_migration_plan
+      - cross_route_acceptance_criteria
+      - rendered_family_evidence
+
+  hierarchy_model:
+    allowed_levels:
+      atom: indivisible_interface_primitive
+      molecule: small_composition_of_atoms_with_one_local_purpose
+      organism: reusable_interface_region_with_distinct_product_responsibility
+      template: page_level_arrangement_of_organisms_and_content_regions
+      page: real_content_instance_of_a_template
+    rules:
+      - classify_the_requested_surface_before_creating_a_route_local_component
+      - hierarchy_labels_describe_composition_responsibility_not_file_size
+      - a_header_or_navigation_region_is_typically_an_organism_not_a_template
+      - a_shell_that_places_header_main_footer_sidebar_or_other_regions_is_a_template
+      - atomic_design_terms_are_a_model_not_a_required_naming_convention
+
+  family_contract:
+    required_fields:
+      - family_name
+      - hierarchy_level
+      - product_role
+      - invariant_anatomy
+      - configurable_slots
+      - shared_visual_contract
+      - shared_interaction_contract
+      - shared_accessibility_contract
+      - bounded_variants
+      - adaptive_contract
+      - route_instances
+      - prohibited_parallel_implementations
+    rules:
+      - same_product_role_should_resolve_to_the_same_family_when_the_family_fits
+      - route_specific_content_should_be_configuration_or_a_bounded_variant_not_automatic_duplication
+      - variant_differences_must_be_declared_and_bounded
+      - invariant_anatomy_may_not_drift_accidentally_between_route_instances
+      - shared_focus_keyboard_state_and_semantic_contracts_must_be_preserved
+      - adaptive_substitution_must_preserve_family_identity_unless_an_explicit_new_family_decision_is_approved
+      - a_new_family_requires_a_proven_role_or_capability_difference
+
+  family_decisions:
+    allowed:
+      - reuse_existing_family
+      - reuse_existing_family_variant
+      - extend_family_with_bounded_variant
+      - compose_existing_families
+      - migrate_route_local_implementation_into_family
+      - create_new_family_after_proven_role_gap
+      - unresolved
+    required_evidence:
+      - product_role_comparison
+      - anatomy_comparison
+      - interaction_and_accessibility_comparison
+      - visual_and_token_comparison
+      - adaptive_behavior_comparison
+      - route_instance_inventory
+      - rejected_alternatives
+
+  diagnosis_contract:
+    allowed:
+      COMPONENT_FAMILY_DRIFT: equivalent_product_roles_use_unrelated_component_implementations
+      ORGANISM_DUPLICATION: route_local_organism_rebuilds_a_fit_shared_family
+      TEMPLATE_FAMILY_BYPASS: a_page_recreates_shell_structure_instead_of_using_the_fit_template_family
+      VARIANT_BOUNDARY_BREACH: a_declared_variant_changes_invariant_anatomy_or_shared_behavior_without_approval
+      FAMILY_CAPABILITY_GAP: no_existing_family_can_satisfy_the_material_product_role
+      IMPLEMENTATION_DEFECT: the_family_contract_is_fit_but_one_instance_is_broken
+    rules:
+      - different_menu_content_does_not_by_itself_justify_a_new_navigation_family
+      - a_better_mobile_pattern_does_not_justify_unrelated_desktop_and_mobile_organisms
+      - visual_similarity_alone_does_not_prove_family_consistency
+      - shared_source_alone_does_not_prove_rendered_or_interaction_consistency
+
+  adaptive_family_contract:
+    required_fields:
+      - shared_product_role
+      - shared_information_identity
+      - shared_value_and_state
+      - desktop_or_wide_variant
+      - constrained_width_variant
+      - substitution_boundary
+      - preserved_actions_and_destinations
+      - focus_and_keyboard_expectations
+      - analytics_identity
+    rules:
+      - adaptive_variants_may_change_component_pattern
+      - adaptive_variants_must_remain_instances_of_the_accepted_family_contract
+      - mobile_sheet_and_desktop_inline_navigation_may_be_family_variants_when_identity_state_and_anatomy_contracts_are_explicit
+
+  template_contract:
+    required_fields:
+      - template_family_name
+      - regions
+      - region_ownership
+      - allowed_organism_variants
+      - route_instances
+      - responsive_region_behavior
+      - preservation_requirements
+    rules:
+      - templates_define_structure_not_final_content
+      - pages_supply_real_content_and_route_configuration
+      - route_specific_shell_duplication_requires_a_template_family_decision
+
+  quality_gates:
+    - every_major_shared_surface_has_a_hierarchy_classification
+    - equivalent_product_roles_are_checked_against_existing_families
+    - family_invariant_anatomy_and_configurable_slots_are_explicit
+    - route_differences_are_configuration_or_bounded_variants_when_fit
+    - organism_and_template_ownership_are_not_conflated
+    - adaptive_variants_preserve_family_identity_and_shared_semantics
+    - new_family_creation_has_a_proven_role_or_capability_gap
+    - route_to_family_instance_mapping_is_complete
+    - cross_route_visual_interaction_and_accessibility_evidence_is_planned
+    - source_inspection_alone_is_not_accepted_as_rendered_family_consistency
+
+  boundary:
+    covers:
+      - atomic_design_hierarchy_classification
+      - canonical_component_family_inventory
+      - organism_family_definition
+      - template_family_definition
+      - invariant_anatomy_and_slot_definition
+      - bounded_variant_governance
+      - route_to_family_instance_mapping
+      - cross_route_component_family_consistency
+      - adaptive_family_identity_preservation
+      - family_reuse_extension_creation_or_migration_decisions
+      - component_family_drift_diagnosis
+      - cross_route_family_acceptance_criteria
+    does_not_cover:
+      - design_token_definition
+      - visual_style_or_brand_direction
+      - task_level_component_pattern_selection
+      - generic_breakpoint_mechanics
+      - repository_framework_or_import_mapping
+      - product_specific_component_implementation
+      - final_rendered_accessibility_or_architecture_acceptance
+    delegates_to:
+      design_token_definition: design-system
+      visual_style_or_brand_direction: design-visual
+      component_pattern_selection: ux-ui-patterns
+      context_specific_substitution: adaptive-component-design
+      repository_mapping: implementation-context-discovery
+      implementation: master-engineer
+      final_acceptance: design-review
+
+  adapter_requirements:
+    repository_paths_and_component_names_are_product_defined: true
+    hierarchy_terms_may_map_to_product_specific_names: true
+    adapter_must_inventory_existing_route_implementations: true
+    adapter_must_record_invariants_slots_and_variants: true
+    adapter_must_provide_cross_route_evidence_for_implemented_outputs: true
