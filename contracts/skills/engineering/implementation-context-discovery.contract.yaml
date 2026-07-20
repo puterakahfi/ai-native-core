@@ -1,0 +1,281 @@
+skill_contract:
+  id: implementation-context-discovery
+  category: engineering
+  type: skill
+  version: "1.0.0"
+  capability: repository_implementation_context_discovery_and_convention_preservation
+  capability_aliases:
+    - stack_and_convention_discovery
+    - implementation_ecosystem_mapping
+    - repository_library_and_component_reuse_governance
+  aliases:
+    - stack-context-discovery
+    - repository-convention-discovery
+
+  description: >
+    Discovers the implementation ecosystem already accepted by a repository before
+    code is produced or changed. It identifies canonical frameworks, component and
+    styling systems, iconography, utilities, state and data tooling, build and test
+    conventions, then turns that evidence into reuse, extension, composition,
+    semantic-native, or new-dependency decisions. Package presence alone is not
+    sufficient evidence of canonical status.
+
+  roles:
+    - implementation_context_analyst
+    - software_engineer
+    - frontend_engineer
+    - repository_maintainer
+    - technical_lead
+    - architecture_reviewer
+
+  inputs:
+    required:
+      - repository_ref
+      - implementation_scope
+      - target_surface
+      - proposed_changes
+    optional:
+      - engineering_contract_ref
+      - architecture_decision_records
+      - package_manifests
+      - lockfiles
+      - workspace_configuration
+      - framework_configuration
+      - source_tree_and_import_evidence
+      - component_registry_configuration
+      - shared_component_inventory
+      - styling_and_token_configuration
+      - iconography_usage_evidence
+      - state_form_query_and_data_tooling_evidence
+      - build_lint_test_and_story_evidence
+      - migration_and_deprecation_evidence
+      - dependency_policy
+      - ownership_and_approval_policy
+      - preservation_requirements
+      - performance_accessibility_and_security_constraints
+
+  outputs:
+    allowed:
+      - implementation_context_profile
+      - repository_evidence_inventory
+      - framework_runtime_map
+      - component_system_map
+      - canonical_component_inventory
+      - styling_system_map
+      - iconography_implementation_map
+      - state_form_data_tooling_map
+      - workspace_build_test_map
+      - convention_locks
+      - canonicality_decisions
+      - reuse_extension_decision
+      - new_dependency_decision
+      - implementation_mapping
+      - convention_drift_findings
+      - evidence_gaps
+      - verification_plan
+
+  evidence_contract:
+    required_sources_when_applicable:
+      - package_manifests_and_lockfiles
+      - workspace_and_framework_configuration
+      - aliases_and_composition_roots
+      - component_registry_or_shared_component_source
+      - representative_current_imports_and_usage
+      - styling_configuration_and_semantic_tokens
+      - icon_imports_or_icon_wrappers
+      - state_form_query_animation_table_and_data_patterns
+      - build_lint_test_story_or_example_configuration
+      - engineering_contracts_and_architecture_decisions
+      - migration_deprecation_or_replacement_evidence
+    rules:
+      - inspect_repository_evidence_before_implementation
+      - package_presence_alone_does_not_establish_canonical_status
+      - transitive_legacy_experimental_and_deprecated_dependencies_must_not_be_treated_as_canonical_without_supporting_evidence
+      - unavailable_or_conflicting_evidence_remains_explicitly_unknown
+      - source_evidence_must_be_traceable_to_paths_imports_configuration_or_decisions
+
+  canonicality_contract:
+    statuses:
+      - canonical
+      - accepted_but_local
+      - migration_target
+      - legacy
+      - deprecated
+      - experimental
+      - transitive_only
+      - unknown
+    required_factors:
+      - declared_dependency_or_repository_source
+      - actual_usage
+      - repeated_usage_or_shared_ownership
+      - repository_convention
+      - current_architecture_or_engineering_decision
+    rules:
+      - canonicality_is_a_repository_decision_not_a_popularity_decision
+      - one_factor_alone_cannot_prove_canonical_status
+      - newer_or_more_popular_tooling_does_not_override_accepted_repository_conventions
+      - migration_evidence_must_be_distinguished_from_current_canonical_usage
+      - conflicting_systems_require_an_explicit_authority_or_unknown_status
+
+  implementation_decision_ladder:
+    ordered_options:
+      - reuse_existing_component_or_utility
+      - reuse_existing_variant
+      - add_bounded_variant_to_canonical_abstraction
+      - compose_canonical_primitives
+      - create_product_specific_component_using_canonical_primitives
+      - use_semantic_native_platform_element_when_no_system_abstraction_is_needed
+      - introduce_new_dependency_after_proven_capability_gap
+    rules:
+      - evaluate_options_in_order
+      - do_not_duplicate_a_fit_canonical_abstraction
+      - native_semantic_elements_are_not_failures_by_default
+      - local_abstraction_requires_a_product_or_repository_reason
+      - extension_must_not_break_existing_component_contracts
+      - composition_must_preserve_tokens_accessibility_and_interaction_conventions
+
+  reuse_extension_contract:
+    required_fields:
+      - requested_capability
+      - existing_options_reviewed
+      - selected_option
+      - evidence
+      - rationale
+      - affected_convention_locks
+      - rejected_alternatives
+      - verification_requirements
+    allowed_decisions:
+      - reuse
+      - reuse_variant
+      - extend
+      - compose
+      - product_specific_component
+      - semantic_native
+      - dependency_candidate
+      - unresolved
+
+  new_dependency_contract:
+    required_fields:
+      - requested_capability
+      - proven_capability_gap
+      - existing_options_reviewed
+      - candidate_and_owned_role
+      - alternatives_rejected
+      - bundle_runtime_or_operational_consequences
+      - accessibility_security_and_maintenance_consequences
+      - integration_with_existing_systems
+      - migration_or_exit_strategy
+      - approval_authority
+      - verification_plan
+    rules:
+      - no_new_dependency_without_a_proven_capability_gap
+      - dependency_role_must_be_bounded_and_non_duplicative
+      - preference_novelty_or_convenience_alone_is_not_a_capability_gap
+      - package_installation_requires_product_or_repository_authority
+      - unresolved_consequences_or_authority_block_approval
+
+  convention_lock_contract:
+    applicable_families:
+      - application_framework_and_runtime
+      - component_system_and_primitives
+      - styling_and_token_system
+      - iconography_family_and_wrappers
+      - state_form_query_and_data_tooling
+      - routing_and_composition
+      - testing_story_and_build_tooling
+      - accessibility_security_and_performance_patterns
+    rules:
+      - locks_may_be_preserve_extend_migrate_or_unresolved
+      - every_lock_requires_repository_evidence
+      - a_migration_target_does_not_silently_authorize_mixed_systems
+      - scoped_exceptions_require_reason_owner_and_verification
+
+  classification_contract:
+    allowed_findings:
+      - STACK_CONTEXT_MISSING
+      - CONVENTION_DRIFT
+      - CAPABILITY_GAP
+      - DEPENDENCY_DRIFT
+      - IMPLEMENTATION_DEFECT
+    rules:
+      - missing_preimplementation_evidence_is_stack_context_missing
+      - bypassing_a_fit_canonical_abstraction_without_evidence_is_convention_drift
+      - a_proven_unsatisfied_requirement_is_a_capability_gap
+      - an_unapproved_parallel_or_duplicate_dependency_is_dependency_drift
+      - correct_context_and_mapping_with_broken_execution_is_an_implementation_defect
+      - findings_must_name_evidence_impact_owner_and_correction_route
+
+  verification_contract:
+    required:
+      - implementation_mapping_matches_discovered_conventions
+      - changed_imports_and_dependencies_are_audited
+      - reused_or_extended_components_preserve_their_contracts
+      - native_semantic_choices_are_justified_when_material
+      - new_dependency_decisions_have_required_approval_and_consequence_evidence
+      - independent_post_implementation_architecture_review
+    rules:
+      - source_inspection_can_prove_import_and_configuration_alignment_but_not_runtime_visual_or_accessibility_behavior
+      - build_or_test_success_does_not_prove_architecture_or_convention_acceptance
+      - unchanged_dependency_manifest_does_not_prove_no_parallel_local_system_was_created
+      - missing_runtime_or_rendered_evidence_remains_not_verified
+      - verification_depth_must_match_the_changed_capability_and_risk
+
+  quality_gates:
+    - repository_context_is_inspected_before_implementation
+    - package_presence_alone_does_not_establish_canonical_status
+    - canonicality_uses_declared_dependency_actual_usage_repetition_repository_convention_and_current_decisions
+    - existing_fit_components_and_utilities_are_reused_before_local_duplication
+    - extension_or_composition_is_preferred_before_parallel_system_introduction
+    - semantic_native_elements_remain_valid_when_no_canonical_abstraction_is_needed
+    - bypassing_a_fit_canonical_abstraction_without_evidence_is_convention_drift
+    - icon_component_styling_state_and_data_systems_are_not_mixed_without_approved_reason
+    - new_dependencies_require_proven_capability_gap_alternatives_consequences_and_authority
+    - convention_locks_and_scoped_exceptions_are_traceable_to_repository_evidence
+    - implementation_mapping_precedes_code_production
+    - source_only_evidence_does_not_claim_runtime_visual_or_accessibility_conformance
+    - independent_architecture_review_remains_required_after_implementation
+    - unknown_or_conflicting_context_is_reported_not_invented
+
+  boundary:
+    covers:
+      - repository_implementation_ecosystem_discovery
+      - canonical_framework_runtime_and_tooling_classification
+      - component_system_and_shared_utility_inventory
+      - styling_token_and_iconography_implementation_mapping
+      - state_form_query_data_and_build_test_tooling_mapping
+      - repository_convention_lock_definition
+      - reuse_extension_composition_native_or_dependency_decision
+      - capability_gap_and_parallel_system_diagnosis
+      - new_dependency_evidence_and_consequence_record
+      - implementation_mapping_before_code_production
+      - implementation_context_verification_planning
+    does_not_cover:
+      - product_specific_component_implementation
+      - design_pattern_or_component_fitness_selection
+      - visual_style_brand_or_design_system_definition
+      - runtime_behavior_visual_quality_or_accessibility_acceptance
+      - architecture_compliance_acceptance_after_implementation
+      - dependency_purchase_legal_or_licensing_approval
+      - product_specific_migration_execution
+      - backend_domain_or_business_policy
+      - repository_write_or_merge_execution
+    delegates_to:
+      product_specific_component_implementation: engineering_or_product_adapter
+      design_pattern_or_component_fitness_selection: adaptive_component_or_design_interaction_adapter
+      visual_style_brand_or_design_system_definition: design_owner_and_design_system_adapter
+      runtime_behavior_visual_quality_or_accessibility_acceptance: governing_runtime_design_and_accessibility_reviewers
+      architecture_compliance_acceptance_after_implementation: architecture-review
+      dependency_purchase_legal_or_licensing_approval: product_authority
+      product_specific_migration_execution: engineering_or_product_adapter
+      backend_domain_or_business_policy: product_domain_owner
+      repository_write_or_merge_execution: git-workflow
+
+  adapter_requirements:
+    repository_paths_and_tool_names_are_product_defined: true
+    framework_component_styling_and_icon_libraries_are_product_defined: true
+    canonicality_evidence_must_reference_actual_repository_sources: true
+    adapter_must_distinguish_installed_from_canonical_and_legacy_dependencies: true
+    adapter_must_emit_convention_locks_before_code_production: true
+    adapter_must_record_reuse_extension_and_dependency_decisions: true
+    adapter_must_preserve_independent_architecture_review: true
+    adapter_must_not_claim_runtime_visual_or_accessibility_proof_from_source_only_evidence: true
