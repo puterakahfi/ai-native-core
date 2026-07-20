@@ -26,6 +26,7 @@ port_contract:
     delegates:
       - actual_tool_execution
       - workflow_definition
+      - workflow_coordination
       - evidence_assessment
       - review
       - approval
@@ -54,8 +55,8 @@ port_contract:
           - id: capacity_assessment_ref
             description: Current bounded capacity assessment.
         optional_fields:
-          - id: workflow_run_ref
-            description: Workflow run coordinating this execution when applicable.
+          - id: workflow_coordination_ref
+            description: Workflow coordination checkpoint associated with this execution when applicable.
           - id: authorization_ref
             description: Authority-bearing authorization reference when policy requires it.
           - id: context_pack_ref
@@ -211,7 +212,7 @@ port_contract:
     correlation_fields:
       - run_id
       - step_id
-      - workflow_run_ref
+      - workflow_coordination_ref
       - adapter_binding_ref
       - tool_invocation_ref
     sensitive_fields:
@@ -228,6 +229,7 @@ port_contract:
       - preserve_execution_status_family
       - use_optimistic_status_transition_checks
       - record_actual_steps_not_plans
+      - use_workflow_coordination_references_without_creating_workflow_run_status
       - keep_review_approval_completion_and_delivery_external
       - redact_secrets_from_execution_records
   compatibility:
@@ -237,6 +239,7 @@ port_contract:
       - add_required_execution_reference
       - remove_request_or_response_operation
       - collapse_external_status_family
+      - introduce_unmodeled_workflow_run_lifecycle
       - change_idempotency_scope
     aliases:
       - execution-run
@@ -245,6 +248,7 @@ port_contract:
   quality_gates:
     - actual_execution_is_distinct_from_plan_and_request
     - execution_status_uses_only_canonical_execution_family
+    - workflow_coordination_is_external_and_does_not_create_workflow_run_status
     - review_approval_completion_and_delivery_are_external_refs
     - failures_and_partial_records_are_not_hidden
     - execution_permission_does_not_imply_authority
