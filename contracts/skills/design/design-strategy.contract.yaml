@@ -2,11 +2,12 @@ skill_contract:
   id: design-strategy
   category: design
   type: port
-  version: "1.0.0"
-  capability: ux_strategy_content_port_user_centered_thinking
+  version: "1.1.0"
+  capability: ux_strategy_content_and_collection_discovery_port
   description: >
-    Port contract for UX strategy and content. Abstracts user-centered
-    decisions — psychology, IA, CRO, copy, content.
+    Port contract for UX strategy, content, information architecture, and collection
+    discovery. Abstracts user-centered decisions before layout, visual expression,
+    and interaction adapter implementation.
   roles:
     - ux_strategist
     - redesign_workflow
@@ -17,17 +18,23 @@ skill_contract:
     - id: information-architecture
       concern: navigation_content_taxonomy
       load_order: 2
+    - id: collection-discovery-design
+      concern: collection_retrieval_browse_search_narrowing_and_traversal_strategy
+      load_order: 3
+      condition: surface_contains_a_collection_catalog_registry_directory_feed_or_results
     - id: cro
       concern: conversion_optimization
-      load_order: 3
+      load_order: 4
       condition: conversion_is_explicit_goal
     - id: copywriting
       concern: ui_copy_microcopy
-      load_order: 4
+      load_order: 5
     - id: content-strategy
       concern: content_planning_inventory
-      load_order: 5
+      load_order: 6
   quality_gates:
     - strategy_before_aesthetics
+    - taxonomy_meaning_precedes_collection_discovery_strategy
+    - collection_strategy_precedes_traversal_or_filter_adapter_selection
     - cro_only_when_conversion_is_goal
     - copy_decided_before_layout_locked
