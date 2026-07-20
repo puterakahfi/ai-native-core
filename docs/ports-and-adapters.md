@@ -1,4 +1,10 @@
-# Native AI Ports and Adapters Architecture
+# Native AI Ports And Adapters Architecture
+
+Status: Architecture pattern and non-exhaustive examples
+
+Canonical base meanings and ownership: [`domain-model/README.md`](domain-model/README.md)
+
+Final port kinds, adapter taxonomy, and first-class port contracts: issue `#7`
 
 ## Problem
 
@@ -41,9 +47,9 @@ Domain Model
 
 The domain should not depend on adapter details.
 
-## Native AI Framework Core
+## Stable Framework Concerns
 
-The stable framework core includes:
+The following is an operational concern list, not a bounded-context map or exhaustive domain model:
 
 ```text
 Intent
@@ -62,7 +68,7 @@ Memory and Knowledge
 
 A port defines what capability the system needs, without choosing the implementation.
 
-Example ports:
+Non-exhaustive example ports:
 
 ```text
 CodeExecutionPort
@@ -82,7 +88,7 @@ ObservabilityPort
 
 ## Adapters
 
-An adapter implements a port.
+An adapter implements or translates a port or contract while preserving upstream meaning and boundary. The exhaustive subtype taxonomy remains owned by issue `#7`.
 
 Example:
 

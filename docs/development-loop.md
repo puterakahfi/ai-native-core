@@ -1,8 +1,14 @@
 # Development Loop — Agent-Driven Execution Cycle
 
+Status: Reusable execution method governed by `contracts/runtime/development-loop.contract.yaml`
+
+Canonical domain lifecycle and typed status semantics: [`domain-model/lifecycle-and-status.md`](domain-model/lifecycle-and-status.md)
+
+Versioned correction of legacy review/approval and documentation-shortcut wording: issue `#26`
+
 ## What It Is
 
-The development loop is the canonical execution cycle for Agent-Driven Development. It defines the phases an agent follows when performing work, the gates between them, and the allowed transitions.
+The development loop is the reusable execution cycle for Agent-Driven Development. It defines phases, gates, and transitions for performing engineering work. It is not the canonical domain lifecycle and does not replace product or capability workflows.
 
 ```text
 Explore → Plan → Implement → Verify → Review → Document → Deliver
@@ -86,7 +92,9 @@ Check quality beyond pass/fail.
 | Performance impact | web-performance |
 | Human approval | Required for security-sensitive changes |
 
-**Exit gate:** Review verdict is APPROVE or CHANGES_REQUESTED.
+**Exit gate (current `1.0.0` contract wording):** Review verdict is `APPROVE` or `CHANGES_REQUESTED`.
+
+**Canonical interpretation:** `APPROVE` here is a legacy positive review disposition, not authority-bearing domain `Approval`. Required approval remains a separate governance decision. Issue `#26` owns the versioned contract correction.
 
 ### 6. Document
 Capture what changed and why.
@@ -138,11 +146,11 @@ For low-risk work, some phases can be skipped:
 | Trivial fix | Review, Document | Single file, <10 lines, tests pass |
 | Docs only | Verify, Review | Only markdown/comment changes |
 
-Shortcuts must be declared — agents cannot silently skip phases.
+Shortcuts must be declared — agents cannot silently skip phases. A declared shortcut does not waive applicable repository policy, relative-link or rendering checks, contradiction review, security review, or authority-bearing approval. The current documentation-only shortcut semantics are tracked for versioned correction in issue `#26`.
 
 ## Relationship to Workflows
 
-The development loop is **not** a workflow. It's the execution cycle within any phase of a workflow.
+The Development Loop is **not** a workflow or the canonical domain lifecycle. It is an execution method that may run within a workflow phase.
 
 ```text
 Workflow: bugfix-workflow

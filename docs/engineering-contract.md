@@ -1,4 +1,10 @@
-# Engineering Contract
+# Product And Repository Engineering Contract Guide
+
+Status: Product/repository policy specialization
+
+Canonical contract and ownership meanings: [`domain-model/README.md`](domain-model/README.md)
+
+An Engineering Contract in this document is a product- or repository-owned specialization that defines implementation ecosystem and engineering policy. It does not replace the universal `Contract` meaning or silently override accepted core agreements.
 
 ## Problem
 
@@ -8,14 +14,14 @@ This creates inconsistent systems and makes generated code hard to review and ma
 
 ## Why It Matters
 
-The Engineering Contract is the shared agreement that all agents, tools, workflows, and generated code must follow.
+A product or repository Engineering Contract is the shared implementation and policy agreement that its agents, tools, workflows, and generated code must follow within that product or repository scope.
 
 It prevents agents from improvising architecture or choosing libraries without approval.
 
 ## Design Principle
 
 ```text
-No agent should make random technical decisions outside the Engineering Contract.
+No agent should make random technical decisions outside the applicable product or repository Engineering Contract.
 ```
 
 ## What the Contract Defines

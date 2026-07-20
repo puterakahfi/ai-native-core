@@ -4,7 +4,7 @@ Status: Operational architecture view
 
 Philosophy foundation: [`philosophy/README.md`](philosophy/README.md)
 
-Canonical domain-model work: issue `#6`
+Canonical domain model: [`domain-model/README.md`](domain-model/README.md)
 
 ## Definition
 
@@ -12,7 +12,7 @@ Native AI Framework v0.2 is a domain-driven, ports-and-adapters architecture vie
 
 It separates stable, governed product agreements from replaceable implementation tools.
 
-This document explains an operational architecture model. It is not the philosophy kernel, not the final canonical Native AI Engineering domain model, and not a universal numbering authority for every repository artifact.
+This document explains an operational architecture model. It is not the philosophy kernel, does not redefine the canonical Native AI Engineering domain model, and is not a universal numbering authority for every repository artifact.
 
 ## Foundation Relationship
 
@@ -89,11 +89,11 @@ Intent Layer
 → Evaluation Layer
 ```
 
-This sequence is an operational dependency view. It must not compete with:
+This sequence is an operational dependency view, not a bounded-context map. It must not compete with:
 
 ```text
 the philosophy foundation stack;
-the canonical domain model owned by issue #6;
+the [canonical domain model](domain-model/README.md);
 contract-family schemas owned by issue #8;
 repository-specific package or deployment layers.
 ```
@@ -124,7 +124,7 @@ Business Rules
 
 The domain owns product meaning and business invariants. It must not be derived from one model provider, prompt shape, UI component, database table, or adapter implementation.
 
-The complete canonical Native AI Engineering domain model remains owned by issue `#6`.
+Canonical Native AI Engineering objects, contexts, lifecycle semantics, and ownership are defined by the [canonical domain model](domain-model/README.md).
 
 ## 3. Application Layer
 

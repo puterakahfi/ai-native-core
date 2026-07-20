@@ -1,8 +1,12 @@
-# Domain-Driven Model
+# Domain-Driven Modeling Guide
+
+Status: Modeling guide with non-normative product examples
+
+Canonical Native AI Engineering domain model: [`domain-model/README.md`](domain-model/README.md)
 
 ## Purpose
 
-This document defines how Native AI Framework uses domain-driven modeling to keep product logic stable while tools, models, frameworks, and providers change.
+This document explains how products use domain-driven modeling to keep product logic stable while tools, models, frameworks, and providers change. It is a guide, not the canonical Native AI Engineering domain model.
 
 ## Problem
 
@@ -38,7 +42,7 @@ The most important business capability of the product.
 Example:
 
 ```text
-ExampleProduct core domain = Creative Control
+Illustrative product core domain = Creative Control
 ```
 
 ## Subdomain
@@ -177,7 +181,9 @@ One super-agent owning all decisions
 Memory replacing knowledge
 ```
 
-## ExampleProduct Example
+## Illustrative Product Example
+
+The following example is product-specific and non-normative.
 
 Wrong:
 
