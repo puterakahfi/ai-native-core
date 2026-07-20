@@ -1,7 +1,7 @@
 version: "1.0.0"
-generated_at: "2026-07-20T15:09:40Z"
+generated_at: "2026-07-20T16:06:47Z"
 description: "Auto-generated contract manifest. Regenerate with: scripts/generate-manifest.sh"
-total_contracts: 127
+total_contracts: 128
 contracts:
   skills:
     architecture:
@@ -92,6 +92,10 @@ contracts:
         path: contracts/skills/design/color-theory.contract.yaml
         version: "1.0.0"
         sha256: edf1f61dcbc0ccd0
+      - id: component-family-design
+        path: contracts/skills/design/component-family-design.contract.yaml
+        version: "1.0.0"
+        sha256: c8cb2e979d3f1828
       - id: composition
         path: contracts/skills/design/composition.contract.yaml
         version: "1.0.0"
