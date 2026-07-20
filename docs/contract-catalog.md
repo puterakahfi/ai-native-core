@@ -87,13 +87,13 @@ Start with these framework documents when the required contract is unclear:
 
 ## Contract identity and maturity
 
-Each skill contract declares its own semantic version. Maturity is evaluated per contract, not inferred from repository age or manifest presence.
+Contracts declare versions independently. Maturity is evaluated per contract, not inferred from repository age or manifest presence.
 
 General interpretation:
 
 ```text
 0.x   evolving or pre-stable contract; a minor bump may be incompatible
-1.x+  stable major line; breaking changes require a new major version
+1.x+  semantic-version compatibility line; breaking changes require a new major version
 ```
 
 Adapter compatibility depends on the declared pin:
@@ -106,7 +106,7 @@ Adapter compatibility depends on the declared pin:
 
 The repository validator is the source of truth for supported pin semantics. See [`scripts/validate-implements.sh`](../scripts/validate-implements.sh).
 
-Do not label a contract stable solely because its version is `1.0.0`. Stability also requires coherent boundaries, review, compatible adapters, and appropriate validation evidence.
+Do not label a contract production-stable solely because its version is `1.0.0`. Maturity also requires coherent boundaries, review, compatible adapters, and appropriate validation evidence.
 
 ## Core-to-adapter relationship
 
@@ -130,7 +130,7 @@ When adding, moving, deleting, or changing a contract:
 1. update the contract version according to compatibility impact;
 2. update affected public documentation;
 3. regenerate `contracts/manifest.yaml`;
-4. inspect path, version, checksum, and total changes;
+4. inspect the contract version and manifest path, checksum, and total changes;
 5. validate dependent adapters when available;
 6. disclose adapters or products that still require migration.
 
