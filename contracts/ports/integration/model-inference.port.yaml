@@ -1,0 +1,160 @@
+port_contract:
+  id: model-inference
+  kind: integration_port
+  version: "0.1.0"
+  capability: perform_provider_neutral_model_inference
+  direction: outbound
+  semantic_owner_context: integration_and_binding
+  binding_owner_context: integration_and_binding
+  consumer_contexts:
+    - runtime_and_execution
+    - method_and_workflow
+    - evidence_evaluation_and_review
+  purpose: >
+    Request provider-neutral model inference and return attributable structured outcomes
+    without coupling consumers to one model vendor, SDK, transport, or runtime.
+  boundary:
+    owns:
+      - provider_neutral_inference_request
+      - provider_neutral_inference_result
+      - structured_inference_failure
+      - inference_usage_metadata
+    delegates:
+      - model_selection_policy
+      - provider_binding_selection
+      - prompt_and_method_definition
+      - claim_assessment
+      - execution_authorization
+    does_not_own:
+      - provider_credentials
+      - product_policy
+      - approval
+      - canonical_domain_meaning
+      - execution_run_lifecycle
+  interactions:
+    requests:
+      - id: infer
+        description: Execute one bounded inference request through a selected compatible adapter binding.
+        required_fields:
+          - id: request_id
+            description: Stable correlation identifier for this inference request.
+          - id: input_ref
+            description: Reference to the bounded inference input or prompt.
+          - id: output_contract_ref
+            description: Reference to the required output shape or response agreement.
+          - id: adapter_binding_ref
+            description: Reference to the selected compatible provider adapter binding.
+        optional_fields:
+          - id: context_refs
+            description: Attributable context references available to the request.
+          - id: model_requirement_ref
+            description: Provider-neutral model capability and constraint reference.
+          - id: execution_run_ref
+            description: Execution run that owns the actual invocation when applicable.
+    responses:
+      - id: inference_result
+        description: Return the bounded model output with provenance, usage, and limitations.
+        fields:
+          - id: request_id
+            description: Correlation identifier copied from the request.
+          - id: output
+            description: Provider-neutral output satisfying or attempting the output contract.
+          - id: output_contract_status
+            description: Whether the requested output contract was satisfied.
+          - id: adapter_binding_ref
+            description: Binding that performed the inference.
+          - id: usage_metadata
+            description: Provider-neutral token, duration, and cost metadata when available.
+          - id: limitations
+            description: Known limitations, truncation, uncertainty, or unsupported behavior.
+    events:
+      - id: inference_requested
+        description: A bounded provider-neutral inference request was accepted for handling.
+      - id: inference_completed
+        description: The adapter returned a terminal bounded inference outcome.
+      - id: inference_failed
+        description: The adapter returned a structured terminal inference failure.
+    streams: []
+  failures:
+    errors:
+      - code: invalid_inference_request
+        meaning: Required request data or referenced output agreement is invalid.
+        retryable: false
+        partial_result_allowed: false
+      - code: adapter_binding_unavailable
+        meaning: The selected provider binding cannot currently serve the request.
+        retryable: true
+        partial_result_allowed: false
+      - code: rate_limited
+        meaning: The provider or gateway rejected the request because of rate limits.
+        retryable: true
+        partial_result_allowed: false
+      - code: output_contract_not_satisfied
+        meaning: The adapter returned output that does not satisfy the requested shape.
+        retryable: true
+        partial_result_allowed: true
+      - code: inference_blocked
+        meaning: Policy, safety, permission, or capacity prevented the inference.
+        retryable: false
+        partial_result_allowed: false
+      - code: inference_not_checkable
+        meaning: The adapter cannot provide enough evidence to classify the outcome.
+        retryable: false
+        partial_result_allowed: true
+    partial_result_policy: explicit
+    unknown_or_not_checkable_policy: >
+      Return an explicit inference_not_checkable error or limitation; never serialize missing
+      evidence, provider silence, or malformed output as a successful inference.
+  state_transitions: []
+  authorization:
+    mode: policy_dependent
+    required_for:
+      - sensitive_context_access
+      - restricted_model_use
+    permission_is_not_authority: true
+    review_is_not_approval: true
+    authority_reference_required: false
+  idempotency:
+    mode: operation_defined
+    key_scope: request_id_within_adapter_binding
+  observability:
+    required_events:
+      - inference_requested
+      - inference_completed
+      - inference_failed
+    correlation_fields:
+      - request_id
+      - adapter_binding_ref
+      - execution_run_ref
+    sensitive_fields:
+      - input_ref
+      - context_refs
+      - output
+  adapter_requirements:
+    contract_reference:
+      require_id: true
+      require_path: true
+      require_version: true
+    requirements:
+      - preserve_provider_neutral_request_semantics
+      - return_structured_failures
+      - disclose_output_contract_failure
+      - preserve_correlation_and_binding_identity
+      - redact_sensitive_observability_fields
+  compatibility:
+    policy: semver
+    breaking_changes:
+      - change_required_request_field
+      - change_response_meaning
+      - remove_error_code
+      - weaken_provider_neutral_boundary
+      - change_authorization_semantics
+    aliases: []
+    supersedes: []
+    legacy_contract_refs: []
+  quality_gates:
+    - provider_details_do_not_leak_into_consumer_contract
+    - output_contract_status_is_explicit
+    - failures_are_structured_and_attributable
+    - usage_and_limitations_are_preserved_when_available
+    - inference_does_not_claim_approval_or_claim_assessment

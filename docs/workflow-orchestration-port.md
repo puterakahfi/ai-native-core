@@ -1,148 +1,97 @@
-# WorkflowOrchestrationPort
+# Workflow Orchestration Port — Legacy Navigation
 
-## Purpose
+Status: Superseded explanatory document
 
-`WorkflowOrchestrationPort` defines the boundary for triggering, coordinating, monitoring, retrying, and reviewing multi-step workflows inside Native AI Framework.
-
-It exists so deterministic or semi-deterministic automation flows can run through replaceable workflow engines without coupling the framework control plane to n8n, Make, Zapier, GitHub Actions, Temporal, Inngest, Trigger.dev, or a custom queue system.
-
-## Position in the Framework
+Canonical first-class contract:
 
 ```text
-Intent / Task / Event / Schedule
-→ Workflow Plan
-→ Workflow Orchestration
-→ Step Execution
-→ Logs / Results
-→ Review / Approval
-→ Next Workflow Step
+contracts/ports/control/workflow-coordination.port.yaml
 ```
 
-`WorkflowOrchestrationPort` sits between planned workflows and execution systems.
-
-It is not an agent runtime, task source, model provider, tool gateway, or approval authority.
-
-## Primary Responsibilities
-
-- Trigger workflows.
-- Run scheduled, event-driven, webhook-driven, or manual workflows.
-- Coordinate workflow steps.
-- Track workflow status.
-- Retry failed steps when policy allows it.
-- Pause for human approval.
-- Capture logs, outputs, and errors.
-- Route external tool actions through ToolIntegrationPort when needed.
-- Record execution runs through ExecutionRunPort.
-
-## Non-Responsibilities
-
-`WorkflowOrchestrationPort` must not:
-
-- become the source of truth for product architecture,
-- replace TaskManagementPort,
-- replace AgentRuntimePort for flexible autonomous agent behavior,
-- bypass ReviewApprovalPort,
-- expose secrets to client-side code,
-- publish, delete, or mutate external systems without approval policy,
-- hide workflow failures.
-
-## Candidate Adapters
+Canonical display name:
 
 ```text
-N8nWorkflowAdapter
-MakeWorkflowAdapter
-ZapierWorkflowAdapter
-GitHubActionsWorkflowAdapter
-TemporalWorkflowAdapter
-InngestWorkflowAdapter
-TriggerDevWorkflowAdapter
-CustomJobQueueAdapter
+WorkflowCoordinationPort
 ```
 
-## Default Workflow Orchestration Flow
+Legacy migration alias:
 
 ```text
-Receive Trigger
-→ Resolve Workflow Definition
-→ Resolve Context / Rules / Skills
-→ Start Workflow Run
-→ Execute Steps
-→ Pause for Approval When Needed
-→ Capture Logs and Outputs
-→ Store Execution Run Summary
-→ Continue / Retry / Fail / Complete
+workflow-orchestration
 ```
 
-## Input Contract
+## Why the boundary changed
 
-```yaml
-workflow_orchestration_input:
-  workflow_id: ""
-  trigger_type: ""
-  canonical_task_id: ""
-  context_bundle_ref: ""
-  steps: []
-  approval_policy: ""
-  retry_policy: ""
-```
-
-## Output Contract
-
-```yaml
-workflow_orchestration_output:
-  workflow_run_id: ""
-  status: ""
-  current_step: ""
-  completed_steps: []
-  failed_steps: []
-  logs: []
-  approval_requests: []
-  execution_run_ref: ""
-```
-
-## Status Flow
+The earlier `WorkflowOrchestrationPort` mixed:
 
 ```text
-queued
-→ running
-→ waiting_for_approval
-→ retrying
-→ completed
-→ failed
-→ cancelled
-→ needs_review
+WorkflowDefinition coordination
+workflow-engine control
+actual step execution
+retry and cancellation
+ExecutionRun lifecycle
+review and approval waiting
+completion reporting
 ```
 
-## Quality Gates
+The canonical domain model defines `WorkflowDefinition` and `ExecutionRun`, but it does not define a separate `WorkflowRun` aggregate or status family. A port contract may not invent that lifecycle silently.
 
-- workflow definition is known,
-- trigger source is known,
-- context bundle is resolved when required,
-- approval policy is explicit,
-- retry policy is explicit,
-- external actions route through ToolIntegrationPort,
-- workflow run is recorded through ExecutionRunPort,
-- failure details are visible,
-- secrets stay server-side.
-
-## Dashboard Usage
-
-`WorkflowOrchestrationPort` should power:
+The retained control boundary is therefore workflow coordination:
 
 ```text
-/workflows
-/workflow-runs
-/executions
-/scheduled automations
-/approval-gated workflows
+accepted WorkflowDefinition
++ attributable trigger
++ ContextPack
++ external gate, execution, review, and approval references
+→ phase and transition selection
+→ handoff records
+→ exit-condition results
+→ bounded coordination checkpoint
 ```
 
-It should make the dashboard capable of seeing which workflow ran, what triggered it, which step failed, what needs approval, and what should be retried.
+## Required distinctions
 
-## Control Plane Rule
+```text
+WorkflowCoordinationPort
+≠ WorkflowDefinition ownership
+≠ workflow-engine runtime control
+≠ ExecutionRun management
+≠ skill execution
+≠ gate evaluation
+≠ review
+≠ approval
+≠ completion
+≠ delivery
+≠ product acceptance
+```
 
-Native AI Framework remains the control plane.
+A selected transition is not actual execution. Phase execution is recorded through external ExecutionRuns. A pending review, approval, handoff, or exit condition cannot be reported as workflow completion.
 
-Workflow engines are execution plane adapters.
+## Runtime-engine integrations
 
-A workflow engine may execute a flow, but it must not own product architecture, task source of truth, approval authority, or framework governance.
+Temporal, n8n, GitHub Actions, queues, schedulers, and similar systems remain possible execution-plane integrations. Their start, pause, resume, retry, cancellation, provider state, and transport semantics require a narrower integration boundary or adapter contract. They are not owned by `WorkflowCoordinationPort`.
+
+## Handoffs and gates
+
+Every handoff preserves:
+
+```text
+sender
+receiver
+transferred artifact, context, evidence, or state references
+acceptance condition
+acceptance evidence
+limitations
+```
+
+Every transition names the governing TransitionRule and applicable GateResult references. Coordination consumes external review and authority-bearing approval records without producing them.
+
+## Migration
+
+Consumers of `WorkflowOrchestrationPort` should migrate to `workflow-coordination` when they need phase, transition, gate, handoff, or exit coordination.
+
+Consumers that need concrete workflow-engine execution must use or propose a separate integration boundary instead of expanding this control port.
+
+## Authority
+
+The versioned port contract and generated manifest are machine authority. This Markdown document remains only as migration and architectural explanation.

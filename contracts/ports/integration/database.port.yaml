@@ -1,0 +1,194 @@
+port_contract:
+  id: database
+  kind: integration_port
+  version: "0.1.0"
+  capability: execute_provider_neutral_structured_persistence_operations
+  direction: outbound
+  semantic_owner_context: integration_and_binding
+  binding_owner_context: integration_and_binding
+  consumer_contexts:
+    - runtime_and_execution
+    - product_delivery_and_registry
+    - context_knowledge_and_memory
+    - evidence_evaluation_and_review
+  purpose: >
+    Execute bounded structured-data queries, mutations, transactions, and migrations
+    through replaceable database adapters while keeping domain meaning, aggregate
+    invariants, product data policy, approval, and product acceptance external.
+  boundary:
+    owns:
+      - database_operation_request
+      - database_operation_result
+      - transaction_result
+      - migration_result
+      - structured_database_failure
+    delegates:
+      - domain_model_and_invariants
+      - repository_abstraction
+      - product_data_policy
+      - migration_decision
+      - production_mutation_approval
+      - execution_run_recording
+      - product_acceptance
+    does_not_own:
+      - canonical_domain_model
+      - aggregate_authority
+      - product_data_classification
+      - approval_status
+      - execution_status
+      - completion_disposition
+      - product_acceptance_status
+  interactions:
+    requests:
+      - id: execute_database_operation
+        description: Execute one bounded provider-neutral query, mutation, transaction, or migration operation.
+        required_fields:
+          - id: request_id
+            description: Stable correlation identifier for the database operation.
+          - id: database_operation_ref
+            description: Provider-neutral query, mutation, transaction, or migration specification.
+          - id: data_contract_ref
+            description: Accepted application or persistence data contract governing the operation.
+          - id: adapter_binding_ref
+            description: Compatible database adapter binding selected for execution.
+        optional_fields:
+          - id: expected_schema_version_ref
+            description: Expected schema or migration version used for compatibility checks.
+          - id: transaction_policy_ref
+            description: Transaction, isolation, consistency, retry, and rollback policy.
+          - id: authorization_assessment_ref
+            description: Current authorization assessment for governed write, migration, or destructive operations.
+          - id: execution_run_ref
+            description: Existing ExecutionRun recording actual operation execution when applicable.
+          - id: retention_and_audit_policy_refs
+            description: Product-owned retention, audit, backup, or deletion policies.
+    responses:
+      - id: database_operation_result
+        description: Return provider-neutral data, mutation, transaction, or migration outcomes without redefining domain meaning or approval state.
+        fields:
+          - id: request_id
+            description: Correlation identifier copied from the request.
+          - id: operation_outcome
+            description: Actual succeeded, failed, rolled-back, conflicted, partial, blocked, or not-checkable outcome.
+          - id: data_result
+            description: Provider-neutral rows, values, identifiers, or safe output references when available.
+          - id: affected_record_count
+            description: Number of records affected when attributable and meaningful.
+          - id: transaction_result
+            description: Commit, rollback, conflict, retry, or isolation outcome when applicable.
+          - id: observed_schema_version_ref
+            description: Schema or migration version observed after the operation when available.
+          - id: adapter_binding_ref
+            description: Database adapter binding that attempted the operation.
+          - id: execution_run_ref
+            description: External ExecutionRun recording the actual operation when available.
+          - id: limitations
+            description: Missing evidence, partial results, stale schema, unsupported features, or unresolved consistency risks.
+    events:
+      - id: database_operation_requested
+        description: A bounded database operation was accepted for handling.
+      - id: database_transaction_committed
+        description: The adapter reported that a bounded transaction actually committed.
+      - id: database_transaction_rolled_back
+        description: The adapter reported that a bounded transaction rolled back.
+      - id: database_operation_completed
+        description: The adapter produced a terminal bounded database-operation result.
+      - id: database_operation_failed
+        description: The adapter produced a structured terminal database failure.
+    streams: []
+  failures:
+    errors:
+      - code: invalid_database_operation_request
+        meaning: Required operation, data contract, adapter, or schema information is missing or invalid.
+        retryable: false
+        partial_result_allowed: false
+      - code: database_adapter_unavailable
+        meaning: No compatible database adapter can currently handle the requested operation.
+        retryable: true
+        partial_result_allowed: false
+      - code: database_schema_mismatch
+        meaning: The observed schema version or data shape is incompatible with the requested operation.
+        retryable: false
+        partial_result_allowed: false
+      - code: database_transaction_conflict
+        meaning: A transaction, concurrency, isolation, or expected-state conflict prevented completion.
+        retryable: true
+        partial_result_allowed: true
+      - code: database_operation_blocked
+        meaning: Authorization, data policy, migration, safety, or production constraints prevent the operation.
+        retryable: false
+        partial_result_allowed: false
+      - code: database_operation_failed
+        meaning: The adapter returned a structured connection, query, mutation, transaction, or migration failure.
+        retryable: true
+        partial_result_allowed: true
+      - code: database_operation_not_checkable
+        meaning: Available persistence evidence is insufficient to classify the operation or transaction outcome.
+        retryable: false
+        partial_result_allowed: true
+    partial_result_policy: explicit
+    unknown_or_not_checkable_policy: >
+      Return missing transaction evidence, stale schema state, partial results, unsupported
+      persistence behavior, and uncertain write outcomes explicitly; never infer commit,
+      rollback, migration success, or domain validity from a request or generated query.
+  state_transitions: []
+  authorization:
+    mode: policy_dependent
+    required_for:
+      - mutate_structured_data
+      - run_schema_migration
+      - destructive_data_operation
+      - production_data_operation
+    permission_is_not_authority: true
+    review_is_not_approval: true
+    authority_reference_required: true
+  idempotency:
+    mode: operation_defined
+    key_scope: request_id_database_binding_and_transaction_scope
+  observability:
+    required_events:
+      - database_operation_requested
+      - database_operation_completed
+      - database_operation_failed
+    correlation_fields:
+      - request_id
+      - database_operation_ref
+      - adapter_binding_ref
+      - execution_run_ref
+      - expected_schema_version_ref
+    sensitive_fields:
+      - data_result
+      - database_operation_ref
+      - authorization_assessment_ref
+      - retention_and_audit_policy_refs
+  adapter_requirements:
+    contract_reference:
+      require_id: true
+      require_path: true
+      require_version: true
+    requirements:
+      - preserve_provider_neutral_query_mutation_transaction_and_migration_semantics
+      - require_explicit_data_contract_schema_and_transaction_expectations
+      - use_least_privilege_credentials_and_server_side_secret_handling
+      - preserve_commit_rollback_conflict_and_partial_result_evidence
+      - keep_domain_model_product_policy_approval_and_product_acceptance_external
+      - return_structured_failures_limitations_and_correlation_references
+  compatibility:
+    policy: semver
+    breaking_changes:
+      - change_required_operation_data_contract_or_adapter_reference
+      - change_transaction_migration_or_failure_meaning
+      - remove_schema_transaction_or_execution_evidence
+      - weaken_authorization_consistency_or_secret_handling_semantics
+      - allow_database_schema_to_redefine_domain_or_product_policy
+    aliases:
+      - persistence
+    supersedes: []
+    legacy_contract_refs: []
+  quality_gates:
+    - operation_data_contract_adapter_and_schema_expectations_are_explicit
+    - database_schema_does_not_define_canonical_domain_meaning
+    - transaction_commit_rollback_conflict_and_partial_results_are_attributable
+    - governed_writes_migrations_and_destructive_operations_require_authorization
+    - failures_unknown_outcomes_and_schema_mismatches_are_explicit
+    - execution_review_approval_completion_and_product_acceptance_remain_external

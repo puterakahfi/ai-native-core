@@ -1,125 +1,74 @@
-# ReviewApprovalPort
+# Review Approval Port — Legacy Navigation
 
-## Purpose
+Status: Superseded explanatory document
 
-`ReviewApprovalPort` defines the boundary for human-in-the-loop review, approval, rejection, and revision control across Native AI Framework workflows.
+The legacy `ReviewApprovalPort` combined three independent semantic families. No canonical alias preserves that collapsed name.
 
-It exists so AI-generated outputs, task execution results, publishing actions, destructive actions, and production changes cannot silently proceed without the required review gate.
-
-## Position in the Framework
+## Canonical contracts
 
 ```text
-Generated Output / Execution Run
-→ Review Request
-→ Human Review
-→ Approval / Rejection / Revision
-→ Next Workflow Step
+contracts/ports/control/review-management.port.yaml
+contracts/ports/control/approval-decision.port.yaml
+contracts/ports/control/authorization-assessment.port.yaml
 ```
 
-`ReviewApprovalPort` is a governance and safety port. It is not a task manager, code executor, or UI generator.
-
-## Primary Responsibilities
-
-- Create review requests.
-- Track reviewer decisions.
-- Record approval, rejection, and revision notes.
-- Block unsafe workflow steps until approved.
-- Link decisions to tasks, execution runs, PRs, generated assets, and publishing actions.
-- Expose review status to the dashboard.
-- Preserve audit trail for human decisions.
-
-## Non-Responsibilities
-
-`ReviewApprovalPort` must not:
-
-- execute code,
-- publish content by itself,
-- mutate production systems without an approved downstream adapter,
-- auto-approve high-impact actions,
-- hide reviewer identity or decision metadata,
-- replace acceptance criteria evaluation.
-
-## Candidate Adapters
+Canonical display names:
 
 ```text
-ManualApprovalAdapter
-DashboardApprovalAdapter
-GitHubReviewAdapter
-PullRequestReviewAdapter
-SlackApprovalAdapter
-EmailApprovalAdapter
+ReviewManagementPort
+ApprovalDecisionPort
+AuthorizationAssessmentPort
 ```
 
-## Status Flow
+## Review management
+
+Owns ReviewRequest, ReviewResult references, findings, reviewer attribution, and canonical `ReviewDisposition` transitions.
 
 ```text
-not_requested
-→ requested
-→ in_review
-→ approved
-→ rejected
-→ revision_requested
-→ expired
+review completed
+≠ approval granted
 ```
 
-## Default Review Workflow
+## Approval decision
+
+Records an authority-bearing decision for a named subject and scope, including conditions, provenance, validity, revocation, and expiry.
 
 ```text
-Receive Reviewable Output
-→ Create Review Request
-→ Notify Reviewer
-→ Record Decision
-→ Attach Notes
-→ Unblock or Block Next Step
-→ Store Audit Trail
+positive review
+≠ Approval
 ```
 
-## Input Contract
+Approval requires applicable authority and policy.
 
-```yaml
-review_approval_input:
-  review_subject_type: ""
-  review_subject_id: ""
-  canonical_task_id: ""
-  reviewer: ""
-  required_decision: ""
-  risk_level: ""
-  approval_policy: ""
-```
+## Authorization assessment
 
-## Output Contract
-
-```yaml
-review_approval_output:
-  review_id: ""
-  status: ""
-  decision: ""
-  reviewer: ""
-  notes: []
-  approved_at: null
-  next_action: ""
-```
-
-## Quality Gates
-
-- reviewer is known,
-- review subject is linked,
-- decision is explicit,
-- approval policy is respected,
-- high-impact actions are not auto-approved,
-- decision is auditable,
-- revision request preserves context.
-
-## Dashboard Usage
-
-`ReviewApprovalPort` should power:
+Evaluates whether one concrete action may proceed now using current permission, authority, approvals, policy, risk controls, scope, capacity, conditions, and validity.
 
 ```text
-/reviews
-/task review state
-/execution run approval
-/publishing approval
-/destructive action approval
+Approval
+≠ action authorization by itself
+≠ successful execution
 ```
 
-It should make the dashboard the human approval layer for AI-native development workflows.
+## Required distinctions
+
+```text
+GateOutcome
+≠ ReviewDisposition
+≠ ApprovalStatus
+≠ AuthorizationAssessment
+≠ ExecutionStatus
+≠ CompletionDisposition
+```
+
+The dashboard or workflow may present these records together, but it must not serialize them as one generic status or treat one family as proof of another.
+
+## Legacy adapter examples
+
+Dashboard, GitHub, pull-request, Slack, email, or manual review integrations remain possible adapters. Their provider permission and transport do not grant Native AI Engineering authority.
+
+## Migration
+
+Consumers must reference the specific boundary they use through stable port ID, canonical path, and compatible version. A single `review-approval` alias is intentionally prohibited because it would recreate the retired semantic collapse.
+
+The machine authority is the versioned port contracts and generated manifest, not this Markdown document.

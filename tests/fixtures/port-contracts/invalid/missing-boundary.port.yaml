@@ -1,0 +1,10 @@
+port_contract:
+  id: missing-boundary
+  kind: integration_port
+  version: "0.1.0"
+  capability: demonstrate_invalid_port_fixture
+  direction: outbound
+  semantic_owner_context: integration_and_binding
+  binding_owner_context: integration_and_binding
+  consumer_contexts: []
+  purpose: This fixture intentionally omits required contract dimensions.

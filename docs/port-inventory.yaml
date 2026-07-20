@@ -1,0 +1,284 @@
+version: "1.0.0"
+authority:
+  canonical_contract_root: contracts/ports
+  taxonomy: docs/port-taxonomy.md
+  decision_ledger: docs/port-retention-matrix.md
+  note: >
+    This inventory classifies discovered names and source artifacts. Machine semantics
+    belong only to accepted contracts under contracts/ports. General examples and
+    downstream candidates do not become active core ports by being listed here.
+
+entries:
+  - source_name: AgentRuntimePort
+    source_class: dedicated_port_document
+    source_path: docs/agent-runtime-port.md
+    decision: rename_narrow_and_migrate
+    lifecycle: migrated
+    canonical_contracts:
+      - contracts/ports/control/agent-runtime.port.yaml
+    rationale: Runtime control is retained only above existing ExecutionRun, capacity, authorization, environment, and adapter-binding references.
+
+  - source_name: WorkflowOrchestrationPort
+    source_class: dedicated_port_document
+    source_path: docs/workflow-orchestration-port.md
+    decision: rename_narrow_and_migrate
+    lifecycle: migrated
+    canonical_contracts:
+      - contracts/ports/control/workflow-coordination.port.yaml
+    rationale: Coordination is retained without inventing a WorkflowRun aggregate or owning runtime-engine execution.
+
+  - source_name: ExecutionRunPort
+    source_class: dedicated_port_document
+    source_path: docs/execution-run-port.md
+    decision: rename_and_migrate
+    lifecycle: migrated
+    canonical_contracts:
+      - contracts/ports/control/execution-run-management.port.yaml
+    rationale: The control boundary records and transitions the canonical ExecutionRun without executing work itself.
+
+  - source_name: ReviewApprovalPort
+    source_class: dedicated_port_document
+    source_path: docs/review-approval-port.md
+    decision: split_and_migrate
+    lifecycle: migrated
+    canonical_contracts:
+      - contracts/ports/control/review-management.port.yaml
+      - contracts/ports/control/approval-decision.port.yaml
+      - contracts/ports/control/authorization-assessment.port.yaml
+    rationale: ReviewDisposition, ApprovalStatus, and action authorization are independently owned and versioned semantics.
+
+  - source_name: ContextManagementPort
+    source_class: dedicated_port_document
+    source_path: docs/context-management-port.md
+    decision: rename_and_migrate
+    lifecycle: migrated
+    canonical_contracts:
+      - contracts/ports/control/context-resolution.port.yaml
+    rationale: The retained boundary resolves attributable context and readiness without owning all knowledge or memory lifecycles.
+
+  - source_name: SkillManagementPort
+    source_class: dedicated_port_document
+    source_path: docs/skill-management-port.md
+    decision: rename_and_migrate
+    lifecycle: migrated
+    canonical_contracts:
+      - contracts/ports/control/skill-resolution.port.yaml
+    rationale: The retained boundary resolves compatible skill definitions and constraints without owning execution.
+
+  - source_name: RuleManagementPort
+    source_class: dedicated_port_document
+    source_path: docs/rule-management-port.md
+    decision: split_and_migrate
+    lifecycle: migrated
+    canonical_contracts:
+      - contracts/ports/control/rule-resolution.port.yaml
+      - contracts/ports/control/rule-evaluation.port.yaml
+    rationale: Rule availability and rule evaluation are separate operations and neither owns approval or execution.
+
+  - source_name: ToolIntegrationPort
+    source_class: dedicated_port_document
+    source_path: docs/tool-integration-port.md
+    decision: retire_umbrella
+    lifecycle: retired
+    canonical_contracts: []
+    rationale: Gateway discovery, authentication, external operation execution, registry, and API translation are independently versioned integration concerns rather than one control god port.
+
+  - source_name: design-visual
+    source_class: skill_contract_type_port
+    source_path: contracts/skills/design/design-visual.contract.yaml
+    decision: rename_and_migrate
+    lifecycle: migrated
+    canonical_contracts:
+      - contracts/ports/capability-composition/visual-direction-composition.port.yaml
+    rationale: The executable skill contract remains for consumers while the composition boundary has explicit first-class port identity.
+
+  - source_name: design-layout
+    source_class: skill_contract_type_port
+    source_path: contracts/skills/design/design-layout.contract.yaml
+    decision: rename_and_migrate
+    lifecycle: migrated
+    canonical_contracts:
+      - contracts/ports/capability-composition/layout-composition.port.yaml
+    rationale: Layout composition owns structure and adaptive planning while implementation, visual treatment, interaction, and review remain external.
+
+  - source_name: design-strategy
+    source_class: skill_contract_type_port
+    source_path: contracts/skills/design/design-strategy.contract.yaml
+    decision: rename_and_migrate
+    lifecycle: migrated
+    canonical_contracts:
+      - contracts/ports/capability-composition/design-strategy-composition.port.yaml
+    rationale: Experience, information, collection, content, and conditional conversion strategy are composed before downstream design implementation.
+
+  - source_name: design-interaction
+    source_class: skill_contract_type_port
+    source_path: contracts/skills/design/design-interaction.contract.yaml
+    decision: rename_and_migrate
+    lifecycle: migrated
+    canonical_contracts:
+      - contracts/ports/capability-composition/interaction-composition.port.yaml
+    rationale: Interaction patterns, UI states, accessibility behavior, and verification are composed without owning domain state or final code.
+
+  - source_name: ModelInferencePort
+    source_class: general_document_example
+    source_path: docs/port-taxonomy.md
+    decision: migrate
+    lifecycle: migrated
+    canonical_contracts:
+      - contracts/ports/integration/model-inference.port.yaml
+    rationale: Provider-neutral inference has a coherent request, result, failure, observability, and replaceable-adapter boundary.
+
+  - source_name: CodeExecutionPort
+    source_class: general_document_example
+    source_path: docs/port-taxonomy.md
+    decision: split_and_narrow
+    lifecycle: migrated
+    canonical_contracts:
+      - contracts/ports/integration/code-operation-execution.port.yaml
+      - contracts/ports/control/execution-run-management.port.yaml
+    rationale: Actual code operations and ExecutionRun recording are separate; architecture, review, approval, completion, and delivery remain external.
+
+  - source_name: DatabasePort
+    source_class: general_document_example
+    source_path: docs/port-taxonomy.md
+    decision: migrate
+    lifecycle: migrated
+    canonical_contracts:
+      - contracts/ports/integration/database.port.yaml
+    rationale: Structured persistence operations form a coherent integration boundary without allowing storage schema to define domain meaning.
+
+  - source_name: DesignReviewPort
+    source_class: general_document_example
+    source_path: docs/port-taxonomy.md
+    decision: reclassify
+    lifecycle: reclassified
+    canonical_contracts: []
+    rationale: Design review is a review capability agreement by default, not automatically a replaceable infrastructure or control port.
+
+  - source_name: WebAppPort
+    source_class: general_document_example
+    source_path: docs/port-taxonomy.md
+    decision: retire_and_reclassify
+    lifecycle: retired
+    canonical_contracts: []
+    rationale: Routes, pages, APIs, components, state, rendering, and framework binding do not form one coherent port boundary.
+
+  - source_name: EvaluationPort
+    source_class: general_document_example
+    source_path: docs/port-taxonomy.md
+    decision: reclassify_and_defer
+    lifecycle: deferred
+    canonical_contracts: []
+    rationale: Generic evaluation previously collapsed assessment, review, and approval; a scoped execution port requires separate runtime evidence.
+
+  - source_name: KnowledgeRetrievalPort
+    source_class: general_document_example
+    source_path: docs/ports-and-adapters.md
+    decision: defer_candidate
+    lifecycle: deferred
+    canonical_contracts: []
+    rationale: The name is coherent but no accepted active source artifact and compatibility path yet establish a universal boundary.
+
+  - source_name: RepositoryPort
+    source_class: general_document_example
+    source_path: docs/ports-and-adapters.md
+    decision: defer_candidate
+    lifecycle: deferred
+    canonical_contracts: []
+    rationale: Repository query, mutation, revision, authority, and risk semantics require an independently reviewed active contract.
+
+  - source_name: FileSystemPort
+    source_class: general_document_example
+    source_path: docs/ports-and-adapters.md
+    decision: defer_candidate
+    lifecycle: deferred
+    canonical_contracts: []
+    rationale: Host file-system behavior must remain distinct from repositories and product object storage and lacks accepted active evidence here.
+
+  - source_name: BrowserResearchPort
+    source_class: general_document_example
+    source_path: docs/ports-and-adapters.md
+    decision: defer_candidate
+    lifecycle: deferred
+    canonical_contracts: []
+    rationale: Attribution, retrieval coverage, robots, rate-limit, and browsing semantics require a separately reviewed contract.
+
+  - source_name: StoragePort
+    source_class: general_document_example
+    source_path: docs/ports-and-adapters.md
+    decision: defer_candidate
+    lifecycle: deferred
+    canonical_contracts: []
+    rationale: Product object lifecycle, host files, repository artifacts, retention, and destructive operations must not be collapsed.
+
+  - source_name: PublishingPort
+    source_class: general_document_example
+    source_path: docs/ports-and-adapters.md
+    decision: defer_product_surface_candidate
+    lifecycle: deferred
+    canonical_contracts: []
+    rationale: Publishing capability, readiness, external mutation, authorization, delivery, and product acceptance need separate ownership evidence.
+
+  - source_name: ObservabilityPort
+    source_class: general_document_example
+    source_path: docs/ports-and-adapters.md
+    decision: defer_candidate
+    lifecycle: deferred
+    canonical_contracts: []
+    rationale: Telemetry emission, querying, retention, redaction, and provider translation need an independently reviewed active contract.
+
+  - source_name: DesignGenerationPort
+    source_class: general_document_example
+    source_path: docs/ports-and-adapters.md
+    decision: split_reclassify_and_defer
+    lifecycle: deferred
+    canonical_contracts: []
+    rationale: Design reasoning, capability composition, rendering integration, product output, review, and acceptance are distinct boundaries.
+
+  - source_name: MCPGatewayPort
+    source_class: tool_integration_subtype_candidate
+    source_path: docs/tool-integration-port.md
+    decision: defer_candidate
+    lifecycle: deferred
+    canonical_contracts: []
+    rationale: A protocol and gateway translation contract requires accepted consumer and adapter evidence beyond the retired umbrella.
+
+  - source_name: APIConnectorPort
+    source_class: tool_integration_subtype_candidate
+    source_path: docs/tool-integration-port.md
+    decision: defer_candidate
+    lifecycle: deferred
+    canonical_contracts: []
+    rationale: Direct external API translation must be scoped by API semantics, mutation risk, authorization, and compatibility evidence.
+
+  - source_name: AuthBrokerPort
+    source_class: tool_integration_subtype_candidate
+    source_path: docs/tool-integration-port.md
+    decision: defer_candidate
+    lifecycle: deferred
+    canonical_contracts: []
+    rationale: External authentication and token lifecycle do not establish Native AI authority and require a dedicated security review.
+
+  - source_name: ToolExecutionPort
+    source_class: tool_integration_subtype_candidate
+    source_path: docs/tool-integration-port.md
+    decision: defer_candidate
+    lifecycle: deferred
+    canonical_contracts: []
+    rationale: Authorized external operation execution needs evidence distinct from code operations, workflow engines, review, and approval.
+
+  - source_name: ToolRegistryPort
+    source_class: tool_integration_subtype_candidate
+    source_path: docs/tool-integration-port.md
+    decision: defer_candidate
+    lifecycle: deferred
+    canonical_contracts: []
+    rationale: Tool schema and capability discovery require an accepted registry consumer and compatibility model.
+
+  - source_name: ProductSurfacePort candidates
+    source_class: issue_scope_candidate
+    source_path: docs/port-retention-matrix.md
+    decision: defer_candidate_family
+    lifecycle: deferred
+    canonical_contracts: []
+    rationale: Assistant, content, creative-rendering, media, learning, template, and product-output names lack one proven universal reusable consumer boundary.

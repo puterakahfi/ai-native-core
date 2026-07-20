@@ -1,0 +1,156 @@
+port_contract:
+  id: context-resolution
+  kind: control_port
+  version: 0.1.0
+  capability: resolve_attributable_context_packs
+  direction: inbound
+  semantic_owner_context: context_knowledge_and_memory
+  binding_owner_context: integration_and_binding
+  consumer_contexts:
+  - intent_and_specification
+  - method_and_workflow
+  - runtime_and_execution
+  - evidence_evaluation_and_review
+  - governance_risk_and_authority
+  - product_delivery_and_registry
+  purpose: Resolve, validate, assemble, and inspect attributable ContextPack checkpoints while preserving source authority, gaps, staleness, conflicts, and scope.
+  boundary:
+    owns:
+    - context_request_resolution
+    - context_pack_assembly
+    - context_gap_recording
+    - staleness_assessment
+    - context_validation_result
+    delegates:
+    - source_retrieval
+    - knowledge_acceptance
+    - memory_storage
+    - workflow_selection
+    - execution_authorization
+    does_not_own:
+    - source_of_truth_ownership
+    - task_state
+    - skill_definition
+    - rule_authority
+    - execution
+    - approval
+    - provider_credentials
+  interactions:
+    requests:
+    - id: resolve_context_pack
+      description: Resolve the context required for one task, workflow, decision, or execution scope.
+      required_fields:
+      - id: request_id
+        description: Stable context request identifier.
+      - id: purpose_ref
+        description: Task, workflow, decision, or execution purpose requiring context.
+      - id: required_context
+        description: Declared context requirements and coverage expectations.
+      optional_fields:
+      - id: existing_context_pack_ref
+        description: Existing pack to refresh or extend.
+      - id: source_constraints
+        description: Allowed sources, versions, time range, and authority constraints.
+      - id: freshness_policy_ref
+        description: Applicable staleness and refresh policy.
+    - id: inspect_context_pack
+      description: Inspect one assembled ContextPack without treating inclusion as source authority.
+      required_fields:
+      - id: context_pack_ref
+        description: ContextPack checkpoint to inspect.
+      optional_fields: []
+    responses:
+    - id: context_resolution_result
+      description: Return the assembled ContextPack checkpoint and explicit readiness limitations.
+      fields:
+      - id: request_id
+        description: Stable context request identifier.
+      - id: context_pack_ref
+        description: Immutable or versioned assembled context checkpoint.
+      - id: source_refs
+        description: Attributable source references preserved by the pack.
+      - id: context_gaps
+        description: Missing, stale, conflicting, inaccessible, or insufficient context.
+      - id: validation_result
+        description: Scoped context validation result without execution authorization.
+      - id: ready_for_handoff
+        description: Whether declared context requirements are satisfied for the named purpose.
+    events:
+    - id: context_resolution_completed
+      description: A bounded context request produced an attributable pack or explicit gaps.
+    - id: context_gap_detected
+      description: A missing, stale, conflicting, inaccessible, or insufficient context condition was recorded.
+    - id: context_pack_checkpoint_created
+      description: A versioned ContextPack checkpoint was assembled for a named purpose.
+    streams: []
+  failures:
+    errors:
+    - code: context_source_unavailable
+      meaning: A required source cannot be accessed through the selected binding.
+      retryable: true
+      partial_result_allowed: true
+    - code: context_requirement_unsatisfied
+      meaning: Declared context coverage remains insufficient for the named purpose.
+      retryable: false
+      partial_result_allowed: true
+    - code: context_conflict_unresolved
+      meaning: Material source conflict remains unresolved and prevents a confident handoff.
+      retryable: false
+      partial_result_allowed: true
+    - code: context_source_unattributed
+      meaning: A material context item lacks an attributable source reference.
+      retryable: false
+      partial_result_allowed: false
+    partial_result_policy: explicit
+    unknown_or_not_checkable_policy: Preserve missing, stale, conflicting, unavailable, or unverified information explicitly and never infer a successful result.
+  state_transitions: []
+  authorization:
+    mode: policy_dependent
+    required_for:
+    - resolve_restricted_context_source
+    permission_is_not_authority: true
+    review_is_not_approval: true
+    authority_reference_required: true
+  idempotency:
+    mode: request_key
+    key_scope: request_id_and_source_version_set
+  observability:
+    required_events:
+    - context_resolution_completed
+    - context_gap_detected
+    - context_pack_checkpoint_created
+    correlation_fields:
+    - request_id
+    - context_pack_ref
+    - purpose_ref
+    sensitive_fields:
+    - source_constraints
+    - context_pack_ref
+  adapter_requirements:
+    contract_reference:
+      require_id: true
+      require_path: true
+      require_version: true
+    requirements:
+    - preserve_source_scope_version_and_authority
+    - report_missing_stale_and_conflicting_context
+    - keep_memory_distinct_from_accepted_knowledge
+    - never_treat_pack_inclusion_as_source_authority
+  compatibility:
+    policy: semver
+    breaking_changes:
+    - change_context_pack_meaning
+    - add_required_context_request_field
+    - remove_context_gap_visibility
+    - change_source_authority_boundary
+    - change_idempotency_scope
+    aliases:
+    - context-management
+    supersedes: []
+    legacy_contract_refs:
+    - contracts/skills/context/context-manager.contract.yaml
+  quality_gates:
+  - material_context_items_are_attributable
+  - missing_stale_and_conflicting_context_remains_explicit
+  - context_pack_inclusion_does_not_transfer_source_authority
+  - context_readiness_does_not_imply_execution_authorization

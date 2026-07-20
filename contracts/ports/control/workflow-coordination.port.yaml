@@ -1,0 +1,256 @@
+port_contract:
+  id: workflow-coordination
+  kind: control_port
+  version: "0.1.0"
+  capability: coordinate_workflow_phases_transitions_handoffs_and_exits
+  direction: bidirectional
+  semantic_owner_context: method_and_workflow
+  binding_owner_context: integration_and_binding
+  consumer_contexts:
+    - runtime_and_execution
+    - evidence_evaluation_and_review
+    - governance_risk_and_authority
+    - product_delivery_and_registry
+  purpose: >
+    Coordinate an accepted WorkflowDefinition across phases, transition rules, gates,
+    handoffs, and exit conditions without inventing a separate WorkflowRun lifecycle or
+    owning actual ExecutionRun status, runtime-engine control, review, approval,
+    completion, delivery, or product acceptance.
+  boundary:
+    owns:
+      - workflow_coordination_request
+      - workflow_coordination_reference
+      - transition_selection_result
+      - workflow_handoff_record
+      - workflow_coordination_failure
+    delegates:
+      - workflow_definition_authority
+      - skill_method_execution
+      - runtime_engine_control
+      - execution_run_recording
+      - gate_evaluation
+      - review
+      - approval
+      - completion_assessment
+      - delivery
+      - product_acceptance
+    does_not_own:
+      - workflow_definition
+      - workflow_run_aggregate
+      - execution_run_aggregate
+      - execution_status
+      - runtime_instance
+      - review_disposition
+      - approval_status
+      - completion_disposition
+      - delivery_status
+      - product_acceptance_status
+  interactions:
+    requests:
+      - id: prepare_workflow_coordination
+        description: Prepare a bounded coordination checkpoint from an accepted WorkflowDefinition and attributable trigger.
+        required_fields:
+          - id: request_id
+            description: Stable correlation identifier for the coordination request.
+          - id: workflow_definition_ref
+            description: Accepted WorkflowDefinition containing phases, transitions, gates, handoffs, and exits.
+          - id: trigger_ref
+            description: Attributable intent, task, event, schedule, or accepted use-case trigger.
+          - id: context_pack_ref
+            description: ContextPack checkpoint available to the workflow.
+        optional_fields:
+          - id: method_selection_ref
+            description: MethodSelection governing workflow and skill choice.
+          - id: skill_refs
+            description: Versioned SkillDefinition references required by phases.
+          - id: adapter_binding_refs
+            description: Candidate runtime or integration bindings required by the workflow.
+          - id: policy_refs
+            description: Governing transition, risk, review, approval, retry, or exception policies.
+      - id: select_workflow_transition
+        description: Determine whether one declared transition may be selected from current evidence and externally owned results.
+        required_fields:
+          - id: request_id
+            description: Stable correlation identifier for the transition-selection request.
+          - id: workflow_coordination_ref
+            description: Existing workflow coordination checkpoint.
+          - id: workflow_definition_ref
+            description: WorkflowDefinition governing the transition.
+          - id: current_phase_ref
+            description: Current PhaseDefinition reference.
+          - id: candidate_transition_ref
+            description: TransitionRule under consideration.
+          - id: gate_result_refs
+            description: External GateResult references required by the transition.
+        optional_fields:
+          - id: execution_run_refs
+            description: External ExecutionRun records relevant to phase outputs or blockers.
+          - id: evidence_refs
+            description: Evidence references relevant to transition preconditions and exit conditions.
+          - id: review_result_refs
+            description: External review results required by policy.
+          - id: approval_refs
+            description: External authority-bearing approvals required by policy.
+          - id: exception_refs
+            description: Explicit governed exceptions applicable to the transition.
+      - id: record_workflow_handoff
+        description: Record one declared workflow handoff with sender, receiver, transferred references, and acceptance evidence.
+        required_fields:
+          - id: request_id
+            description: Stable correlation identifier for the handoff request.
+          - id: workflow_coordination_ref
+            description: Existing workflow coordination checkpoint.
+          - id: handoff_definition_ref
+            description: HandoffDefinition governing the transfer.
+          - id: sender_ref
+            description: Actor or context handing off responsibility or artifacts.
+          - id: receiver_ref
+            description: Actor or context receiving the handoff.
+          - id: transferred_refs
+            description: Artifact, context, evidence, or state references transferred by the handoff.
+          - id: acceptance_evidence_refs
+            description: Evidence that declared handoff acceptance conditions were evaluated.
+        optional_fields:
+          - id: limitations
+            description: Missing context, partial transfer, unresolved ownership, or acceptance limitations.
+      - id: inspect_workflow_coordination
+        description: Inspect a coordination checkpoint without deriving execution, approval, or completion state.
+        required_fields:
+          - id: workflow_coordination_ref
+            description: Workflow coordination checkpoint to inspect.
+        optional_fields: []
+    responses:
+      - id: workflow_coordination_snapshot
+        description: Return the current coordination checkpoint and external lifecycle references without creating a WorkflowRun status family.
+        fields:
+          - id: request_id
+            description: Correlation identifier copied from the request when applicable.
+          - id: workflow_coordination_ref
+            description: Stable coordination checkpoint reference.
+          - id: workflow_definition_ref
+            description: WorkflowDefinition governing the checkpoint.
+          - id: current_phase_ref
+            description: Current phase according to declared workflow coordination evidence.
+          - id: transition_selection_result
+            description: Scoped eligible, blocked, return, exit, or not-checkable transition-selection result.
+          - id: required_gate_refs
+            description: Gate definitions or results still required for a transition.
+          - id: handoff_refs
+            description: Recorded or pending handoff references.
+          - id: execution_run_refs
+            description: External ExecutionRun records associated with phase execution.
+          - id: external_review_approval_and_completion_refs
+            description: Separate review, approval, and completion records relevant to workflow progress.
+          - id: exit_condition_result_refs
+            description: Evidence-backed results for declared workflow exit conditions.
+          - id: limitations
+            description: Missing evidence, conflicting state, unsupported coordination, or not-checkable conditions.
+    events:
+      - id: workflow_coordination_prepared
+        description: A bounded workflow coordination checkpoint was prepared from an accepted definition.
+      - id: workflow_transition_selected
+        description: One declared transition was selected from attributable external results.
+      - id: workflow_transition_blocked
+        description: A transition remained blocked by missing or unsatisfied requirements.
+      - id: workflow_handoff_recorded
+        description: A declared workflow handoff and its acceptance evidence were recorded.
+      - id: workflow_exit_condition_satisfied
+        description: A declared exit condition was supported by attributable evidence.
+      - id: workflow_coordination_not_checkable
+        description: Available evidence was insufficient to classify coordination state.
+    streams:
+      - id: workflow_coordination_events
+        description: Ordered attributable coordination events for one workflow checkpoint.
+  failures:
+    errors:
+      - code: invalid_workflow_coordination_request
+        meaning: Required workflow, phase, transition, handoff, context, or evidence references are missing or invalid.
+        retryable: false
+        partial_result_allowed: false
+      - code: workflow_definition_unavailable
+        meaning: The referenced WorkflowDefinition is missing, stale, incompatible, superseded, or not accepted.
+        retryable: false
+        partial_result_allowed: false
+      - code: workflow_transition_conflict
+        meaning: The proposed phase or transition conflicts with the governing WorkflowDefinition or current checkpoint.
+        retryable: true
+        partial_result_allowed: true
+      - code: workflow_transition_blocked
+        meaning: A gate, handoff, execution, review, approval, context, or evidence requirement remains unsatisfied.
+        retryable: true
+        partial_result_allowed: true
+      - code: workflow_handoff_incomplete
+        meaning: Required sender, receiver, transferred references, or acceptance evidence is incomplete.
+        retryable: false
+        partial_result_allowed: true
+      - code: workflow_coordination_not_checkable
+        meaning: Available evidence is insufficient to classify phase, transition, handoff, or exit-condition state.
+        retryable: false
+        partial_result_allowed: true
+    partial_result_policy: explicit
+    unknown_or_not_checkable_policy: >
+      Preserve missing gates, stale checkpoints, conflicting transitions, incomplete
+      handoffs, unavailable ExecutionRuns, pending reviews or approvals, and unmet exit
+      conditions explicitly; never infer workflow execution or completion from a
+      definition, selected method, or planned transition.
+  state_transitions: []
+  authorization:
+    mode: none
+    required_for: []
+    permission_is_not_authority: true
+    review_is_not_approval: true
+    authority_reference_required: false
+  idempotency:
+    mode: resource_key
+    key_scope: workflow_coordination_ref_and_operation_id
+  observability:
+    required_events:
+      - workflow_coordination_prepared
+      - workflow_transition_selected
+      - workflow_transition_blocked
+      - workflow_handoff_recorded
+      - workflow_exit_condition_satisfied
+      - workflow_coordination_not_checkable
+    correlation_fields:
+      - request_id
+      - workflow_coordination_ref
+      - workflow_definition_ref
+      - current_phase_ref
+      - candidate_transition_ref
+      - handoff_definition_ref
+    sensitive_fields:
+      - context_pack_ref
+      - evidence_refs
+      - approval_refs
+      - transferred_refs
+      - acceptance_evidence_refs
+  adapter_requirements:
+    contract_reference:
+      require_id: true
+      require_path: true
+      require_version: true
+    requirements:
+      - preserve_workflow_definition_phase_transition_handoff_and_exit_semantics
+      - use_external_gate_execution_review_approval_completion_and_delivery_references
+      - never_create_an_unmodeled_workflow_run_status_family
+      - return_blocked_or_not_checkable_for_missing_coordination_evidence
+      - keep_runtime_engine_and_actual_step_execution_external
+  compatibility:
+    policy: semver
+    breaking_changes:
+      - change_workflow_coordination_reference_meaning
+      - add_required_phase_transition_or_handoff_input
+      - remove_external_gate_execution_review_or_approval_references
+      - introduce_workflow_run_lifecycle_without_canonical_domain_evolution
+      - absorb_runtime_execution_approval_completion_or_delivery_ownership
+    aliases:
+      - workflow-orchestration
+    supersedes: []
+    legacy_contract_refs: []
+  quality_gates:
+    - workflow_definition_and_coordination_checkpoint_remain_distinct
+    - workflow_coordination_does_not_create_a_workflow_run_status_family
+    - transition_selection_uses_declared_gates_evidence_and_external_authority_records
+    - phase_execution_is_recorded_as_external_execution_runs
+    - handoffs_preserve_sender_receiver_transferred_references_and_acceptance_evidence
+    - pending_review_approval_or_exit_conditions_are_not_reported_as_completion

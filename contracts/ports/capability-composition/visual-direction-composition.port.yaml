@@ -1,0 +1,171 @@
+port_contract:
+  id: visual-direction-composition
+  kind: capability_composition_port
+  version: "0.1.0"
+  capability: compose_context_driven_visual_direction
+  direction: inbound
+  semantic_owner_context: method_and_workflow
+  binding_owner_context: integration_and_binding
+  consumer_contexts:
+    - product_delivery_and_registry
+    - runtime_and_execution
+    - evidence_evaluation_and_review
+  purpose: >
+    Compose a context-driven visual direction from stable design capabilities and
+    selectively loaded specialist methods without coupling consumers to one visual
+    genre, one design tool, or one fixed adapter load sequence.
+  boundary:
+    owns:
+      - visual_direction_composition_request
+      - active_visual_concern_selection
+      - specialist_capability_loading_plan
+      - synthesized_visual_direction_contract
+      - visual_verification_plan
+    delegates:
+      - design_foundation_definition
+      - brand_and_product_policy
+      - specialist_design_method_execution
+      - visual_asset_rendering
+      - design_review
+      - approval
+    does_not_own:
+      - product_identity_authority
+      - provider_or_design_tool_binding
+      - final_layout_implementation
+      - final_interaction_implementation
+      - public_release_authorization
+      - product_acceptance
+  interactions:
+    requests:
+      - id: compose_visual_direction
+        description: Compose one bounded visual direction from attributable product and design context.
+        required_fields:
+          - id: foundation_handoff_ref
+            description: Accepted design-foundation handoff used by the composition.
+          - id: product_intent_ref
+            description: Attributable product intent and target outcome.
+          - id: content_inventory_ref
+            description: Actual content inventory or bounded content reference.
+          - id: target_surface
+            description: Intended surface and viewing context.
+        optional_fields:
+          - id: selected_direction_ref
+            description: Existing accepted design direction to preserve or refine.
+          - id: brand_and_system_lock_refs
+            description: Brand, identity, token, or design-system constraints.
+          - id: audience_context_ref
+            description: Audience and real viewing-context evidence.
+          - id: reference_pattern_refs
+            description: References used as influences rather than templates.
+          - id: active_visual_concerns
+            description: Pre-identified visual concerns requiring specialist methods.
+          - id: prohibited_patterns
+            description: Explicitly prohibited generic or product-inappropriate patterns.
+    responses:
+      - id: visual_direction_composition
+        description: Return one synthesized direction, specialist loading plan, and verification plan.
+        fields:
+          - id: visual_direction_contract
+            description: Observable implementation-relevant direction for the bounded surface.
+          - id: active_visual_concerns
+            description: Concerns retained after context-driven diagnosis.
+          - id: specialist_loading_plan
+            description: Only the specialist capabilities required for active concerns.
+          - id: composition_strategy
+            description: Focal order, hierarchy, balance, alignment, and flow strategy.
+          - id: typography_and_color_roles
+            description: Semantic typography and color role strategy.
+          - id: imagery_depth_and_motion_stance
+            description: Contextual stance for imagery, depth, effects, and motion.
+          - id: anti_slop_findings
+            description: Generic patterns rejected or corrected with attributable reasons.
+          - id: visual_verification_plan
+            description: Evidence plan matched to the visual claims and target context.
+    events:
+      - id: visual_composition_requested
+        description: A bounded visual-direction composition request was accepted.
+      - id: visual_concerns_resolved
+        description: Active visual concerns and specialist capability needs were resolved.
+      - id: visual_direction_composed
+        description: One synthesized visual-direction contract was produced.
+    streams: []
+  failures:
+    errors:
+      - code: foundation_not_resolved
+        meaning: The required design foundation is missing, stale, conflicted, or not accepted.
+        retryable: false
+        partial_result_allowed: false
+      - code: product_context_insufficient
+        meaning: Product intent, content, target surface, or brand constraints are insufficient.
+        retryable: true
+        partial_result_allowed: true
+      - code: specialist_capability_unavailable
+        meaning: A required specialist design capability cannot be resolved.
+        retryable: true
+        partial_result_allowed: true
+      - code: visual_direction_conflicted
+        meaning: Material direction, brand, content, or system constraints remain unresolved.
+        retryable: false
+        partial_result_allowed: true
+      - code: visual_composition_not_checkable
+        meaning: The composition lacks enough attributable context to support its direction claims.
+        retryable: false
+        partial_result_allowed: true
+    partial_result_policy: explicit
+    unknown_or_not_checkable_policy: >
+      Return unresolved concerns, missing context, and uncheckable claims explicitly; never
+      substitute a style keyword, reference copy, or generic visual recipe for a supported direction.
+  state_transitions: []
+  authorization:
+    mode: none
+    required_for: []
+    permission_is_not_authority: true
+    review_is_not_approval: true
+    authority_reference_required: false
+  idempotency:
+    mode: operation_defined
+    key_scope: composition_request_and_context_checkpoint
+  observability:
+    required_events:
+      - visual_composition_requested
+      - visual_concerns_resolved
+      - visual_direction_composed
+    correlation_fields:
+      - foundation_handoff_ref
+      - product_intent_ref
+      - target_surface
+      - selected_direction_ref
+    sensitive_fields:
+      - audience_context_ref
+      - brand_and_system_lock_refs
+      - content_inventory_ref
+  adapter_requirements:
+    contract_reference:
+      require_id: true
+      require_path: true
+      require_version: true
+    requirements:
+      - resolve_foundation_before_expression
+      - preserve_brand_product_and_system_locks
+      - load_only_relevant_specialist_capabilities
+      - produce_observable_implementation_relevant_direction
+      - preserve_design_review_as_external_authority
+  compatibility:
+    policy: semver
+    breaking_changes:
+      - change_required_composition_input
+      - change_visual_direction_output_meaning
+      - remove_specialist_loading_plan
+      - weaken_foundation_or_brand_boundary
+      - absorb_rendering_review_or_approval_ownership
+    aliases: []
+    supersedes: []
+    legacy_contract_refs:
+      - contracts/skills/design/design-visual.contract.yaml
+  quality_gates:
+    - foundation_is_resolved_before_visual_expression
+    - direction_is_derived_from_product_content_and_surface_context
+    - only_active_specialist_capabilities_are_selected
+    - visual_rules_are_observable_and_implementation_relevant
+    - generic_patterns_without_product_reason_are_rejected
+    - review_rendering_and_release_authority_remain_external

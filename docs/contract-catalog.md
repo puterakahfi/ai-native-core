@@ -1,26 +1,25 @@
 # Native AI Core Contract Catalog
 
-This document explains how to browse the public contracts without duplicating the generated inventory in multiple human-maintained tables.
+This document explains how to browse public contracts without duplicating the generated inventory in human-maintained tables.
 
 ## Canonical inventory
 
-[`contracts/manifest.yaml`](../contracts/manifest.yaml) is the authoritative registry of contract artifacts. It records registered IDs, paths, checksums, and skill-contract versions where applicable.
+[`contracts/manifest.yaml`](../contracts/manifest.yaml) is the authoritative registry of contract artifacts. It records registered IDs, paths, versions where supported, and checksums.
 
-The manifest is generated from repository contents:
+Generate it with:
 
 ```bash
 ./scripts/generate-manifest.sh
 ```
 
-Do not hand-edit the manifest. Regenerate it after any contract content, path, filename, or version change and commit the resulting diff.
-
-A manifest entry proves that an artifact is registered at a specific path and checksum. It does not, by itself, prove runtime implementation, adapter conformance, production maturity, or product adoption.
+Do not hand-edit the manifest. A manifest entry proves registration at one path and checksum. It does not prove adapter implementation, runtime behavior, conformance, maturity, or product adoption.
 
 ## Inventory structure
 
 ```text
 contracts/
 ├── skills/<category>/*.contract.yaml
+├── ports/<kind>/*.port.yaml
 ├── workflows/*.contract.yaml
 ├── runtime/*.contract.yaml
 ├── tests/*.test.yaml
@@ -29,109 +28,131 @@ contracts/
 
 ### Skill contracts
 
-Skill contracts define reusable capability interfaces. They describe required inputs, allowed outputs, quality gates, roles, and explicit boundaries without choosing a runtime implementation.
+[`contracts/skills/`](../contracts/skills/) defines reusable capability agreements: inputs, outputs, gates, roles, and owned/delegated boundaries.
 
-Browse [`contracts/skills/`](../contracts/skills/) by domain category:
+A skill contract is not automatically a port. Legacy `skill_contract.type: port` artifacts remain explicit migration inputs until issue `#7` moves their stable boundaries into first-class port contracts.
 
-- architecture
-- content
-- context
-- design
-- engineering
-- governance
-- meta
-- product
-- quality
-- runtime
-- security
-- visual thinking
+### Port contracts
 
-The directory structure and generated manifest are authoritative when a category list in prose becomes stale.
+[`contracts/ports/`](../contracts/ports/) defines versioned capability boundaries between consumer contexts and replaceable adapters or composition facades.
+
+Kinds:
+
+```text
+integration
+control
+product-surface
+capability-composition
+```
+
+Port contracts are validated by:
+
+```bash
+python3 scripts/validate-port-contracts.py
+python3 -m unittest discover -s tests -p 'test_validate_port_contracts.py' -v
+```
+
+The schema and semantic checks validate declared structure and boundary consistency. They do not prove adapter behavior.
+
+Current control examples include:
+
+```text
+ExecutionRunManagementPort
+→ owns the canonical ExecutionStatus lifecycle
+
+AgentRuntimePort
+→ controls an authorized runtime instance but does not own ExecutionStatus
+
+WorkflowCoordinationPort
+→ coordinates WorkflowDefinition phases, transitions, gates, handoffs, and exits
+  without inventing a WorkflowRun lifecycle
+```
+
+A concrete workflow engine or agent runtime may expose provider-specific sessions and states. Those observations remain adapter/runtime information until mapped to canonical records through their owning boundaries.
 
 ### Workflow contracts
 
-[`contracts/workflows/`](../contracts/workflows/) defines ordered lifecycle agreements. Workflow contracts focus on phases, gates, handoffs, evidence, and exit conditions rather than one atomic capability.
+[`contracts/workflows/`](../contracts/workflows/) defines ordered lifecycle agreements with phases, gates, handoffs, evidence, and exit conditions.
+
+A WorkflowDefinition contract is not actual execution, a runtime-engine instance, or an ExecutionRun.
 
 ### Runtime contracts
 
-[`contracts/runtime/`](../contracts/runtime/) defines runtime-facing agreements such as core resolution, project context, execution loops, memory, hooks, tool registration, and standard operating procedures.
+[`contracts/runtime/`](../contracts/runtime/) defines runtime-facing implementation-agnostic agreements such as core resolution, execution methods, memory, hooks, tool registration, and operating procedures.
 
-Runtime contracts remain implementation-agnostic. Provider commands, deployment policy, credentials, and product-specific runtime state belong in adapters or product repositories.
+A runtime contract does not replace first-class port boundaries or grant execution authority by itself.
 
 ### Behavioral test contracts
 
-[`contracts/tests/`](../contracts/tests/) contains behavioral evaluation cases used by the `skill-eval` runner.
-
-A test contract defines realistic triggers, required behavior, prohibited behavior, ordering constraints, and the quality gates under evaluation. It is not a unit test for a specific model provider.
+[`contracts/tests/`](../contracts/tests/) contains behavioral evaluation cases consumed by the evaluation runner.
 
 ## Finding the right contract
 
-Use this sequence:
-
 ```text
-1. Identify the capability or lifecycle that must remain stable.
+1. Identify the capability, boundary, or lifecycle that must remain stable.
 2. Search contracts/manifest.yaml by ID or path.
-3. Open the contract and inspect inputs, outputs, quality gates, and boundary.
-4. Inspect adjacent port and architecture documentation when the contract delegates work.
-5. Locate the executable adapter in ai-native-skills or the owning runtime/product repository.
-6. Verify the adapter's pinned contract version and conformance evidence.
+3. Determine whether the artifact is a skill, port, workflow, runtime, or test contract.
+4. Inspect inputs/interactions, outputs/responses, failures, gates, and boundaries.
+5. Verify referenced domain objects and status families are canonical.
+6. Inspect canonical domain and port documentation.
+7. Locate executable adapters in ai-native-skills, native-ai-fw, or product repositories.
+8. Verify path, version pin, declaration conformance, runtime evidence, and product evidence separately.
 ```
 
-Start with these framework documents when the required contract is unclear:
+Start with:
 
-- [Architecture v0.2](architecture-v0.2.md)
-- [Ports and adapters](ports-and-adapters.md)
+- [Canonical domain model](domain-model/README.md)
 - [Port taxonomy](port-taxonomy.md)
-- [Domain-driven model](domain-driven-model.md)
+- [Port retention matrix](port-retention-matrix.md)
+- [Ports and adapters](ports-and-adapters.md)
+- [Architecture v0.2](architecture-v0.2.md)
 - [Glossary](glossary.md)
 
 ## Contract identity and maturity
-
-Contracts declare versions independently. Maturity is evaluated per contract, not inferred from repository age or manifest presence.
-
-General interpretation:
 
 ```text
 0.x   evolving or pre-stable contract; a minor bump may be incompatible
 1.x+  semantic-version compatibility line; breaking changes require a new major version
 ```
 
-Adapter compatibility depends on the declared pin:
+Compatibility depends on actual pins and validation results, not the version label alone.
+
+A contract can be registered and schema-valid while still lacking:
 
 ```text
-^1.2.0  accepts compatible versions in major line 1
-^0.2.0  accepts compatible patches in the 0.2 line
-~1.2    accepts versions in the 1.2 line
+compatible adapter;
+behavioral conformance;
+runtime evidence;
+review or approval;
+product validation;
+production adoption.
 ```
-
-The repository validator is the source of truth for supported pin semantics. See [`scripts/validate-implements.sh`](../scripts/validate-implements.sh).
-
-Do not label a contract production-stable solely because its version is `1.0.0`. Maturity also requires coherent boundaries, review, compatible adapters, and appropriate validation evidence.
 
 ## Core-to-adapter relationship
 
 ```text
 ai-native-core
-  declares capability, boundary, contract version, and quality gates
+  canonical domain, port, and contract agreement
         ↓ implemented by
-ai-native-skills
-  executable reusable skill and workflow adapters
-        ↓ orchestrated or specialized by
-native-ai-fw and product repositories
-  runtime adapters, product policies, provider bindings, and real-world validation
+ai-native-skills, native-ai-fw, or provider/framework adapters
+  executable or concrete behavior
+        ↓ specialized and validated by
+product repositories
+  product policy, binding, implementation, and field evidence
 ```
-
-A private or product-specific implementation may consume a public core contract without publishing its internal context. Core remains free of credentials, customer data, deployment configuration, and runtime-installed copies.
 
 ## Keeping the catalog current
 
 When adding, moving, deleting, or changing a contract:
 
-1. update the contract version according to compatibility impact;
-2. update affected public documentation;
-3. regenerate `contracts/manifest.yaml`;
-4. inspect the contract version and manifest path, checksum, and total changes;
-5. validate dependent adapters when available;
-6. disclose adapters or products that still require migration.
+1. classify compatibility impact;
+2. verify referenced objects and statuses against the canonical domain model;
+3. update the contract version;
+4. update affected canonical documentation;
+5. run the applicable schema and semantic validators;
+6. regenerate `contracts/manifest.yaml`;
+7. inspect IDs, paths, versions, checksums, family placement, and total count;
+8. validate dependent adapters when available;
+9. disclose migrations and evidence gaps.
 
-Human-readable summary tables should link to the generated manifest rather than attempt to become a second inventory authority.
+Human-readable tables should explain meaning and migration, not compete with the generated manifest.

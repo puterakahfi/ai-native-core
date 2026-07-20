@@ -1,0 +1,191 @@
+port_contract:
+  id: code-operation-execution
+  kind: integration_port
+  version: "0.1.0"
+  capability: execute_bounded_code_repository_and_command_operations
+  direction: outbound
+  semantic_owner_context: runtime_and_execution
+  binding_owner_context: integration_and_binding
+  consumer_contexts:
+    - method_and_workflow
+    - runtime_and_execution
+    - evidence_evaluation_and_review
+    - product_delivery_and_registry
+  purpose: >
+    Execute one bounded and authorized code, repository-file, command, test, or build
+    operation through a replaceable coding adapter while preserving ExecutionRun,
+    architecture decisions, review, approval, completion, delivery, and product acceptance
+    as external responsibilities.
+  boundary:
+    owns:
+      - code_operation_request
+      - code_operation_result
+      - changed_artifact_reference
+      - command_and_test_result
+      - structured_code_operation_failure
+    delegates:
+      - task_and_acceptance_definition
+      - architecture_decision
+      - dependency_approval
+      - execution_run_recording
+      - review
+      - approval
+      - completion_assessment
+      - delivery
+    does_not_own:
+      - product_scope
+      - canonical_domain_meaning
+      - architecture_authority
+      - execution_status
+      - review_disposition
+      - approval_status
+      - completion_disposition
+      - product_acceptance
+  interactions:
+    requests:
+      - id: execute_code_operation
+        description: Execute one bounded implementation, file, command, test, or build operation from an accepted operation specification.
+        required_fields:
+          - id: request_id
+            description: Stable correlation identifier for the operation.
+          - id: operation_spec_ref
+            description: Exact bounded operation, allowed files, expected effects, and acceptance references.
+          - id: repository_ref
+            description: Repository and revision against which the operation is requested.
+          - id: adapter_binding_ref
+            description: Compatible coding adapter binding selected for execution.
+          - id: authorization_assessment_ref
+            description: Current authorization assessment covering the requested operation and scope.
+        optional_fields:
+          - id: execution_run_ref
+            description: Existing ExecutionRun that records actual execution steps and status.
+          - id: context_pack_ref
+            description: Attributable repository, product, contract, and implementation context.
+          - id: expected_revision_ref
+            description: Expected repository revision used for conflict detection.
+          - id: verification_requirement_refs
+            description: Required test, lint, build, type, or inspection checks.
+          - id: recovery_or_rollback_ref
+            description: Recovery or rollback expectation for material changes.
+    responses:
+      - id: code_operation_result
+        description: Return actual operation outcomes and artifact references without broader review, approval, completion, or delivery claims.
+        fields:
+          - id: request_id
+            description: Correlation identifier copied from the request.
+          - id: operation_outcome
+            description: Actual succeeded, failed, blocked, conflicted, partial, or not-checkable operation outcome.
+          - id: repository_revision_ref
+            description: Repository revision observed or produced by the operation when available.
+          - id: changed_artifact_refs
+            description: Attributable files or artifacts created, updated, deleted, or left unchanged.
+          - id: command_result_refs
+            description: Actual command, test, lint, build, type-check, or inspection results.
+          - id: adapter_binding_ref
+            description: Coding adapter binding that attempted the operation.
+          - id: execution_run_ref
+            description: External ExecutionRun recording the actual operation when available.
+          - id: limitations
+            description: Missing checks, partial changes, unsupported operations, unresolved conflicts, or unknown effects.
+    events:
+      - id: code_operation_requested
+        description: A bounded authorized code operation was accepted for handling.
+      - id: code_operation_started
+        description: The coding adapter reported that the actual operation started.
+      - id: code_operation_completed
+        description: The coding adapter produced a terminal bounded operation result.
+      - id: code_operation_failed
+        description: The coding adapter produced a structured terminal operation failure.
+    streams: []
+  failures:
+    errors:
+      - code: invalid_code_operation_request
+        meaning: Required operation, repository, adapter, or authorization data is missing or invalid.
+        retryable: false
+        partial_result_allowed: false
+      - code: code_adapter_unavailable
+        meaning: No compatible coding adapter can currently handle the requested operation.
+        retryable: true
+        partial_result_allowed: false
+      - code: repository_revision_conflict
+        meaning: The observed repository revision differs from the expected operation precondition.
+        retryable: true
+        partial_result_allowed: false
+      - code: code_operation_blocked
+        meaning: Policy, authorization, capacity, safety, or repository constraints prevent the operation.
+        retryable: false
+        partial_result_allowed: false
+      - code: code_operation_failed
+        meaning: The coding adapter returned a structured operation, command, test, or build failure.
+        retryable: true
+        partial_result_allowed: true
+      - code: code_operation_not_checkable
+        meaning: Available execution evidence is insufficient to classify the operation outcome or effects.
+        retryable: false
+        partial_result_allowed: true
+    partial_result_policy: explicit
+    unknown_or_not_checkable_policy: >
+      Return missing command evidence, unresolved repository state, unsupported operations,
+      partial changes, and unknown effects explicitly; never convert generated text, a plan,
+      or an unobserved command into successful execution.
+  state_transitions: []
+  authorization:
+    mode: required
+    required_for:
+      - modify_repository_artifact
+      - run_repository_command
+      - add_or_change_dependency
+      - destructive_repository_operation
+    permission_is_not_authority: true
+    review_is_not_approval: true
+    authority_reference_required: true
+  idempotency:
+    mode: operation_defined
+    key_scope: request_id_repository_revision_and_operation
+  observability:
+    required_events:
+      - code_operation_requested
+      - code_operation_started
+      - code_operation_completed
+      - code_operation_failed
+    correlation_fields:
+      - request_id
+      - repository_ref
+      - expected_revision_ref
+      - adapter_binding_ref
+      - execution_run_ref
+    sensitive_fields:
+      - context_pack_ref
+      - authorization_assessment_ref
+      - operation_spec_ref
+      - command_result_refs
+  adapter_requirements:
+    contract_reference:
+      require_id: true
+      require_path: true
+      require_version: true
+    requirements:
+      - require_explicit_operation_scope_repository_revision_and_authorization
+      - preserve_actual_operation_changed_artifact_and_command_result_semantics
+      - distinguish_generated_or_planned_work_from_actual_execution
+      - preserve_execution_run_review_approval_completion_and_delivery_as_external
+      - return_structured_failures_partial_results_conflicts_and_limitations
+      - never_expose_secrets_or_expand_scope_silently
+  compatibility:
+    policy: semver
+    breaking_changes:
+      - change_required_operation_repository_or_authorization_reference
+      - change_operation_outcome_or_failure_meaning
+      - remove_changed_artifact_command_or_execution_references
+      - weaken_revision_conflict_authorization_or_observability_semantics
+      - absorb_architecture_review_approval_completion_delivery_or_product_acceptance_ownership
+    aliases:
+      - code-execution
+    supersedes: []
+    legacy_contract_refs: []
+  quality_gates:
+    - operation_repository_revision_and_authorization_are_explicit
+    - actual_execution_is_distinct_from_plan_generation_or_model_output
+    - changed_artifacts_and_command_results_are_attributable
+    - failures_conflicts_partial_results_and_uncheckable_effects_are_explicit
+    - execution_status_review_approval_completion_delivery_and_product_acceptance_remain_external

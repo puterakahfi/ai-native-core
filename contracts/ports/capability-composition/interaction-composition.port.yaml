@@ -1,0 +1,178 @@
+port_contract:
+  id: interaction-composition
+  kind: capability_composition_port
+  version: "0.1.0"
+  capability: compose_platform_appropriate_interaction_behavior
+  direction: inbound
+  semantic_owner_context: method_and_workflow
+  binding_owner_context: integration_and_binding
+  consumer_contexts:
+    - product_delivery_and_registry
+    - runtime_and_execution
+    - evidence_evaluation_and_review
+  purpose: >
+    Compose bounded interaction behavior, UI-state handling, accessibility behavior,
+    edge cases, and verification requirements from accepted user-flow, layout, platform,
+    and design-system context without owning final implementation or domain state.
+  boundary:
+    owns:
+      - interaction_composition_request
+      - interaction_pattern_selection
+      - ui_state_and_edge_case_matrix
+      - accessibility_behavior_contract
+      - interaction_verification_plan
+    delegates:
+      - product_and_user_flow_definition
+      - domain_rule_and_status_definition
+      - layout_composition
+      - visual_direction_composition
+      - specialist_interaction_method_execution
+      - component_implementation
+      - accessibility_review
+      - design_review
+    does_not_own:
+      - product_scope_authority
+      - canonical_domain_status
+      - business_rule_authority
+      - final_component_code
+      - browser_native_or_framework_binding
+      - accessibility_acceptance
+      - release_authorization
+      - product_acceptance
+  interactions:
+    requests:
+      - id: compose_interaction
+        description: Compose one bounded interaction agreement from accepted flow, layout, content, and platform evidence.
+        required_fields:
+          - id: user_flow_ref
+            description: Accepted user flow, task path, or journey segment requiring interaction behavior.
+          - id: layout_contract_ref
+            description: Accepted layout structure and adaptive component roles.
+          - id: target_surface
+            description: Product surface, platform, input modes, and viewing context.
+          - id: component_and_content_refs
+            description: Actual interactive components, controls, content, and result states.
+        optional_fields:
+          - id: design_system_lock_refs
+            description: Existing component, pattern, token, and accessibility contracts.
+          - id: platform_convention_refs
+            description: Native platform, browser, framework, or device interaction conventions.
+          - id: assistive_context_refs
+            description: Keyboard, screen-reader, switch, reduced-motion, zoom, or other assistive-use evidence.
+          - id: existing_interaction_equity_ref
+            description: Existing product interactions to preserve, refine, or replace deliberately.
+          - id: domain_rule_and_status_refs
+            description: External business rules and domain statuses the interaction must represent without redefining.
+          - id: risk_and_recovery_refs
+            description: Destructive, sensitive, interruptible, recoverable, or failure-prone interaction constraints.
+    responses:
+      - id: interaction_composition
+        description: Return one interaction contract, state matrix, accessibility behavior agreement, and verification plan.
+        fields:
+          - id: interaction_pattern_contract
+            description: Selected product- and platform-appropriate interaction patterns with reasons and applicability.
+          - id: component_behavior_map
+            description: Trigger, response, feedback, focus, navigation, and recovery behavior for interactive components.
+          - id: ui_state_and_edge_case_matrix
+            description: Empty, loading, partial, error, disabled, permission, offline, success, and recovery behavior where applicable.
+          - id: accessibility_behavior_contract
+            description: Keyboard, focus, semantics, announcements, motion, pointer, target-size, and assistive behavior requirements.
+          - id: domain_state_representation_map
+            description: Mapping from externally owned business or domain states to user-facing interaction behavior.
+          - id: specialist_loading_plan
+            description: Only interaction and accessibility specialists required by active behavioral concerns.
+          - id: interaction_verification_plan
+            description: Required prototype, rendered, keyboard, assistive, state, recovery, and platform evidence.
+          - id: limitations
+            description: Missing flow evidence, unresolved domain states, unsupported input modes, or uncheckable behavior.
+    events:
+      - id: interaction_composition_requested
+        description: A bounded interaction-composition request was accepted.
+      - id: interaction_concerns_resolved
+        description: Active behavior, state, accessibility, and recovery concerns were resolved.
+      - id: interaction_composed
+        description: An interaction agreement and verification plan were produced.
+    streams: []
+  failures:
+    errors:
+      - code: interaction_flow_not_resolved
+        meaning: Required user flow, layout, component, content, or domain-state context is missing or not accepted.
+        retryable: false
+        partial_result_allowed: false
+      - code: interaction_context_insufficient
+        meaning: Available platform, input-mode, assistive, content, or state evidence is insufficient.
+        retryable: true
+        partial_result_allowed: true
+      - code: interaction_pattern_conflict
+        meaning: Product, platform, design-system, accessibility, or domain-state constraints conflict materially.
+        retryable: false
+        partial_result_allowed: true
+      - code: interaction_capability_unavailable
+        meaning: A required interaction or accessibility specialist capability cannot be resolved.
+        retryable: true
+        partial_result_allowed: true
+      - code: interaction_composition_not_checkable
+        meaning: Available evidence is insufficient to support behavior, recovery, or accessibility claims.
+        retryable: false
+        partial_result_allowed: true
+    partial_result_policy: explicit
+    unknown_or_not_checkable_policy: >
+      Return missing flows, unsupported input modes, unresolved states, absent recovery
+      behavior, and uncheckable accessibility claims explicitly; never infer behavior from
+      static layout or visual appearance alone.
+  state_transitions: []
+  authorization:
+    mode: none
+    required_for: []
+    permission_is_not_authority: true
+    review_is_not_approval: true
+    authority_reference_required: false
+  idempotency:
+    mode: operation_defined
+    key_scope: interaction_request_flow_layout_component_and_platform_checkpoint
+  observability:
+    required_events:
+      - interaction_composition_requested
+      - interaction_concerns_resolved
+      - interaction_composed
+    correlation_fields:
+      - user_flow_ref
+      - layout_contract_ref
+      - target_surface
+      - component_and_content_refs
+      - domain_rule_and_status_refs
+    sensitive_fields:
+      - assistive_context_refs
+      - risk_and_recovery_refs
+      - component_and_content_refs
+  adapter_requirements:
+    contract_reference:
+      require_id: true
+      require_path: true
+      require_version: true
+    requirements:
+      - use_accepted_flow_layout_component_and_platform_context
+      - distinguish_ui_state_representation_from_domain_status_ownership
+      - define_keyboard_focus_semantics_feedback_recovery_and_edge_cases
+      - verify_behavior_in_rendered_or_prototyped_context
+      - keep_implementation_domain_review_release_and_acceptance_external
+  compatibility:
+    policy: semver
+    breaking_changes:
+      - change_required_interaction_input
+      - change_pattern_component_state_or_accessibility_output_meaning
+      - remove_edge_case_recovery_or_verification_plan
+      - weaken_platform_domain_state_or_accessibility_boundary
+      - absorb_domain_implementation_review_or_acceptance_ownership
+    aliases:
+      - design-interaction
+    supersedes: []
+    legacy_contract_refs:
+      - contracts/skills/design/design-interaction.contract.yaml
+  quality_gates:
+    - accepted_user_flow_and_layout_precede_interaction_composition
+    - interaction_patterns_are_product_and_platform_appropriate
+    - domain_status_is_represented_without_becoming_ui_owned
+    - empty_loading_error_permission_success_and_recovery_states_are_explicit_when_applicable
+    - keyboard_focus_semantics_motion_and_assistive_behavior_are_verifiable
+    - implementation_domain_review_release_and_product_acceptance_remain_external
