@@ -11,13 +11,17 @@ product-surface/
 capability-composition/
 ```
 
-A first-class port is an abstract capability boundary. It is not the capability itself, the stable contract family in general, an adapter implementation, an adapter binding, or an execution run.
+A first-class port is an abstract capability boundary. It is not the capability itself, a generic contract family, an adapter implementation, an adapter binding, or an execution run.
 
-Validate all port contracts:
+Validate contracts and adapter references:
 
 ```bash
 python3 scripts/validate-port-contracts.py
 python3 -m unittest discover -s tests -p 'test_validate_port_contracts.py' -v
+
+python3 scripts/validate-port-adapter-reference.py \
+  tests/fixtures/port-adapter-references/valid-model-inference.port-reference.yaml
+python3 -m unittest discover -s tests -p 'test_validate_port_adapter_reference.py' -v
 ```
 
 Schema:
@@ -26,12 +30,24 @@ Schema:
 schemas/port-contract.schema.yaml
 ```
 
-Current representative contracts:
+Current contracts:
 
 ```text
-integration/model-inference.port.yaml
-control/execution-run-management.port.yaml
-capability-composition/visual-direction-composition.port.yaml
+integration/
+  model-inference.port.yaml
+
+control/
+  execution-run-management.port.yaml
+  context-resolution.port.yaml
+  skill-resolution.port.yaml
+  rule-resolution.port.yaml
+  rule-evaluation.port.yaml
+  review-management.port.yaml
+  approval-decision.port.yaml
+  authorization-assessment.port.yaml
+
+capability-composition/
+  visual-direction-composition.port.yaml
 ```
 
 `product-surface/` remains intentionally empty until issue `#7` confirms a universal reusable product-surface boundary.
