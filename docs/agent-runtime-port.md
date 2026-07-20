@@ -1,144 +1,71 @@
-# AgentRuntimePort
+# Agent Runtime Port — Contract Navigation
 
-## Purpose
+Status: Explanatory navigation
 
-`AgentRuntimePort` defines the boundary for running, inspecting, pausing, resuming, and governing AI agent runtimes inside Native AI Framework.
-
-It exists so agents can be executed through different runtimes without coupling the framework control plane to a specific agent framework, local assistant, hosted agent platform, or orchestration library.
-
-## Position in the Framework
+Canonical first-class contract:
 
 ```text
-Intent / Task / Workflow
-→ Agent Plan
-→ Agent Runtime
-→ Tool / Model / Skill Usage
-→ Execution Run
-→ Review / Approval
+contracts/ports/control/agent-runtime.port.yaml
 ```
 
-`AgentRuntimePort` sits between agent planning and actual agent execution.
-
-It is not a task source, workflow engine, model provider, tool gateway, or approval authority.
-
-## Primary Responsibilities
-
-- Start an agent run.
-- Pause, resume, or stop an agent run.
-- Inspect agent state and reasoning-safe summaries.
-- Enforce allowed tools, skills, rules, and permission policies.
-- Route tool usage through ToolIntegrationPort when external actions are needed.
-- Record run metadata through ExecutionRunPort.
-- Request review through ReviewApprovalPort when required.
-- Keep agent runtime replaceable.
-
-## Non-Responsibilities
-
-`AgentRuntimePort` must not:
-
-- create or mutate source-of-truth tasks by itself,
-- bypass approval gates,
-- expose secrets to agents or client-side code,
-- replace WorkflowOrchestrationPort for deterministic scheduled workflows,
-- replace ToolIntegrationPort for external app access,
-- replace ModelInferencePort for model calls,
-- replace domain/product architecture decisions.
-
-## Candidate Adapters
+Canonical display name:
 
 ```text
-OpenClawAgentRuntimeAdapter
-LangGraphAgentRuntimeAdapter
-CrewAIAgentRuntimeAdapter
-AutoGenAgentRuntimeAdapter
-CustomAgentRuntimeAdapter
-OpenAIAgentRuntimeAdapter
+AgentRuntimePort
 ```
 
-## Default Agent Runtime Workflow
+## Retained boundary
+
+`AgentRuntimePort` controls one bounded agent-runtime session through a replaceable runtime adapter.
 
 ```text
-Receive Agent Execution Request
-→ Resolve Context Bundle
-→ Resolve Rules / Skills
-→ Check Tool Permissions
-→ Start Agent Run
-→ Capture Agent Actions
-→ Route External Tool Requests
-→ Pause for Approval When Needed
-→ Store Execution Run Summary
-→ Handoff to Review
+existing ExecutionRun
++ Agent reference
++ RuntimeEnvironment
++ CapacityAssessment
++ AuthorizationAssessment
++ compatible AdapterBinding
+→ runtime start or control operation
+→ attributable runtime observations
+→ external ExecutionRun recording
 ```
 
-## Input Contract
+The port may request start, inspect, pause, resume, or stop operations. It does not own the canonical execution lifecycle.
 
-```yaml
-agent_runtime_input:
-  agent_id: ""
-  canonical_task_id: ""
-  workflow_id: ""
-  context_bundle_ref: ""
-  allowed_tools: []
-  required_skills: []
-  applicable_rules: []
-  approval_policy: ""
-```
-
-## Output Contract
-
-```yaml
-agent_runtime_output:
-  agent_run_id: ""
-  status: ""
-  summary: ""
-  actions_taken: []
-  tool_requests: []
-  approval_requests: []
-  errors: []
-  execution_run_ref: ""
-```
-
-## Status Flow
+## Required distinctions
 
 ```text
-queued
-→ running
-→ waiting_for_tool
-→ waiting_for_approval
-→ completed
-→ failed
-→ stopped
-→ needs_review
+AgentRuntimePort
+≠ Agent entity ownership
+≠ workflow definition
+≠ ExecutionRun management
+≠ ExecutionStatus
+≠ model inference
+≠ tool execution
+≠ review
+≠ approval
+≠ completion
+≠ product acceptance
 ```
 
-## Quality Gates
+Only an actual host/runtime start observation can support transition of an external ExecutionRun into `running`. A runtime request, generated plan, or model response cannot.
 
-- context bundle is resolved,
-- applicable rules are loaded,
-- required skills are available,
-- allowed tools are explicit,
-- external actions route through ToolIntegrationPort,
-- high-impact actions require ReviewApprovalPort,
-- execution summary is recorded,
-- secrets are never exposed to agent-visible output.
+Starting or resuming material agent execution requires a current action-specific authorization assessment. Tool registration or provider permission does not create authority.
 
-## Dashboard Usage
+## Runtime events
 
-`AgentRuntimePort` should power:
+Runtime events are observations intended for attributable external recording. They do not silently mutate ExecutionStatus, become evidence without scope and method, or prove broader completion.
 
-```text
-/agents
-/agent-runs
-/executions
-/task agent handoff
-```
+## Adapter examples
 
-It should make the dashboard capable of seeing which agent runtime handled work, what actions were attempted, where approval was needed, and what output is ready for review.
+Potential adapters include Hermes, hosted agent platforms, local agent runtimes, graph runtimes, or custom execution surfaces. These examples are implementation candidates, not canonical defaults.
 
-## Control Plane Rule
+`native-ai-fw` owns concrete runtime binding and control-plane implementation. Core owns the runtime-agnostic boundary only.
 
-Native AI Framework remains the control plane.
+## Dashboard usage
 
-Agent runtimes are execution plane adapters.
+A dashboard may display runtime instance, agent, ExecutionRun reference, observed capabilities, events, blockers, and external review or approval references together. It must not serialize them as one generic status.
 
-An agent runtime may execute a plan, but it must not own product architecture, task source of truth, approval authority, or framework governance.
+## Authority
+
+The versioned port contract and generated manifest are machine authority. This document explains the boundary and does not define competing request, response, status, or compatibility semantics.
