@@ -8,145 +8,113 @@ Authority entry point: [`README.md`](README.md)
 
 Usefulness gate: [`traceability-and-usefulness.md`](traceability-and-usefulness.md)
 
-This document records decisions made during reconciliation and pruning.
+This document records candidate concepts that were merged, reclassified, or retained during usefulness and contradiction review.
 
-It is not a new philosophy authority. It explains which candidate concepts remain useful, which are merged or reclassified, which existing documents were reconciled, and what still blocks acceptance.
+It is a decision record, not a competing philosophy authority.
 
 ---
 
 ## 1. Pruning Rule
 
-A candidate foundation concept is retained only when it has:
+A candidate is retained only when it has:
 
 ```text
 a distinct decision consequence;
 a known failure class it prevents;
 a named downstream consumer;
 a plausible embodiment or validation path;
-no smaller existing concept that produces the same result.
+no smaller retained concept that produces the same result.
 ```
 
-The following is not sufficient:
+The following are not sufficient:
 
 ```text
 sounds correct;
 reads elegantly;
-fits the architecture diagram;
-adds conceptual completeness;
+completes a diagram;
 resembles another framework;
 has already been documented at length.
 ```
 
 ---
 
-## 2. Law Pruning Decisions
+## 2. Law Decisions
 
-### 2.1 L3 Model Recognition — MERGE
+## Model Recognition — MERGED
 
-Previous candidate responsibility:
+Historical alias:
 
 ```text
-Unmarked inference, assumption, hypothesis, or interpretation may be consumed and
-executed as if it were fact.
+L3
 ```
 
-Review result:
+Useful responsibility:
 
 ```text
-MERGE INTO:
-- L2 State–Model Separation Law;
-- G2 No Model-As-Fact Collapse;
-- canonical terms for inference, assumption, fact, and epistemic status;
-- Epistemic Loop DECOMPOSE phase.
+unmarked inference, assumption, hypothesis, or interpretation may be consumed
+and executed as verified fact.
 ```
 
-Reason:
-
-L3 describes an important failure, but it does not establish a distinct invariant beyond L2. Its executable consequence is already expressed more precisely as:
+Merged into:
 
 ```text
-models and material statements preserve source, scope, assumptions,
-unknowns, and verification status;
-
-inference and assumption must not be reported or executed as verified fact;
-
-material epistemic status must remain explicit when consequence, reuse,
-risk, or irreversibility is significant.
-```
-
-Named consumers remain:
-
-```text
-issue #6 epistemic state model;
-issue #8 source/status primitives;
-ai-native-skills analysis and planning behavior;
-behavioral tests for assumption-as-fact failures.
-```
-
-These consumers do not require L3 to remain a separate law.
-
-Decision:
-
-```text
-L3 is not retained as an independent law in the candidate accepted kernel.
-Its useful requirements remain preserved by L2, G2, term authority, and the loop.
-```
-
-### 2.2 L12 Governed Stability — RECLASSIFY AND MERGE
-
-Previous candidate responsibility:
-
-```text
-Stable artifacts preserve reliable consumer expectations through ownership,
-compatibility, evidence, review, and controlled evolution; stability is not immutability.
-```
-
-Review result:
-
-```text
-MERGE INTO:
-- L11 Evolution Authority Law;
-- P8 Evaluation Before Trust Expansion;
-- G15 No Silent Semantic Evolution;
-- canonical term Stability;
-- contract compatibility and release policy.
+State–Model Separation;
+No Model-As-Fact Collapse;
+canonical inference, assumption, fact, and verification terms;
+Epistemic Loop DECOMPOSE phase.
 ```
 
 Reason:
 
-The distinction `stability ≠ immutability` is necessary, but it functions primarily as:
-
-```text
-a canonical definition boundary;
-a decision principle for trust expansion;
-a mandatory semantic-evolution guardrail;
-a contract and release governance concern.
-```
-
-It does not require another independent law once L11 already governs how accepted shared artifacts evolve.
-
-Named consumers remain:
-
-```text
-issue #6 ownership and lifecycle model;
-issue #7 port compatibility;
-issue #8 contract versioning and migration;
-issue #9 compatibility-aware conformance;
-repository release and supersession policy.
-```
+The failure is important, but it does not create a distinct invariant beyond State–Model Separation. Its consumers need explicit epistemic status, not another independent law.
 
 Decision:
 
 ```text
-L12 is not retained as an independent law in the candidate accepted kernel.
-Its useful requirements remain preserved by L11, P8, G15, Stability, and compatibility policy.
+NOT RETAINED AS INDEPENDENT LAW
 ```
 
 ---
 
-## 3. Retained Candidate Law Families
+## Governed Stability — RECLASSIFIED AND MERGED
 
-After the first pruning pass, the retained candidate law families are:
+Historical alias:
+
+```text
+L12
+```
+
+Useful responsibility:
+
+```text
+stable artifacts preserve reliable consumer expectations through ownership,
+compatibility, evidence, review, and controlled evolution;
+stability is not immutability.
+```
+
+Merged into:
+
+```text
+Evolution Authority;
+Evaluation Before Trust Expansion;
+No Silent Semantic Evolution;
+canonical Stability definition;
+contract compatibility, migration, and release policy.
+```
+
+Reason:
+
+The distinction is necessary, but its engineering consequences are already owned by evolution authority, trust-expansion decisions, semantic guardrails, and compatibility mechanisms.
+
+Decision:
+
+```text
+NOT RETAINED AS INDEPENDENT LAW
+```
+
+---
+
+## Retained Laws
 
 ```text
 State Attribution
@@ -164,214 +132,302 @@ Evolution Authority
 Count:
 
 ```text
-10 retained candidate law families
+10 retained candidate laws
 ```
 
-The current [`laws.md`](laws.md) still contains the original candidate numbering and the two reviewed sections for traceability.
-
-Before issue `#13` acceptance, `laws.md` must be compacted so:
-
-```text
-merged candidates are removed from the active law list;
-remaining references use consistent numbering or stable names;
-cross-law invariants reflect the retained set;
-stress-test references no longer cite merged laws;
-current verdict reports the pruned count.
-```
-
-Historical candidate reasoning may remain in the discovery or reconciliation record, not in the active canonical law list.
+Active compaction is complete in [`laws.md`](laws.md). Historical reasoning remains in discovery and this record.
 
 ---
 
-## 4. Principle And Guardrail Pruning Position
+## 3. Principle Decisions
 
-### Principles
+## Evidence-Proportional Claims — MERGED
 
-The eleven candidate principles remain under review, but they are not intended to become a universal checklist copied into every skill or workflow.
-
-Consumer rule:
+Historical alias:
 
 ```text
-A consumer selects only principles that materially change its decisions.
+P3
 ```
 
-A principle should be merged when:
+Merged into:
 
 ```text
-it produces no distinct choice;
-it restates a law without decision guidance;
-it duplicates another principle's selection factors;
-it is actually a local policy.
+Claim–Evidence Scope;
+No Claim Beyond Evidence Scope;
+Coherent Completion.
 ```
 
-### Guardrails
+Reason:
 
-Guardrails may remain separate when they trigger different operational responses, such as:
-
-```text
-BLOCK;
-NARROW;
-ROUTE;
-REQUEST AUTHORITY;
-REQUEST EVIDENCE;
-DOWNGRADE STATUS;
-REVERT;
-ESCALATE.
-```
-
-Guardrails should be merged when the protected invariant, trigger, and required response are materially identical.
-
-No final principle or guardrail count is frozen by this record.
+This is a mandatory truthfulness boundary, not an optional selection orientation.
 
 ---
 
-## 5. Canonical Term Scope
+## Explicit Uncertainty — MERGED
 
-The 39 candidate atomic terms are not 39 slogans that every agent must recite.
-
-They serve different purposes:
+Historical alias:
 
 ```text
-foundation-required distinctions;
-domain-model inputs;
-contract-schema primitives;
-review and evidence vocabulary;
-supporting navigation terms.
+P4
 ```
 
-Consumers should import only the vocabulary relevant to their responsibility.
-
-Examples:
+Merged into:
 
 ```text
-A repository-analysis skill needs observation, inference, assumption, fact,
-claim, evidence, scope, coverage, and verification.
-
-A destructive-operation control plane needs capability, permission, authority,
-effective decision, approval, capacity, reversibility, and evidence.
-
-A conformance validator needs contract, claim, evidence layer, conformance,
-verification, not-checkable, behavior-not-verified, and product acceptance boundaries.
+State Attribution;
+State–Model Separation;
+No Fabricated State Or Evidence;
+No Model-As-Fact Collapse;
+Epistemic Loop OBSERVE and DECOMPOSE phases.
 ```
 
-Term count alone is not a maturity signal. Terms remain subject to merge when they do not preserve a necessary distinction for a named consumer.
+Reason:
+
+Material uncertainty must remain visible; it is not merely a preferred style.
 
 ---
 
-## 6. Reconciliation Applied
+## Preserve Useful Existing Work — ABSORBED
 
-### 6.1 `docs/architecture-v0.2.md`
+Historical alias:
 
-Applied changes:
+```text
+P7
+```
+
+Absorbed into:
+
+```text
+Smallest Coherent Change
+```
+
+Reason:
+
+Preserving correct accepted work is a selection factor for coherent change, not a separate principle with a distinct decision surface.
+
+---
+
+## Feedback-Driven Learning — MERGED
+
+Historical alias:
+
+```text
+P10
+```
+
+Merged into:
+
+```text
+Feedback Revision;
+Evolution Authority;
+Epistemic Loop UPDATE phase.
+```
+
+Reason:
+
+Feedback revision is already an invariant. Shared promotion is already governed by evolution authority. Another advisory principle adds no distinct selection behavior.
+
+---
+
+## Retained Principles
+
+```text
+Domain And Capability Before Tools
+Smallest Coherent Change
+Reversible Progress Under Uncertainty
+Correct-Layer Change
+Evaluation Before Trust Expansion
+Review Proportional To Risk And Authority
+Explicit Boundaries Over Implicit Expectations
+```
+
+Count:
+
+```text
+7 retained candidate principles
+```
+
+---
+
+## 4. Guardrail Decisions
+
+## Memory Must Not Override Current Source Of Truth — MERGED
+
+Historical alias:
+
+```text
+G13
+```
+
+Merged into:
+
+```text
+No Fabricated State Or Evidence;
+No Model-As-Fact Collapse;
+No Silent Conflict Resolution;
+State Attribution;
+Decision Traceability.
+```
+
+Reason:
+
+Memory is one model and retrieval surface. When stale or conflicting memory appears, the required behavior is already to verify current sources, preserve epistemic status, and avoid silently resolving authority conflicts.
+
+A separate guardrail produces no distinct trigger or response.
+
+Decision:
+
+```text
+NOT RETAINED AS INDEPENDENT GUARDRAIL
+```
+
+---
+
+## Retained Guardrails
+
+```text
+No Fabricated State Or Evidence
+No Model-As-Fact Collapse
+No Claim Beyond Evidence Scope
+Capability Is Not Authority
+No Silent Scope Expansion
+No Silent Conflict Resolution
+No Undeclared Gate Bypass
+No False Completion
+Declaration Is Not Embodiment
+Contradictory Feedback Must Be Processed
+No Unverified Promotion To Shared Layers
+Concrete Layers Must Not Redefine Canonical Layers
+High-Risk Actions Require Applicable Controls
+No Silent Semantic Evolution
+```
+
+Count:
+
+```text
+14 retained candidate philosophy guardrails
+```
+
+Each retained guardrail now has:
+
+```text
+protected boundary;
+required operational response;
+representative behavioral-case mapping;
+named consumer surface.
+```
+
+---
+
+## 5. Reconciliation Applied
+
+## `docs/architecture-v0.2.md`
+
+Applied:
 
 ```text
 classified as an operational architecture view;
-linked to the philosophy foundation;
-clarified that its layer sequence is not universal numbering authority;
-replaced “domain is stable” with governed-stability wording;
-reclassified “human-reviewed by default” as bounded governance posture/policy;
-made evaluation, review, and approval proportional to claim, risk, and authority;
-made contract presence distinct from executable behavior and product proof;
-made capability distinct from authority;
-marked the product section as illustrative rather than canonical domain authority.
+linked to philosophy authority;
+clarified that layer sequence is not universal numbering authority;
+replaced immutable-stability wording with governed-change wording;
+reclassified human review as bounded posture or policy;
+separated evaluation, review, and approval;
+separated capability from authority;
+marked product examples as illustrative.
 ```
 
 Preserved:
 
 ```text
 domain-first architecture;
-ports-and-adapters boundary;
-replaceable providers and tools;
+ports-and-adapters boundaries;
+replaceable tools and providers;
 agent non-ownership of domain decisions;
-knowledge versus memory distinction;
+knowledge versus memory;
 contract, rule, skill, and evaluation responsibilities.
 ```
 
-### 6.2 `docs/glossary.md`
+## `docs/glossary.md`
 
-Applied changes:
+Applied:
 
 ```text
-reclassified as a navigation index;
-linked philosophy-level definitions to term-authority.md;
-removed competing architecture layer numbering from term definitions;
-removed runtime-specific Profile as a core glossary concept;
-expanded Capability beyond skill-contract declarations;
-made Conformance explicitly evidence-layered;
+reclassified as navigation index;
+linked philosophy terms to term-authority.md;
+removed competing layer numbering;
+removed runtime-specific Profile from core terminology;
+expanded Capability beyond skill declarations;
+made Conformance evidence-layered;
 broadened Verification beyond command execution;
-distinguished Review from Approval;
-distinguished Permission from Authority;
-added navigation for evidence, feedback, capacity, coherence, embodiment,
-learning candidate, stability, and source of truth.
+distinguished Review, Approval, Permission, and Authority.
 ```
 
-Preserved:
+## Executable contracts
 
-```text
-contract and adapter navigation;
-Development Loop discovery;
-skill, workflow, runtime, manifest, and port terminology;
-repository-oriented usability.
-```
-
-### 6.3 Executable contracts
-
-No machine-readable contract was modified in this slice.
-
-Reason:
+No machine-readable contract was modified during philosophy reconciliation.
 
 ```text
 existing contracts remain operational authority;
-terminology changes must be coordinated with issues #6, #7, #8, and #9;
+terminology migration belongs to issues #6, #7, #8, and #9;
 document reconciliation must not silently mutate executable semantics.
 ```
 
 ---
 
-## 7. Contradictions Resolved In This Slice
+## 6. Behavioral Alignment
+
+[`behavioral-test-candidates.md`](behavioral-test-candidates.md) now uses retained stable law, principle, and guardrail names.
+
+Twelve cases cover:
 
 ```text
-“Domain is stable”
-→ canonical domain agreements are stable through governed change.
-
-“Human-reviewed by default”
-→ review and approval are proportionate to risk and authority;
-  human review may be a bounded policy default.
-
-“Evaluation before every approval/export/deploy/publish”
-→ applicable evidence, evaluation, review, and approval gates follow
-  the claim, action, risk, authority, contract, and policy.
-
-Glossary Capability = skill contract declaration
-→ capability applies to actors, agents, tools, adapters, and systems.
-
-Glossary Conformance = one coverage result
-→ conformance must name its evidence layer.
-
-Glossary Verification = run real commands
-→ verification evaluates any specified claim against appropriate evidence;
-  command execution is one method.
-
-Architecture layer numbering = universal framework hierarchy
-→ architecture v0.2 is one operational dependency view.
+invented repository state;
+assumption-as-fact;
+plan-as-execution;
+tool permission without authority;
+build-as-product-completion;
+review-as-approval;
+static conformance as behavior;
+installed skill as applied skill;
+screenshot as complete UX proof;
+contradictory feedback ignored;
+local fix promoted directly to core;
+canonical semantic change without migration.
 ```
+
+These cases remain specifications until schemas and executable consumers exist.
+
+---
+
+## 7. Alias Policy
+
+Stable names are the primary candidate identifiers.
+
+Historical aliases remain only for traceability:
+
+```text
+L1–L12
+P1–P11
+G1–G15
+```
+
+A reference to a retired alias in discovery or an earlier candidate document does not reactivate that item as independent authority.
+
+Before final acceptance, active navigation and behavioral specifications must use stable names. Historical records may preserve aliases when their role is explicit.
 
 ---
 
 ## 8. Remaining Acceptance Blockers
 
-Issue `#13` remains blocked from acceptance until:
-
 ```text
-laws.md is compacted to the retained law set;
-principles and guardrails complete duplicate-response review;
-philosophy README navigation and maturity status are updated;
-root README links to the philosophy entry point;
-behavioral test candidates are defined for executable embodiment;
-issue #6 confirms the vocabulary supports domain modeling;
-contract terminology impact is reviewed with #7, #8, and #9;
-document links and cross-references pass review;
-explicit owner acceptance is recorded.
+root repository navigation must link the philosophy entry point;
+issue #8 must confirm behavioral-test schema direction;
+ai-native-skills#27 must map representative cases into an executable harness;
+native-ai-fw must identify runtime authority and evidence cases;
+at least one product repository must validate representative behavior;
+issue #6 must confirm domain-model sufficiency;
+final contradiction and minimality review must pass;
+explicit owner acceptance must be recorded in issue #13.
 ```
 
 ---
@@ -380,17 +436,18 @@ explicit owner acceptance is recorded.
 
 ```text
 Decorative-concept policy: REJECTED
-L3 Model Recognition: MERGED, NOT RETAINED AS LAW
-L12 Governed Stability: RECLASSIFIED, NOT RETAINED AS LAW
-Retained candidate law families: 10
+Retained candidate laws: 10
+Retired independent laws: 2
+Retained candidate principles: 7
+Retired independent principles: 4
+Retained candidate guardrails: 14
+Retired independent guardrails: 1
 Architecture reconciliation: APPLIED
-Glossary authority reconciliation: APPLIED
+Glossary reconciliation: APPLIED
+Active artifact compaction: APPLIED
+Behavioral stable-name mapping: APPLIED
 Executable contract changes: NONE
-Active law-file compaction: PENDING
-Principle/guardrail pruning: PENDING
-Behavioral embodiment: PENDING
+Executable embodiment: NOT YET PROVEN
+Ready for final contradiction review: YES
 Ready to merge philosophy: NO
-Ready for compaction and behavioral-test design: YES
 ```
-
-The next slice should compact the active philosophy artifacts around the retained kernel, update navigation and maturity status, and define representative behavioral tests proving that the foundation changes agent behavior rather than merely documenting intent.
