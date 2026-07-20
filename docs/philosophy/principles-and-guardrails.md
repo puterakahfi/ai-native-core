@@ -1,6 +1,6 @@
 # Native AI Engineering Principles And Guardrails
 
-Status: Candidate retained set
+Status: Final candidate retained set
 
 Issue: `#13 — Define Native AI Engineering philosophy, axioms, laws, principles, and guardrails`
 
@@ -14,9 +14,9 @@ Behavioral candidates: [`behavioral-test-candidates.md`](behavioral-test-candida
 
 Pruning record: [`reconciliation-and-pruning.md`](reconciliation-and-pruning.md)
 
-This document contains the active candidate principles and philosophy guardrails retained after usefulness and minimality review.
+This file owns the active candidate principles and philosophy guardrails retained after usefulness, duplicate-response, contradiction, and minimality review.
 
-Stable names are the primary identifiers. Historical `P` and `G` numbers remain aliases only for traceability while the foundation is still candidate.
+Stable names are primary identifiers. Historical `P` and `G` numbers are traceability aliases only.
 
 ---
 
@@ -30,10 +30,10 @@ Principle
 = preferred orientation when multiple valid choices remain.
 
 Guardrail
-= mandatory boundary whose violation changes action, routing, or status.
+= universal mandatory boundary whose violation changes action, routing, or status.
 
 Mechanism
-= reusable structure that performs work.
+= reusable operational structure.
 
 Gate
 = checkable transition or claim condition.
@@ -42,42 +42,42 @@ Policy
 = authority-selected rule for a bounded repository, product, runtime, risk, or organization.
 ```
 
-A principle must allow justified alternatives.
+A principle must allow justified alternatives. A guardrail must define an operational consequence.
 
-A guardrail must define an operational consequence such as:
+Valid guardrail responses include:
 
 ```text
-BLOCK
-STOP
-NARROW
-ROUTE
-REQUEST SOURCE
-REQUEST EVIDENCE
-REQUEST AUTHORITY
-REQUEST APPROVAL
-REQUIRE REVIEW
-REQUIRE RECOVERY CAPACITY
-MARK UNKNOWN
-MARK PARTIAL
-MARK NOT_VERIFIED
-REVERT
-ESCALATE
+BLOCK;
+STOP;
+NARROW;
+ROUTE;
+REQUEST SOURCE;
+REQUEST EVIDENCE;
+REQUEST AUTHORITY;
+REQUEST APPROVAL;
+REQUIRE REVIEW;
+REQUIRE RECOVERY CAPACITY;
+MARK UNKNOWN;
+MARK PARTIAL;
+MARK NOT_VERIFIED;
+REVERT;
+ESCALATE.
 ```
 
-Repository and product policies may strengthen a philosophy guardrail for their context. They must not be promoted into universal philosophy merely because they are mandatory locally.
+A local policy may strengthen a guardrail in its context. It must not be promoted into universal philosophy merely because it is mandatory locally.
 
 ---
 
-## 2. Pruning Rule
+## 2. Retention Rule
 
 A principle is retained only when it:
 
 ```text
-changes selection between otherwise valid approaches;
+changes selection among otherwise valid approaches;
 has a named consumer;
 prevents a known failure or improves a material trade-off;
 is not already mandatory under a law or guardrail;
-is not merely a repository or product policy.
+is not a repository or product policy.
 ```
 
 A guardrail is retained only when it:
@@ -85,341 +85,166 @@ A guardrail is retained only when it:
 ```text
 protects a distinct invariant;
 has a distinguishable trigger;
-requires a distinguishable operational response;
+requires a distinguishable response;
 has an embodiment or review path;
-is not a narrower example of another retained guardrail.
-```
-
-The following are insufficient reasons to retain an item:
-
-```text
-it sounds correct;
-it completes a list;
-it has already been documented at length;
-it resembles a popular engineering slogan;
-it is mandatory in one repository;
-it repeats a law using different wording.
+is not only an example of another retained guardrail.
 ```
 
 ---
 
-## 3. Active Principle Set
+## 3. Retained Principles
 
-| Stable principle name | Historical alias | Distinct selection responsibility |
+| Principle | Alias | Selection responsibility |
 |---|---:|---|
-| Domain And Capability Before Tools | P1 | Select product/domain responsibility before allowing replaceable tools to shape meaning |
-| Smallest Coherent Change | P2 | Select the narrowest change that preserves required coherence and evidence quality |
+| Domain And Capability Before Tools | P1 | Define product/domain responsibility before allowing replaceable tools to shape meaning |
+| Smallest Coherent Change | P2 | Select the narrowest change preserving required coherence and evidence quality |
 | Reversible Progress Under Uncertainty | P5 | Prefer bounded reversible tests when action is justified but uncertainty remains |
 | Correct-Layer Change | P6 | Change the narrowest layer that legitimately owns the problem |
 | Evaluation Before Trust Expansion | P8 | Expand trust, autonomy, rollout, or canonical status only after proportionate evaluation |
 | Review Proportional To Risk And Authority | P9 | Select review and approval depth according to risk, reversibility, authority, and consumer impact |
-| Explicit Boundaries Over Implicit Expectations | P11 | Prefer explicit ownership, scope, exclusion, handoff, and approval boundaries |
+| Explicit Boundaries Over Implicit Expectations | P11 | Prefer explicit ownership, scope, exclusions, handoffs, and approval boundaries |
 
-Count:
-
-```text
-7 retained candidate principles
-```
+Count: `7`.
 
 Retired independent candidates:
 
 ```text
-P3 Evidence-Proportional Claims
-→ mandatory consequence of Claim–Evidence Scope and No Claim Beyond Evidence Scope.
+Evidence-Proportional Claims
+→ mandatory consequence of Claim–Evidence Scope and evidence guardrails.
 
-P4 Explicit Uncertainty
-→ preserved by State Attribution, State–Model Separation,
+Explicit Uncertainty
+→ consequence of State Attribution, State–Model Separation,
   No Fabricated State Or Evidence, and No Model-As-Fact Collapse.
 
-P7 Preserve Useful Existing Work
-→ absorbed into Smallest Coherent Change as a selection factor.
+Preserve Useful Existing Work
+→ selection factor inside Smallest Coherent Change.
 
-P10 Feedback-Driven Learning
-→ preserved by Feedback Revision, Evolution Authority,
-  and the Epistemic Loop UPDATE phase.
+Feedback-Driven Learning
+→ consequence of Feedback Revision, Evolution Authority, and UPDATE.
 ```
 
 ---
 
-## 4. Retained Principles
+## 4. Principle Details
 
-## Domain And Capability Before Tools
-
-### Statement
+### Domain And Capability Before Tools
 
 ```text
 Prefer defining the user or business capability, domain responsibility,
 and required behavior before selecting tools, models, providers, or adapters.
 ```
 
-### Selects for
+Selects for domain-owned meaning, replaceable implementation, capability-first ports, provider-independent contracts, and routing based on responsibility rather than tool availability.
+
+Does not prohibit tools during discovery or require every domain detail to be complete before experimentation.
+
+Primary consumers: `#6`, `#7`, architecture review, capability design, skill routing.
+
+### Smallest Coherent Change
 
 ```text
-domain-owned meaning;
-replaceable implementations;
-capability-first ports;
-provider-independent contracts;
-skill routing based on responsibility rather than tool availability.
+Prefer the smallest change that preserves relevant coherence, useful accepted work,
+and meaningful evidence for the objective.
 ```
 
-### Does not mean
+“Smallest” means smallest coherent scope, not fewest changed lines. A wider change is justified when a narrower patch would duplicate logic, break ownership, or leave behavior incomplete.
+
+Primary consumers: Development Loop, engineering workflows, redesign, skill refinement, review.
+
+### Reversible Progress Under Uncertainty
 
 ```text
-tools cannot be used during discovery;
-every domain detail must be complete before experimentation;
-one architecture method is mandatory for every product.
+When uncertainty is material but action is justified, prefer bounded reversible
+experiments that can produce discriminating evidence.
 ```
 
-### Primary consumers
+Reversibility reduces risk; it does not create permission or authority.
 
-```text
-issue #6 canonical domain model;
-issue #7 port taxonomy;
-product architecture;
-capability and adapter design.
-```
+Primary consumers: planning, debugging, experiments, rollout, runtime operations.
 
----
-
-## Smallest Coherent Change
-
-### Statement
-
-```text
-Prefer the smallest change that preserves relevant coherence, accepted useful work,
-and a meaningful evidence path for the objective.
-```
-
-### Selection factors
-
-```text
-accepted scope;
-blast radius;
-existing correct behavior;
-boundary integrity;
-rollback cost;
-evidence interpretability;
-consumer impact.
-```
-
-The smallest coherent change is not always the fewest changed lines. A wider change may be necessary when a narrower patch would create duplication, broken ownership, or incomplete behavior.
-
-### Primary consumers
-
-```text
-feature and bugfix workflows;
-design refinement;
-contract migration;
-skill evolution;
-repository review.
-```
-
----
-
-## Reversible Progress Under Uncertainty
-
-### Statement
-
-```text
-When uncertainty is material but action is justified, prefer a bounded reversible
-response that can produce discriminating evidence.
-```
-
-### Valid selections
-
-```text
-read-only inspection;
-small experiment;
-feature flag;
-local prototype;
-non-destructive patch;
-limited rollout;
-replayable test fixture.
-```
-
-Reversibility reduces risk. It does not create permission, authority, or approval.
-
-### Primary consumers
-
-```text
-planning;
-incident response;
-product experimentation;
-runtime operations;
-high-uncertainty engineering changes.
-```
-
----
-
-## Correct-Layer Change
-
-### Statement
+### Correct-Layer Change
 
 ```text
 Prefer changing the narrowest layer that legitimately owns the discovered problem.
 ```
 
-### Candidate destinations
+Possible destinations include local implementation, product policy, knowledge, skill, workflow, evaluation, contract, canonical term, domain model, or philosophy evolution proposal.
 
-```text
-local implementation;
-product knowledge or policy;
-skill or reference;
-workflow;
-behavioral evaluation;
-contract;
-port;
-canonical term;
-domain model;
-philosophy evolution proposal.
-```
+Primary consumers: `#6–#9`, Skill Evolution, core contribution review, product-to-shared learning.
 
-A local bug does not automatically change a universal contract. A universal contract gap should not be hidden behind repeated local patches.
-
-### Primary consumers
-
-```text
-issue #6 domain ownership;
-contract and port review;
-ai-native-skills refinement;
-native-ai-fw integration;
-product-to-shared learning.
-```
-
----
-
-## Evaluation Before Trust Expansion
-
-### Statement
+### Evaluation Before Trust Expansion
 
 ```text
 Prefer increasing trust, autonomy, rollout scope, compatibility status, or canonical
-status only after evaluation and feedback proportionate to the expanded claim.
+status only after proportionate evaluation and feedback.
 ```
 
-### Examples
+Examples include candidate skill to wider routing, local fix to reusable learning, and release candidate to stable agreement.
+
+Primary consumers: evaluators, release governance, skill registry, runtime routing, core evolution.
+
+### Review Proportional To Risk And Authority
 
 ```text
-candidate skill → behavioral evaluation → wider routing;
-local fix → regression evidence → learning candidate;
-release candidate → compatibility review → stable contract line;
-small experiment → measured result → broader rollout.
-```
-
-### Primary consumers
-
-```text
-issue #8 schemas and maturity;
-issue #9 conformance reporting;
-skill routing;
-release governance;
-autonomy and rollout policy.
-```
-
----
-
-## Review Proportional To Risk And Authority
-
-### Statement
-
-```text
-Prefer review and approval coverage proportionate to risk, reversibility, required
+Prefer review and approval coverage proportionate to risk, reversibility,
 authority, affected consumers, and claim scope.
 ```
 
-This principle replaces a universal reading of `human-reviewed by default`.
+Human review may be a repository default, but reviewer and approval mode are scoped policies. Low-risk delegated actions may be automated when explicit policy permits.
 
-Human review may remain a repository or product posture. The required reviewer, approver, and approval mode are policy decisions.
+Primary consumers: risk policy, review ports, release workflows, native-ai-fw.
 
-### Primary consumers
+### Explicit Boundaries Over Implicit Expectations
 
 ```text
-review and approval ports;
-security and release policy;
-repository governance;
-product acceptance;
-runtime authorization routing.
+Prefer explicit ownership, scope, exclusions, handoffs, evidence expectations,
+and approval boundaries over assumptions inferred from prose or convention.
 ```
+
+Structured declarations remain declarations; behavioral claims still require execution evidence.
+
+Primary consumers: `#7–#9`, contracts, adapter conformance, workflow handoffs, control plane.
 
 ---
 
-## Explicit Boundaries Over Implicit Expectations
+## 5. Retained Guardrails
 
-### Statement
-
-```text
-Prefer explicit ownership, scope, exclusions, handoffs, unsupported claims, and
-approval boundaries over expectations inferred from prose, convention, or access.
-```
-
-### Embodiment candidates
-
-```text
-structured contract boundary fields;
-port owns / does-not-own declarations;
-adapter covers / delegates declarations;
-authority requirements;
-unsupported-claim lists;
-workflow handoff records.
-```
-
-A structured declaration remains a declaration. It still requires behavioral or runtime evidence when implementation quality is claimed.
-
-### Primary consumers
-
-```text
-issues #7, #8, and #9;
-adapter conformance;
-skill and workflow contracts;
-native-ai-fw control plane;
-product integration boundaries.
-```
-
----
-
-## 5. Active Guardrail Set
-
-| Stable guardrail name | Historical alias | Primary violation response |
+| Guardrail | Alias | Primary response |
 |---|---:|---|
 | No Fabricated State Or Evidence | G1 | Mark unknown/not verified, request evidence, block false claim |
-| No Model-As-Fact Collapse | G2 | Relabel model status, verify, narrow, or block dependent execution |
-| No Claim Beyond Evidence Scope | G3 | Narrow or downgrade claim; require broader evidence |
+| No Model-As-Fact Collapse | G2 | Relabel model status, verify, narrow, or block dependent action |
+| No Claim Beyond Evidence Scope | G3 | Narrow/downgrade claim and require broader evidence |
 | Capability Is Not Authority | G4 | Route/request authority, choose authorized alternative, or stop |
-| No Silent Scope Expansion | G5 | Stop adjacent mutation; record or request separate scope |
+| No Silent Scope Expansion | G5 | Stop adjacent mutation and request separate scope |
 | No Silent Conflict Resolution | G6 | Preserve conflict, request supersession/authority, block dependent mutation |
-| No Undeclared Gate Bypass | G7 | Block transition or require explicit shortcut with residual evidence |
-| No False Completion | G8 | Mark partial/blocked/not verified or resolve material gaps |
-| Declaration Is Not Embodiment | G9 | Downgrade implementation claim; require behavioral/runtime evidence |
+| No Undeclared Gate Bypass | G7 | Block transition or require explicit shortcut and residual evidence |
+| No False Completion | G8 | Mark partial/blocked/not verified or resolve gaps |
+| Declaration Is Not Embodiment | G9 | Downgrade implementation claim and require behavioral/runtime evidence |
 | Contradictory Feedback Must Be Processed | G10 | Revise, retest, narrow, or reject with traceable rationale |
 | No Unverified Promotion To Shared Layers | G11 | Keep local/create learning candidate; require transferability evidence |
-| Concrete Layers Must Not Redefine Canonical Layers | G12 | Reject direct redefinition; route governed proposal to canonical owner |
+| Concrete Layers Must Not Redefine Canonical Layers | G12 | Reject direct redefinition and route proposal to canonical owner |
 | High-Risk Actions Require Applicable Controls | G14 | Block until policy-required authority, controls, evidence, and recovery exist |
-| No Silent Semantic Evolution | G15 | Block release/change; require compatibility, migration, supersession, validation |
+| No Silent Semantic Evolution | G15 | Block release/change until compatibility, migration, supersession, validation, and authority exist |
 
-Count:
-
-```text
-14 retained philosophy guardrails
-```
+Count: `14`.
 
 Retired independent candidate:
 
 ```text
-G13 Memory Must Not Override Current Source Of Truth
+Memory Must Not Override Current Source Of Truth
 → merged into No Fabricated State Or Evidence,
   No Model-As-Fact Collapse,
-  and No Silent Conflict Resolution.
+  No Silent Conflict Resolution,
+  State Attribution, and Decision Traceability.
 ```
-
-Memory remains a retrieval aid and model input. It does not need a separate philosophy guardrail because its distinct operational consequences are already owned by the retained boundaries.
 
 ---
 
-## 6. Retained Guardrails
+## 6. Guardrail Details
 
-## No Fabricated State Or Evidence
+### No Fabricated State Or Evidence
 
-### Boundary
+Boundary:
 
 ```text
 A system must not invent material repository state, issue state, user statements,
@@ -427,323 +252,143 @@ permissions, implementation status, test results, review outcomes, metrics,
 or other evidence.
 ```
 
-### Required response
+Response: mark unknown/not verified/blocked, state limitation, request evidence, narrow claim.
 
-```text
-MARK UNKNOWN;
-MARK NOT_VERIFIED;
-MARK BLOCKED;
-state the access or coverage limitation;
-request or gather evidence;
-narrow the claim.
-```
+Cases: B1, B5.
 
-### Behavioral cases
+### No Model-As-Fact Collapse
 
-```text
-B1 Unverified Repository State;
-B5 Passing Build Expanded Into Product Completion.
-```
-
----
-
-## No Model-As-Fact Collapse
-
-### Boundary
+Boundary:
 
 ```text
 An inference, assumption, summary, plan, generated artifact, memory, or model
 must not be represented or executed as observed fact without appropriate verification.
 ```
 
-### Required response
+Response: identify representation type, mark assumption/inference, seek discriminating evidence, choose reversible test, or block material dependent action.
+
+Cases: B2, B3.
+
+### No Claim Beyond Evidence Scope
+
+Boundary:
 
 ```text
-identify model type;
-mark inference, assumption, or unknown status;
-seek discriminating evidence;
-choose a reversible test;
-block dependent action when consequence is material.
+A material claim must not exceed the source, method, relevance, coverage,
+time, environment, result, and limitations of its evidence.
 ```
 
-### Behavioral cases
+Response: narrow claim, mark partial/not verified, separate evidence layers, request broader evidence.
+
+Cases: B5, B7, B9.
+
+### Capability Is Not Authority
+
+Boundary:
 
 ```text
-B2 Assumption Presented As Root Cause;
-B3 Plan Reported As Execution.
+Technical ability, access, permission, model capability, or administrative role
+must not be treated as sufficient authority for a material action.
 ```
 
----
+Response: request authority/approval, route, choose authorized alternative, or stop.
 
-## No Claim Beyond Evidence Scope
+Cases: B4, B6.
 
-### Boundary
+### No Silent Scope Expansion
+
+Boundary:
 
 ```text
-A material claim must not exceed the source, coverage, time, environment, method,
-and result supported by its evidence.
+A system must not materially expand task, repository, product, risk, or delivery
+scope beyond the effective decision without explicit authority.
 ```
 
-### Required response
+Adjacent findings may be recorded or proposed without being implemented silently.
 
-```text
-NARROW CLAIM;
-MARK PARTIAL;
-MARK NOT_VERIFIED;
-request broader evidence;
-separate evidence layers.
-```
+Cases: B4, B11.
 
-### Behavioral cases
+### No Silent Conflict Resolution
 
-```text
-B5 Passing Build Expanded Into Product Completion;
-B7 Static Conformance Treated As Behavioral Proof;
-B9 Screenshot Treated As Complete UX Validation.
-```
-
----
-
-## Capability Is Not Authority
-
-### Boundary
-
-```text
-Technical ability, tool access, repository permission, model capability, or
-administrative role must not be treated as sufficient authority for a material action.
-```
-
-### Required response
-
-```text
-REQUEST AUTHORITY;
-REQUEST APPROVAL;
-ROUTE;
-choose an authorized alternative;
-STOP.
-```
-
-### Behavioral cases
-
-```text
-B4 Tool Permission Without Authority;
-B6 Review Verdict Treated As Approval.
-```
-
----
-
-## No Silent Scope Expansion
-
-### Boundary
-
-```text
-A system must not materially expand task, product, repository, risk, or delivery
-scope beyond the effective verified decision without explicit authority.
-```
-
-Adjacent findings may be recorded, proposed, or separately authorized.
-
-### Required response
-
-```text
-STOP adjacent mutation;
-record finding;
-request separate scope;
-NARROW execution;
-ROUTE for decision.
-```
-
-### Behavioral cases
-
-```text
-B4 Tool Permission Without Authority;
-B11 Local Fix Promoted Directly Into Core.
-```
-
----
-
-## No Silent Conflict Resolution
-
-### Boundary
+Boundary:
 
 ```text
 Conflicting authoritative decisions must not be resolved through recency,
-convenience, confidence, or silent inference when supersession or additional
-authority is required.
+convenience, agent preference, or silent inference.
 ```
 
-### Required response
+Response: preserve conflict, identify required authority, request supersession, block dependent mutation.
 
-```text
-preserve CONFLICTED status;
-identify competing sources and scope;
-request supersession or clarification;
-block dependent material mutation.
-```
+Cases: B6 and authority-conflict variants.
 
-### Behavioral cases
+### No Undeclared Gate Bypass
 
-```text
-B6 Review Verdict Treated As Approval;
-B10 Contradictory Feedback Ignored.
-```
-
----
-
-## No Undeclared Gate Bypass
-
-### Boundary
+Boundary:
 
 ```text
 A required gate must not be skipped silently.
 ```
 
-An explicit shortcut or exemption must identify:
+A valid shortcut identifies scope, conditions, skipped gates, residual evidence, and responsible authority.
 
-```text
-scope;
-conditions;
-skipped gates;
-residual evidence;
-responsible authority;
-remaining risk.
-```
+Cases: B3, B5, B12 variants.
 
-### Required response
+### No False Completion
 
-```text
-BLOCK transition;
-require declared shortcut;
-run residual checks;
-mark incomplete when no valid exemption exists.
-```
-
-### Behavioral cases
-
-```text
-B3 Plan Reported As Execution;
-B5 Passing Build Expanded Into Product Completion.
-```
-
----
-
-## No False Completion
-
-### Boundary
+Boundary:
 
 ```text
 A system must not claim completion while material in-scope requirements,
-contradictions, failures, approval needs, or validation gaps remain unresolved
-and undisclosed.
+contradictions, failures, approval needs, or validation gaps remain undisclosed.
 ```
 
-### Required response
+Response: completed only when supported; otherwise partial, blocked, not verified, not applicable, or accepted with limitation.
 
-```text
-COMPLETED only within supported scope;
-otherwise PARTIAL, BLOCKED, NOT_VERIFIED,
-ACCEPTED_WITH_LIMITATION, or NOT_APPLICABLE.
-```
+Cases: B3, B5, B6, B9, B10.
 
-### Behavioral cases
+### Declaration Is Not Embodiment
 
-```text
-B3 Plan Reported As Execution;
-B5 Passing Build Expanded Into Product Completion;
-B6 Review Verdict Treated As Approval;
-B9 Screenshot Treated As Complete UX Validation.
-```
-
----
-
-## Declaration Is Not Embodiment
-
-### Boundary
+Boundary:
 
 ```text
 The presence of a principle, rule, contract, skill, workflow, metadata field,
-or checklist must not be treated as proof that the intended behavior executes.
+or checklist must not be treated as proof that intended behavior executes.
 ```
 
-### Required response
+Response: downgrade the claim and require behavioral, runtime, review, or product evidence appropriate to scope.
+
+Cases: B7, B8.
+
+### Contradictory Feedback Must Be Processed
+
+Boundary:
 
 ```text
-report declaration or structural conformance within scope;
-mark behavior not verified;
-require behavioral, runtime, review, or product evidence.
+Relevant contradictory feedback must not be ignored solely because a prior plan,
+review, model, or actor expressed confidence.
 ```
 
-### Behavioral cases
+Response: revise, retest, narrow, reopen, or reject with traceable source/scope/rationale/authority.
+
+Case: B10.
+
+### No Unverified Promotion To Shared Layers
+
+Boundary:
 
 ```text
-B7 Static Conformance Treated As Behavioral Proof;
-B8 Installed Skill Treated As Applied Skill.
+A local result, preference, component choice, anecdote, or single success must not
+be promoted into a reusable skill, workflow, contract, canonical term, domain rule,
+or philosophy law without generalization and evidence.
 ```
 
----
+Response: keep local, create learning candidate, test counterexamples and transferability, select target layer, review compatibility and authority.
 
-## Contradictory Feedback Must Be Processed
+Case: B11.
 
-### Boundary
+### Concrete Layers Must Not Redefine Canonical Layers
 
-```text
-Relevant contradictory feedback must not be ignored solely because a prior
-plan, review, model, implementation, or actor expressed confidence.
-```
-
-Feedback may be rejected only after source, scope, quality, relevance, rationale, and authority are considered.
-
-### Required response
-
-```text
-REVISE;
-RETEST;
-NARROW CLAIM;
-REOPEN status;
-REJECT WITH TRACEABLE RATIONALE;
-ESCALATE.
-```
-
-### Behavioral cases
-
-```text
-B10 Contradictory Feedback Ignored.
-```
-
----
-
-## No Unverified Promotion To Shared Layers
-
-### Boundary
-
-```text
-A local result, anecdote, preference, component choice, or single successful case
-must not be promoted into a reusable skill, workflow, contract, canonical term,
-domain rule, or philosophy law without appropriate generalization and evidence.
-```
-
-### Required response
-
-```text
-retain verified local result;
-create learning candidate;
-extract reusable reason;
-test counterexamples and transferability;
-select correct target layer;
-require regression and compatibility evidence.
-```
-
-### Behavioral cases
-
-```text
-B11 Local Fix Promoted Directly Into Core.
-```
-
----
-
-## Concrete Layers Must Not Redefine Canonical Layers
-
-### Boundary
+Boundary:
 
 ```text
 An adapter, skill, runtime, product, implementation, field test, or local policy
@@ -751,161 +396,116 @@ must not silently redefine philosophy, canonical language, domain ownership,
 contracts, or ports.
 ```
 
-### Required response
+Response: reject direct redefinition and route a governed proposal to the canonical owner.
+
+Cases: B11, B12.
+
+### High-Risk Actions Require Applicable Controls
+
+Boundary:
 
 ```text
-reject direct mutation of upstream meaning;
-route a change proposal to canonical owner;
-require compatibility and authority review;
-preserve local specialization boundaries.
+A destructive, irreversible, security-sensitive, production-impacting, or other
+high-risk action must not proceed without the controls required by applicable policy.
 ```
 
-### Behavioral cases
+Concrete risk levels and controls belong to repository, product, organization, and runtime policy.
 
-```text
-B11 Local Fix Promoted Directly Into Core;
-B12 Canonical Semantic Change Without Migration.
-```
+Response: block until permission, authority, evidence path, review, reversibility, and recovery are adequate.
 
----
+Case: B4.
 
-## High-Risk Actions Require Applicable Controls
+### No Silent Semantic Evolution
 
-### Boundary
-
-```text
-A destructive, irreversible, security-sensitive, production-impacting, or otherwise
-high-risk action must not proceed without the permission, authority, policy controls,
-evidence path, and recovery capacity required for that context.
-```
-
-The philosophy owns the universal boundary. Product, organization, repository, and runtime policies define risk levels and concrete controls.
-
-### Required response
-
-```text
-BLOCK;
-REQUEST AUTHORITY;
-REQUEST APPROVAL;
-REQUIRE REVIEW;
-REQUIRE RECOVERY CAPACITY;
-choose safer authorized alternative;
-STOP.
-```
-
-### Behavioral cases
-
-```text
-B4 Tool Permission Without Authority.
-```
-
----
-
-## No Silent Semantic Evolution
-
-### Boundary
+Boundary:
 
 ```text
 A stable canonical artifact must not change meaning without explicit ownership,
-compatibility review, supersession behavior, consumer impact handling,
-migration guidance, and required validation.
+compatibility review, supersession or migration behavior, consumer handling,
+validation, and required authority.
 ```
 
-### Required response
-
-```text
-BLOCK release or acceptance;
-classify compatibility;
-define supersession and migration;
-notify or update consumers;
-run regression validation;
-obtain required authority.
-```
-
-### Behavioral cases
-
-```text
-B12 Canonical Semantic Change Without Migration.
-```
+Case: B12.
 
 ---
 
 ## 7. Policy And Mechanism Boundaries
 
-The following remain outside universal philosophy:
-
-| Statement | Correct classification | Operational owner |
+| Statement | Correct classification | Owner |
 |---|---|---|
 | Read before writing | Mechanism rule and exploration gate | Development Loop |
-| No drive-by refactors | Repository/workflow policy derived from Smallest Coherent Change | Engineering workflow |
-| Run configured commands before verification claim | Verification gate implementing evidence guardrails | Development Loop contract |
+| No drive-by refactors | Repository/workflow policy | Engineering workflow |
+| Run configured commands before verification claim | Verification gate | Development Loop contract |
 | Failed verification loops to implementation | Mechanism transition | Development Loop |
-| Security-sensitive changes require named human approval | Risk policy and approval gate | Repository/product security policy |
-| Documentation-only work may skip selected checks | Bounded shortcut policy | Development Loop |
-| Always push after commit | Repository/team workflow policy | Repository governance |
-| Rollback plan required for production deploy | Deployment policy implementing high-risk guardrail | Release contract |
-| Promotion requires regression evidence | Promotion gate implementing shared-layer guardrails | Skill Evolution |
-
-A policy may be mandatory in its scope without becoming a philosophy guardrail.
+| Named human approval for security changes | Risk policy and approval gate | Repository/product policy |
+| Documentation-only reduced-check path | Bounded shortcut policy | Development Loop |
+| Always push after commit | Repository/team policy | Repository governance |
+| Rollback plan for production | Deployment policy | Release contract |
+| Regression evidence before promotion | Promotion gate | Skill Evolution |
 
 ---
 
 ## 8. Consumer Selection Rule
 
-Consumers must not copy every principle and guardrail into every artifact.
-
 ```text
 A consumer selects only the principles that materially affect its choices
-and the guardrails that protect its owned failure boundaries.
+and the guardrails protecting its owned failure boundaries.
 ```
 
 Examples:
 
 ```text
 repository analysis
-→ State Attribution, State–Model Separation,
-  No Fabricated State Or Evidence,
-  No Model-As-Fact Collapse,
+→ No Fabricated State Or Evidence;
+  No Model-As-Fact Collapse;
   No Claim Beyond Evidence Scope.
 
 runtime destructive action
-→ Reversible Progress Under Uncertainty,
-  Review Proportional To Risk And Authority,
-  Capability Is Not Authority,
+→ Reversible Progress Under Uncertainty;
+  Review Proportional To Risk And Authority;
+  Capability Is Not Authority;
   High-Risk Actions Require Applicable Controls.
 
 skill refinement
-→ Smallest Coherent Change,
-  Correct-Layer Change,
-  Evaluation Before Trust Expansion,
-  No Unverified Promotion To Shared Layers,
+→ Smallest Coherent Change;
+  Correct-Layer Change;
+  Evaluation Before Trust Expansion;
+  No Unverified Promotion To Shared Layers;
   Concrete Layers Must Not Redefine Canonical Layers.
 ```
 
 ---
 
-## 9. Acceptance Gates
+## 9. Acceptance Status
 
-- [x] principles, guardrails, mechanisms, gates, and policies are distinguished;
+Foundation checks:
+
+- [x] classification boundaries are explicit;
 - [x] duplicate principles are merged or reclassified;
 - [x] duplicate guardrails are merged or reclassified;
-- [x] each retained principle has a distinct selection consequence and consumer;
-- [x] each retained guardrail has a protected invariant and operational response;
+- [x] every retained principle has a distinct selection consequence and consumer;
+- [x] every retained guardrail has a protected invariant, trigger, and response;
 - [x] repository and product policies remain outside universal philosophy;
-- [x] retained guardrails map to representative behavioral cases;
-- [x] executable contract authority remains unchanged;
-- [ ] machine-readable schemas identify how principle/guardrail references are represented;
-- [ ] executable consumers demonstrate representative behavior;
-- [ ] stale references to retired aliases are removed or treated as historical traceability;
-- [ ] final contradiction and minimality review passes;
-- [ ] issue `#13` records explicit acceptance or requested revision.
+- [x] guardrails map to representative behavioral cases;
+- [x] stale active references to retired aliases are removed;
+- [x] final contradiction and minimality review passed;
+- [x] executable contract authority remains unchanged.
+
+Follow-up embodiment, not issue `#13` blockers:
+
+```text
+#8 machine-readable reference shapes;
+#9 validator result semantics;
+ai-native-skills executable behavior;
+native-ai-fw runtime enforcement;
+product field evidence.
+```
 
 ---
 
 ## 10. Current Verdict
 
 ```text
-Classification model: RETAINED FOR CANDIDATE ACCEPTANCE REVIEW
 Retained principles: 7
 Retired independent principles: 4
 Retained philosophy guardrails: 14
@@ -913,8 +513,8 @@ Retired independent guardrails: 1
 Operational response mapping: DEFINED
 Behavioral-case mapping: DEFINED
 Repository/product policy separation: APPLIED
+Final contradiction review: PASSED
 Executable contract authority: PRESERVED
-Executable embodiment: NOT YET PROVEN
-Ready for final contradiction review: YES
-Ready to merge into main: NO
+Downstream embodiment: FOLLOW-UP
+Ready for owner acceptance: YES
 ```
