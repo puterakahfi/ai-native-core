@@ -145,6 +145,7 @@ class PortContractValidationTests(unittest.TestCase):
         )
 
     def test_cli_passes_for_repository_contracts(self):
+        paths = list((ROOT / "contracts" / "ports").rglob("*.port.yaml"))
         result = subprocess.run(
             [sys.executable, str(SCRIPT)],
             cwd=ROOT,
@@ -153,7 +154,7 @@ class PortContractValidationTests(unittest.TestCase):
             check=False,
         )
         self.assertEqual(0, result.returncode, result.stdout + result.stderr)
-        self.assertIn("PASS — 3 port contract(s)", result.stdout)
+        self.assertIn(f"PASS — {len(paths)} port contract(s)", result.stdout)
 
 
 if __name__ == "__main__":
