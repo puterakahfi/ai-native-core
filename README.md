@@ -118,7 +118,9 @@ python3 ../ai-native-core/scripts/validate-conformance.py \
   .
 ```
 
-The first command checks contract path and version compatibility. The second checks whether adapter content covers required gates, inputs, outputs, and boundaries.
+The first command checks contract path and version compatibility. The second checks textual coverage of required quality gates, allowed outputs, and required inputs.
+
+Contract boundaries still require direct review. The current conformance implementation parses boundary data but does not yet enforce `covers` or `does_not_cover` claims.
 
 ### 5. Validate behavior
 
@@ -174,7 +176,7 @@ contracts/tests/
   behavioral evaluation contracts
 
 contracts/manifest.yaml
-  generated registry of contract IDs, paths, versions, and checksums
+  generated registry of IDs, paths, checksums, and skill-contract versions where recorded
 
 docs/
   architecture, domain, glossary, port, and integration documentation
@@ -203,7 +205,7 @@ Contracts version independently.
 
 ```text
 0.x   evolving or pre-stable line; a minor bump may be incompatible
-1.x+  stable major line; breaking behavior requires a new major version
+1.x+  semantic-version compatibility line; breaking behavior requires a new major version
 ```
 
 Compatibility still depends on the actual pin and validation result. Manifest presence, repository age, or a `1.0.0` label alone does not prove adapter implementation or production maturity.
@@ -229,7 +231,7 @@ Regenerate it after any contract content, version, path, filename, addition, or 
 ./scripts/generate-manifest.sh
 ```
 
-Review and commit the resulting ID, path, version, checksum, and total changes. Do not hand-edit the manifest.
+Review and commit the resulting ID, path, checksum, skill-contract version where recorded, and total changes. Do not hand-edit the manifest.
 
 ## Validation tools
 
@@ -237,10 +239,10 @@ Review and commit the resulting ID, path, version, checksum, and total changes. 
 |---|---|
 | [`generate-manifest.sh`](scripts/generate-manifest.sh) | regenerate contract registry and checksums |
 | [`validate-implements.sh`](scripts/validate-implements.sh) | validate adapter paths and pinned versions |
-| [`validate-conformance.py`](scripts/validate-conformance.py) | inspect adapter coverage of contract interfaces |
+| [`validate-conformance.py`](scripts/validate-conformance.py) | inspect textual coverage of gates, outputs, and required inputs |
 | [`run-eval.py`](scripts/run-eval.py) | validate and execute behavioral evaluation contracts |
 
-These checks answer different questions. A valid manifest, compatible pin, conformant adapter, and passing behavior evaluation are separate evidence layers.
+These checks answer different questions. Manifest identity, compatible pins, interface coverage, manual boundary review, and behavioral evaluation are separate evidence layers.
 
 ## Canonical documentation
 
