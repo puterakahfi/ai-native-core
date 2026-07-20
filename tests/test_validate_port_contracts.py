@@ -176,6 +176,23 @@ class PortContractValidationTests(unittest.TestCase):
         for path in self.ports_root.rglob("*.port.yaml"):
             self.assertNotIn("workflow_run_ref", path.read_text(), path)
 
+    def test_compatibility_aliases_resolve_uniquely(self):
+        alias_owners: dict[str, str] = {}
+        for path in self.ports_root.rglob("*.port.yaml"):
+            contract = module.load_yaml(path)["port_contract"]
+            for alias in contract["compatibility"]["aliases"]:
+                self.assertNotIn(
+                    alias,
+                    alias_owners,
+                    f"alias {alias!r} is owned by both {alias_owners.get(alias)!r} "
+                    f"and {contract['id']!r}",
+                )
+                alias_owners[alias] = contract["id"]
+
+        self.assertEqual(
+            "workflow-coordination", alias_owners["workflow-orchestration"]
+        )
+
     def test_execution_run_uses_workflow_coordination_reference(self):
         text = self.execution_path.read_text()
         self.assertIn("workflow_coordination_ref", text)
