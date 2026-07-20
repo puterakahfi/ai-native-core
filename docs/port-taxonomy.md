@@ -1,14 +1,14 @@
 # Native AI Engineering Port Taxonomy
 
-Status: Candidate taxonomy under issue `#7`
+Status: Candidate canonical taxonomy under issue `#7`
 
 Canonical domain meanings: [`domain-model/README.md`](domain-model/README.md)
 
-Retention and migration decisions: [`port-retention-matrix.md`](port-retention-matrix.md)
+Migration decisions: [`port-retention-matrix.md`](port-retention-matrix.md)
 
 Discovery record: [`port-taxonomy-discovery.md`](port-taxonomy-discovery.md)
 
-Machine-readable representative contracts: [`../contracts/ports/`](../contracts/ports/)
+Machine-readable contracts: [`../contracts/ports/`](../contracts/ports/)
 
 ---
 
@@ -54,107 +54,65 @@ The shorthand `Port = capability contract` is retired.
 
 Boundary to an external provider, infrastructure surface, persistence system, protocol, framework service, or external application.
 
-Examples:
-
-```text
-ModelInferencePort
-RepositoryPort
-KnowledgeRetrievalPort
-FileSystemPort
-BrowserResearchPort
-DatabasePort
-StoragePort
-PublishingPort
-ObservabilityPort
-MCPGatewayPort
-APIConnectorPort
-AuthBrokerPort
-ToolExecutionPort
-ToolRegistryPort
-```
+Examples include model inference, repositories, knowledge retrieval, file systems, browsing, databases, object storage, publishing, observability, tool gateways, APIs, and external authentication.
 
 Integration ports translate external semantics without allowing provider models to redefine upstream domain meaning.
 
 ### ControlPort
 
-Boundary for coordinating, routing, or recording lifecycle operations.
+Boundary for coordinating, resolving, assessing, or recording domain lifecycle operations without implementing the external target or acquiring another context's authority.
 
-Examples:
+Current examples:
 
 ```text
-AgentRuntimePort
-WorkflowOrchestrationPort
 ExecutionRunManagementPort
 ContextResolutionPort
 SkillResolutionPort
 RuleResolutionPort
+RuleEvaluationPort
 ReviewManagementPort
+ApprovalDecisionPort
 AuthorizationAssessmentPort
 ```
 
-A control port does not acquire the aggregate, review, approval, or product authority of the context it coordinates.
+A control port may coordinate an aggregate or decision process. It does not become the aggregate, review method, authority source, execution provider, or product acceptance owner.
 
 ### ProductSurfacePort
 
 Boundary exposing a product-owned capability, interaction, or output to a consumer surface.
 
-Examples remain candidate-only until active reusable source boundaries are confirmed:
-
-```text
-AssistantPort
-CreativeRenderingPort
-ProductOutputPort
-```
-
-Do not create a product-surface port solely to mirror a UI page, component, provider endpoint, or private product feature.
+Candidate examples include assistant response, creative rendering, and product output. No ProductSurfacePort is accepted merely to populate the taxonomy. A real reusable consumer boundary and compatibility path must be demonstrated first.
 
 ### CapabilityCompositionPort
 
 Boundary composing specialist capabilities behind one stable method-facing facade.
 
-Examples:
+Current example:
 
 ```text
 VisualDirectionCompositionPort
-LayoutCompositionPort
-DesignStrategyCompositionPort
-InteractionCompositionPort
 ```
 
-A composition port selects and coordinates capabilities. It does not become an infrastructure port, a workflow run, or proof that specialist methods were executed.
+Future candidates include layout, design-strategy, and interaction composition. Composition owns routing and synthesis boundaries, not every specialist method, runtime execution, or proof of correct application.
 
 ---
 
 ## 3. Direction
 
-Port kind and direction are independent.
+Port kind and communication direction are independent.
 
 ```text
 inbound
-→ external or downstream consumer drives a capability owned by the semantic context;
+→ a consumer drives a capability owned by the semantic context
 
 outbound
-→ the semantic context requests capability from an external or downstream boundary;
+→ the semantic context requests capability from another boundary
 
 bidirectional
-→ the agreement includes commands and observations in both directions.
+→ the agreement includes commands and observations in both directions
 ```
 
-Examples:
-
-```text
-ModelInferencePort
-kind: integration_port
-direction: outbound
-
-ExecutionRunManagementPort
-kind: control_port
-direction: bidirectional
-
-VisualDirectionCompositionPort
-kind: capability_composition_port
-direction: inbound
-```
+Direction does not imply authority, mutation permission, or adapter technology.
 
 ---
 
@@ -164,16 +122,14 @@ Every first-class port contract declares:
 
 ```text
 semantic_owner_context
-→ owns the capability meaning and invariants;
+→ owns capability meaning and invariants
 
 binding_owner_context
-→ Integration & Binding, which owns adapter selection and compatibility;
+→ Integration & Binding owns adapter selection and compatibility
 
 consumer_contexts
-→ contexts allowed to request or observe the boundary.
+→ contexts allowed to request or observe the boundary
 ```
-
-A port contract must not infer authority from technical access.
 
 ```text
 capability
@@ -181,9 +137,11 @@ capability
 ≠ authority
 ```
 
+Provider access, credentials, tool availability, or technical permission cannot create Native AI Engineering authority.
+
 ---
 
-## 5. Contract location and identity
+## 5. Contract identity
 
 ```text
 contracts/ports/integration/<id>.port.yaml
@@ -195,54 +153,46 @@ contracts/ports/capability-composition/<id>.port.yaml
 Rules:
 
 ```text
-ID and filename use kebab-case;
-ID omits the redundant "-port" suffix;
-capability and machine fields use snake_case;
-display type uses PascalCase plus Port;
-version follows repository compatibility policy.
-```
-
-Example:
-
-```text
-contracts/ports/control/execution-run-management.port.yaml
-
-id: execution-run-management
-display type: ExecutionRunManagementPort
+ID and filename use kebab-case
+ID omits the redundant "-port" suffix
+capability and machine fields use snake_case
+display type uses PascalCase plus Port
+version follows semantic compatibility policy
 ```
 
 ---
 
-## 6. Required contract dimensions
+## 6. Required dimensions
 
 Every `port_contract` declares:
 
 ```text
-identity, kind, version, and capability;
-direction and context ownership;
-purpose;
-owned, delegated, and excluded boundary;
-requests, responses, events, and streams;
-structured errors and partial-result behavior;
-typed state transitions;
-authorization boundary;
-idempotency;
-observability and sensitive fields;
-adapter ID/path/version reference requirements;
-compatibility, aliases, supersession, and legacy references;
-quality gates.
+identity, kind, version, and capability
+direction and context ownership
+purpose
+owned, delegated, and excluded boundaries
+requests, responses, events, and streams
+structured failures and partial-result policy
+typed state transitions
+authorization boundary
+idempotency
+observability and sensitive fields
+adapter ID/path/version requirements
+compatibility, aliases, supersession, and legacy references
+quality gates
 ```
 
-The canonical schema is:
-
-```text
-schemas/port-contract.schema.yaml
-```
-
-Validate with:
+Schema and validation:
 
 ```bash
 python3 scripts/validate-port-contracts.py
+python3 -m unittest discover -s tests -p 'test_validate_port_contracts.py' -v
+```
+
+Schema authority:
+
+```text
+schemas/port-contract.schema.yaml
 ```
 
 ---
@@ -251,20 +201,15 @@ python3 scripts/validate-port-contracts.py
 
 One port contract may own transitions from at most one canonical status family.
 
-Examples:
-
 ```text
-ExecutionRunManagementPort
-→ ExecutionStatus
-
-ReviewManagementPort
-→ ReviewDisposition
-
-ApprovalDecisionPort
-→ ApprovalStatus
+ExecutionRunManagementPort → ExecutionStatus
+ReviewManagementPort       → ReviewDisposition
+ApprovalDecisionPort       → ApprovalStatus
 ```
 
-Invalid:
+`AuthorizationAssessmentPort` evaluates one current action attempt. It does not mutate `ApprovalStatus`, `ReviewDisposition`, or `ExecutionStatus`.
+
+Invalid collapse:
 
 ```text
 queued
@@ -274,99 +219,121 @@ queued
 → approved
 ```
 
-because it collapses execution, review, and approval.
-
 Ports may reference results from other families, but they do not mutate those states unless that family is their explicit owned boundary.
 
 ---
 
-## 8. Review and authority rule
+## 8. Review, evaluation, and authority
 
 ```text
 GateOutcome
+≠ EvaluationResult
 ≠ ReviewDisposition
 ≠ ApprovalStatus
 ≠ AuthorizationAssessment
+≠ ExecutionStatus
 ```
 
-A review port may preserve review findings and disposition.
-
-An approval or decision port must preserve authority, scope, subject, conditions, and provenance.
-
-An authorization assessment evaluates whether one concrete action may proceed now.
-
-No positive review or passing gate becomes approval automatically.
-
----
-
-## 9. Adapter contract references
-
-A compatible adapter declaration must reference the port contract by:
+Required boundaries:
 
 ```text
-stable ID;
-canonical path;
-compatible version pin.
+RuleResolutionPort
+→ resolves applicable governed rules
+
+RuleEvaluationPort
+→ evaluates a subject against resolved rules
+
+ReviewManagementPort
+→ preserves review requests, findings, results, and disposition
+
+ApprovalDecisionPort
+→ records authority-bearing approval decisions
+
+AuthorizationAssessmentPort
+→ assesses whether one concrete action may proceed now
 ```
 
-The declaration is evidence of intended compatibility, not proof of executable behavior.
+Rule availability does not prove conformance. A passing evaluation or positive review is not approval. Approval alone does not prove the action is currently authorized, executed, completed, delivered, or accepted.
 
-Adapter conformance, runtime evidence, and product acceptance remain separate evidence layers.
+The legacy combined name `ReviewApprovalPort` has no canonical alias because preserving it would recreate the retired semantic collapse.
 
 ---
 
-## 10. Representative contracts
+## 9. Adapter references
+
+A compatible adapter declaration references the port by:
+
+```text
+stable port ID
+canonical contract path
+compatible version pin
+```
+
+Validate a declaration with:
+
+```bash
+python3 scripts/validate-port-adapter-reference.py <reference.yaml>
+```
+
+Supported pin semantics include exact, caret, and tilde ranges. For a `0.x` contract, a caret pin remains within the same minor compatibility line.
+
+A valid reference proves intended identity and version compatibility only. It does not prove adapter conformance, runtime behavior, or product acceptance.
+
+---
+
+## 10. Current first-class contracts
 
 ```text
 IntegrationPort
-→ model-inference@0.1.0
+  model-inference@0.1.0
 
 ControlPort
-→ execution-run-management@0.1.0
+  execution-run-management@0.1.0
+  context-resolution@0.1.0
+  skill-resolution@0.1.0
+  rule-resolution@0.1.0
+  rule-evaluation@0.1.0
+  review-management@0.1.0
+  approval-decision@0.1.0
+  authorization-assessment@0.1.0
 
 CapabilityCompositionPort
-→ visual-direction-composition@0.1.0
+  visual-direction-composition@0.1.0
 ```
 
-ProductSurfacePort remains uninstantiated until inventory confirms a reusable source boundary.
+ProductSurfacePort remains intentionally uninstantiated.
 
 ---
 
 ## 11. Migration policy
 
 ```text
-1. classify the existing name;
-2. retain, rename, split, reclassify, retire, or defer;
-3. create the first-class port contract;
-4. register it in the generated manifest;
-5. preserve explicit legacy contract references;
-6. migrate adapter declarations;
-7. gather conformance and runtime evidence;
-8. retire competing Markdown or legacy authority only after consumers migrate.
+1. classify the existing name
+2. retain, rename, split, reclassify, retire, or defer
+3. review the semantic boundary independently
+4. create a first-class contract
+5. register it in the generated manifest
+6. preserve explicit legacy references where valid
+7. migrate adapter ID/path/version declarations
+8. gather conformance and runtime evidence
+9. retire competing Markdown authority only after consumers migrate
 ```
 
-Do not bulk-convert every name ending in `Port`.
+Do not bulk-generate every name ending in `Port` from one generic template.
 
 ---
 
 ## 12. Evidence boundary
 
-Schema and manifest validation prove only that:
-
-```text
-the port artifact is structurally valid;
-identity and path align;
-required boundary dimensions are declared;
-the artifact is registered at a version and checksum.
-```
+Schema and manifest validation prove only that the artifact is structurally valid, aligned to its ID/path/kind, declares required boundary dimensions, and is registered at a version and checksum.
 
 They do not prove:
 
 ```text
-an adapter exists;
-an adapter conforms;
-the port was exercised;
-runtime behavior is correct;
-approval exists;
-a product accepted the result.
+an adapter exists
+an adapter conforms
+the port was exercised
+runtime behavior is correct
+approval exists
+a product accepted the result
 ```
