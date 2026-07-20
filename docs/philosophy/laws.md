@@ -1,6 +1,6 @@
 # Native AI Engineering Derived Laws
 
-Status: Candidate retained kernel
+Status: Final candidate retained kernel
 
 Issue: `#13 — Define Native AI Engineering philosophy, axioms, laws, principles, and guardrails`
 
@@ -10,185 +10,121 @@ Canonical terms: [`term-authority.md`](term-authority.md)
 
 Principles and guardrails: [`principles-and-guardrails.md`](principles-and-guardrails.md)
 
-Behavioral test candidates: [`behavioral-test-candidates.md`](behavioral-test-candidates.md)
+Behavioral candidates: [`behavioral-test-candidates.md`](behavioral-test-candidates.md)
 
-Pruning record: [`reconciliation-and-pruning.md`](reconciliation-and-pruning.md)
-
-This document contains the active candidate law set retained after usefulness and pruning review.
-
-It intentionally does not preserve every historical derivation paragraph. Historical candidates, rejected classifications, and extended reasoning remain available in the discovery and reconciliation records.
+Historical derivation and pruning decisions remain in the discovery and reconciliation records. This file contains only the active law set.
 
 ---
 
-## 1. Purpose
+## 1. Retention Rule
 
 A philosophy-level law is retained only when it:
 
 ```text
 states a distinct engineering invariant;
 changes a material decision;
-prevents a known recurring failure;
-has a named downstream consumer;
-has a plausible embodiment or validation path;
+prevents a recurring failure;
+has a named consumer;
+has an embodiment or validation path;
 cannot be replaced by a smaller retained concept.
 ```
 
-A law is not retained because it sounds correct, completes a diagram, or has already been documented at length.
-
-The active law set exists to prevent:
-
-```text
-invented state;
-model-as-reality collapse;
-claims broader than evidence;
-untraceable decisions;
-capability treated as authority;
-execution beyond available capacity;
-false completion;
-declaration treated as behavior;
-feedback that cannot revise the system;
-local implementation silently redefining core.
-```
+Stable law names are the primary identifiers. Historical `L` numbers remain traceability aliases only.
 
 ---
 
 ## 2. Kernel Source
 
-The laws derive from the candidate philosophy kernel:
-
-### Axiom 1 — Available, Attributable State
+### Axiom 1 — Attributable Observation
 
 ```text
-Engineering work begins from available, attributable state.
+Material engineering claims and actions begin from attributable observations
+or explicit unknowns concerning relevant state.
 ```
 
-### Axiom 2 — State–Model Separation
+### Axiom 2 — State–Representation Separation
 
 ```text
-Observed or recorded state is not identical to a human, agent, document,
-or system model of that state.
+No observation or model is identical to the state it represents.
 ```
 
-### Bridge Law — Evidence And Feedback
+### Bridge Law — Feedback And Governed Evolution
 
 ```text
-AI-native engineering systems preserve continuity and update their operational
-organization through appropriately scoped evidence and feedback.
+Relevant evidence and feedback must be processed at the affected layer;
+changes to shared or canonical agreements require proportionate compatibility
+review and authority.
 ```
-
-These statements are bounded to Native AI Engineering. They are not claims of universal science outside the framework.
 
 ---
 
 ## 3. Active Law Set
 
-Stable law names are the primary identifiers. Historical `L` numbers remain aliases for traceability until later schema work decides whether machine-readable law IDs are required.
-
 | Stable law name | Historical alias | Distinct responsibility |
 |---|---:|---|
-| State Attribution | L1 | State claims require attributable source or honest unresolved status |
+| State Attribution | L1 | Material state claims require attributable observation or honest unresolved status |
 | State–Model Separation | L2 | Representations remain distinguishable from represented state |
-| Claim–Evidence Scope | L4 | Claim strength cannot exceed evidence scope and quality |
-| Decision Traceability | L5 | Material decisions preserve source, authority, scope, conflict, and supersession |
-| Capability–Authority Separation | L6 | Ability to act does not grant the right to act |
-| Execution Capacity | L7 | Execution scope remains inside available operational and validation capacity |
-| Coherent Completion | L8 | Completion cannot hide material contradiction or missing evidence |
-| Executable Embodiment | L9 | Declared expectations count as embodied only when behavior changes measurably |
-| Feedback Revision | L10 | Relevant feedback can revise the affected layer or be rejected traceably |
+| Claim–Evidence Scope | L4 | Claim strength cannot exceed evidence source, method, scope, and coverage |
+| Decision Traceability | L5 | Material decisions preserve source, authority, scope, conflicts, and supersession |
+| Capability–Authority Separation | L6 | Ability or access does not grant the right to act |
+| Execution Capacity | L7 | Action scope remains inside available context, authority, controls, and validation capacity |
+| Coherent Completion | L8 | Completion cannot hide material contradiction, missing evidence, or required approval |
+| Executable Embodiment | L9 | Declared expectations count as embodied only when behavior changes and produces evidence |
+| Feedback Revision | L10 | Relevant contradictory feedback must revise the affected layer or be rejected traceably |
 | Evolution Authority | L11 | Concrete layers may propose but cannot silently redefine canonical layers |
 
 Retired independent candidates:
 
 ```text
-L3 Model Recognition
-→ merged into State–Model Separation, model-as-fact guardrails,
-  canonical epistemic terms, and the DECOMPOSE phase.
+Model Recognition
+→ merged into State–Model Separation, epistemic terms, and model-as-fact guardrails.
 
-L12 Governed Stability
-→ merged into Evolution Authority, evaluation-before-trust principles,
-  semantic-evolution guardrails, the Stability definition, and compatibility policy.
+Governed Stability
+→ merged into Evolution Authority, Stability, compatibility policy,
+  evaluation-before-trust principles, and semantic-evolution guardrails.
 ```
 
 ---
 
-## 4. Law Dependency Map
-
-```text
-A1 Available, Attributable State
-├─ State Attribution
-├─ Claim–Evidence Scope
-├─ Decision Traceability
-└─ Execution Capacity
-
-A2 State Is Not Identical To Its Model
-├─ State–Model Separation
-├─ Claim–Evidence Scope
-├─ Decision Traceability
-├─ Capability–Authority Separation
-├─ Coherent Completion
-└─ Executable Embodiment
-
-Bridge Law — Evidence And Feedback
-├─ Execution Capacity
-├─ Coherent Completion
-├─ Executable Embodiment
-├─ Feedback Revision
-└─ Evolution Authority
-```
-
-Dependencies express derivation, not lifecycle order.
-
----
-
-## 5. State Attribution Law
+## 4. State Attribution
 
 ### Statement
 
 ```text
-A material engineering claim about state must identify an attributable source,
-or remain explicitly unknown, unavailable, blocked, or not verified.
+A material engineering claim about state must identify an attributable observation
+or source, or remain explicitly unknown, unavailable, blocked, or not verified.
+```
+
+### Derived from
+
+```text
+Axiom 1 — Attributable Observation
 ```
 
 ### Decision consequence
 
-An actor may not resolve missing state by inventing branch names, file contents, issue status, runtime behavior, test output, approval, or completion evidence.
+An actor must not invent branch names, file contents, issue state, runtime behavior, test results, approval, or completion evidence to fill missing access.
 
 ### Boundaries
 
 ```text
-Attribution does not guarantee authority, freshness, completeness, or correctness.
-Low-risk conversational statements do not always require formal provenance fields.
-Required attribution depth grows with consequence, persistence, risk, and reuse.
+attribution does not prove authority, freshness, completeness, or correctness;
+formal provenance depth grows with consequence, persistence, risk, and reuse;
+low-risk conversation does not require ceremony when status is already unambiguous.
 ```
 
-### Counterexample
-
-Valid:
+### Consumers and cases
 
 ```text
-“The current branch could not be confirmed because repository access failed.”
-```
-
-Invalid:
-
-```text
-“The active branch is feature-x.”
-```
-
-when no repository state, tool output, or attributable user statement supports it.
-
-### Primary consumers
-
-```text
-issue #6 state and provenance model;
-issue #8 source-reference primitives;
-repository-analysis and research skills;
-behavioral tests for invented state and fabricated evidence.
+#6 epistemic state model;
+#8 source/status primitives;
+repository-analysis skills;
+B1 Unverified Repository State.
 ```
 
 ---
 
-## 6. State–Model Separation Law
+## 5. State–Model Separation
 
 ### Statement
 
@@ -197,511 +133,408 @@ A representation of engineering state must remain distinguishable from the state
 it represents, including its source, scope, assumptions, unknowns, and verification status.
 ```
 
-### Decision consequence
-
-Plans, summaries, diagrams, prompts, contracts, memories, reviews, and generated interpretations may guide action but cannot be presented as direct proof of the represented state.
-
-Material inference, assumption, and hypothesis must remain recognizable when consequence, risk, reuse, or irreversibility is significant.
-
-### Common distinctions
+### Derived from
 
 ```text
-repository state ≠ repository summary
-user intent ≠ inferred intent
-architecture diagram ≠ implementation
-plan ≠ execution
-contract ≠ implementation
-skill declaration ≠ skill application
-review verdict ≠ approval
-memory ≠ source-of-truth knowledge
-metric ≠ complete product meaning
+Axiom 2 — State–Representation Separation
 ```
+
+### Decision consequence
+
+Plans, summaries, diagrams, prompts, memories, contracts, and generated artifacts must not be reported as current implementation or observed fact without appropriate verification.
 
 ### Boundaries
 
 ```text
-Models are necessary and may be highly reliable.
-The law does not require every model to reproduce all underlying state.
-A verified model may guide action without becoming identical to reality.
+models may be reliable and action-guiding;
+useful abstraction remains necessary;
+not every sentence requires an explicit status tag;
+required visibility grows with risk and downstream reuse.
 ```
 
-### Primary consumers
+### Consumers and cases
 
 ```text
-issue #6 epistemic-state objects;
-issue #8 assumption and verification primitives;
-analysis, planning, design, and engineering skills;
-runtime context records and behavioral evaluations.
+#6 model and assumption relationships;
+analysis, planning, design, and debugging skills;
+B2 Assumption Presented As Root Cause;
+B3 Plan Reported As Execution.
 ```
 
 ---
 
-## 7. Claim–Evidence Scope Law
+## 6. Claim–Evidence Scope
 
 ### Statement
 
 ```text
-The strength, scope, and maturity of an engineering claim must not exceed the
-source, method, coverage, quality, and relevance of its supporting evidence.
+The strength, scope, and maturity of a material claim must not exceed the
+source, method, relevance, coverage, and limitations of its supporting evidence.
+```
+
+### Derived from
+
+```text
+Axiom 1;
+Axiom 2;
+State Attribution;
+State–Model Separation.
 ```
 
 ### Decision consequence
 
-Passing one evidence layer does not prove another:
-
-```text
-path resolution
-≠ version compatibility
-≠ structural conformance
-≠ behavioral execution
-≠ runtime integration
-≠ product acceptance
-≠ business outcome
-≠ required approval
-```
-
-### Counterexample
-
-Valid:
-
-```text
-“The unit tests passed for the changed module. Runtime integration and product
-acceptance were not evaluated.”
-```
-
-Invalid:
-
-```text
-“The feature is complete and production-ready.”
-```
-
-based only on a passing unit test or build.
+A passing build supports a build claim; it does not prove runtime behavior, product acceptance, security, accessibility, or release readiness unless those layers were evaluated.
 
 ### Boundaries
 
-Exploratory and reversible work may proceed with weaker evidence when uncertainty and claim scope remain explicit.
+```text
+perfect evidence is not required before every reversible action;
+required evidence strength depends on the claim, risk, and consequence;
+exploration may proceed with explicitly weaker claims.
+```
 
-### Primary consumers
+### Consumers and cases
 
 ```text
-issue #8 evidence and claim primitives;
-issue #9 layered conformance results;
-verification, review, and completion reporting;
-product acceptance and marketing-claim controls.
+#8 evidence primitives;
+#9 layered conformance results;
+review and completion reporting;
+B5 Passing Build Expanded Into Product Completion;
+B7 Static Conformance Treated As Behavioral Proof;
+B9 Screenshot Treated As Complete UX Validation.
 ```
 
 ---
 
-## 8. Decision Traceability Law
+## 7. Decision Traceability
 
 ### Statement
 
 ```text
-A material engineering decision is reliable only to the degree that its source,
-authority, scope, rationale, evidence, conflicts, and supersession chain can be traced.
+A material engineering decision is trustworthy only to the degree that its
+source, authority, scope, rationale, evidence, conflicts, and supersession state
+can be traced.
+```
+
+### Derived from
+
+```text
+Axiom 1;
+Axiom 2;
+State Attribution;
+Claim–Evidence Scope.
 ```
 
 ### Decision consequence
 
-Decision existence, recency, implementation presence, or silence does not establish effective authority.
-
-Material decision records should support, where applicable:
-
-```text
-decision identity and type;
-source and required authority;
-applies-to scope;
-rationale and evidence;
-conflicts;
-supersedes and superseded-by;
-permitted and blocked actions;
-approval and verification status.
-```
+Recency, existence, implementation state, agent confidence, silence, or a review verdict cannot silently establish an effective decision.
 
 ### Boundaries
 
-Traceability depth is proportional to impact. A local variable rename does not require an ADR; an architecture change, destructive operation, or risk acceptance does.
+```text
+trivial local choices do not require separate architecture records;
+record depth grows with impact, persistence, risk, and consumer count;
+a traceable decision can still be wrong and remain open to revision.
+```
 
-### Primary consumers
+### Consumers and cases
 
 ```text
-issue #6 decision and approval lifecycle;
-issue #8 decision and authority primitives;
-control-plane routing;
-review, approval, and audit records.
+#6 decision and authority model;
+Decision Provenance;
+review and approval ports;
+B4 Tool Permission Without Authority;
+B6 Review Verdict Treated As Approval.
 ```
 
 ---
 
-## 9. Capability–Authority Separation Law
+## 8. Capability–Authority Separation
 
 ### Statement
 
 ```text
-The capability to execute an action does not by itself grant the permission,
-authority, approval, or policy right to execute that action.
+The capability or technical permission to perform an action does not by itself
+grant authority, approval, accepted scope, or policy right to perform it.
+```
+
+### Derived from
+
+```text
+Axiom 1;
+Axiom 2;
+doctrine-level authority boundaries.
 ```
 
 ### Decision consequence
 
-Systems must model separately:
-
-```text
-capability;
-technical permission;
-policy allowance;
-required authority;
-approval status;
-risk;
-reversibility;
-allowed scope.
-```
-
-### Counterexample
-
-Valid:
-
-```text
-A deployment adapter runs automatically because an accepted release policy
-explicitly authorizes deployment after named gates pass.
-```
-
-Invalid:
-
-```text
-An agent force-pushes because the repository token technically allows it.
-```
+Available repository, runtime, deployment, or administrative access must be checked against the effective decision and applicable policy before material action.
 
 ### Boundaries
 
-Authority may be delegated in advance. The law does not require interactive approval for every low-risk operation covered by explicit policy.
+```text
+authority may be delegated explicitly;
+low-risk autonomy may be authorized in advance by policy;
+interactive approval is not required for every already-authorized operation.
+```
 
-### Primary consumers
+### Consumers and cases
 
 ```text
-issue #6 governance and authority model;
-issue #7 control and integration port contracts;
-native-ai-fw tool and action authorization;
-high-risk and destructive-action behavioral tests.
+#6 capability, permission, and authority relationships;
+#7 port authority boundaries;
+native-ai-fw control plane;
+B4 Tool Permission Without Authority;
+B6 Review Verdict Treated As Approval.
 ```
 
 ---
 
-## 10. Execution Capacity Law
+## 9. Execution Capacity
 
 ### Statement
 
 ```text
 Execution scope must not exceed the available context, capability, tools,
-permission, authority, risk controls, validation path, review coverage,
-reversibility, and recovery support required for that scope.
+permission, authority, risk controls, reversibility, recovery support,
+validation path, and review capacity required for that scope.
+```
+
+### Derived from
+
+```text
+Axiom 1;
+Bridge Law;
+State Attribution;
+Capability–Authority Separation.
 ```
 
 ### Decision consequence
 
-When a material capacity dimension is missing, valid responses include:
-
-```text
-NARROW
-PAUSE
-ROUTE
-REQUEST SOURCE
-REQUEST AUTHORITY
-CHOOSE A REVERSIBLE TEST
-MARK PARTIAL
-MARK BLOCKED
-STOP
-```
-
-Insufficient capacity must not be resolved through fabricated certainty or completion.
+Missing capacity must produce a smaller scope, reversible experiment, route, block, or honest limitation rather than fabricated completion.
 
 ### Boundaries
 
-Capacity is contextual, not a permanent rating of an agent or team. Insufficient capacity for a full task may still permit safe discovery or a smaller experiment.
+```text
+capacity is contextual, not a permanent rating of an actor;
+insufficient capacity for full implementation may permit discovery or planning;
+the law does not justify indefinite analysis when sufficient capacity exists.
+```
 
-### Primary consumers
+### Consumers and cases
 
 ```text
-issue #6 execution and governance contexts;
-issue #7 port authorization, failure, and observability semantics;
-workflow and runtime routing;
-product release and recovery policy.
+#6 capacity model;
+workflow routing;
+runtime risk controls;
+B3 Plan Reported As Execution;
+B4 Tool Permission Without Authority;
+B9 Screenshot Treated As Complete UX Validation.
 ```
 
 ---
 
-## 11. Coherent Completion Law
+## 10. Coherent Completion
 
 ### Statement
 
 ```text
 A system must not claim completion while unresolved material contradictions remain
-between authoritative intent, requirements, contracts, architecture, implementation,
-behavior, evidence, review, approval, and delivery state inside the claim scope.
+between effective intent, requirements, contracts, architecture, implementation,
+behavior, evidence, approval, and delivery state inside the claim scope.
+```
+
+### Derived from
+
+```text
+Axiom 2;
+Bridge Law;
+Claim–Evidence Scope;
+Decision Traceability.
 ```
 
 ### Decision consequence
 
-Completion reports must distinguish states such as:
-
-```text
-COMPLETED
-PARTIAL
-BLOCKED
-NOT_VERIFIED
-NOT_APPLICABLE
-ACCEPTED_WITH_LIMITATION
-```
-
-Exact enums belong to domain and contract work. The philosophy requires honest differentiation.
-
-### Counterexample
-
-Valid:
-
-```text
-“Desktop visual review passed. Mobile interaction and accessibility remain not
-verified, so the redesign status is partial.”
-```
-
-Invalid:
-
-```text
-“The redesign is complete.”
-```
-
-when mobile interaction was in scope and remains unusable.
+Completion reports must distinguish completed, partial, blocked, not verified, and accepted-with-limitation states where material.
 
 ### Boundaries
 
-Perfect global consistency is not required. Non-material differences and explicitly accepted limitations may remain.
+```text
+perfect global consistency is not required;
+non-material differences may remain;
+known limitations may be accepted by the required authority;
+the law applies only to the stated completion scope.
+```
 
-### Primary consumers
+### Consumers and cases
 
 ```text
-issue #6 lifecycle and completion model;
-issue #8 status and gate-result primitives;
-workflow completion reporting;
-product acceptance and release decisions.
+#6 task and lifecycle state model;
+#8 status primitives;
+release and product acceptance;
+B3 Plan Reported As Execution;
+B5 Passing Build Expanded Into Product Completion;
+B9 Screenshot Treated As Complete UX Validation.
 ```
 
 ---
 
-## 12. Executable Embodiment Law
+## 11. Executable Embodiment
 
 ### Statement
 
 ```text
 A principle, rule, contract, skill, or workflow is embodied only when it changes
 repeatable executable behavior and that behavior can produce evidence appropriate
-to the embodiment claim.
+to the claim.
+```
+
+### Derived from
+
+```text
+Axiom 2;
+Bridge Law;
+Claim–Evidence Scope;
+Coherent Completion.
 ```
 
 ### Decision consequence
 
-```text
-documentation presence ≠ embodiment
-contract presence ≠ implementation
-skill installation ≠ skill application
-metadata declaration ≠ runtime behavior
-one successful execution ≠ stable embodiment
-```
-
-### Counterexample
-
-Invalid:
-
-```text
-A system claims a safety principle is implemented because it appears in a README,
-while destructive actions bypass it at runtime.
-```
+Documentation, metadata, installation, or declared gates cannot be used as proof that routing, behavior, enforcement, or product outcomes actually occur.
 
 ### Boundaries
 
-Some principles may remain advisory and be reviewed qualitatively. Embodiment does not require perfect execution in every case, but it requires relevant behavioral evidence.
+```text
+embodiment does not require perfect execution in every case;
+one successful execution is evidence, not final stabilization;
+advisory principles may remain qualitatively reviewed rather than runtime-enforced.
+```
 
-### Primary consumers
+### Consumers and cases
 
 ```text
-issue #9 separation of static and behavioral conformance;
-ai-native-skills behavioral test harness;
-native-ai-fw routing and execution evidence;
-product validation and regression protection.
+#9 behavioral conformance;
+ai-native-skills#27 runtime harness;
+native-ai-fw execution traces;
+B7 Static Conformance Treated As Behavioral Proof;
+B8 Installed Skill Treated As Applied Skill.
 ```
 
 ---
 
-## 13. Feedback Revision Law
+## 12. Feedback Revision
 
 ### Statement
 
 ```text
-Appropriately scoped feedback must be able to revise the affected model, plan,
-decision, implementation, claim, or other owned layer, or be rejected with
-traceable rationale and authority.
+Relevant evidence and feedback must be processed at the affected working layer;
+material contradictory feedback may be rejected only with traceable rationale,
+scope, and authority.
+```
+
+### Derived from
+
+```text
+Bridge Law — Feedback And Governed Evolution;
+Axiom 2;
+Claim–Evidence Scope;
+Coherent Completion.
 ```
 
 ### Decision consequence
 
-Material contradictory feedback cannot be recorded ceremonially and then ignored while the system continues making the same completion or quality claim.
-
-Valid feedback responses include:
-
-```text
-ACCEPT
-REJECT WITH RATIONALE
-NARROW CLAIM
-REVISE
-RETEST
-ESCALATE
-CREATE LEARNING CANDIDATE
-PROPOSE TARGET-LAYER CHANGE
-```
+A failed runtime check, user correction, review finding, regression, or product result must be able to reopen, narrow, revise, retest, or stop the affected claim or implementation.
 
 ### Boundaries
 
-Feedback is not automatically correct, authoritative, or final truth. It must be evaluated for source, scope, quality, relevance, and authority.
+```text
+feedback is not automatically correct or authoritative;
+one result is not final truth;
+reasoned traceable rejection can satisfy the law.
+```
 
-### Primary consumers
+### Consumers and cases
 
 ```text
-issue #6 feedback and learning lifecycle;
-workflow failure and review loops;
-product metrics and incident handling;
-skill refinement and regression evaluation.
+Development Loop feedback transitions;
+review and incident workflows;
+product feedback processing;
+B10 Contradictory Feedback Ignored.
 ```
 
 ---
 
-## 14. Evolution Authority Law
+## 13. Evolution Authority
 
 ### Statement
 
 ```text
 A more concrete layer may apply, translate, test, and propose changes to a more
-canonical layer, but it may not silently redefine that layer without the canonical
-layer's review, compatibility analysis, and authority.
+canonical layer, but it may not silently redefine that layer without compatibility
+review and the required canonical authority.
+```
+
+### Derived from
+
+```text
+Bridge Law — Feedback And Governed Evolution;
+Decision Traceability;
+Feedback Revision;
+doctrine-level repository ownership.
 ```
 
 ### Decision consequence
 
-Valid promotion path:
+A local product fix becomes a learning candidate first. Promotion requires a reusable reason, counterexamples, transferability evidence, correct target-layer selection, compatibility review, and authority.
+
+### Boundaries
 
 ```text
-implementation result
-→ bounded evidence
-→ reusable reason
-→ counterexample and transferability review
-→ smallest correct target-layer decision
-→ compatibility analysis
-→ required authority
-→ accepted update or rejection
+bottom-up learning remains required;
+core is not immune to evidence;
+emergency local fixes may remain local before shared promotion;
+the law governs canonicalization, not every local edit.
 ```
 
-A stable artifact may evolve; stability means governed consumer expectations, not immutability.
-
-### Counterexample
-
-Valid:
+### Consumers and cases
 
 ```text
-A product-specific navigation fix remains local, then becomes a reusable learning
-candidate after multi-context testing.
-```
-
-Invalid:
-
-```text
-A skill copies one product's breakpoint, route, and component name into a universal
-core contract because the local fix succeeded once.
-```
-
-### Primary consumers
-
-```text
-issue #6 learning and evolution context;
-issue #7 and #8 compatibility and supersession semantics;
-skill-evolution procedures;
-core, contract, and glossary change review.
+#6 ownership and evolution model;
+#7 and #8 compatibility boundaries;
+Skill Evolution;
+B11 Local Fix Promoted Directly Into Core;
+B12 Canonical Semantic Change Without Migration.
 ```
 
 ---
 
-## 15. Cross-Law Invariants
-
-Together the retained laws preserve:
+## 14. Cross-Law Invariants
 
 ```text
-state remains attributable;
-models remain recognizable as models;
-material uncertainty remains visible;
+material state claims remain attributable;
+representations remain recognizable as representations;
 claims remain bounded by evidence;
-decisions remain traceable;
+material decisions remain traceable;
 capability remains separate from authority;
-execution remains inside capacity;
-completion remains coherent with evidence and approval;
-declarations require behavior before embodiment claims;
-feedback can revise the correct layer;
-local learning cannot silently redefine canonical meaning.
+action remains inside available capacity;
+completion remains honest about contradictions and gaps;
+declaration remains separate from behavior;
+feedback can revise the affected layer;
+local learning cannot silently redefine core.
 ```
 
 ---
 
-## 16. Consumer Rule
-
-Consumers must not copy all laws into every artifact.
-
-A domain model, contract, skill, workflow, runtime, reviewer, or product should reference only laws that materially affect its responsibility.
-
-Examples:
+## 15. Acceptance Status
 
 ```text
-repository analysis
-→ State Attribution, State–Model Separation, Claim–Evidence Scope
-
-destructive tool operation
-→ Decision Traceability, Capability–Authority Separation, Execution Capacity
-
-conformance validator
-→ Claim–Evidence Scope, Executable Embodiment, Coherent Completion
-
-skill refinement
-→ Feedback Revision, Executable Embodiment, Evolution Authority
-```
-
----
-
-## 17. Acceptance Gates
-
-The retained laws must not be accepted until:
-
-- [x] each has a distinct decision consequence;
-- [x] each names recurring failures it prevents;
-- [x] each has at least one downstream consumer;
-- [x] duplicate independent candidates are merged or reclassified;
-- [x] historical numbering is no longer the primary authority;
-- [x] behavioral test candidates cover representative false-equivalence failures;
-- [ ] issue `#8` confirms machine-readable behavioral-test schema direction;
-- [ ] `ai-native-skills#27` maps representative cases into an executable harness;
-- [ ] principles and guardrails pass equivalent pruning review;
-- [ ] issue `#6` confirms the law set is sufficient for domain modeling;
-- [ ] cross-document references are reviewed for stale retired-law aliases;
-- [ ] issue `#13` records explicit acceptance or requested revision.
-
----
-
-## 18. Current Verdict
-
-```text
-Retained candidate laws: 10
-Independent Model Recognition law: MERGED
-Independent Governed Stability law: MERGED / RECLASSIFIED
-Stable law names: PRIMARY IDENTIFIERS
-Historical law numbers: TRACEABILITY ALIASES
-Decision usefulness: PRESENT
+Retained law families: 10
+Duplicate law pruning: COMPLETE
+Kernel derivation: ALIGNED
+Boundaries and counterexamples: PRESENT
 Named consumers: PRESENT
-Behavioral test candidates: 12 DEFINED
-Executable behavioral harness: NOT YET IMPLEMENTED
-Law acceptance status: CANDIDATE
-Ready for domain model consumption: PARTIAL, PENDING FOUNDATION ACCEPTANCE
+Behavioral-case mapping: PRESENT
+Machine-readable law IDs: NOT REQUIRED BY ISSUE #13
+Executable downstream embodiment: FOLLOW-UP VALIDATION
+Ready for final contradiction review: YES
 ```
