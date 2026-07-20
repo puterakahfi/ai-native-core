@@ -141,6 +141,14 @@ class PortContractValidationTests(unittest.TestCase):
             aliases.update(contract["compatibility"]["aliases"])
         self.assertNotIn("review-approval", aliases)
 
+    def test_no_temporary_port_migration_artifacts_remain(self):
+        temporary_artifacts = [
+            *ROOT.glob(".github/workflows/tmp-port*.yml"),
+            *ROOT.glob("scripts/materialize-port*.py"),
+            *ROOT.glob("scripts/complete-port-inventory-migration.py"),
+        ]
+        self.assertEqual([], temporary_artifacts)
+
     def test_negative_fixture_fails_schema_validation(self):
         payload = module.load_yaml(INVALID_FIXTURE)
         errors = list(self.schema_validator.iter_errors(payload))
