@@ -6,7 +6,7 @@ Philosophy-level term authority: [`philosophy/term-authority.md`](philosophy/ter
 
 Philosophy entry point: [`philosophy/README.md`](philosophy/README.md)
 
-Canonical domain-model work: issue `#6`
+Canonical domain model: [`domain-model/README.md`](domain-model/README.md)
 
 This glossary helps readers discover terms used across `ai-native-core` contracts, documentation, ports, adapters, and evaluation material.
 
@@ -14,7 +14,7 @@ It is not a competing atomic definition authority.
 
 For philosophy-level terms such as `state`, `model`, `assumption`, `claim`, `evidence`, `authority`, `verification`, `validation`, `feedback`, `capacity`, `coherence`, `embodiment`, and `core evolution`, the minimum candidate meaning is owned by [`philosophy/term-authority.md`](philosophy/term-authority.md).
 
-For complete Native AI Engineering domain objects, aggregates, bounded contexts, and lifecycle semantics, issue `#6` remains authoritative once accepted.
+For complete Native AI Engineering domain objects, aggregates, bounded contexts, and lifecycle semantics, use the [canonical domain model](domain-model/README.md).
 
 ---
 
@@ -274,10 +274,11 @@ When definitions appear to conflict, use this order:
 
 ```text
 accepted atomic canonical term
-→ accepted domain model or contract
+→ accepted canonical domain model
+→ accepted contract or port specialization
 → specialized rule, skill, workflow, or adapter meaning
 → runtime or product implementation
 → examples and historical documentation
 ```
 
-Candidate philosophy definitions do not silently supersede accepted machine-readable contracts before issue `#13` is reviewed. Conflicts must be recorded and reconciled explicitly.
+Accepted philosophy terms and the canonical domain model do not silently rewrite machine-readable contracts. Contract migrations remain compatibility-governed and conflicts must be recorded and reconciled explicitly.

@@ -11,6 +11,7 @@ Core describes **what must remain stable**. Adapters decide **how it is implemen
 | You are | Start with |
 |---|---|
 | Understanding the Native AI Engineering decision foundation | [Philosophy foundation](docs/philosophy/README.md) |
+| Understanding the canonical Native AI Engineering domain model | [Canonical domain model](docs/domain-model/README.md) |
 | Reading the framework architecture | [Architecture v0.2](docs/architecture-v0.2.md) |
 | Looking for a capability or lifecycle contract | [Contract catalog](docs/contract-catalog.md) |
 | Implementing a skill adapter | [Adapter implementation path](#implement-a-contract) and [adapter conformance](docs/adapter-conformance.md) |
@@ -42,7 +43,7 @@ Adapter implements the agreement.
 Provider and product choices remain replaceable.
 ```
 
-See the [philosophy foundation](docs/philosophy/README.md), [Architecture v0.2](docs/architecture-v0.2.md), [ports and adapters](docs/ports-and-adapters.md), and [port taxonomy](docs/port-taxonomy.md) for the complete framework model and authority boundaries.
+See the [philosophy foundation](docs/philosophy/README.md), [canonical domain model](docs/domain-model/README.md), [Architecture v0.2](docs/architecture-v0.2.md), [ports and adapters](docs/ports-and-adapters.md), and [port taxonomy](docs/port-taxonomy.md) for the complete framework model and authority boundaries.
 
 ## Repository boundaries
 
@@ -258,8 +259,9 @@ These checks answer different questions. Manifest identity, compatible pins, int
 ### Foundation, framework, and domain
 
 - [Native AI Engineering philosophy](docs/philosophy/README.md)
+- [Canonical Native AI Engineering domain model](docs/domain-model/README.md)
 - [Architecture v0.2](docs/architecture-v0.2.md)
-- [Domain-driven model](docs/domain-driven-model.md)
+- [Domain-driven modeling guide](docs/domain-driven-model.md)
 - [Engineering contract](docs/engineering-contract.md)
 - [Glossary](docs/glossary.md)
 - [Memory vs knowledge](docs/memory-vs-knowledge.md)
