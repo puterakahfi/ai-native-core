@@ -1,5 +1,5 @@
 version: "1.0.0"
-generated_at: "2026-07-20T10:20:34Z"
+generated_at: "2026-07-20T12:15:29Z"
 description: "Auto-generated contract manifest. Regenerate with: scripts/generate-manifest.sh"
 total_contracts: 108
 contracts:
@@ -195,8 +195,8 @@ contracts:
         sha256: 79259535170b5086
       - id: implementation-context-discovery
         path: contracts/skills/engineering/implementation-context-discovery.contract.yaml
-        version: "1.0.0"
-        sha256: 8177e876ee8f6df3
+        version: "1.1.0"
+        sha256: 71200a1217d33f22
       - id: master-engineer
         path: contracts/skills/engineering/master-engineer.contract.yaml
         version: "0.1.0"
@@ -391,7 +391,7 @@ contracts:
       sha256: 0dd53425ba783d61
     - id: implementation-context-discovery
       path: contracts/tests/implementation-context-discovery.test.yaml
-      sha256: c0c34b415a41ec0d
+      sha256: 9b86b33b748e6401
     - id: prompt-optimizer
       path: contracts/tests/prompt-optimizer.test.yaml
       sha256: a120ba66597f2d03
