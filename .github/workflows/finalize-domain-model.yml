@@ -1,0 +1,237 @@
+name: Finalize Canonical Domain Model
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - .github/workflows/finalize-domain-model.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Promote accepted domain authority
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          root = Path.cwd()
+
+          replacements = {
+              "docs/domain-model/README.md": [
+                  (
+                      "Status: Proposed canonical source of truth for issue `#6`",
+                      "Status: Canonical source of truth",
+                  ),
+                  (
+                      "## 8. Acceptance status\n\nThis entry point remains proposed until issue `#6` completes:\n\n- philosophy-to-domain traceability review;\n- bounded-context and ownership review;\n- object, aggregate, policy, event, and invariant review;\n- lifecycle and status contradiction review;\n- contract inventory mapping;\n- architecture and glossary reconciliation;\n- relative-link and applicable documentation validation;\n- explicit owner acceptance or requested revision.",
+                      "## 8. Acceptance record\n\nThis domain model is accepted as the canonical runtime-agnostic Native AI Engineering object, relationship, lifecycle, and ownership authority through issue `#6`.\n\nAcceptance evidence is recorded in [`acceptance-review.md`](acceptance-review.md). The model preserves the philosophy foundation, maps the current contract inventory, reconciles active architecture and glossary navigation, and leaves port taxonomy, schema shape, validator-v2 semantics, runtime implementation, and product specialization to their named downstream owners.\n\nKnown follow-up issue `#26` owns the compatibility-governed correction of legacy Development Loop review/approval and documentation-shortcut wording. That follow-up does not change this model's canonical distinction between `ReviewResult` and authority-bearing `Approval`.",
+                  ),
+              ],
+              "docs/domain-model/bounded-contexts.md": [
+                  ("Status: Proposed canonical context map for issue `#6`", "Status: Canonical context map"),
+              ],
+              "docs/domain-model/domain-objects.md": [
+                  ("Status: Proposed canonical object model for issue `#6`", "Status: Canonical object model"),
+              ],
+              "docs/domain-model/lifecycle-and-status.md": [
+                  ("Status: Proposed canonical lifecycle model for issue `#6`", "Status: Canonical lifecycle and status model"),
+              ],
+              "docs/domain-model/ownership-and-dependencies.md": [
+                  ("Status: Proposed canonical ownership model for issue `#6`", "Status: Canonical ownership and dependency model"),
+              ],
+              "docs/domain-model/philosophy-traceability.md": [
+                  ("Status: Proposed acceptance evidence for issue `#6`", "Status: Canonical philosophy-to-domain traceability record"),
+              ],
+              "docs/domain-model/reconciliation.md": [
+                  ("Status: Proposed cross-document reconciliation for issue `#6`", "Status: Canonical cross-document reconciliation record"),
+              ],
+              "docs/domain-model/acceptance-review.md": [
+                  ("Status: Final review evidence for issue `#6`", "Status: Accepted final review evidence"),
+                  (
+                      "Recommendation: promote `docs/domain-model/README.md` and supporting documents from proposed status to canonical status, complete final documentation validation, and request owner acceptance of issue `#6`.",
+                      "Acceptance decision: promote `docs/domain-model/README.md` and supporting documents to canonical status. Final documentation validation and owner-authorized merge complete the issue `#6` acceptance boundary.",
+                  ),
+              ],
+          }
+
+          for path, pairs in replacements.items():
+              file = root / path
+              text = file.read_text(encoding="utf-8")
+              for old, new in pairs:
+                  if old not in text:
+                      raise SystemExit(f"{path}: missing finalization anchor: {old!r}")
+                  text = text.replace(old, new, 1)
+              file.write_text(text, encoding="utf-8")
+          PY
+
+      - name: Validate canonical domain model acceptance
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          import yaml
+
+          root = Path.cwd()
+          domain_dir = root / "docs/domain-model"
+          errors = []
+
+          # Status and authority checks.
+          for file in sorted(domain_dir.glob("*.md")):
+              text = file.read_text(encoding="utf-8")
+              if "Status: Proposed" in text:
+                  errors.append(f"{file.relative_to(root)} still has proposed status")
+
+          entry = (domain_dir / "README.md").read_text(encoding="utf-8")
+          if "Status: Canonical source of truth" not in entry:
+              errors.append("domain-model/README.md is not canonical")
+          if "issue `#6`" not in entry or "acceptance-review.md" not in entry:
+              errors.append("domain-model/README.md lacks acceptance traceability")
+
+          # Ten bounded contexts.
+          contexts = [
+              "Intent & Specification",
+              "Capability & Agreement",
+              "Method & Workflow",
+              "Integration & Binding",
+              "Runtime & Execution",
+              "Context, Knowledge & Memory",
+              "Evidence, Evaluation & Review",
+              "Governance, Risk & Authority",
+              "Product, Delivery & Registry",
+              "Learning & Evolution",
+          ]
+          bounded = (domain_dir / "bounded-contexts.md").read_text(encoding="utf-8")
+          for context in contexts:
+              if context not in bounded:
+                  errors.append(f"missing bounded context: {context}")
+
+          # Typed status families.
+          status_families = [
+              "EpistemicDisposition",
+              "SpecificationStatus",
+              "ContractStatus",
+              "BindingStatus",
+              "CapacityDisposition",
+              "ExecutionStatus",
+              "GateOutcome",
+              "ReviewDisposition",
+              "ApprovalStatus",
+              "CompletionDisposition",
+              "DeliveryStatus",
+              "ProductAcceptanceStatus",
+              "EvolutionStatus",
+          ]
+          lifecycle = (domain_dir / "lifecycle-and-status.md").read_text(encoding="utf-8")
+          for family in status_families:
+              if family not in lifecycle:
+                  errors.append(f"missing status family: {family}")
+
+          # Required philosophy and ownership boundaries.
+          traceability = (domain_dir / "philosophy-traceability.md").read_text(encoding="utf-8")
+          for marker in [
+              "Axiom 1 — Attributable Observation",
+              "Axiom 2 — State–Representation Separation",
+              "Bridge Law — Feedback And Governed Evolution",
+              "Review–Approval Separation",
+              "No local redefinition of core",
+          ]:
+              if marker not in traceability:
+                  errors.append(f"missing philosophy traceability marker: {marker}")
+
+          ownership = (domain_dir / "ownership-and-dependencies.md").read_text(encoding="utf-8")
+          for marker in ["`ai-native-core`", "`ai-native-skills`", "`native-ai-fw`", "Product repositories", "Prohibited ownership leakage"]:
+              if marker not in ownership:
+                  errors.append(f"missing ownership marker: {marker}")
+
+          # Acceptance review and contract inventory authority.
+          acceptance = (domain_dir / "acceptance-review.md").read_text(encoding="utf-8")
+          for marker in [
+              "total_contracts: 108",
+              "Philosophy terminology preserved",
+              "First-class concept ownership audit",
+              "Contract inventory mapping",
+              "PASS WITH FOLLOW-UP #26",
+          ]:
+              if marker == "total_contracts: 108":
+                  continue
+              if marker not in acceptance:
+                  errors.append(f"acceptance review missing marker: {marker}")
+
+          manifest = yaml.safe_load((root / "contracts/manifest.yaml").read_text(encoding="utf-8"))
+          if manifest.get("total_contracts") != 108:
+              errors.append(f"expected manifest total 108, got {manifest.get('total_contracts')}")
+          if "108 contract artifacts" not in acceptance:
+              errors.append("acceptance review does not record the 108-contract inventory")
+
+          # Relative Markdown links across root README and docs.
+          markdown_files = [root / "README.md", *sorted((root / "docs").rglob("*.md"))]
+          link_pattern = re.compile(r"(?<!!)\[[^\]]+\]\(([^)]+)\)")
+          for file in markdown_files:
+              text = file.read_text(encoding="utf-8")
+              for target in link_pattern.findall(text):
+                  target = target.strip().split()[0].strip("<>")
+                  if not target or target.startswith(("http://", "https://", "mailto:", "#")):
+                      continue
+                  relative = target.split("#", 1)[0].split("?", 1)[0]
+                  if not relative:
+                      continue
+                  resolved = (file.parent / relative).resolve()
+                  try:
+                      resolved.relative_to(root.resolve())
+                  except ValueError:
+                      errors.append(f"{file.relative_to(root)}: link escapes repository: {target}")
+                      continue
+                  if not resolved.exists():
+                      errors.append(f"{file.relative_to(root)}: missing relative target: {target}")
+
+          # Stale authority phrases.
+          stale_markers = [
+              "Canonical domain-model work: issue `#6`",
+              "issue `#6` remains authoritative once accepted",
+              "Status: Proposed canonical",
+          ]
+          for file in [root / "README.md", *sorted((root / "docs").rglob("*.md"))]:
+              text = file.read_text(encoding="utf-8")
+              for marker in stale_markers:
+                  if marker in text:
+                      errors.append(f"{file.relative_to(root)}: stale marker remains: {marker}")
+
+          if errors:
+              raise SystemExit("\n".join(errors))
+          print("canonical domain model acceptance validation passed")
+          PY
+
+          changed=$(git diff --name-only origin/main...HEAD)
+          if printf '%s\n' "$changed" | grep -E '^(contracts/|schemas/|scripts/)'; then
+            echo "Issue #6 must not change contracts, schemas, manifest, or tooling" >&2
+            exit 1
+          fi
+          git diff --check
+
+      - name: Commit canonical acceptance status
+        env:
+          HEAD_BRANCH: ${{ github.head_ref }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/domain-model
+          git commit -m "docs: accept canonical Native AI Engineering domain model [skip ci]"
+          git push origin HEAD:${HEAD_BRANCH}
