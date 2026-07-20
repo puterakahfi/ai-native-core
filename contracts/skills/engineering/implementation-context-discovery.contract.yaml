@@ -2,12 +2,13 @@ skill_contract:
   id: implementation-context-discovery
   category: engineering
   type: skill
-  version: "1.0.0"
+  version: "1.1.0"
   capability: repository_implementation_context_discovery_and_convention_preservation
   capability_aliases:
     - stack_and_convention_discovery
     - implementation_ecosystem_mapping
     - repository_library_and_component_reuse_governance
+    - component_system_coverage_mapping
   aliases:
     - stack-context-discovery
     - repository-convention-discovery
@@ -15,10 +16,11 @@ skill_contract:
   description: >
     Discovers the implementation ecosystem already accepted by a repository before
     code is produced or changed. It identifies canonical frameworks, component and
-    styling systems, iconography, utilities, state and data tooling, build and test
-    conventions, then turns that evidence into reuse, extension, composition,
-    semantic-native, or new-dependency decisions. Package presence alone is not
-    sufficient evidence of canonical status.
+    styling systems, component capability coverage, variants, typography roles,
+    iconography, utilities, state and data tooling, build and test conventions,
+    then turns that evidence into semantic-native, reuse, extension, composition,
+    canonical-registry addition, product-specific, or new-dependency decisions.
+    Package presence alone is not sufficient evidence of canonical status.
 
   roles:
     - implementation_context_analyst
@@ -44,6 +46,10 @@ skill_contract:
       - source_tree_and_import_evidence
       - component_registry_configuration
       - shared_component_inventory
+      - component_source_and_export_inventory
+      - component_variant_and_story_evidence
+      - canonical_registry_availability_evidence
+      - typography_token_and_role_evidence
       - styling_and_token_configuration
       - iconography_usage_evidence
       - state_form_query_and_data_tooling_evidence
@@ -61,6 +67,11 @@ skill_contract:
       - framework_runtime_map
       - component_system_map
       - canonical_component_inventory
+      - component_capability_coverage_map
+      - component_variant_inventory
+      - official_registry_component_decision
+      - typography_role_map
+      - semantic_native_eligibility_map
       - styling_system_map
       - iconography_implementation_map
       - state_form_data_tooling_map
@@ -80,6 +91,9 @@ skill_contract:
       - workspace_and_framework_configuration
       - aliases_and_composition_roots
       - component_registry_or_shared_component_source
+      - actual_component_exports_variants_stories_and_representative_usage
+      - canonical_component_registry_availability
+      - typography_tokens_semantic_roles_and_representative_usage
       - representative_current_imports_and_usage
       - styling_configuration_and_semantic_tokens
       - icon_imports_or_icon_wrappers
@@ -90,6 +104,8 @@ skill_contract:
     rules:
       - inspect_repository_evidence_before_implementation
       - package_presence_alone_does_not_establish_canonical_status
+      - a_component_system_name_alone_does_not_prove_a_specific_component_or_variant_is_available
+      - source_component_systems_require_inspection_of_actual_repository_files_exports_variants_and_usage
       - transitive_legacy_experimental_and_deprecated_dependencies_must_not_be_treated_as_canonical_without_supporting_evidence
       - unavailable_or_conflicting_evidence_remains_explicitly_unknown
       - source_evidence_must_be_traceable_to_paths_imports_configuration_or_decisions
@@ -117,22 +133,111 @@ skill_contract:
       - migration_evidence_must_be_distinguished_from_current_canonical_usage
       - conflicting_systems_require_an_explicit_authority_or_unknown_status
 
+  component_coverage_contract:
+    required_inventory_fields:
+      - requested_capability
+      - canonical_system
+      - locally_available_components
+      - locally_available_variants
+      - canonical_registry_availability
+      - representative_usage_paths
+      - interaction_accessibility_and_token_contracts
+      - coverage_status
+      - selected_decision
+      - evidence
+      - verification_requirements
+    coverage_statuses:
+      - covered_by_existing_component
+      - covered_by_existing_variant
+      - covered_by_bounded_variant
+      - covered_by_composition
+      - available_from_canonical_registry
+      - requires_product_specific_component
+      - semantic_native_is_sufficient
+      - proven_capability_gap
+      - unknown
+    rules:
+      - inventory_actual_components_and_variants_not_only_the_library_name
+      - capability_coverage_is_evaluated_before_local_component_creation
+      - a_fit_existing_component_or_variant_must_not_be_reimplemented_locally
+      - canonical_registry_availability_is_checked_before_a_parallel_library_or_custom_primitive
+      - adding_an_official_registry_component_must_preserve_repository_configuration_tokens_and_ownership
+      - product_specific_components_must_compose_or_extend_canonical_primitives_when_they_fit
+      - raw_interactive_markup_that_duplicates_a_fit_canonical_interaction_contract_is_convention_drift
+      - coverage_unknown_blocks_confident_component_selection
+
+  typography_contract:
+    required_map_fields:
+      - font_families
+      - semantic_text_roles
+      - token_or_utility_sources
+      - representative_usage_paths
+      - allowed_variants
+      - extension_rules
+      - evidence
+      - verification_requirements
+    common_semantic_roles:
+      - page_title
+      - section_title
+      - subsection_title
+      - body
+      - supporting_text
+      - label
+      - metadata
+      - code
+    rules:
+      - typography_is_part_of_the_repository_component_and_token_system
+      - semantic_roles_are_mapped_before_route_local_type_styles_are_created
+      - existing_role_tokens_utilities_or_components_are_reused_when_fit
+      - bounded_role_extension_requires_a_named_need_and_preserves_scale_measure_weight_and_theme_contracts
+      - arbitrary_route_local_type_scales_without_repository_reason_are_convention_drift
+      - typography_mapping_does_not_replace_visual_design_ownership
+
+  semantic_native_contract:
+    eligibility_questions:
+      - is_the_need_structural_or_content_semantic_without_a_richer_shared_interaction_contract
+      - does_the_platform_element_supply_the_required_semantics_and_behavior
+      - is_there_no_fit_canonical_abstraction_that_adds_required_state_accessibility_or_product_contract
+      - can_repository_tokens_and_accessibility_conventions_be_preserved
+    commonly_eligible_elements:
+      - main
+      - section
+      - article
+      - header
+      - footer
+      - nav
+      - heading
+      - paragraph
+      - list
+      - description_list
+      - anchor
+      - details_and_summary
+    rules:
+      - semantic_native_eligibility_is_checked_before_forcing_a_component_wrapper
+      - native_semantic_elements_are_not_failures_by_default
+      - native_structure_does_not_authorize_reimplementing_a_canonical_interactive_component
+      - material_native_interaction_choices_require_behavior_accessibility_and_rendered_verification
+
   implementation_decision_ladder:
-    ordered_options:
+    semantic_native_precheck:
+      - use_semantic_native_platform_element_when_no_richer_system_contract_is_needed
+    ordered_component_options:
       - reuse_existing_component_or_utility
       - reuse_existing_variant
       - add_bounded_variant_to_canonical_abstraction
       - compose_canonical_primitives
+      - add_component_from_canonical_registry
       - create_product_specific_component_using_canonical_primitives
-      - use_semantic_native_platform_element_when_no_system_abstraction_is_needed
       - introduce_new_dependency_after_proven_capability_gap
     rules:
-      - evaluate_options_in_order
+      - evaluate_semantic_native_eligibility_for_structural_and_content_needs
+      - evaluate_component_options_in_order_for_interactive_or_system_owned_capabilities
       - do_not_duplicate_a_fit_canonical_abstraction
-      - native_semantic_elements_are_not_failures_by_default
       - local_abstraction_requires_a_product_or_repository_reason
       - extension_must_not_break_existing_component_contracts
       - composition_must_preserve_tokens_accessibility_and_interaction_conventions
+      - canonical_registry_addition_precedes_parallel_component_library_introduction
+      - product_specific_component_creation_does_not_authorize_rebuilding_fit_primitives
 
   reuse_extension_contract:
     required_fields:
@@ -145,14 +250,33 @@ skill_contract:
       - rejected_alternatives
       - verification_requirements
     allowed_decisions:
+      - semantic_native
       - reuse
       - reuse_variant
       - extend
       - compose
+      - add_canonical_registry_component
       - product_specific_component
-      - semantic_native
       - dependency_candidate
       - unresolved
+
+  official_registry_component_contract:
+    required_fields:
+      - requested_capability
+      - canonical_registry_and_component
+      - local_absence_evidence
+      - repository_configuration_compatibility
+      - generated_or_copied_source_destination
+      - tokens_variants_and_dependency_effects
+      - ownership_and_update_model
+      - rejected_alternatives
+      - verification_plan
+    rules:
+      - registry_component_must_belong_to_the_repository_accepted_component_system
+      - registry_addition_is_not_a_new_parallel_component_system
+      - generated_source_is_repository_owned_and_must_be_reviewed
+      - registry_addition_must_not_overwrite_local_customizations_without_explicit_review
+      - registry_addition_requires_runtime_accessibility_visual_and_build_verification
 
   new_dependency_contract:
     required_fields:
@@ -177,7 +301,8 @@ skill_contract:
   convention_lock_contract:
     applicable_families:
       - application_framework_and_runtime
-      - component_system_and_primitives
+      - component_system_primitives_variants_and_registry
+      - typography_roles_and_scale
       - styling_and_token_system
       - iconography_family_and_wrappers
       - state_form_query_and_data_tooling
@@ -193,13 +318,16 @@ skill_contract:
   classification_contract:
     allowed_findings:
       - STACK_CONTEXT_MISSING
+      - COMPONENT_COVERAGE_MISSING
       - CONVENTION_DRIFT
       - CAPABILITY_GAP
       - DEPENDENCY_DRIFT
       - IMPLEMENTATION_DEFECT
     rules:
       - missing_preimplementation_evidence_is_stack_context_missing
+      - missing_component_variant_registry_or_typography_coverage_is_component_coverage_missing
       - bypassing_a_fit_canonical_abstraction_without_evidence_is_convention_drift
+      - arbitrary_parallel_typography_or_interaction_contracts_are_convention_drift
       - a_proven_unsatisfied_requirement_is_a_capability_gap
       - an_unapproved_parallel_or_duplicate_dependency_is_dependency_drift
       - correct_context_and_mapping_with_broken_execution_is_an_implementation_defect
@@ -209,14 +337,18 @@ skill_contract:
     required:
       - implementation_mapping_matches_discovered_conventions
       - changed_imports_and_dependencies_are_audited
+      - component_capability_coverage_matches_actual_exports_variants_registry_and_usage
       - reused_or_extended_components_preserve_their_contracts
+      - typography_roles_preserve_repository_tokens_scale_measure_and_theme_behavior
       - native_semantic_choices_are_justified_when_material
+      - canonical_registry_additions_are_reviewed_as_repository_owned_source
       - new_dependency_decisions_have_required_approval_and_consequence_evidence
       - independent_post_implementation_architecture_review
     rules:
       - source_inspection_can_prove_import_and_configuration_alignment_but_not_runtime_visual_or_accessibility_behavior
       - build_or_test_success_does_not_prove_architecture_or_convention_acceptance
       - unchanged_dependency_manifest_does_not_prove_no_parallel_local_system_was_created
+      - canonical_imports_alone_do_not_prove_the_selected_component_or_variant_is_fit
       - missing_runtime_or_rendered_evidence_remains_not_verified
       - verification_depth_must_match_the_changed_capability_and_risk
 
@@ -224,9 +356,15 @@ skill_contract:
     - repository_context_is_inspected_before_implementation
     - package_presence_alone_does_not_establish_canonical_status
     - canonicality_uses_declared_dependency_actual_usage_repetition_repository_convention_and_current_decisions
+    - actual_component_exports_variants_registry_and_usage_are_inventoried
+    - component_capability_coverage_is_mapped_before_component_creation
     - existing_fit_components_and_utilities_are_reused_before_local_duplication
-    - extension_or_composition_is_preferred_before_parallel_system_introduction
-    - semantic_native_elements_remain_valid_when_no_canonical_abstraction_is_needed
+    - existing_fit_variants_are_reused_before_new_variants
+    - bounded_extension_or_composition_is_preferred_before_product_specific_or_parallel_system_creation
+    - canonical_registry_component_is_considered_before_parallel_library_or_custom_primitive
+    - semantic_native_elements_remain_valid_when_no_richer_canonical_contract_is_needed
+    - semantic_native_structure_does_not_authorize_duplicate_interactive_components
+    - typography_roles_are_mapped_and_preserved_before_route_local_type_system_creation
     - bypassing_a_fit_canonical_abstraction_without_evidence_is_convention_drift
     - icon_component_styling_state_and_data_systems_are_not_mixed_without_approved_reason
     - new_dependencies_require_proven_capability_gap_alternatives_consequences_and_authority
@@ -240,11 +378,14 @@ skill_contract:
     covers:
       - repository_implementation_ecosystem_discovery
       - canonical_framework_runtime_and_tooling_classification
-      - component_system_and_shared_utility_inventory
+      - component_system_shared_utility_variant_and_registry_inventory
+      - component_capability_coverage_mapping
+      - typography_role_and_token_mapping
+      - semantic_native_eligibility_mapping
       - styling_token_and_iconography_implementation_mapping
       - state_form_query_data_and_build_test_tooling_mapping
       - repository_convention_lock_definition
-      - reuse_extension_composition_native_or_dependency_decision
+      - reuse_extension_composition_registry_native_or_dependency_decision
       - capability_gap_and_parallel_system_diagnosis
       - new_dependency_evidence_and_consequence_record
       - implementation_mapping_before_code_production
@@ -275,7 +416,11 @@ skill_contract:
     framework_component_styling_and_icon_libraries_are_product_defined: true
     canonicality_evidence_must_reference_actual_repository_sources: true
     adapter_must_distinguish_installed_from_canonical_and_legacy_dependencies: true
+    adapter_must_inventory_actual_components_variants_registry_availability_and_typography_roles: true
+    adapter_must_emit_component_capability_coverage_before_component_creation: true
+    adapter_must_distinguish_semantic_native_structure_from_duplicate_interactive_contracts: true
+    adapter_must_consider_canonical_registry_addition_before_parallel_component_systems: true
     adapter_must_emit_convention_locks_before_code_production: true
-    adapter_must_record_reuse_extension_and_dependency_decisions: true
+    adapter_must_record_reuse_extension_registry_and_dependency_decisions: true
     adapter_must_preserve_independent_architecture_review: true
     adapter_must_not_claim_runtime_visual_or_accessibility_proof_from_source_only_evidence: true
