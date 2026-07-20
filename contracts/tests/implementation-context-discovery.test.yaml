@@ -1,14 +1,15 @@
 skill_test:
   skill: implementation-context-discovery
-  version: "1.0.0"
-  description: Verify repository implementation context is discovered before code and canonical systems are preserved without forbidding valid native elements
+  version: "1.1.0"
+  description: Verify repository implementation context, component capability coverage, typography roles, and canonical registry options are resolved before code without forbidding valid native semantics
 
   cases:
     - id: canonical-component-and-icon-systems-are-reused
-      description: An existing repository component and icon system must be discovered and reused before local duplication or a parallel dependency
-      trigger: "A repository has a shared Button, Dialog, Select, and icon wrapper used throughout current production modules. A redesign needs the same capabilities. The proposal rebuilds them locally and installs another icon package. Produce the implementation-context decision."
+      description: Existing repository components and icon systems must be discovered and reused before local duplication or a parallel dependency
+      trigger: "A Next.js repository uses shadcn source components. Button, Input, and Select exist in the repository with production usage, Tailwind semantic tokens, and Lucide icons. A redesign proposes raw local replacements and installs another icon package. Produce the implementation-context decision."
       must_contain:
         - "repository evidence"
+        - "component capability coverage"
         - "canonical"
         - "reuse"
         - "CONVENTION_DRIFT"
@@ -21,12 +22,54 @@ skill_test:
         - "package popularity decides"
       sequence_required:
         - pattern: "repository evidence|implementation context"
-          must_come_before: "reuse|implementation mapping"
+          must_come_before: "component capability coverage|reuse|implementation mapping"
       quality_gates_tested:
         - repository_context_is_inspected_before_implementation
+        - actual_component_exports_variants_registry_and_usage_are_inventoried
+        - component_capability_coverage_is_mapped_before_component_creation
         - existing_fit_components_and_utilities_are_reused_before_local_duplication
         - icon_component_styling_state_and_data_systems_are_not_mixed_without_approved_reason
         - independent_architecture_review_remains_required_after_implementation
+
+    - id: existing-variant-precedes-local-restyling
+      description: A fit existing variant must be selected before route-local styling or a duplicate variant is introduced
+      trigger: "The canonical Button already has default, outline, secondary, ghost, link, and size variants. A feature needs an outline action with an icon and proposes a new route-local button class system. Decide the mapping."
+      must_contain:
+        - "component variant inventory"
+        - "existing variant"
+        - "reuse"
+        - "CONVENTION_DRIFT"
+        - "verification"
+      must_not_contain:
+        - "create a new button system"
+        - "route-local styling is automatically equivalent"
+        - "variant inventory is unnecessary"
+      quality_gates_tested:
+        - actual_component_exports_variants_registry_and_usage_are_inventoried
+        - existing_fit_variants_are_reused_before_new_variants
+        - bypassing_a_fit_canonical_abstraction_without_evidence_is_convention_drift
+
+    - id: canonical-registry-component-precedes-parallel-library
+      description: A component absent locally but available from the accepted canonical registry should be evaluated before another component library or custom primitive
+      trigger: "A shadcn-based repository needs a Dialog. Dialog is not installed locally, but it is available from the repository's configured canonical shadcn registry and matches the required interaction contract. The proposal installs a second component library instead. Produce the decision."
+      must_contain:
+        - "canonical registry"
+        - "local absence"
+        - "add canonical registry component"
+        - "repository-owned source"
+        - "rejected alternatives"
+        - "verification plan"
+      must_not_contain:
+        - "install the second component library"
+        - "missing locally means capability gap"
+        - "generated source needs no review"
+      sequence_required:
+        - pattern: "component capability coverage|canonical registry"
+          must_come_before: "parallel library|dependency"
+      quality_gates_tested:
+        - component_capability_coverage_is_mapped_before_component_creation
+        - canonical_registry_component_is_considered_before_parallel_library_or_custom_primitive
+        - bounded_extension_or_composition_is_preferred_before_product_specific_or_parallel_system_creation
 
     - id: package-presence-does-not-prove-canonicality
       description: Installed legacy or transitive packages must not be selected merely because they appear in dependency evidence
@@ -47,13 +90,33 @@ skill_test:
         - canonicality_uses_declared_dependency_actual_usage_repetition_repository_convention_and_current_decisions
         - unknown_or_conflicting_context_is_reported_not_invented
 
+    - id: typography-role-map-precedes-route-local-scale
+      description: Existing typography roles and tokens must be mapped before a route invents a parallel type scale
+      trigger: "The repository defines display, sans, and mono font families plus established page-title, section-title, body, label, metadata, and code treatments. A redesign proposes unrelated font sizes, tracking, and weights for each local heading. Produce the implementation-context decision."
+      must_contain:
+        - "typography role map"
+        - "semantic roles"
+        - "representative usage"
+        - "reuse"
+        - "CONVENTION_DRIFT"
+        - "bounded extension"
+        - "verification"
+      must_not_contain:
+        - "invent a route-local typography system"
+        - "every heading may choose an unrelated scale"
+        - "font package presence is enough"
+      quality_gates_tested:
+        - typography_roles_are_mapped_and_preserved_before_route_local_type_system_creation
+        - convention_locks_and_scoped_exceptions_are_traceable_to_repository_evidence
+        - implementation_mapping_precedes_code_production
+
     - id: semantic-native-element-remains-valid
       description: Native semantic platform elements remain acceptable when no canonical abstraction or richer interaction contract is required
-      trigger: "A documentation page needs headings, sections, a list, and a simple disclosure. The repository has no shared abstraction for those structures and no product behavior beyond native semantics. The reviewer wants every element replaced by a component-library wrapper."
+      trigger: "A documentation page needs main, headings, sections, articles, a list, links, and a simple details/summary disclosure. The repository has no richer shared abstraction or product state contract for those structures. The reviewer wants every element replaced by a component-library wrapper."
       must_contain:
-        - "semantic native"
+        - "semantic native eligibility"
         - "valid"
-        - "no canonical abstraction"
+        - "no richer canonical contract"
         - "accessibility"
         - "verification"
       must_not_contain:
@@ -61,13 +124,32 @@ skill_test:
         - "wrapper required for every element"
         - "CONVENTION_DRIFT because it is native"
       quality_gates_tested:
-        - semantic_native_elements_remain_valid_when_no_canonical_abstraction_is_needed
-        - extension_or_composition_is_preferred_before_parallel_system_introduction
+        - semantic_native_elements_remain_valid_when_no_richer_canonical_contract_is_needed
+        - semantic_native_structure_does_not_authorize_duplicate_interactive_components
+
+    - id: native-structure-does-not-authorize-interactive-duplication
+      description: Valid native document structure does not justify recreating a fit canonical interactive component
+      trigger: "A page correctly uses section and article elements, but it also implements a custom div-based dialog and dropdown despite canonical Dialog and Select contracts being available. Classify the implementation."
+      must_contain:
+        - "semantic native"
+        - "interaction contract"
+        - "CONVENTION_DRIFT"
+        - "Dialog"
+        - "Select"
+        - "reuse"
+      must_not_contain:
+        - "all native markup is acceptable"
+        - "div-based dialog is equivalent"
+        - "semantic structure excuses interaction duplication"
+      quality_gates_tested:
+        - semantic_native_structure_does_not_authorize_duplicate_interactive_components
+        - bypassing_a_fit_canonical_abstraction_without_evidence_is_convention_drift
 
     - id: bounded-product-component-composes-canonical-primitives
       description: A product-specific component may be created when it composes accepted primitives and preserves their contracts
       trigger: "The repository has canonical input, popover, command-list, token, and focus primitives but no domain-specific resource picker. The product needs a resource picker with unique domain policy. Decide whether local composition is allowed."
       must_contain:
+        - "component capability coverage"
         - "compose"
         - "product-specific component"
         - "canonical primitives"
@@ -79,16 +161,17 @@ skill_test:
         - "duplicate the primitives"
         - "all custom components are forbidden"
       quality_gates_tested:
-        - extension_or_composition_is_preferred_before_parallel_system_introduction
+        - bounded_extension_or_composition_is_preferred_before_product_specific_or_parallel_system_creation
         - convention_locks_and_scoped_exceptions_are_traceable_to_repository_evidence
         - implementation_mapping_precedes_code_production
 
     - id: new-dependency-requires-proven-capability-gap
-      description: A new dependency is eligible only after a real unsatisfied capability and its consequences are recorded
-      trigger: "A data-heavy surface has measured rendering pressure and requires accessible virtualization. Existing shared components and installed table utilities cannot satisfy the measured requirement. Propose a new dependency decision."
+      description: A new dependency is eligible only after existing components, variants, composition, canonical registry, and a real unsatisfied capability have been evaluated
+      trigger: "A data-heavy surface has measured rendering pressure and requires accessible virtualization. Existing shared components, variants, canonical registry options, compositions, and installed table utilities cannot satisfy the measured requirement. Propose a new dependency decision."
       must_contain:
         - "CAPABILITY_GAP"
         - "existing options reviewed"
+        - "canonical registry"
         - "proven capability gap"
         - "alternatives"
         - "consequences"
@@ -99,25 +182,28 @@ skill_test:
         - "no approval needed"
         - "dependency automatically approved"
       sequence_required:
-        - pattern: "existing options|capability gap"
+        - pattern: "existing options|canonical registry|capability gap"
           must_come_before: "dependency|candidate"
       quality_gates_tested:
         - new_dependencies_require_proven_capability_gap_alternatives_consequences_and_authority
+        - canonical_registry_component_is_considered_before_parallel_library_or_custom_primitive
         - convention_locks_and_scoped_exceptions_are_traceable_to_repository_evidence
 
     - id: source-context-does-not-prove-runtime-conformance
       description: Source and import alignment may pass while runtime, visual, accessibility, and architectural acceptance remain separate
-      trigger: "The diff imports the canonical components and no dependency changed. No build, runtime interaction, rendered evidence, accessibility evidence, or architecture review has run. Mark the implementation fully accepted."
+      trigger: "The diff imports the canonical components and no dependency changed. No build, runtime interaction, rendered evidence, accessibility evidence, component-fit evidence, or architecture review has run. Mark the implementation fully accepted."
       must_contain:
         - "source alignment"
         - "NOT_VERIFIED"
         - "runtime"
         - "visual"
         - "accessibility"
+        - "component fit"
         - "architecture review"
       must_not_contain:
         - "fully accepted"
         - "source imports prove runtime behavior"
+        - "canonical imports prove component fitness"
         - "no architecture review required"
       quality_gates_tested:
         - source_only_evidence_does_not_claim_runtime_visual_or_accessibility_conformance
