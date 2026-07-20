@@ -1,0 +1,83 @@
+skill_test:
+  skill: collection-discovery-design
+  version: "1.0.0"
+  description: Verify collection discovery diagnoses retrieval pressure before selecting replaceable adapters
+
+  cases:
+    - id: same-collection-different-context-adapters
+      description: The same capability registry should use different disclosure adapters by context without changing its discovery strategy
+      trigger: "A registry contains 9 workflows, 6 meta-skills, and 79 atomic skills. Desktop users can scan grouped rows comfortably. On mobile, showing all 15 routing entries before the next section creates a long default journey. Choose the collection discovery strategy and adapters."
+      must_contain:
+        - "retrieval mode"
+        - "grouped"
+        - "mobile"
+        - "preview"
+        - "show all"
+        - "desktop"
+        - "state"
+      must_not_contain:
+        - "94 items means pagination"
+        - "Use pagination on every viewport"
+        - "Convert every group to tabs"
+      quality_gates_tested:
+        - diagnosis_uses_combined_pressures_not_item_count_alone
+        - discovery_strategy_precedes_component_or_adapter_selection
+        - cross_context_adapters_preserve_query_filter_sort_selection_and_semantics
+
+    - id: deterministic-comparison-results
+      description: Large task-oriented results may justify pagination only after deterministic navigation and comparison needs are established
+      trigger: "A procurement search returns about 1,000 products. Users search known SKUs, compare shortlisted results, share filtered result URLs, return to a known result position, and export complete review batches. Recommend the discovery strategy."
+      must_contain:
+        - "search"
+        - "filters"
+        - "sort"
+        - "pagination"
+        - "deterministic"
+        - "share"
+        - "return"
+      must_not_contain:
+        - "because there are more than 50"
+        - "infinite scroll by default"
+        - "count alone"
+      quality_gates_tested:
+        - adapter_capabilities_trace_to_diagnosis_user_tasks_and_constraints
+        - traversal_strategy_preserves_required_position_context_and_shareability
+        - pagination_tabs_infinite_scroll_and_other_adapters_are_not_selected_by_count_threshold_alone
+
+    - id: exploratory-continuous-feed
+      description: A large exploratory collection can reject pagination when positional precision is not the primary task
+      trigger: "A visual inspiration feed continuously receives new items. Users explore casually, save items, and rarely need a stable page number, but must be able to recover position, stop loading, and use keyboard and assistive technology. Recommend the discovery strategy."
+      must_contain:
+        - "exploratory"
+        - "infinite scroll"
+        - "position"
+        - "recovery"
+        - "accessibility"
+        - "save"
+      must_not_contain:
+        - "Large data always requires pagination"
+        - "No stopping mechanism is needed"
+        - "Pagination is mandatory"
+      quality_gates_tested:
+        - primary_and_secondary_retrieval_modes_are_explicit
+        - adapter_capabilities_trace_to_diagnosis_user_tasks_and_constraints
+        - rendered_and_runtime_claims_use_appropriate_evidence
+
+    - id: few-stable-groups-with-searchable-items
+      description: Stable peer categories may use tabs while the large item collection still requires independent lookup and narrowing
+      trigger: "A knowledge base has four stable peer content types and thousands of searchable articles inside them. Users frequently switch content type, search exact terms, filter by owner and status, and open a detail page. Choose the strategy without treating tabs as the complete discovery model."
+      must_contain:
+        - "tabs"
+        - "stable"
+        - "search"
+        - "filters"
+        - "detail"
+        - "state"
+      must_not_contain:
+        - "Tabs replace search"
+        - "Put thousands of articles directly in tabs"
+        - "item count alone"
+      quality_gates_tested:
+        - browse_search_and_narrowing_roles_are_explicit
+        - grouping_facets_and_sorting_trace_to_meaningful_user_decisions
+        - adapter_capabilities_trace_to_diagnosis_user_tasks_and_constraints
