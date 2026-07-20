@@ -24,6 +24,7 @@ explicit request, response, failure, compatibility, and observability semantics
 one semantic owner
 Integration & Binding ownership of adapter selection
 runtime-agnostic versioning
+references only to canonical domain objects and status families
 ```
 
 A name is not retained merely because it ends in `Port`.
@@ -47,6 +48,8 @@ DEFER       wait for sufficient reusable evidence
 |---|---|---|---|
 | `ModelInferencePort` | RETAIN | `model-inference@0.1.0` | integration |
 | `ExecutionRunPort` | RENAME | `execution-run-management@0.1.0` | control |
+| `AgentRuntimePort` | RETAIN/NARROW | `agent-runtime@0.1.0` | control |
+| `WorkflowOrchestrationPort` | RENAME/NARROW | `workflow-coordination@0.1.0` | control |
 | `ContextManagementPort` | RENAME | `context-resolution@0.1.0` | control |
 | `SkillManagementPort` | RENAME | `skill-resolution@0.1.0` | control |
 | rule discovery part of `RuleManagementPort` | SPLIT | `rule-resolution@0.1.0` | control |
@@ -58,9 +61,75 @@ DEFER       wait for sufficient reusable evidence
 
 The retired combined name `ReviewApprovalPort` has no alias. One alias cannot safely resolve to three independently versioned contracts.
 
+The legacy name `workflow-orchestration` is a one-to-one migration alias for the narrower coordination boundary only. It does not authorize workflow-engine execution or introduce a WorkflowRun lifecycle.
+
 ---
 
-## 3. General port decisions
+## 3. Runtime and workflow decisions
+
+### AgentRuntimePort
+
+Decision:
+
+```text
+RETAIN AS CONTROL PORT
+```
+
+Retained boundary:
+
+```text
+existing ExecutionRun
++ Agent
++ RuntimeEnvironment
++ CapacityAssessment
++ AuthorizationAssessment
++ AdapterBinding
+→ start or control a bounded runtime instance
+→ emit attributable runtime observations
+```
+
+Mandatory exclusions:
+
+```text
+ExecutionStatus ownership
+model inference
+tool execution
+workflow coordination
+review
+approval
+completion
+product acceptance
+```
+
+A runtime start request cannot create `running`; only an actual host observation plus the owning ExecutionRun transition can.
+
+### WorkflowOrchestrationPort
+
+Decision:
+
+```text
+RENAME/NARROW TO WorkflowCoordinationPort
+```
+
+Retained boundary:
+
+```text
+WorkflowDefinition
++ trigger
++ ContextPack
++ external GateResult, ExecutionRun, ReviewResult, and Approval references
+→ phase and transition selection
+→ handoff records
+→ exit-condition results
+```
+
+The canonical domain model defines `WorkflowDefinition` and `ExecutionRun`, but not a separate `WorkflowRun` aggregate or status family. The former contract draft was rejected because it silently introduced `workflow_run_ref`, pause/resume/retry/cancel lifecycle, and completion-like state.
+
+Concrete workflow-engine start, pause, resume, retry, cancellation, scheduling, provider state, and transport semantics remain future integration-port or adapter concerns.
+
+---
+
+## 4. General port decisions
 
 | Current name | Decision | Candidate boundary | Reason |
 |---|---|---|---|
@@ -88,12 +157,12 @@ operation execution integration
 
 ---
 
-## 4. Control-plane decisions
+## 5. Control-plane decisions
 
 | Current name | Decision | Canonical direction |
 |---|---|---|
-| `AgentRuntimePort` | RETAIN candidate | control boundary using canonical execution and authorization references |
-| `WorkflowOrchestrationPort` | RETAIN candidate | WorkflowDefinition, WorkflowRun, and ExecutionRun remain separate |
+| `AgentRuntimePort` | MIGRATED/NARROWED | `agent-runtime` using external ExecutionRun and authorization references |
+| `WorkflowOrchestrationPort` | MIGRATED/RENAMED | `workflow-coordination` without WorkflowRun lifecycle |
 | `ExecutionRunPort` | MIGRATED | `execution-run-management` |
 | `ContextManagementPort` | MIGRATED | `context-resolution` |
 | `SkillManagementPort` | MIGRATED | `skill-resolution` |
@@ -103,7 +172,7 @@ operation execution integration
 
 ---
 
-## 5. Tool-integration subtypes
+## 6. Tool-integration subtypes
 
 | Name | Decision | Boundary |
 |---|---|---|
@@ -124,7 +193,7 @@ external OAuth or tool permission
 
 ---
 
-## 6. Capability-composition migration
+## 7. Capability-composition migration
 
 | Legacy skill-contract ID | Decision | Candidate port |
 |---|---|---|
@@ -137,7 +206,7 @@ A legacy `skill_contract.type: port` remains active until consumers migrate. It 
 
 ---
 
-## 7. Product-surface status
+## 8. Product-surface status
 
 Candidate names mentioned by issue scope include assistant, content, creative rendering, media, learning, template, and product output.
 
@@ -151,7 +220,7 @@ No ProductSurfacePort should be created solely for taxonomy symmetry. Acceptance
 
 ---
 
-## 8. Adapter reference migration
+## 9. Adapter reference migration
 
 A port adapter reference must declare:
 
@@ -173,26 +242,26 @@ The validator checks stable ID, canonical path, and compatible version. This pro
 
 ---
 
-## 9. Markdown authority reconciliation
+## 10. Markdown authority reconciliation
 
 The following legacy documents are navigation and migration records only:
 
 ```text
+docs/agent-runtime-port.md
+docs/workflow-orchestration-port.md
 docs/context-management-port.md
 docs/skill-management-port.md
 docs/rule-management-port.md
 docs/review-approval-port.md
 ```
 
-Their machine semantics are superseded by the corresponding first-class contracts.
+Their machine semantics are superseded by or linked to the corresponding first-class contracts.
 
 ---
 
-## 10. Remaining migration work
+## 11. Remaining migration work
 
 ```text
-retain or reject AgentRuntimePort
-retain or reject WorkflowOrchestrationPort
 migrate selected integration ports individually
 migrate remaining design composition facades
 resolve whether a scoped EvaluationExecutionPort is needed
@@ -202,19 +271,21 @@ add conformance and runtime evidence
 complete final contradiction and acceptance review
 ```
 
-Bulk generation from a single generic template is prohibited. Each boundary must be reviewed independently against ownership, failure, authorization, lifecycle, and consumer semantics.
+Bulk generation from a single generic template is prohibited. Each boundary must be reviewed independently against ownership, canonical object references, failure, authorization, lifecycle, and consumer semantics.
 
 ---
 
-## 11. Current status
+## 12. Current status
 
 ```text
 canonical kinds defined: yes
 active schema and validator: yes
-first-class contracts: 10
+first-class contracts: 12
 adapter reference validation: yes
+agent runtime lifecycle duplication removed: yes
+unmodeled WorkflowRun lifecycle removed: yes
 legacy review/approval collapse removed: yes
-legacy context/skill/rule docs reconciled: yes
+legacy control-port docs reconciled: yes
 all active ports migrated: no
 product-surface boundary proven: no
 ready for final issue acceptance: no
