@@ -1,7 +1,7 @@
 version: "1.0.0"
-generated_at: "2026-07-20T13:42:00Z"
+generated_at: "2026-07-20T14:49:47Z"
 description: "Auto-generated contract manifest. Regenerate with: scripts/generate-manifest.sh"
-total_contracts: 122
+total_contracts: 124
 contracts:
   skills:
     architecture:
@@ -412,6 +412,14 @@ contracts:
         version: "0.1.0"
         sha256: 7c589d3331a07160
     integration:
+      - id: code-operation-execution
+        path: contracts/ports/integration/code-operation-execution.port.yaml
+        version: "0.1.0"
+        sha256: 0efd693c111d9a67
+      - id: database
+        path: contracts/ports/integration/database.port.yaml
+        version: "0.1.0"
+        sha256: 85e7882e2963cc30
       - id: model-inference
         path: contracts/ports/integration/model-inference.port.yaml
         version: "0.1.0"
