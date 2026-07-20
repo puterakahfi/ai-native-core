@@ -1,7 +1,7 @@
 version: "1.0.0"
-generated_at: "2026-07-20T06:06:46Z"
+generated_at: "2026-07-20T07:30:14Z"
 description: "Auto-generated contract manifest. Regenerate with: scripts/generate-manifest.sh"
-total_contracts: 104
+total_contracts: 106
 contracts:
   skills:
     architecture:
@@ -84,6 +84,10 @@ contracts:
         path: contracts/skills/design/adaptive-component-design.contract.yaml
         version: "1.1.0"
         sha256: 1ce6838618a0e370
+      - id: collection-discovery-design
+        path: contracts/skills/design/collection-discovery-design.contract.yaml
+        version: "1.0.0"
+        sha256: 0666b2e1565f0222
       - id: color-theory
         path: contracts/skills/design/color-theory.contract.yaml
         version: "1.0.0"
@@ -122,8 +126,8 @@ contracts:
         sha256: 27b01c7878b0f9f1
       - id: design-strategy
         path: contracts/skills/design/design-strategy.contract.yaml
-        version: "1.0.0"
-        sha256: ef9d327aeeedcddc
+        version: "1.1.0"
+        sha256: 6c33144e41d5a88c
       - id: design-system
         path: contracts/skills/design/design-system.contract.yaml
         version: "1.0.0"
@@ -375,6 +379,9 @@ contracts:
     - id: architecture-review
       path: contracts/tests/architecture-review.test.yaml
       sha256: 7f5724d56e047306
+    - id: collection-discovery-design
+      path: contracts/tests/collection-discovery-design.test.yaml
+      sha256: bd2e956891836544
     - id: design-review
       path: contracts/tests/design-review.test.yaml
       sha256: 0dd53425ba783d61
