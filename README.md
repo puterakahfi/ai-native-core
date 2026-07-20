@@ -12,7 +12,7 @@ Core describes **what must remain stable**. Adapters decide **how it is implemen
 |---|---|
 | Reading the framework architecture | [Architecture v0.2](docs/architecture-v0.2.md) |
 | Looking for a capability or lifecycle contract | [Contract catalog](docs/contract-catalog.md) |
-| Implementing a skill adapter | [Adapter implementation path](#implement-a-contract) |
+| Implementing a skill adapter | [Adapter implementation path](#implement-a-contract) and [adapter conformance](docs/adapter-conformance.md) |
 | Building a runtime or product adapter | [Repository boundaries](#repository-boundaries) and [ports and adapters](docs/ports-and-adapters.md) |
 | Checking terminology | [Glossary](docs/glossary.md) |
 | Contributing a contract, document, rule, schema, or template | [CONTRIBUTING.md](CONTRIBUTING.md) |
@@ -94,7 +94,7 @@ Search [`contracts/manifest.yaml`](contracts/manifest.yaml) by ID or path, then 
 
 ### 3. Declare the implementation
 
-An executable skill adapter identifies the core contract and pins a compatible version:
+An executable skill adapter identifies the core contract, pins a compatible version, and declares its owned and delegated boundary:
 
 ```yaml
 name: native-ai-runtime-agent
@@ -102,9 +102,11 @@ metadata:
   ai-native-skills.type: skill
   ai-native-skills.implements: ai-native-core/contracts/skills/runtime/native-ai-runtime-agent.contract.yaml
   ai-native-skills.contract-version: "^1.0.0"
+  ai-native-skills.boundary.covers: '["<contract-covers-item>"]'
+  ai-native-skills.boundary.delegates: '["<contract-does-not-cover-item>"]'
 ```
 
-The contract path and version pin are evidence of intent, not proof of full conformance.
+Use the exact boundary values from the implemented contract. The contract path, version pin, and boundary metadata are declarations of intent; they do not by themselves prove executable behavior.
 
 ### 4. Validate the adapter
 
@@ -118,9 +120,15 @@ python3 ../ai-native-core/scripts/validate-conformance.py \
   .
 ```
 
-The first command checks contract path and version compatibility. The second checks textual coverage of required quality gates, allowed outputs, and required inputs.
+The first command checks contract path and version compatibility.
 
-Contract boundaries still require direct review. The current conformance implementation parses boundary data but does not yet enforce `covers` or `does_not_cover` claims.
+The second checks textual coverage of required quality gates, allowed outputs, and required inputs, then compares structured adapter boundary declarations against `covers` and `does_not_cover`.
+
+- claiming a delegated responsibility under `covers` is an `ERROR` and exits non-zero;
+- partial, malformed, or unknown declarations are `WARN`;
+- missing structured boundary declarations are `NOT_CHECKABLE`, not a false conformance pass.
+
+See [Adapter Conformance](docs/adapter-conformance.md) for metadata rules, result semantics, and migration guidance.
 
 ### 5. Validate behavior
 
@@ -239,10 +247,10 @@ Review and commit the resulting ID, path, checksum, skill-contract version where
 |---|---|
 | [`generate-manifest.sh`](scripts/generate-manifest.sh) | regenerate contract registry and checksums |
 | [`validate-implements.sh`](scripts/validate-implements.sh) | validate adapter paths and pinned versions |
-| [`validate-conformance.py`](scripts/validate-conformance.py) | inspect textual coverage of gates, outputs, and required inputs |
+| [`validate-conformance.py`](scripts/validate-conformance.py) | inspect gate/input/output coverage and structured boundary declarations |
 | [`run-eval.py`](scripts/run-eval.py) | validate and execute behavioral evaluation contracts |
 
-These checks answer different questions. Manifest identity, compatible pins, interface coverage, manual boundary review, and behavioral evaluation are separate evidence layers.
+These checks answer different questions. Manifest identity, compatible pins, interface coverage, boundary declaration consistency, and behavioral evaluation are separate evidence layers.
 
 ## Canonical documentation
 
@@ -259,6 +267,7 @@ These checks answer different questions. Manifest identity, compatible pins, int
 - [Ports and adapters](docs/ports-and-adapters.md)
 - [Port taxonomy](docs/port-taxonomy.md)
 - [Adapter registry](docs/adapter-registry.md)
+- [Adapter conformance](docs/adapter-conformance.md)
 - [Contract catalog](docs/contract-catalog.md)
 
 ### Runtime concepts
@@ -279,7 +288,7 @@ The guide covers:
 - docs, rules, templates, and schemas;
 - contract versioning and compatibility;
 - manifest regeneration;
-- adapter path/version and conformance validation;
+- adapter path/version, interface, and boundary declaration validation;
 - behavioral test validation;
 - documentation-only review;
 - pull-request completion criteria.

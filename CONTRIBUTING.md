@@ -138,6 +138,37 @@ skill_contract:
 
 Use snake_case for machine-readable capabilities and gates. Use kebab-case for contract IDs and filenames. Keep IDs, filenames, manifest entries, and adapter references aligned.
 
+## Adapter boundary declarations
+
+A contract-backed executable skill declares which contract-owned responsibilities it covers and which contract exclusions it preserves as delegated:
+
+```yaml
+metadata:
+  ai-native-skills.implements: ai-native-core/contracts/skills/<category>/<contract>.contract.yaml
+  ai-native-skills.contract-version: "^1.0.0"
+  ai-native-skills.boundary.covers: '["<contract-covers-item>"]'
+  ai-native-skills.boundary.delegates: '["<contract-does-not-cover-item>"]'
+```
+
+Rules:
+
+- use exact values from the implemented contract;
+- do not list a `does_not_cover` item under `covers`;
+- do not delegate an item the contract assigns to the adapter;
+- declare all applicable owned and delegated items when claiming complete boundary conformance;
+- do not bulk-copy declarations without inspecting actual adapter responsibility;
+- treat declaration validation as one evidence layer, not proof of executable behavior.
+
+Result meanings:
+
+```text
+ERROR          explicit contradiction or out-of-bound claim
+WARN           partial, malformed, unknown, or reversed declaration
+NOT_CHECKABLE  structured declaration is absent or cannot be evaluated
+```
+
+See [`docs/adapter-conformance.md`](docs/adapter-conformance.md) for the canonical metadata and result contract.
+
 ## Versioning and compatibility
 
 Version each contract independently according to behavioral compatibility.
@@ -207,13 +238,22 @@ Install Python dependencies required by the scripts, including PyYAML, before ru
 python3 scripts/run-eval.py --all --validate-tests
 ```
 
-### Validate script syntax
+### Validate script and test syntax
 
 ```bash
 python3 -m py_compile \
   scripts/run-eval.py \
-  scripts/validate-conformance.py
+  scripts/validate-conformance.py \
+  tests/test_validate_conformance.py
 ```
+
+### Run validator unit and CLI regression tests
+
+```bash
+python3 -m unittest discover -s tests -v
+```
+
+The boundary fixtures cover valid delegation, missing declarations, partial declarations, unknown claims, explicit delegated-responsibility overclaim, CLI exit behavior, and preservation of gate/input/output checks.
 
 ### Validate adapter paths and pinned versions
 
@@ -233,9 +273,11 @@ python3 ../ai-native-core/scripts/validate-conformance.py \
   .
 ```
 
-Path/version validation and conformance validation are different checks. The current conformance implementation checks textual coverage of quality gates, allowed outputs, and required inputs.
+Path/version validation and conformance validation are different checks.
 
-Review `covers`, `does_not_cover`, and adapter boundary claims directly. Boundary data is parsed by the current script but is not yet enforced as an automated conformance gate.
+The conformance validator checks textual coverage of quality gates, allowed outputs, and required inputs, then validates structured boundary declarations without fuzzy prose matching.
+
+An explicit out-of-bound claim is an `ERROR`. Missing structured declarations are `NOT_CHECKABLE` and remain visible in the summary. A zero exit code means no critical declaration error; it does not prove runtime or product behavior.
 
 ### Validate documentation-only changes
 
@@ -260,7 +302,7 @@ Update public documentation when a change affects:
 - glossary terms;
 - the visitor or contributor path.
 
-Use [`docs/contract-catalog.md`](docs/contract-catalog.md) to explain inventory navigation. Keep the generated manifest authoritative instead of maintaining duplicate exhaustive tables.
+Use [`docs/contract-catalog.md`](docs/contract-catalog.md) to explain inventory navigation. Use [`docs/adapter-conformance.md`](docs/adapter-conformance.md) for adapter declaration and validation semantics. Keep the generated manifest authoritative instead of maintaining duplicate exhaustive tables.
 
 ## Pull request checklist
 
@@ -274,8 +316,9 @@ Before requesting review:
 - [ ] Affected adapters and migration needs are disclosed.
 - [ ] The manifest was regenerated for contract changes.
 - [ ] Behavioral test contracts validate when affected.
+- [ ] Validator unit and CLI regression tests pass when tooling changes.
 - [ ] Adapter path/version and conformance checks were run when adapter repositories were available.
-- [ ] Contract boundaries were reviewed independently of automated conformance output.
+- [ ] Structured boundary declarations were reviewed against actual adapter responsibility.
 - [ ] Documentation and relative links were reviewed.
 - [ ] Known gaps remain labeled `PARTIAL`, `NOT_VERIFIED`, or `NOT_APPLICABLE`.
 - [ ] No credentials, private product context, customer data, or runtime-specific installed state were committed.
