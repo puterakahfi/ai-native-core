@@ -2,7 +2,7 @@ skill_contract:
   id: design-layout
   category: design
   type: port
-  version: "2.0.0"
+  version: "2.0.1"
   capability: layout_structure_port_spatial_organization
   description: >
     Port contract for layout and structure. Abstracts all spatial decisions —
@@ -18,8 +18,8 @@ skill_contract:
     - id: ui-components
       concern: component_structure_nav_hero_sections
       load_order: 2
-    - id: adaptive-ui-patterns
-      concern: viewport_aware_component_and_interaction_pattern_selection
+    - id: adaptive-component-design
+      concern: viewport_aware_component_selection_and_substitution
       load_order: 3
     - id: responsiveness
       concern: breakpoints_fluid_grid_and_post_selection_validation
