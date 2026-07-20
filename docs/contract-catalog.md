@@ -54,13 +54,33 @@ python3 -m unittest discover -s tests -p 'test_validate_port_contracts.py' -v
 
 The schema and semantic checks validate declared structure and boundary consistency. They do not prove adapter behavior.
 
+Current control examples include:
+
+```text
+ExecutionRunManagementPort
+→ owns the canonical ExecutionStatus lifecycle
+
+AgentRuntimePort
+→ controls an authorized runtime instance but does not own ExecutionStatus
+
+WorkflowCoordinationPort
+→ coordinates WorkflowDefinition phases, transitions, gates, handoffs, and exits
+  without inventing a WorkflowRun lifecycle
+```
+
+A concrete workflow engine or agent runtime may expose provider-specific sessions and states. Those observations remain adapter/runtime information until mapped to canonical records through their owning boundaries.
+
 ### Workflow contracts
 
 [`contracts/workflows/`](../contracts/workflows/) defines ordered lifecycle agreements with phases, gates, handoffs, evidence, and exit conditions.
 
+A WorkflowDefinition contract is not actual execution, a runtime-engine instance, or an ExecutionRun.
+
 ### Runtime contracts
 
 [`contracts/runtime/`](../contracts/runtime/) defines runtime-facing implementation-agnostic agreements such as core resolution, execution methods, memory, hooks, tool registration, and operating procedures.
+
+A runtime contract does not replace first-class port boundaries or grant execution authority by itself.
 
 ### Behavioral test contracts
 
@@ -73,9 +93,10 @@ The schema and semantic checks validate declared structure and boundary consiste
 2. Search contracts/manifest.yaml by ID or path.
 3. Determine whether the artifact is a skill, port, workflow, runtime, or test contract.
 4. Inspect inputs/interactions, outputs/responses, failures, gates, and boundaries.
-5. Inspect canonical domain and port documentation.
-6. Locate executable adapters in ai-native-skills, native-ai-fw, or product repositories.
-7. Verify path, version pin, declaration conformance, runtime evidence, and product evidence separately.
+5. Verify referenced domain objects and status families are canonical.
+6. Inspect canonical domain and port documentation.
+7. Locate executable adapters in ai-native-skills, native-ai-fw, or product repositories.
+8. Verify path, version pin, declaration conformance, runtime evidence, and product evidence separately.
 ```
 
 Start with:
@@ -125,12 +146,13 @@ product repositories
 When adding, moving, deleting, or changing a contract:
 
 1. classify compatibility impact;
-2. update the contract version;
-3. update affected canonical documentation;
-4. run the applicable schema and semantic validators;
-5. regenerate `contracts/manifest.yaml`;
-6. inspect IDs, paths, versions, checksums, family placement, and total count;
-7. validate dependent adapters when available;
-8. disclose migrations and evidence gaps.
+2. verify referenced objects and statuses against the canonical domain model;
+3. update the contract version;
+4. update affected canonical documentation;
+5. run the applicable schema and semantic validators;
+6. regenerate `contracts/manifest.yaml`;
+7. inspect IDs, paths, versions, checksums, family placement, and total count;
+8. validate dependent adapters when available;
+9. disclose migrations and evidence gaps.
 
 Human-readable tables should explain meaning and migration, not compete with the generated manifest.
