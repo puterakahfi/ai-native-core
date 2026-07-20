@@ -10,6 +10,8 @@ Canonical terms: [`term-authority.md`](term-authority.md)
 
 Principles and guardrails: [`principles-and-guardrails.md`](principles-and-guardrails.md)
 
+Behavioral test candidates: [`behavioral-test-candidates.md`](behavioral-test-candidates.md)
+
 Pruning record: [`reconciliation-and-pruning.md`](reconciliation-and-pruning.md)
 
 This document contains the active candidate law set retained after usefulness and pruning review.
@@ -678,7 +680,9 @@ The retained laws must not be accepted until:
 - [x] each has at least one downstream consumer;
 - [x] duplicate independent candidates are merged or reclassified;
 - [x] historical numbering is no longer the primary authority;
-- [ ] behavioral test candidates cover representative false-equivalence failures;
+- [x] behavioral test candidates cover representative false-equivalence failures;
+- [ ] issue `#8` confirms machine-readable behavioral-test schema direction;
+- [ ] `ai-native-skills#27` maps representative cases into an executable harness;
 - [ ] principles and guardrails pass equivalent pruning review;
 - [ ] issue `#6` confirms the law set is sufficient for domain modeling;
 - [ ] cross-document references are reviewed for stale retired-law aliases;
@@ -696,7 +700,8 @@ Stable law names: PRIMARY IDENTIFIERS
 Historical law numbers: TRACEABILITY ALIASES
 Decision usefulness: PRESENT
 Named consumers: PRESENT
-Behavioral embodiment: CANDIDATES REQUIRED
+Behavioral test candidates: 12 DEFINED
+Executable behavioral harness: NOT YET IMPLEMENTED
 Law acceptance status: CANDIDATE
 Ready for domain model consumption: PARTIAL, PENDING FOUNDATION ACCEPTANCE
 ```
