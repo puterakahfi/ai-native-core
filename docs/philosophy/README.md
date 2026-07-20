@@ -244,11 +244,13 @@ Execution, gates, approval, rollback, and delivery remain owned by the host work
 
 ---
 
-## 9. Usefulness And Pruning
+## 9. Usefulness, Pruning, And Embodiment
 
 Acceptance gate: [`traceability-and-usefulness.md`](traceability-and-usefulness.md)
 
 Pruning decisions: [`reconciliation-and-pruning.md`](reconciliation-and-pruning.md)
+
+Behavioral test candidates: [`behavioral-test-candidates.md`](behavioral-test-candidates.md)
 
 Every retained statement must pass:
 
@@ -268,6 +270,8 @@ No decision impact + no named consumer + no embodiment path
 = remove, merge, or defer.
 ```
 
+Behavioral candidates test whether consumers actually preserve state attribution, evidence scope, authority, honest completion, feedback revision, and governed evolution under adversarial pressure.
+
 Stop or simplify when document volume grows faster than executable impact.
 
 ---
@@ -284,7 +288,7 @@ Must preserve ownership, authorization, evidence production, failure, observabil
 
 ### `ai-native-core#8` — Contract schemas
 
-Must define shared primitives for source, scope, coverage, claim, evidence layer, authority, approval, status, boundary, compatibility, and supersession.
+Must define shared primitives for source, scope, coverage, claim, evidence layer, authority, approval, status, boundary, compatibility, supersession, and behavioral-test structure.
 
 ### `ai-native-core#9` — Conformance validator
 
@@ -367,8 +371,10 @@ Epistemic loop: FORMALIZED FOR CANDIDATE REVIEW
 Usefulness gate: ESTABLISHED
 Architecture reconciliation: APPLIED
 Glossary reconciliation: APPLIED
-Behavioral test candidates: NEXT REQUIRED GATE
-Executable embodiment: NOT YET PROVEN
+Behavioral test candidates: 12 DEFINED
+Machine-readable behavioral schema: NOT YET DEFINED
+Executable behavioral harness: NOT YET IMPLEMENTED
+Runtime and product embodiment: NOT YET PROVEN
 Domain model consumption readiness: PARTIAL
 Ready to merge into main: NO
 ```
@@ -387,9 +393,13 @@ Issue `#13` must not be accepted until:
 - [x] the epistemic loop is distinct from execution workflows;
 - [x] usefulness and traceability gates exist;
 - [x] glossary and architecture authority conflicts are reconciled;
+- [x] representative behavioral test candidates exist;
+- [x] behavioral candidates identify executable consumers;
 - [ ] principle and guardrail pruning is complete;
-- [ ] representative behavioral test candidates exist;
-- [ ] behavioral candidates map to executable consumers;
+- [ ] issue `#8` confirms machine-readable behavioral-test schema direction;
+- [ ] `ai-native-skills#27` maps representative candidates into an executable harness;
+- [ ] `native-ai-fw` identifies runtime authority and evidence cases;
+- [ ] at least one product repository validates representative cases;
 - [ ] stale cross-document references to retired law aliases are reviewed;
 - [ ] issue `#6` confirms the foundation is sufficient for domain modeling;
 - [ ] a final contradiction and minimality review passes;
