@@ -1,0 +1,124 @@
+skill_test:
+  skill: implementation-context-discovery
+  version: "1.0.0"
+  description: Verify repository implementation context is discovered before code and canonical systems are preserved without forbidding valid native elements
+
+  cases:
+    - id: canonical-component-and-icon-systems-are-reused
+      description: An existing repository component and icon system must be discovered and reused before local duplication or a parallel dependency
+      trigger: "A repository has a shared Button, Dialog, Select, and icon wrapper used throughout current production modules. A redesign needs the same capabilities. The proposal rebuilds them locally and installs another icon package. Produce the implementation-context decision."
+      must_contain:
+        - "repository evidence"
+        - "canonical"
+        - "reuse"
+        - "CONVENTION_DRIFT"
+        - "DEPENDENCY_DRIFT"
+        - "implementation mapping"
+        - "architecture review"
+      must_not_contain:
+        - "install another icon package"
+        - "raw local replacement is equivalent"
+        - "package popularity decides"
+      sequence_required:
+        - pattern: "repository evidence|implementation context"
+          must_come_before: "reuse|implementation mapping"
+      quality_gates_tested:
+        - repository_context_is_inspected_before_implementation
+        - existing_fit_components_and_utilities_are_reused_before_local_duplication
+        - icon_component_styling_state_and_data_systems_are_not_mixed_without_approved_reason
+        - independent_architecture_review_remains_required_after_implementation
+
+    - id: package-presence-does-not-prove-canonicality
+      description: Installed legacy or transitive packages must not be selected merely because they appear in dependency evidence
+      trigger: "The manifest contains two component libraries. Current modules and the engineering ADR use library B. Library A appears only transitively and in one deprecated screen scheduled for removal. Choose the canonical implementation context."
+      must_contain:
+        - "actual usage"
+        - "repository convention"
+        - "architecture decision"
+        - "transitive"
+        - "deprecated"
+        - "canonical"
+      must_not_contain:
+        - "both packages are equally canonical"
+        - "first package in the manifest wins"
+        - "installed means approved"
+      quality_gates_tested:
+        - package_presence_alone_does_not_establish_canonical_status
+        - canonicality_uses_declared_dependency_actual_usage_repetition_repository_convention_and_current_decisions
+        - unknown_or_conflicting_context_is_reported_not_invented
+
+    - id: semantic-native-element-remains-valid
+      description: Native semantic platform elements remain acceptable when no canonical abstraction or richer interaction contract is required
+      trigger: "A documentation page needs headings, sections, a list, and a simple disclosure. The repository has no shared abstraction for those structures and no product behavior beyond native semantics. The reviewer wants every element replaced by a component-library wrapper."
+      must_contain:
+        - "semantic native"
+        - "valid"
+        - "no canonical abstraction"
+        - "accessibility"
+        - "verification"
+      must_not_contain:
+        - "native HTML is always a failure"
+        - "wrapper required for every element"
+        - "CONVENTION_DRIFT because it is native"
+      quality_gates_tested:
+        - semantic_native_elements_remain_valid_when_no_canonical_abstraction_is_needed
+        - extension_or_composition_is_preferred_before_parallel_system_introduction
+
+    - id: bounded-product-component-composes-canonical-primitives
+      description: A product-specific component may be created when it composes accepted primitives and preserves their contracts
+      trigger: "The repository has canonical input, popover, command-list, token, and focus primitives but no domain-specific resource picker. The product needs a resource picker with unique domain policy. Decide whether local composition is allowed."
+      must_contain:
+        - "compose"
+        - "product-specific component"
+        - "canonical primitives"
+        - "preserve"
+        - "rejected alternatives"
+        - "verification"
+      must_not_contain:
+        - "install a second component system"
+        - "duplicate the primitives"
+        - "all custom components are forbidden"
+      quality_gates_tested:
+        - extension_or_composition_is_preferred_before_parallel_system_introduction
+        - convention_locks_and_scoped_exceptions_are_traceable_to_repository_evidence
+        - implementation_mapping_precedes_code_production
+
+    - id: new-dependency-requires-proven-capability-gap
+      description: A new dependency is eligible only after a real unsatisfied capability and its consequences are recorded
+      trigger: "A data-heavy surface has measured rendering pressure and requires accessible virtualization. Existing shared components and installed table utilities cannot satisfy the measured requirement. Propose a new dependency decision."
+      must_contain:
+        - "CAPABILITY_GAP"
+        - "existing options reviewed"
+        - "proven capability gap"
+        - "alternatives"
+        - "consequences"
+        - "approval authority"
+        - "verification plan"
+      must_not_contain:
+        - "install it because it is popular"
+        - "no approval needed"
+        - "dependency automatically approved"
+      sequence_required:
+        - pattern: "existing options|capability gap"
+          must_come_before: "dependency|candidate"
+      quality_gates_tested:
+        - new_dependencies_require_proven_capability_gap_alternatives_consequences_and_authority
+        - convention_locks_and_scoped_exceptions_are_traceable_to_repository_evidence
+
+    - id: source-context-does-not-prove-runtime-conformance
+      description: Source and import alignment may pass while runtime, visual, accessibility, and architectural acceptance remain separate
+      trigger: "The diff imports the canonical components and no dependency changed. No build, runtime interaction, rendered evidence, accessibility evidence, or architecture review has run. Mark the implementation fully accepted."
+      must_contain:
+        - "source alignment"
+        - "NOT_VERIFIED"
+        - "runtime"
+        - "visual"
+        - "accessibility"
+        - "architecture review"
+      must_not_contain:
+        - "fully accepted"
+        - "source imports prove runtime behavior"
+        - "no architecture review required"
+      quality_gates_tested:
+        - source_only_evidence_does_not_claim_runtime_visual_or_accessibility_conformance
+        - independent_architecture_review_remains_required_after_implementation
