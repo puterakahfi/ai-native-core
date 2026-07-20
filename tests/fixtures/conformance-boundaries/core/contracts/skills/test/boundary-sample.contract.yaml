@@ -1,0 +1,24 @@
+skill_contract:
+  id: boundary-sample
+  category: test
+  type: skill
+  version: "1.0.0"
+  capability: boundary_sample
+  description: Fixture contract for boundary conformance validation.
+  roles:
+    - fixture
+  inputs:
+    required:
+      - contract_input
+  outputs:
+    allowed:
+      - contract_output
+  quality_gates:
+    - contract_gate_is_enforced
+  boundary:
+    covers:
+      - owned_capability
+      - owned_review
+    does_not_cover:
+      - provider_configuration
+      - product_policy
