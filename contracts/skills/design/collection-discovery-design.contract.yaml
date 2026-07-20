@@ -1,0 +1,315 @@
+skill_contract:
+  id: collection-discovery-design
+  category: design
+  type: skill
+  version: "1.0.0"
+  capability: collection_discovery_strategy_and_adapter_selection
+  capability_aliases:
+    - catalog_registry_and_directory_discovery_design
+    - collection_navigation_and_retrieval_strategy
+  aliases:
+    - collection-navigation-design
+    - catalog-discovery-design
+
+  description: >
+    Diagnoses how users need to find, browse, narrow, compare, monitor, and resume
+    within a collection, then defines a context-aware discovery strategy and the
+    interaction adapter capabilities required to implement it. Collection volume is
+    one input among many; count alone must never select pagination, tabs, infinite
+    scroll, filtering, or any other adapter.
+
+  roles:
+    - collection_discovery_designer
+    - information_architect
+    - product_designer
+    - ux_strategist
+    - search_and_browse_designer
+    - data_heavy_interface_designer
+
+  inputs:
+    required:
+      - product_intent
+      - user_tasks
+      - collection_inventory
+      - item_schema
+      - current_volume
+      - target_contexts
+    optional:
+      - expected_growth
+      - update_frequency
+      - item_heterogeneity
+      - taxonomy_and_grouping_model
+      - existing_discovery_patterns
+      - known_item_lookup_frequency
+      - comparison_requirements
+      - monitoring_or_feed_requirements
+      - return_to_position_requirements
+      - deterministic_location_requirements
+      - url_and_shareability_requirements
+      - sorting_requirements
+      - query_and_index_capabilities
+      - performance_constraints
+      - backend_capabilities
+      - analytics_or_usage_evidence
+      - accessibility_requirements
+      - localization_and_text_expansion
+      - preservation_requirements
+
+  outputs:
+    allowed:
+      - collection_diagnosis
+      - retrieval_mode_map
+      - collection_discovery_strategy
+      - browse_search_balance
+      - organization_strategy
+      - narrowing_strategy
+      - sorting_strategy
+      - traversal_strategy
+      - progressive_disclosure_strategy
+      - detail_access_strategy
+      - context_adaptation_strategy
+      - collection_state_contract
+      - adapter_capability_requirements
+      - adapter_selection_rationale
+      - rejected_adapter_alternatives
+      - realistic_data_stress_plan
+      - boundary_acceptance_criteria
+      - rendered_discovery_evidence
+
+  retrieval_modes:
+    allowed:
+      - known_item_lookup
+      - exploratory_browse
+      - narrow_and_refine
+      - compare
+      - monitor_updates
+      - resume_prior_context
+      - hierarchical_drill_down
+    rules:
+      - multiple_retrieval_modes_may_coexist
+      - primary_and_secondary_modes_must_be_prioritized
+      - adapter_selection_must_trace_to_retrieval_modes_and_evidence
+
+  diagnosis_contract:
+    required_factors:
+      - user_task_and_task_priority
+      - collection_volume
+      - expected_growth
+      - item_homogeneity_or_heterogeneity
+      - grouping_dimensions
+      - update_frequency
+      - known_item_lookup_need
+      - browse_and_exploration_need
+      - narrowing_and_filtering_need
+      - comparison_need
+      - position_and_context_preservation_need
+      - deterministic_location_and_shareability_need
+      - performance_and_backend_constraints
+      - target_context_and_input_mode
+      - accessibility
+    allowed_pressures:
+      - LOOKUP_PRESSURE
+      - BROWSE_OVERLOAD
+      - NARROWING_GAP
+      - COMPARISON_PRESSURE
+      - HIERARCHY_PRESSURE
+      - CONTEXT_LOSS_RISK
+      - GROWTH_PRESSURE
+      - UPDATE_STREAM_PRESSURE
+      - PERFORMANCE_PRESSURE
+      - CROSS_CONTEXT_PRESSURE
+      - NO_MATERIAL_DISCOVERY_PRESSURE
+    rules:
+      - diagnosis_may_report_multiple_pressures
+      - item_count_alone_is_not_a_diagnosis
+      - the_same_collection_may_require_different_adapters_by_task_or_context
+      - symptoms_must_be_combined_under_causal_discovery_pressures
+      - unavailable_evidence_must_remain_explicitly_unknown
+
+  strategy_contract:
+    required_fields:
+      - primary_retrieval_mode
+      - secondary_retrieval_modes
+      - default_entry_strategy
+      - organization_strategy
+      - browse_search_balance
+      - narrowing_strategy
+      - traversal_strategy
+      - progressive_disclosure_strategy
+      - context_and_state_preservation
+      - adapter_capability_requirements
+      - rejected_alternatives_and_tradeoffs
+      - verification_plan
+    rules:
+      - define_the_discovery_model_before_naming_components
+      - strategies_may_combine_multiple_adapter_capabilities
+      - adapter_capabilities_must_remain_replaceable
+      - product_and_backend_constraints_may_limit_but_must_not_silently_define_the_strategy
+      - preserve_existing_fit_behavior_unless_evidence_supports_change
+
+  adapter_capability_families:
+    organization:
+      - tabs
+      - grouped_sections
+      - accordion
+      - tree_navigation
+      - category_navigation
+      - flat_list
+      - table_or_matrix
+    narrowing:
+      - search
+      - autocomplete
+      - facets
+      - filter_panel
+      - filter_chips
+      - sort
+      - command_palette
+    traversal:
+      - pagination
+      - load_more
+      - infinite_scroll
+      - cursor_navigation
+      - virtualized_collection
+    disclosure:
+      - preview_limit
+      - show_all
+      - expandable_group
+      - staged_drill_down
+    detail_access:
+      - inline_expansion
+      - detail_drawer
+      - modal_detail
+      - drill_down_page
+    rules:
+      - families_describe_required_capabilities_not_framework_components
+      - an_adapter_may_satisfy_more_than_one_capability
+      - selected_adapters_may_change_by_context_while_preserving_strategy_and_state
+
+  adapter_selection_rules:
+    - never_map_item_count_directly_to_pagination_or_any_single_adapter
+    - pagination_is_stronger_when_users_need_deterministic_location_shareable_pages_comparison_or_reliable_return
+    - load_more_is_stronger_when_progressive_exploration_needs_explicit_user_control_without_page_navigation
+    - infinite_scroll_is_stronger_for_continuous_exploration_with_low_positional_precision_and_requires_recovery_stop_and_accessibility_behavior
+    - virtualized_collection_addresses_rendering_scale_but_does_not_replace_discovery_strategy
+    - tabs_fit_few_stable_peer_categories_with_clear_labels_and_persistent_state
+    - numerous_dynamic_searchable_or_long_options_should_not_be_forced_into_tabs
+    - facets_require_meaningful_selective_user_understandable_dimensions
+    - search_is_required_when_known_item_lookup_is_material_and_indexable_fields_exist
+    - grouped_preview_or_expandable_groups_fit_long_default_browse_paths_when_primary_choices_remain_discoverable
+    - tree_navigation_requires_a_real_hierarchy_not_a_flat_taxonomy_disguised_as_a_tree
+    - sorting_must_trace_to_a_real_user_decision_or_comparison_need
+    - infinite_scroll_must_not_be_selected_for_tasks_requiring_stable_page_reference_or_exhaustive_completion_without_an_explicit_recovery_model
+    - adapter_selection_must_include_rejected_alternatives_and_tradeoffs
+
+  context_adaptation_contract:
+    required:
+      - strategy_preserved_across_contexts
+      - adapter_mapping_by_actual_context
+      - shared_query_filter_sort_and_selection_state
+      - adaptation_boundaries
+      - reachable_primary_discovery_paths
+    rules:
+      - desktop_and_mobile_may_use_different_adapter_families
+      - context_substitution_must_not_change_taxonomy_meaning_or_hide_required_items
+      - actual_content_pressure_and_available_space_define_boundaries_not_device_names_alone
+      - search_filter_sort_and_selection_state_should_be_url_addressable_when_product_requirements_need_shareability_or_restoration
+      - adaptive_component_design_owns_component_fitness_after_strategy_selection
+
+  collection_state_contract:
+    required_fields:
+      - query_state
+      - active_filters
+      - sort_state
+      - selected_group_or_view
+      - current_position_or_cursor
+      - expanded_or_selected_item
+      - return_and_restore_behavior
+      - url_or_shareable_state_policy
+      - analytics_identity
+      - accessibility_relationships
+    rules:
+      - only_applicable_state_fields_are_required_at_runtime
+      - state_omissions_must_be_explicitly_justified
+      - adapter_substitution_must_preserve_equivalent_product_meaning_and_user_context
+
+  verification_contract:
+    required:
+      - realistic_collection_cases
+      - highest_expected_volume_or_growth_case
+      - longest_and_most_ambiguous_labels
+      - mixed_retrieval_tasks
+      - target_and_boundary_contexts
+      - empty_loading_error_and_no_result_states_when_applicable
+      - state_restoration_and_return_behavior
+      - accessibility_and_input_modes
+      - rendered_evidence_when_implemented
+    rules:
+      - source_inspection_alone_cannot_prove_scanability_discoverability_or_runtime_state
+      - screenshots_alone_cannot_prove_keyboard_state_restoration_or_dynamic_loading
+      - backend_performance_claims_require_measured_evidence
+      - adapter_success_must_be_evaluated_against_the_declared_retrieval_tasks
+
+  quality_gates:
+    - collection_inventory_and_item_schema_are_known_before_strategy_selection
+    - primary_and_secondary_retrieval_modes_are_explicit
+    - diagnosis_uses_combined_pressures_not_item_count_alone
+    - browse_search_and_narrowing_roles_are_explicit
+    - taxonomy_meaning_and_collection_presentation_remain_separate
+    - discovery_strategy_precedes_component_or_adapter_selection
+    - adapter_capabilities_trace_to_diagnosis_user_tasks_and_constraints
+    - pagination_tabs_infinite_scroll_and_other_adapters_are_not_selected_by_count_threshold_alone
+    - primary_discovery_paths_remain_reachable_and_discoverable
+    - grouping_facets_and_sorting_trace_to_meaningful_user_decisions
+    - traversal_strategy_preserves_required_position_context_and_shareability
+    - cross_context_adapters_preserve_query_filter_sort_selection_and_semantics
+    - rejected_alternatives_and_tradeoffs_are_recorded
+    - realistic_data_growth_and_boundary_contexts_are_verified
+    - rendered_and_runtime_claims_use_appropriate_evidence
+
+  boundary:
+    covers:
+      - collection_shape_and_discovery_pressure_diagnosis
+      - retrieval_mode_analysis_and_prioritization
+      - browse_search_and_narrowing_strategy
+      - collection_organization_presentation_strategy
+      - filtering_faceting_and_sorting_strategy
+      - traversal_strategy
+      - progressive_disclosure_strategy
+      - collection_state_and_context_preservation
+      - adapter_capability_selection
+      - adapter_selection_rationale_and_tradeoffs
+      - collection_specific_context_adaptation_requirements
+      - realistic_collection_stress_planning
+      - discovery_strategy_verification
+    does_not_cover:
+      - taxonomy_definition_and_content_meaning
+      - user_research_execution
+      - visual_style_and_brand_expression
+      - interaction_adapter_behavior_and_accessibility_implementation
+      - cross_context_component_fitness_and_substitution_details
+      - generic_breakpoint_grid_and_fluid_layout_mechanics
+      - framework_or_component_library_specific_implementation
+      - backend_search_index_query_and_storage_implementation
+      - product_specific_ranking_or_business_policy
+      - final_design_acceptance
+    delegates_to:
+      taxonomy_definition_and_content_meaning: information-architecture
+      user_research_execution: user-research
+      visual_style_and_brand_expression: design-visual
+      interaction_adapter_behavior_and_accessibility_implementation: design-interaction
+      cross_context_component_fitness_and_substitution_details: adaptive-component-design
+      generic_breakpoint_grid_and_fluid_layout_mechanics: responsiveness
+      framework_or_component_library_specific_implementation: product_adapter
+      backend_search_index_query_and_storage_implementation: engineering_or_product_adapter
+      product_specific_ranking_or_business_policy: product_adapter
+      final_design_acceptance: design-review
+
+  adapter_requirements:
+    interaction_patterns_are_adapter_defined: true
+    component_library_mapping_is_product_defined: true
+    backend_query_and_index_capabilities_are_product_defined: true
+    ranking_and_business_policy_are_product_defined: true
+    target_contexts_and_data_cases_are_product_defined: true
+    adapter_must_preserve_declared_collection_state_and_semantics: true
+    adapter_must_expose_empty_loading_error_and_no_result_behavior_when_applicable: true
+    adapter_must_provide_rendered_and_runtime_verification_evidence: true
