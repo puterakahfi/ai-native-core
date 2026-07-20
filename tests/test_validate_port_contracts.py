@@ -34,40 +34,27 @@ class PortContractValidationTests(unittest.TestCase):
         cls.schema = module.load_yaml(SCHEMA)
         Draft202012Validator.check_schema(cls.schema)
         cls.schema_validator = Draft202012Validator(cls.schema)
+        cls.ports_root = ROOT / "contracts" / "ports"
         cls.model_path = (
-            ROOT
-            / "contracts"
-            / "ports"
-            / "integration"
-            / "model-inference.port.yaml"
+            cls.ports_root / "integration" / "model-inference.port.yaml"
         )
         cls.execution_path = (
-            ROOT
-            / "contracts"
-            / "ports"
-            / "control"
-            / "execution-run-management.port.yaml"
+            cls.ports_root / "control" / "execution-run-management.port.yaml"
+        )
+        cls.agent_runtime_path = (
+            cls.ports_root / "control" / "agent-runtime.port.yaml"
+        )
+        cls.workflow_coordination_path = (
+            cls.ports_root / "control" / "workflow-coordination.port.yaml"
         )
         cls.review_path = (
-            ROOT
-            / "contracts"
-            / "ports"
-            / "control"
-            / "review-management.port.yaml"
+            cls.ports_root / "control" / "review-management.port.yaml"
         )
         cls.approval_path = (
-            ROOT
-            / "contracts"
-            / "ports"
-            / "control"
-            / "approval-decision.port.yaml"
+            cls.ports_root / "control" / "approval-decision.port.yaml"
         )
         cls.authorization_path = (
-            ROOT
-            / "contracts"
-            / "ports"
-            / "control"
-            / "authorization-assessment.port.yaml"
+            cls.ports_root / "control" / "authorization-assessment.port.yaml"
         )
 
     def write_mutated_contract(
@@ -98,6 +85,17 @@ class PortContractValidationTests(unittest.TestCase):
             for transition in contract["state_transitions"]
         }
 
+    @staticmethod
+    def request_field_ids(path: Path, request_id: str) -> set[str]:
+        contract = module.load_yaml(path)["port_contract"]
+        for request in contract["interactions"]["requests"]:
+            if request["id"] == request_id:
+                return {
+                    field["id"]
+                    for field in request["required_fields"]
+                }
+        raise AssertionError(f"request not found: {request_id}")
+
     def test_schema_uses_standard_root_keywords(self):
         self.assertEqual("Native AI Engineering Port Contract", self.schema["title"])
         self.assertEqual("object", self.schema["type"])
@@ -113,7 +111,7 @@ class PortContractValidationTests(unittest.TestCase):
         )
 
     def test_repository_contracts_pass(self):
-        paths = list((ROOT / "contracts" / "ports").rglob("*.port.yaml"))
+        paths = list(self.ports_root.rglob("*.port.yaml"))
         self.assertEqual(
             [],
             module.validate_paths(paths, schema_path=SCHEMA, root=ROOT),
@@ -134,9 +132,58 @@ class PortContractValidationTests(unittest.TestCase):
             authorization["authorization"]["authority_reference_required"]
         )
 
+    def test_agent_runtime_requires_existing_execution_capacity_and_authorization(self):
+        required = self.request_field_ids(
+            self.agent_runtime_path, "start_agent_runtime"
+        )
+        self.assertTrue(
+            {
+                "agent_ref",
+                "execution_run_ref",
+                "runtime_environment_ref",
+                "adapter_binding_ref",
+                "capacity_assessment_ref",
+                "authorization_assessment_ref",
+            }.issubset(required),
+            required,
+        )
+        self.assertEqual(set(), self.transition_families(self.agent_runtime_path))
+
+        contract = module.load_yaml(self.agent_runtime_path)["port_contract"]
+        self.assertNotIn("execution_status", contract["boundary"]["owns"])
+        self.assertIn("execution_status", contract["boundary"]["does_not_own"])
+        self.assertEqual("required", contract["authorization"]["mode"])
+
+    def test_workflow_coordination_does_not_invent_workflow_run_lifecycle(self):
+        legacy_path = (
+            self.ports_root / "control" / "workflow-orchestration.port.yaml"
+        )
+        self.assertFalse(legacy_path.exists())
+        self.assertTrue(self.workflow_coordination_path.exists())
+        self.assertEqual(
+            set(), self.transition_families(self.workflow_coordination_path)
+        )
+
+        contract = module.load_yaml(self.workflow_coordination_path)["port_contract"]
+        self.assertIn(
+            "workflow-orchestration", contract["compatibility"]["aliases"]
+        )
+        self.assertEqual("none", contract["authorization"]["mode"])
+        self.assertIn(
+            "workflow_run_aggregate", contract["boundary"]["does_not_own"]
+        )
+
+        for path in self.ports_root.rglob("*.port.yaml"):
+            self.assertNotIn("workflow_run_ref", path.read_text(), path)
+
+    def test_execution_run_uses_workflow_coordination_reference(self):
+        text = self.execution_path.read_text()
+        self.assertIn("workflow_coordination_ref", text)
+        self.assertNotIn("workflow_run_ref", text)
+
     def test_retired_review_approval_alias_is_not_reintroduced(self):
         aliases = set()
-        for path in (ROOT / "contracts" / "ports").rglob("*.port.yaml"):
+        for path in self.ports_root.rglob("*.port.yaml"):
             contract = module.load_yaml(path)["port_contract"]
             aliases.update(contract["compatibility"]["aliases"])
         self.assertNotIn("review-approval", aliases)
@@ -204,7 +251,7 @@ class PortContractValidationTests(unittest.TestCase):
         )
 
     def test_cli_passes_for_repository_contracts(self):
-        paths = list((ROOT / "contracts" / "ports").rglob("*.port.yaml"))
+        paths = list(self.ports_root.rglob("*.port.yaml"))
         result = subprocess.run(
             [sys.executable, str(SCRIPT)],
             cwd=ROOT,
