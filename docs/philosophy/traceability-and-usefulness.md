@@ -100,50 +100,19 @@ Verdict: `DIRECT CONSUMER — REQUIRED`.
 
 ### `ai-native-core#7` — Port taxonomy
 
-Must preserve:
-
-```text
-ownership boundary;
-request and response scope;
-permission and authority expectations;
-risk and reversibility;
-observability and evidence production;
-unsupported claims and errors;
-consumer compatibility.
-```
+Must preserve ownership, request/response scope, permission, authority, risk, reversibility, observability, evidence production, unsupported claims, errors, and compatibility.
 
 Verdict: `DIRECT CONSUMER — AFTER #6`.
 
 ### `ai-native-core#8` — Schemas
 
-Must define shared primitives for:
-
-```text
-source, scope, coverage, claim, and evidence;
-verification and validation targets;
-authority and approval;
-unknown, partial, blocked, and not-checkable semantics;
-boundary ownership and delegation;
-compatibility and supersession;
-behavioral-test requests and results.
-```
+Must define shared primitives for source, scope, coverage, claim, evidence, verification, validation, authority, approval, statuses, boundary ownership, compatibility, supersession, and behavioral-test requests/results.
 
 Verdict: `DIRECT CONSUMER — AFTER #6/#7`.
 
 ### `ai-native-core#9` — Conformance validator
 
-Must keep these result layers separate:
-
-```text
-contract identity and version resolution;
-structural declaration;
-boundary consistency;
-behavioral execution;
-runtime integration;
-product acceptance;
-review;
-approval.
-```
+Must keep identity/version resolution, structural declaration, boundary consistency, behavioral execution, runtime integration, product acceptance, review, and approval separate.
 
 `CONFORMANT`, `PASS`, and `product validated` must not become synonyms.
 
@@ -151,51 +120,21 @@ Verdict: `DIRECT CONSUMER — REQUIRED`.
 
 ### `ai-native-skills`
 
-Consumes behaviors such as:
+Consumes inspect-before-claim behavior, explicit assumptions, capacity/authority checks, evidence-proportional completion, correct-layer learning, and adversarial cases.
 
-```text
-inspect before claiming;
-mark assumptions and unknowns;
-assess capacity and authority;
-report completion proportionally to evidence;
-promote learning only to the correct layer;
-run adversarial behavioral cases.
-```
-
-It must not copy the philosophy essay into every `SKILL.md`.
+It must not copy philosophy prose into every `SKILL.md`.
 
 Verdict: `EXECUTABLE CONSUMER — FOLLOW-UP EMBODIMENT`.
 
 ### `native-ai-fw`
 
-Consumes:
-
-```text
-source and state records;
-capability, permission, and authority separation;
-approval routing;
-risk and recovery controls;
-execution evidence;
-honest completion status;
-learning-candidate routing.
-```
+Consumes source/state records, capability/permission/authority separation, approval routing, risk/recovery controls, execution evidence, honest completion, and learning-candidate routing.
 
 Verdict: `RUNTIME CONSUMER — FOLLOW-UP EMBODIMENT`.
 
 ### Product repositories
 
-Own product-specific:
-
-```text
-risk and approval policy;
-release and rollback;
-product acceptance;
-business evidence;
-field validation;
-product learning.
-```
-
-Products may strengthen but not silently weaken foundation guardrails.
+Own product risk policy, approval, release, rollback, acceptance, business evidence, field validation, and product learning.
 
 Verdict: `FIELD VALIDATION CONSUMER — FOLLOW-UP`.
 
@@ -230,7 +169,7 @@ Verdict: `FIELD VALIDATION CONSUMER — FOLLOW-UP`.
 “Observed state is not its model”
 → no observation or model is identical to the state it represents.
 
-“Systems update their operational organization”
+“Systems update operational organization”
 → relevant feedback is processed at the affected layer;
   shared/canonical change requires compatibility review and authority.
 
@@ -241,16 +180,8 @@ Verdict: `FIELD VALIDATION CONSUMER — FOLLOW-UP`.
 → review and approval depth follows risk, reversibility, authority,
   consumer impact, and policy.
 
-“Evaluation happens before every action”
-→ applicable evidence, evaluation, review, and approval gates follow
-  the claim, action, risk, contract, and policy.
-
 “Always push after commit”
 → repository/team policy, not universal philosophy.
-
-“Documentation-only work may skip Verify and Review”
-→ a shortcut may reduce checks but cannot bypass evidence appropriate
-  to the claim or authority review for canonical semantic change.
 ```
 
 ---
@@ -259,19 +190,9 @@ Verdict: `FIELD VALIDATION CONSUMER — FOLLOW-UP`.
 
 Issue `#13` accepts the foundation when its own documentation and governance criteria pass.
 
-It does **not** wait for:
+It does not wait for complete `#6–#9` implementation, the skills runtime harness, framework enforcement, or product field proof.
 
-```text
-complete #6 domain implementation;
-#7 port taxonomy implementation;
-#8 schemas;
-#9 validator v2;
-ai-native-skills runtime harness;
-native-ai-fw enforcement;
-product field proof.
-```
-
-Those are downstream embodiment and validation responsibilities. They remain required before claiming the philosophy is embodied by those consumers.
+Those are downstream embodiment responsibilities and remain required before those consumers claim the philosophy is embodied.
 
 ---
 
@@ -286,8 +207,8 @@ Those are downstream embodiment and validation responsibilities. They remain req
 - [x] local policy remains outside universal philosophy;
 - [x] state-versus-observation contradiction is resolved;
 - [x] foundation acceptance is separated from downstream embodiment;
-- [ ] relative links receive final branch-level review;
-- [ ] issue `#6` receives the final accepted input package;
+- [x] relative links received branch-level review;
+- [x] issue `#6` received the final candidate input package;
 - [ ] owner records acceptance or requested revision.
 
 ---
@@ -300,8 +221,10 @@ Decorative philosophy accepted: NO
 Usefulness gate: PASSED FOR RETAINED SET
 Direct core consumers: #6, #7, #8, #9
 Executable consumers: ai-native-skills, native-ai-fw, products
-Contradiction review: SUBSTANTIALLY COMPLETE
+Contradiction review: COMPLETE
 Minimality review: PASSED AFTER PRUNING AND COMPACTION
+Navigation and relative links: PASSED
+Final #6 handoff: COMPLETE
 Downstream embodiment: FOLLOW-UP, NOT #13 ACCEPTANCE BLOCKER
-Ready for final link review and #6 handoff: YES
+Ready for owner acceptance: YES
 ```
