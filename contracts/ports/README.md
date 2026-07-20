@@ -38,6 +38,8 @@ integration/
 
 control/
   execution-run-management.port.yaml
+  agent-runtime.port.yaml
+  workflow-coordination.port.yaml
   context-resolution.port.yaml
   skill-resolution.port.yaml
   rule-resolution.port.yaml
@@ -49,6 +51,10 @@ control/
 capability-composition/
   visual-direction-composition.port.yaml
 ```
+
+`AgentRuntimePort` requires external ExecutionRun, CapacityAssessment, and AuthorizationAssessment references before actual runtime start. Runtime control outcomes do not own ExecutionStatus.
+
+`WorkflowCoordinationPort` coordinates WorkflowDefinition phases, transitions, gates, handoffs, and exits. It deliberately does not create a WorkflowRun aggregate or status family. Actual phase work remains external ExecutionRuns, and concrete workflow-engine operations remain integration concerns.
 
 `product-surface/` remains intentionally empty until issue `#7` confirms a universal reusable product-surface boundary.
 
