@@ -1,0 +1,177 @@
+port_contract:
+  id: layout-composition
+  kind: capability_composition_port
+  version: "0.1.0"
+  capability: compose_viewport_aware_layout_structure
+  direction: inbound
+  semantic_owner_context: method_and_workflow
+  binding_owner_context: integration_and_binding
+  consumer_contexts:
+    - product_delivery_and_registry
+    - runtime_and_execution
+    - evidence_evaluation_and_review
+  purpose: >
+    Compose a bounded layout structure from accepted strategy, content, surface, and
+    design-system context by selecting macrostructure, component roles, adaptive
+    substitutions, and responsive behavior without owning final UI implementation.
+  boundary:
+    owns:
+      - layout_composition_request
+      - macrostructure_selection
+      - component_role_and_region_map
+      - adaptive_component_plan
+      - responsive_layout_contract
+      - layout_verification_plan
+    delegates:
+      - product_and_content_strategy
+      - design_foundation_definition
+      - visual_direction_definition
+      - specialist_layout_method_execution
+      - component_implementation
+      - design_review
+    does_not_own:
+      - product_scope_authority
+      - canonical_content_meaning
+      - final_dom_native_or_canvas_implementation
+      - final_visual_treatment
+      - interaction_behavior_implementation
+      - accessibility_acceptance
+      - release_authorization
+      - product_acceptance
+  interactions:
+    requests:
+      - id: compose_layout
+        description: Compose one bounded viewport-aware layout agreement from accepted strategy and actual content.
+        required_fields:
+          - id: strategy_handoff_ref
+            description: Accepted experience or content-strategy handoff governing structure.
+          - id: content_inventory_ref
+            description: Actual bounded content and content-priority inventory.
+          - id: target_surface
+            description: Intended product surface, platform, and viewing context.
+          - id: viewport_context_refs
+            description: Required mobile, tablet, desktop, container, or device contexts.
+        optional_fields:
+          - id: foundation_handoff_ref
+            description: Accepted design-foundation constraints.
+          - id: visual_direction_ref
+            description: Existing visual-direction contract that layout must support.
+          - id: component_inventory_ref
+            description: Existing canonical component inventory and reuse constraints.
+          - id: design_system_lock_refs
+            description: Grid, token, spacing, breakpoint, or component-system locks.
+          - id: existing_layout_equity_ref
+            description: Existing structure that must be preserved, refined, or explicitly replaced.
+          - id: platform_convention_refs
+            description: Native platform, framework, or product layout conventions.
+    responses:
+      - id: layout_composition
+        description: Return one macrostructure, component-role map, adaptive plan, responsive agreement, and verification plan.
+        fields:
+          - id: macrostructure_contract
+            description: Page, screen, or surface-level spatial organization and primary regions.
+          - id: component_role_map
+            description: Structural roles, ownership, hierarchy, and relationships for major components.
+          - id: adaptive_component_plan
+            description: Component substitutions, collapses, reorderings, and interaction-preserving adaptations by context.
+          - id: responsive_behavior_contract
+            description: Fluid, breakpoint, container, density, and overflow behavior for major regions and components.
+          - id: preserved_and_changed_structure
+            description: Existing structural equity preserved and material layout changes introduced.
+          - id: specialist_loading_plan
+            description: Only layout specialists required by active structural concerns.
+          - id: layout_verification_plan
+            description: Required viewport, content-stress, overflow, reachability, and implementation evidence.
+          - id: limitations
+            description: Missing content, unresolved component ownership, unsupported viewports, or uncheckable behavior.
+    events:
+      - id: layout_composition_requested
+        description: A bounded layout-composition request was accepted.
+      - id: layout_structure_resolved
+        description: Macrostructure, component roles, and adaptive requirements were resolved.
+      - id: layout_composed
+        description: A viewport-aware layout agreement and verification plan were produced.
+    streams: []
+  failures:
+    errors:
+      - code: layout_strategy_not_resolved
+        meaning: Required product, content, or experience strategy is missing, stale, conflicted, or not accepted.
+        retryable: false
+        partial_result_allowed: false
+      - code: layout_content_insufficient
+        meaning: Actual content, priority, component, or viewport context is insufficient for supported structure decisions.
+        retryable: true
+        partial_result_allowed: true
+      - code: layout_constraint_conflict
+        meaning: Product, content, platform, design-system, or preservation constraints conflict materially.
+        retryable: false
+        partial_result_allowed: true
+      - code: layout_capability_unavailable
+        meaning: A required specialist layout capability cannot be resolved.
+        retryable: true
+        partial_result_allowed: true
+      - code: layout_composition_not_checkable
+        meaning: Available evidence is insufficient to support viewport or component-behavior claims.
+        retryable: false
+        partial_result_allowed: true
+    partial_result_policy: explicit
+    unknown_or_not_checkable_policy: >
+      Return missing content, unsupported viewports, unresolved constraints, and
+      uncheckable adaptive behavior explicitly; never substitute a generic responsive
+      recipe or arbitrary breakpoint set for evidence-backed structure.
+  state_transitions: []
+  authorization:
+    mode: none
+    required_for: []
+    permission_is_not_authority: true
+    review_is_not_approval: true
+    authority_reference_required: false
+  idempotency:
+    mode: operation_defined
+    key_scope: layout_request_strategy_content_and_viewport_checkpoint
+  observability:
+    required_events:
+      - layout_composition_requested
+      - layout_structure_resolved
+      - layout_composed
+    correlation_fields:
+      - strategy_handoff_ref
+      - content_inventory_ref
+      - target_surface
+      - viewport_context_refs
+      - visual_direction_ref
+    sensitive_fields:
+      - content_inventory_ref
+      - existing_layout_equity_ref
+      - design_system_lock_refs
+  adapter_requirements:
+    contract_reference:
+      require_id: true
+      require_path: true
+      require_version: true
+    requirements:
+      - select_macrostructure_before_component_level_layout
+      - use_actual_content_and_viewport_context
+      - select_adaptive_component_behavior_before_responsive_validation
+      - preserve_existing_components_and_design_system_locks_when_valid
+      - keep_implementation_review_release_and_acceptance_external
+  compatibility:
+    policy: semver
+    breaking_changes:
+      - change_required_layout_input
+      - change_macrostructure_component_or_responsive_output_meaning
+      - remove_adaptive_component_or_verification_plan
+      - weaken_content_viewport_or_preservation_boundary
+      - absorb_visual_interaction_implementation_review_or_acceptance_ownership
+    aliases:
+      - design-layout
+    supersedes: []
+    legacy_contract_refs:
+      - contracts/skills/design/design-layout.contract.yaml
+  quality_gates:
+    - strategy_and_actual_content_precede_layout_structure
+    - macrostructure_precedes_component_level_arrangement
+    - adaptive_component_selection_precedes_responsive_validation
+    - major_components_define_mobile_tablet_and_desktop_behavior_when_applicable
+    - overflow_density_reachability_and_content_stress_are_verifiable
+    - implementation_visual_interaction_review_and_product_acceptance_remain_external
