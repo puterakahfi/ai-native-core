@@ -1,0 +1,182 @@
+port_contract:
+  id: design-strategy-composition
+  kind: capability_composition_port
+  version: "0.1.0"
+  capability: compose_user_centered_experience_and_content_strategy
+  direction: inbound
+  semantic_owner_context: method_and_workflow
+  binding_owner_context: integration_and_binding
+  consumer_contexts:
+    - product_delivery_and_registry
+    - runtime_and_execution
+    - evidence_evaluation_and_review
+  purpose: >
+    Compose a bounded user-centered experience, information-architecture, collection,
+    content, copy, and conditional conversion strategy before layout, visual expression,
+    and interaction implementation.
+  boundary:
+    owns:
+      - design_strategy_composition_request
+      - active_strategy_concern_selection
+      - specialist_capability_loading_plan
+      - experience_and_content_strategy_contract
+      - strategy_handoff
+      - strategy_verification_plan
+    delegates:
+      - product_intent_and_scope
+      - user_research_execution
+      - content_and_copy_production
+      - specialist_strategy_method_execution
+      - layout_composition
+      - visual_direction_composition
+      - interaction_composition
+      - design_review
+    does_not_own:
+      - product_strategy_authority
+      - canonical_domain_meaning
+      - research_evidence_creation
+      - final_content_approval
+      - final_layout_or_visual_implementation
+      - conversion_claim_acceptance
+      - release_authorization
+      - product_acceptance
+  interactions:
+    requests:
+      - id: compose_design_strategy
+        description: Compose one bounded experience and content strategy from attributable product, user, content, and surface context.
+        required_fields:
+          - id: product_intent_ref
+            description: Accepted product intent, user problem, and target outcome.
+          - id: audience_and_user_evidence_refs
+            description: Attributable user, audience, task, behavior, or research evidence.
+          - id: content_inventory_ref
+            description: Actual current or planned content inventory and content constraints.
+          - id: target_surface
+            description: Product surface, journey stage, platform, and viewing context.
+        optional_fields:
+          - id: existing_information_architecture_ref
+            description: Existing navigation, taxonomy, hierarchy, and content relationships.
+          - id: collection_shape_ref
+            description: Catalog, registry, directory, feed, search result, or collection evidence when applicable.
+          - id: conversion_goal_ref
+            description: Explicit conversion objective and measurement context when conversion is genuinely in scope.
+          - id: brand_and_policy_lock_refs
+            description: Brand, legal, policy, accessibility, or product-system constraints.
+          - id: existing_experience_equity_ref
+            description: Existing experience patterns or content equity to preserve or change deliberately.
+          - id: prohibited_patterns
+            description: Explicitly prohibited dark patterns, generic patterns, unsupported claims, or misleading flows.
+    responses:
+      - id: design_strategy_composition
+        description: Return one synthesized strategy, specialist loading plan, downstream handoff, and verification plan.
+        fields:
+          - id: experience_strategy_contract
+            description: User-centered goals, journey priorities, decision principles, and observable success criteria.
+          - id: information_architecture_strategy
+            description: Navigation, taxonomy, hierarchy, labeling, and content relationship strategy.
+          - id: collection_discovery_strategy
+            description: Search, browse, narrowing, traversal, retrieval, and result-state strategy when a collection exists.
+          - id: content_and_copy_strategy
+            description: Content roles, sequence, inventory decisions, messaging, and microcopy responsibilities.
+          - id: conversion_strategy
+            description: Conditional conversion strategy or explicit not-applicable decision backed by product intent.
+          - id: specialist_loading_plan
+            description: Only strategy specialists required by active concerns and conditions.
+          - id: strategy_handoff
+            description: Implementation-relevant constraints and decisions for layout, visual, interaction, and content work.
+          - id: strategy_verification_plan
+            description: Evidence required to verify user, information, collection, content, and conversion claims.
+          - id: limitations
+            description: Missing research, unresolved taxonomy, incomplete content, or uncheckable product claims.
+    events:
+      - id: design_strategy_composition_requested
+        description: A bounded design-strategy request was accepted.
+      - id: strategy_concerns_resolved
+        description: Active strategy concerns and conditional specialist needs were resolved.
+      - id: design_strategy_composed
+        description: A synthesized strategy contract and downstream handoff were produced.
+    streams: []
+  failures:
+    errors:
+      - code: product_intent_not_resolved
+        meaning: Product intent, user problem, audience, or target outcome is missing, stale, conflicted, or not accepted.
+        retryable: false
+        partial_result_allowed: false
+      - code: user_or_content_evidence_insufficient
+        meaning: Available user, content, collection, or surface evidence is insufficient for supported strategy decisions.
+        retryable: true
+        partial_result_allowed: true
+      - code: information_architecture_conflict
+        meaning: Navigation, taxonomy, content, product, or policy constraints conflict materially.
+        retryable: false
+        partial_result_allowed: true
+      - code: strategy_capability_unavailable
+        meaning: A required specialist strategy capability cannot be resolved.
+        retryable: true
+        partial_result_allowed: true
+      - code: design_strategy_not_checkable
+        meaning: Available evidence is insufficient to support user, collection, content, or conversion claims.
+        retryable: false
+        partial_result_allowed: true
+    partial_result_policy: explicit
+    unknown_or_not_checkable_policy: >
+      Return missing research, incomplete content, unresolved taxonomy, conditional
+      concerns, and uncheckable claims explicitly; never invent user evidence, conversion
+      proof, or a collection strategy for a surface that does not contain a collection.
+  state_transitions: []
+  authorization:
+    mode: none
+    required_for: []
+    permission_is_not_authority: true
+    review_is_not_approval: true
+    authority_reference_required: false
+  idempotency:
+    mode: operation_defined
+    key_scope: strategy_request_product_user_content_and_surface_checkpoint
+  observability:
+    required_events:
+      - design_strategy_composition_requested
+      - strategy_concerns_resolved
+      - design_strategy_composed
+    correlation_fields:
+      - product_intent_ref
+      - audience_and_user_evidence_refs
+      - content_inventory_ref
+      - target_surface
+      - collection_shape_ref
+      - conversion_goal_ref
+    sensitive_fields:
+      - audience_and_user_evidence_refs
+      - content_inventory_ref
+      - brand_and_policy_lock_refs
+  adapter_requirements:
+    contract_reference:
+      require_id: true
+      require_path: true
+      require_version: true
+    requirements:
+      - resolve_strategy_before_layout_and_visual_expression
+      - use_attributable_user_content_and_surface_evidence
+      - select_collection_discovery_only_when_collection_evidence_exists
+      - select_conversion_capabilities_only_when_conversion_is_explicit
+      - preserve_product_authority_research_execution_review_and_acceptance_as_external
+  compatibility:
+    policy: semver
+    breaking_changes:
+      - change_required_strategy_input
+      - change_experience_information_collection_or_content_output_meaning
+      - remove_specialist_loading_handoff_or_verification_plan
+      - weaken_user_content_collection_or_conversion_evidence_boundary
+      - absorb_product_authority_implementation_review_or_acceptance_ownership
+    aliases:
+      - design-strategy
+    supersedes: []
+    legacy_contract_refs:
+      - contracts/skills/design/design-strategy.contract.yaml
+  quality_gates:
+    - product_user_and_content_strategy_precede_aesthetic_decisions
+    - taxonomy_meaning_precedes_collection_discovery_strategy
+    - collection_capabilities_are_selected_only_for_real_collection_surfaces
+    - conversion_capabilities_are_selected_only_for_explicit_conversion_goals
+    - content_and_copy_roles_are_decided_before_layout_is_locked
+    - layout_visual_interaction_review_and_product_acceptance_remain_external
