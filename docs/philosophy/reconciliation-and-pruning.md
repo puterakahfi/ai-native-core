@@ -38,19 +38,15 @@ has already been documented at length.
 
 ## 2. Kernel Wording Review
 
-### Previous Axiom 1 problem
+### Axiom 1 correction
+
+Previous:
 
 ```text
 Engineering work begins from available, attributable state.
 ```
 
-Problem:
-
-```text
-state may exist without being observed or available;
-engineering actors act from observations and source records about state;
-the wording risked collapsing state and observation.
-```
+Problem: state may exist without being observed or available; actors act from observations and source records about state.
 
 Final candidate:
 
@@ -59,18 +55,15 @@ Material engineering claims and actions begin from attributable observations
 or explicit unknowns concerning relevant state.
 ```
 
-### Previous Axiom 2 problem
+### Axiom 2 correction
+
+Previous:
 
 ```text
 Observed or recorded state is not identical to its model.
 ```
 
-Problem:
-
-```text
-“observed state” blurred state with the observation representing it;
-“recorded state” blurred state with a record.
-```
+Problem: “observed state” and “recorded state” blurred state with observation and record.
 
 Final candidate:
 
@@ -78,20 +71,16 @@ Final candidate:
 No observation or model is identical to the state it represents.
 ```
 
-### Previous bridge problem
+### Bridge correction
+
+Previous:
 
 ```text
 Systems preserve continuity and update their operational organization
 through evidence and feedback.
 ```
 
-Problem:
-
-```text
-“operational organization” was vague;
-the statement did not name the affected layer;
-it did not state the additional control required for canonical change.
-```
+Problem: “operational organization” was vague and did not state canonical-change controls.
 
 Final candidate:
 
@@ -101,66 +90,36 @@ changes to shared or canonical agreements require proportionate compatibility
 review and authority.
 ```
 
-Verdict: `KERNEL CONTRADICTION RESOLVED`.
+Verdict: `KERNEL CONTRADICTIONS RESOLVED`.
 
 ---
 
 ## 3. Law Pruning
 
-### Model Recognition — merged
-
-Its useful consequence is already owned by:
-
 ```text
-State–Model Separation;
-No Model-As-Fact Collapse;
-Inference, Assumption, Fact, and Claim definitions;
-DECOMPOSE THE MODEL.
+Model Recognition
+→ merged into State–Model Separation, epistemic terms,
+  model-as-fact guardrails, and DECOMPOSE THE MODEL.
+
+Governed Stability
+→ merged into Evolution Authority, Stability, compatibility policy,
+  Evaluation Before Trust Expansion, and No Silent Semantic Evolution.
 ```
 
-It is not retained as an independent law.
-
-### Governed Stability — reclassified and merged
-
-Its useful consequence is owned by:
-
-```text
-Evolution Authority;
-Evaluation Before Trust Expansion;
-No Silent Semantic Evolution;
-Stability;
-compatibility and release policy.
-```
-
-It is not retained as an independent law.
-
-Retained law count: `10`.
+Retained laws: `10`.
 
 ---
 
 ## 4. Principle Pruning
 
-Retained principles:
-
-```text
-Domain And Capability Before Tools;
-Smallest Coherent Change;
-Reversible Progress Under Uncertainty;
-Correct-Layer Change;
-Evaluation Before Trust Expansion;
-Review Proportional To Risk And Authority;
-Explicit Boundaries Over Implicit Expectations.
-```
-
-Merged or reclassified:
+Retained principles: `7`.
 
 ```text
 Evidence-Proportional Claims
 → mandatory consequence of Claim–Evidence Scope and evidence guardrails.
 
 Explicit Uncertainty
-→ consequence of State Attribution, State–Model Separation,
-  No Fabricated State Or Evidence, and No Model-As-Fact Collapse.
+→ consequence of state/model laws and truthfulness guardrails.
 
 Preserve Useful Existing Work
 → selection factor inside Smallest Coherent Change.
@@ -169,25 +128,21 @@ Feedback-Driven Learning
 → consequence of Feedback Revision, Evolution Authority, and UPDATE.
 ```
 
-Retained principle count: `7`.
-
 ---
 
 ## 5. Guardrail Pruning
 
 Retained guardrails: `14`.
 
-Merged candidate:
-
 ```text
 Memory Must Not Override Current Source Of Truth
-→ No Fabricated State Or Evidence;
-  No Model-As-Fact Collapse;
-  No Silent Conflict Resolution;
-  State Attribution and Decision Traceability.
+→ merged into No Fabricated State Or Evidence,
+  No Model-As-Fact Collapse,
+  No Silent Conflict Resolution,
+  State Attribution, and Decision Traceability.
 ```
 
-Memory remains a retrieval aid and model input, but its operational response does not require a separate guardrail.
+Memory remains a retrieval aid and model input, but its operational response does not require a separate philosophy guardrail.
 
 ---
 
@@ -198,22 +153,11 @@ Retained atomic terms: `39`.
 Decision:
 
 ```text
-retain the distinctions;
+retain distinctions with different consumers;
+express each as minimum meaning plus critical boundary;
 remove repeated essays;
-express each term as minimum meaning plus critical boundary;
 require consumers to import only relevant terms;
 reject term count as a maturity signal.
-```
-
-The terms are not all required by every consumer. They support different surfaces:
-
-```text
-analysis and planning;
-authority and control plane;
-evidence and conformance;
-completion and approval;
-learning and canonical evolution;
-knowledge and memory boundaries.
 ```
 
 No additional term was introduced during final review.
@@ -222,7 +166,7 @@ No additional term was introduced during final review.
 
 ## 7. Mechanism Minimality Review
 
-The Epistemic Loop remains:
+Retained Epistemic Loop:
 
 ```text
 OBSERVE
@@ -239,7 +183,6 @@ Decision:
 ```text
 retain six reasoning phases;
 show host execution only as a boundary;
-do not add an EXECUTE phase;
 do not duplicate Development Loop gates, delivery, or policy;
 use stable law, principle, and guardrail names.
 ```
@@ -252,81 +195,60 @@ Verdict: `NOT A SECOND DELIVERY WORKFLOW`.
 
 ### `docs/architecture-v0.2.md`
 
-Applied:
-
 ```text
-classified as an operational architecture view;
+classified as operational architecture view;
 linked to the philosophy foundation;
-clarified that layer numbering is not universal authority;
-replaced immutable-stability implications with governed change;
-separated review and approval by risk and authority;
-kept declaration, behavior, runtime, and product proof distinct.
+layer numbering no longer acts as universal authority;
+stability clarified as governed change;
+review and approval separated by risk and authority;
+declaration, behavior, runtime, and product proof kept distinct.
 ```
 
 ### `docs/glossary.md`
 
-Applied:
-
 ```text
 classified as navigation index;
-linked atomic terms to term authority;
-removed competing layer numbering;
-removed runtime-specific Profile as a core definition;
-expanded Capability beyond skill declarations;
-made Conformance evidence-layered;
-separated Verification, Validation, Review, and Approval.
+atomic terms linked to term authority;
+competing layer numbering removed;
+runtime-specific Profile removed as core definition;
+Capability expanded beyond skill declarations;
+Conformance made evidence-layered;
+Verification, Validation, Review, and Approval separated.
 ```
 
 ### Executable contracts
 
-No machine-readable contract was changed.
-
-Reason:
-
-```text
-issue #13 owns foundation documentation;
-#6–#9 own downstream domain, schema, and validator semantics;
-document reconciliation must not silently mutate executable contracts.
-```
+No machine-readable contract was changed. Issues `#6–#9` own downstream domain, schema, and validator semantics.
 
 ---
 
 ## 9. Policy Reclassification
 
-These remain outside universal philosophy:
-
 | Statement | Correct owner |
 |---|---|
 | Read before writing | Development Loop exploration rule and gate |
-| No drive-by refactors | Repository or workflow policy |
+| No drive-by refactors | Repository/workflow policy |
 | Run configured commands before verification claim | Verification gate |
 | Human approval for named security changes | Risk policy and approval gate |
 | Documentation shortcut | Bounded workflow policy |
 | Always push after commit | Repository/team policy |
 | Rollback plan for production | Deployment policy |
-| Promotion requires regression evidence | Skill Evolution gate |
+| Regression evidence before promotion | Skill Evolution gate |
 
-A policy may be mandatory within its authority scope without becoming a universal philosophy guardrail.
+A policy may be mandatory within its authority scope without becoming universal philosophy.
 
 ---
 
 ## 10. Acceptance-Scope Correction
 
-Previous acceptance gates incorrectly required:
+Previous internal gates incorrectly waited for machine-readable schemas, a runtime harness, framework enforcement, and product field proof.
 
-```text
-machine-readable schema completion;
-executable runtime harness;
-native-ai-fw enforcement;
-product field proof.
-```
-
-These are necessary for downstream embodiment claims, but issue `#13` explicitly lists complete domain modeling, contract migration, and runtime orchestration as non-goals.
+These are necessary before downstream consumers claim embodiment, but issue `#13` owns the foundation documentation and governance contract.
 
 Final boundary:
 
 ```text
-#13 accepts the foundation documentation and governance contract;
+#13 accepts the foundation;
 #6–#9, ai-native-skills, native-ai-fw, and products validate embodiment later;
 no downstream consumer may claim embodiment before executable evidence exists.
 ```
@@ -339,16 +261,16 @@ Verdict: `MEGA-ISSUE EXPANSION REJECTED`.
 
 | Potential contradiction | Resolution |
 |---|---|
-| State versus observation | Kernel now begins from attributable observations about state |
+| State versus observation | Kernel begins from attributable observations about relevant state |
 | Observation versus fact | Observation remains evidence candidate, not fact by default |
 | Decision versus authority | Decision may remain non-effective; authority is separate |
-| Review versus approval | Approval requires authority-bearing decision |
+| Review versus approval | Approval requires authority-bearing positive decision |
 | Verification versus validation | Separate questions and scopes |
 | Conformance versus product proof | Evidence layer must be named |
-| Principle versus guardrail | Advice cannot silently block; mandatory boundaries define response |
+| Principle versus guardrail | Advice cannot silently block; mandatory boundary defines response |
 | Epistemic Loop versus Development Loop | Reasoning mechanism versus execution lifecycle |
 | Feedback versus core change | Feedback updates affected layer; canonical change needs compatibility and authority |
-| Stability versus immutability | Stability means governed consumer expectations, not permanent freeze |
+| Stability versus immutability | Stability means governed expectations, not permanent freeze |
 | Glossary versus term authority | Glossary is navigation only |
 | Architecture hierarchy versus philosophy stack | Architecture is an operational view, not universal numbering authority |
 | Foundation acceptance versus downstream embodiment | Separate status and ownership |
@@ -357,14 +279,22 @@ No unresolved material contradiction was found in the retained foundation model.
 
 ---
 
-## 12. Remaining Checks
+## 12. Completed Final Checks
 
 ```text
-final relative-link and navigation review;
-final branch-versus-main synchronization check;
-final handoff comment to issue #6;
+relative-link and navigation review: PASSED;
+branch versus main synchronization: 0 behind at final review;
+final input package to issue #6: DELIVERED;
+executable contract scope review: NO CONTRACT CHANGES;
+documentation-only diff review: PASSED.
+```
+
+Remaining governance:
+
+```text
 owner acceptance or requested revision;
-PR review before merge.
+draft PR review;
+merge only after explicit acceptance.
 ```
 
 ---
@@ -383,7 +313,9 @@ Architecture reconciliation: APPLIED
 Glossary reconciliation: APPLIED
 Policy universalization: REJECTED
 Acceptance-scope inflation: CORRECTED
-Material contradictions: NONE FOUND IN RETAINED MODEL
+Material contradictions: NONE FOUND
+Relative-link review: PASSED
+Final #6 handoff: COMPLETE
 Executable contract changes: NONE
-Ready for final navigation check and #6 handoff: YES
+Ready for owner acceptance and draft PR review: YES
 ```
