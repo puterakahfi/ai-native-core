@@ -1,6 +1,6 @@
 # Native AI Engineering Canonical Domain Model
 
-Status: Proposed canonical source of truth for issue `#6`
+Status: Canonical source of truth
 
 Philosophy authority: [`../philosophy/README.md`](../philosophy/README.md)
 
@@ -281,15 +281,10 @@ Examples may illustrate the model but never become mandatory provider, runtime, 
 
 ---
 
-## 8. Acceptance status
+## 8. Acceptance record
 
-This entry point remains proposed until issue `#6` completes:
+This domain model is accepted as the canonical runtime-agnostic Native AI Engineering object, relationship, lifecycle, and ownership authority through issue `#6`.
 
-- philosophy-to-domain traceability review;
-- bounded-context and ownership review;
-- object, aggregate, policy, event, and invariant review;
-- lifecycle and status contradiction review;
-- contract inventory mapping;
-- architecture and glossary reconciliation;
-- relative-link and applicable documentation validation;
-- explicit owner acceptance or requested revision.
+Acceptance evidence is recorded in [`acceptance-review.md`](acceptance-review.md). The model preserves the philosophy foundation, maps the current contract inventory, reconciles active architecture and glossary navigation, and leaves port taxonomy, schema shape, validator-v2 semantics, runtime implementation, and product specialization to their named downstream owners.
+
+Known follow-up issue `#26` owns the compatibility-governed correction of legacy Development Loop review/approval and documentation-shortcut wording. That follow-up does not change this model's canonical distinction between `ReviewResult` and authority-bearing `Approval`.

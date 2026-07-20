@@ -1,6 +1,6 @@
 # Canonical Domain Model Reconciliation
 
-Status: Proposed cross-document reconciliation for issue `#6`
+Status: Canonical cross-document reconciliation record
 
 Entry point: [`README.md`](README.md)
 

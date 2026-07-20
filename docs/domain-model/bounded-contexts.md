@@ -1,6 +1,6 @@
 # Native AI Engineering Bounded Contexts
 
-Status: Proposed canonical context map for issue `#6`
+Status: Canonical context map
 
 Entry point: [`README.md`](README.md)
 

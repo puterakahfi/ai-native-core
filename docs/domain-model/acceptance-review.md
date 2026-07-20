@@ -1,6 +1,6 @@
 # Canonical Domain Model Acceptance Review
 
-Status: Final review evidence for issue `#6`
+Status: Accepted final review evidence
 
 Entry point: [`README.md`](README.md)
 
@@ -389,4 +389,4 @@ Downstream #7–#9 receive explicit inputs:             PASS
 Known legacy runtime-contract wording has owner:       PASS WITH FOLLOW-UP #26
 ```
 
-Recommendation: promote `docs/domain-model/README.md` and supporting documents from proposed status to canonical status, complete final documentation validation, and request owner acceptance of issue `#6`.
+Acceptance decision: promote `docs/domain-model/README.md` and supporting documents to canonical status. Final documentation validation and owner-authorized merge complete the issue `#6` acceptance boundary.

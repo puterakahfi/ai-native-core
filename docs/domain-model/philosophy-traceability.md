@@ -1,6 +1,6 @@
 # Philosophy-To-Domain Traceability
 
-Status: Proposed acceptance evidence for issue `#6`
+Status: Canonical philosophy-to-domain traceability record
 
 Domain entry point: [`README.md`](README.md)
 

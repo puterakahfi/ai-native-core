@@ -1,6 +1,6 @@
 # Native AI Engineering Lifecycle And Status Semantics
 
-Status: Proposed canonical lifecycle model for issue `#6`
+Status: Canonical lifecycle and status model
 
 Entry point: [`README.md`](README.md)
 

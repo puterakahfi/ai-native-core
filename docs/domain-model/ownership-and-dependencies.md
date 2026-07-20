@@ -1,6 +1,6 @@
 # Native AI Engineering Ownership And Dependency Direction
 
-Status: Proposed canonical ownership model for issue `#6`
+Status: Canonical ownership and dependency model
 
 Entry point: [`README.md`](README.md)
 

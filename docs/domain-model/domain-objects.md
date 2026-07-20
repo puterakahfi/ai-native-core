@@ -1,6 +1,6 @@
 # Native AI Engineering Domain Objects
 
-Status: Proposed canonical object model for issue `#6`
+Status: Canonical object model
 
 Entry point: [`README.md`](README.md)
 
