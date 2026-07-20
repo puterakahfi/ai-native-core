@@ -233,7 +233,9 @@ python3 ../ai-native-core/scripts/validate-conformance.py \
   .
 ```
 
-Path/version validation and conformance validation are different checks. A valid path and compatible pin do not prove that the adapter covers all required gates, inputs, outputs, or boundaries.
+Path/version validation and conformance validation are different checks. The current conformance implementation checks textual coverage of quality gates, allowed outputs, and required inputs.
+
+Review `covers`, `does_not_cover`, and adapter boundary claims directly. Boundary data is parsed by the current script but is not yet enforced as an automated conformance gate.
 
 ### Validate documentation-only changes
 
@@ -273,6 +275,7 @@ Before requesting review:
 - [ ] The manifest was regenerated for contract changes.
 - [ ] Behavioral test contracts validate when affected.
 - [ ] Adapter path/version and conformance checks were run when adapter repositories were available.
+- [ ] Contract boundaries were reviewed independently of automated conformance output.
 - [ ] Documentation and relative links were reviewed.
 - [ ] Known gaps remain labeled `PARTIAL`, `NOT_VERIFIED`, or `NOT_APPLICABLE`.
 - [ ] No credentials, private product context, customer data, or runtime-specific installed state were committed.
