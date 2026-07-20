@@ -1,0 +1,23 @@
+name: Sync component coverage manifest
+on:
+  push:
+    branches: [29-refine-implementation-context-component-coverage]
+    paths: [.github/workflows/sync-contract-manifest-29b.yml]
+permissions:
+  contents: write
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: 29-refine-implementation-context-component-coverage
+          fetch-depth: 0
+      - run: ./scripts/generate-manifest.sh
+      - run: |
+          if git diff --quiet -- contracts/manifest.yaml; then exit 0; fi
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add contracts/manifest.yaml
+          git commit -m 'chore(governance): sync component coverage manifest'
+          git push origin HEAD:29-refine-implementation-context-component-coverage
