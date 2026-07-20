@@ -10,6 +10,7 @@ Core describes **what must remain stable**. Adapters decide **how it is implemen
 
 | You are | Start with |
 |---|---|
+| Understanding the Native AI Engineering decision foundation | [Philosophy foundation](docs/philosophy/README.md) |
 | Reading the framework architecture | [Architecture v0.2](docs/architecture-v0.2.md) |
 | Looking for a capability or lifecycle contract | [Contract catalog](docs/contract-catalog.md) |
 | Implementing a skill adapter | [Adapter implementation path](#implement-a-contract) and [adapter conformance](docs/adapter-conformance.md) |
@@ -41,7 +42,7 @@ Adapter implements the agreement.
 Provider and product choices remain replaceable.
 ```
 
-See [Architecture v0.2](docs/architecture-v0.2.md), [ports and adapters](docs/ports-and-adapters.md), and [port taxonomy](docs/port-taxonomy.md) for the complete framework model.
+See the [philosophy foundation](docs/philosophy/README.md), [Architecture v0.2](docs/architecture-v0.2.md), [ports and adapters](docs/ports-and-adapters.md), and [port taxonomy](docs/port-taxonomy.md) for the complete framework model and authority boundaries.
 
 ## Repository boundaries
 
@@ -187,7 +188,7 @@ contracts/manifest.yaml
   generated registry of IDs, paths, checksums, and skill-contract versions where recorded
 
 docs/
-  architecture, domain, glossary, port, and integration documentation
+  philosophy, architecture, domain, glossary, port, and integration documentation
 
 rules/
   reusable mandatory constraints
@@ -254,8 +255,9 @@ These checks answer different questions. Manifest identity, compatible pins, int
 
 ## Canonical documentation
 
-### Framework and domain
+### Foundation, framework, and domain
 
+- [Native AI Engineering philosophy](docs/philosophy/README.md)
 - [Architecture v0.2](docs/architecture-v0.2.md)
 - [Domain-driven model](docs/domain-driven-model.md)
 - [Engineering contract](docs/engineering-contract.md)
@@ -296,5 +298,5 @@ The guide covers:
 ## Related repositories
 
 - [`ai-native-skills`](https://github.com/puterakahfi/ai-native-skills) — executable reusable skill and workflow adapters
-- [`native-ai-fw`](https://github.com/puterakahfi/ai-native-fw) — orchestration, control plane, discovery, and runtime/product adapters
+- [`native-ai-fw`](https://github.com/puterakahfi/native-ai-fw) — orchestration, control plane, discovery, and runtime/product adapters
 - [`skills.sh`](https://skills.sh) — compatible skill discovery and installation ecosystem
