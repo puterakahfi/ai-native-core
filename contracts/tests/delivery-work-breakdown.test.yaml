@@ -1,0 +1,95 @@
+skill_test:
+  skill: delivery-work-breakdown
+  version: "1.0.0"
+  description: Verify release-unit classification drives work hierarchy, branch topology, PR targets, and epic acceptance
+
+  cases:
+    - id: multi-slice-chatgpt-app-requires-epic-branch
+      description: A new app capability composed from dependent slices must use one epic release unit and integration branch
+      trigger: "VisualMate sudah existing. Tambahkan ChatGPT App P0 yang membutuhkan Prompt Builder package, MCP transport, tools, production context, widget, native handoff, security proof, dan real runtime acceptance. Tiap slice belum menjadi capability yang bisa dipakai sendiri. Tentukan issue hierarchy, branch base, dan PR target."
+      must_contain:
+        - "release_unit: epic"
+        - "integration branch"
+        - "feature"
+        - "task"
+        - "parent acceptance"
+        - "PR target"
+        - "end-to-end"
+      must_not_contain:
+        - "every child PR targets main"
+        - "green CI means the epic is complete"
+        - "no parent issue needed"
+      quality_gates_tested:
+        - release_unit_must_be_classified_before_branch_creation
+        - epic_required_for_dependent_non_independently_releasable_slices
+        - every_child_work_item_must_trace_to_parent_acceptance_criteria
+        - epic_child_prs_must_target_the_epic_or_integration_branch
+        - final_epic_pr_requires_integrated_end_to_end_acceptance
+
+    - id: independently-releasable-small-feature-may-target-release-branch
+      description: A bounded backward-compatible feature may avoid an epic when it is independently releasable
+      trigger: "Tambahkan endpoint read-only baru yang backward-compatible, punya acceptance criteria sendiri, tidak bergantung pada feature lain, tidak mengaktifkan capability setengah jadi, dan aman dirilis sendiri. Tentukan release unit dan PR target."
+      must_contain:
+        - "release_unit: feature"
+        - "independently releasable"
+        - "release branch"
+        - "acceptance criteria"
+      must_not_contain:
+        - "epic is always mandatory"
+        - "file count determines the release unit"
+      quality_gates_tested:
+        - release_unit_must_be_classified_before_branch_creation
+        - direct_to_release_branch_requires_independent_releasability_or_approved_safe_feature_flag
+        - product_defined_repository_and_approval_policy_must_be_preserved
+
+    - id: approved-disabled-feature-flag-allows-incremental-integration
+      description: A feature-flagged slice may target the release branch only when incomplete behavior cannot activate
+      trigger: "Satu slice dari capability besar ingin di-merge ke main. Product policy mengizinkan trunk-based delivery. Flag sudah disetujui, default off, semua route runtime berada di balik flag, dan acceptance untuk disabled state tersedia. Tentukan apakah direct-to-main diperbolehkan."
+      must_contain:
+        - "approved feature flag"
+        - "disabled by default"
+        - "no unflagged path"
+        - "direct-to-release"
+        - "verification"
+      must_not_contain:
+        - "a feature flag name alone is sufficient"
+        - "enable the incomplete path by default"
+      quality_gates_tested:
+        - direct_to_release_branch_requires_independent_releasability_or_approved_safe_feature_flag
+        - feature_flag_exception_requires_disabled_or_equivalent_safe_default_and_no_unflagged_path
+        - green_ci_or_mergeability_does_not_override_release_topology
+
+    - id: orphan-task-is-blocked
+      description: A technical task without parent acceptance traceability cannot proceed as a floating work item
+      trigger: "Buat task 'implement MCP endpoint' dan langsung buat branch. Tidak ada parent epic/feature, acceptance criteria reference, dependency map, atau release-unit decision."
+      must_contain:
+        - "BLOCKED"
+        - "parent"
+        - "acceptance criteria"
+        - "release unit"
+        - "dependency"
+      must_not_contain:
+        - "create the branch now"
+        - "the task title is enough"
+      quality_gates_tested:
+        - every_child_work_item_must_trace_to_parent_acceptance_criteria
+        - no_orphan_feature_task_spike_or_bug_items
+        - dependency_graph_must_be_explicit_and_cycle_checked
+        - base_branch_and_pr_target_must_be_explicit_per_work_item
+
+    - id: git-target-is-not-guessed-from-default-branch
+      description: Repository defaults cannot replace an approved delivery topology
+      trigger: "Repository default branch adalah main. Work item adalah child feature dari epic yang integration branch-nya epic/37-chatgpt-app-p0. Agent akan membuat PR. Tentukan base branch dan target."
+      must_contain:
+        - "epic/37-chatgpt-app-p0"
+        - "approved integration"
+        - "base branch"
+        - "PR target"
+      must_not_contain:
+        - "default branch wins"
+        - "target main"
+        - "guess"
+      quality_gates_tested:
+        - base_branch_and_pr_target_must_be_explicit_per_work_item
+        - epic_child_prs_must_target_the_epic_or_integration_branch
+        - product_defined_repository_and_approval_policy_must_be_preserved
