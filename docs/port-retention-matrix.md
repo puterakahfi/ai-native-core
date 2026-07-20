@@ -1,16 +1,14 @@
 # Native AI Engineering Port Retention And Alias Matrix
 
-Status: Candidate migration authority for issue `#7`
+Status: Final migration decision ledger for issue `#7`
 
 Canonical domain authority: [`domain-model/README.md`](domain-model/README.md)
 
 Canonical taxonomy: [`port-taxonomy.md`](port-taxonomy.md)
 
-Discovery record: [`port-taxonomy-discovery.md`](port-taxonomy-discovery.md)
+Executable inventory: [`port-inventory.yaml`](port-inventory.yaml)
 
-This record classifies documented or contract-declared names before they become first-class port contracts. Machine authority belongs to accepted artifacts under `contracts/ports/`.
-
----
+Machine contracts: [`../contracts/ports/`](../contracts/ports/)
 
 ## 1. Decision rule
 
@@ -32,7 +30,7 @@ A name is not retained merely because it ends in `Port`.
 Decision values:
 
 ```text
-RETAIN      preserve the boundary
+MIGRATE     preserve an active source boundary as a first-class contract
 RENAME      preserve meaning under a clearer identity
 SPLIT       separate independent boundaries or status families
 RECLASSIFY  move to skill, workflow, policy, adapter, binding, aggregate, or product
@@ -40,42 +38,104 @@ RETIRE      remove an incoherent boundary name
 DEFER       wait for sufficient reusable evidence
 ```
 
----
+## 2. Canonical first-class contracts
 
-## 2. Accepted first-class contracts in this branch
-
-| Legacy or source concept | Decision | Canonical contract | Kind |
-|---|---|---|---|
-| `ModelInferencePort` | RETAIN | `model-inference@0.1.0` | integration |
-| `ExecutionRunPort` | RENAME | `execution-run-management@0.1.0` | control |
-| `AgentRuntimePort` | RETAIN/NARROW | `agent-runtime@0.1.0` | control |
-| `WorkflowOrchestrationPort` | RENAME/NARROW | `workflow-coordination@0.1.0` | control |
-| `ContextManagementPort` | RENAME | `context-resolution@0.1.0` | control |
-| `SkillManagementPort` | RENAME | `skill-resolution@0.1.0` | control |
-| rule discovery part of `RuleManagementPort` | SPLIT | `rule-resolution@0.1.0` | control |
-| rule checking part of `RuleManagementPort` | SPLIT | `rule-evaluation@0.1.0` | control |
-| review part of `ReviewApprovalPort` | SPLIT | `review-management@0.1.0` | control |
-| approval part of `ReviewApprovalPort` | SPLIT | `approval-decision@0.1.0` | control |
-| action authorization part of `ReviewApprovalPort` | SPLIT | `authorization-assessment@0.1.0` | control |
-| `design-visual` composition facade | RENAME/MIGRATE | `visual-direction-composition@0.1.0` | capability composition |
-
-The retired combined name `ReviewApprovalPort` has no alias. One alias cannot safely resolve to three independently versioned contracts.
-
-The legacy name `workflow-orchestration` is a one-to-one migration alias for the narrower coordination boundary only. It does not authorize workflow-engine execution or introduce a WorkflowRun lifecycle.
-
----
-
-## 3. Runtime and workflow decisions
-
-### AgentRuntimePort
-
-Decision:
+### IntegrationPort
 
 ```text
-RETAIN AS CONTROL PORT
+model-inference@0.1.0
+code-operation-execution@0.1.0
+database@0.1.0
 ```
 
-Retained boundary:
+### ControlPort
+
+```text
+agent-runtime@0.1.0
+workflow-coordination@0.1.0
+execution-run-management@0.1.0
+context-resolution@0.1.0
+skill-resolution@0.1.0
+rule-resolution@0.1.0
+rule-evaluation@0.1.0
+review-management@0.1.0
+approval-decision@0.1.0
+authorization-assessment@0.1.0
+```
+
+### CapabilityCompositionPort
+
+```text
+visual-direction-composition@0.1.0
+layout-composition@0.1.0
+design-strategy-composition@0.1.0
+interaction-composition@0.1.0
+```
+
+### ProductSurfacePort
+
+```text
+no accepted active contracts
+```
+
+The family is retained in the taxonomy, but no contract is created solely for symmetry.
+
+## 3. Active dedicated specification migration
+
+| Source | Decision | Canonical result |
+|---|---|---|
+| `AgentRuntimePort` | RENAME/NARROW/MIGRATE | `agent-runtime` |
+| `WorkflowOrchestrationPort` | RENAME/NARROW/MIGRATE | `workflow-coordination` |
+| `ExecutionRunPort` | RENAME/MIGRATE | `execution-run-management` |
+| `ContextManagementPort` | RENAME/MIGRATE | `context-resolution` |
+| `SkillManagementPort` | RENAME/MIGRATE | `skill-resolution` |
+| `RuleManagementPort` | SPLIT/MIGRATE | `rule-resolution` + `rule-evaluation` |
+| `ReviewApprovalPort` | SPLIT/MIGRATE | review + approval decision + authorization assessment |
+| `ToolIntegrationPort` | RETIRE UMBRELLA | narrower candidates version independently when evidenced |
+
+The combined `ReviewApprovalPort` has no compatibility alias. One alias cannot safely resolve to three independently versioned contracts.
+
+The legacy name `workflow-orchestration` is a one-to-one migration alias for the narrower `workflow-coordination` boundary only. It does not authorize workflow-engine execution or introduce a `WorkflowRun` lifecycle.
+
+`ToolIntegrationPort` has no alias or replacement god port. Its former gateway, API, authentication, execution, registry, permission, review, and approval concerns are independently owned.
+
+## 4. Active capability-composition migration
+
+| Legacy skill contract | Canonical port |
+|---|---|
+| `design-visual` | `visual-direction-composition` |
+| `design-layout` | `layout-composition` |
+| `design-strategy` | `design-strategy-composition` |
+| `design-interaction` | `interaction-composition` |
+
+Legacy `skill_contract.type: port` artifacts remain active for executable consumers during migration. Their first-class port contracts use `compatibility.legacy_contract_refs` to preserve traceability without claiming that registration proves adapter conformance.
+
+Capability-composition ports select and synthesize reusable methods. They are not provider integrations, final implementations, review authorities, or product-acceptance records.
+
+## 5. General documented examples
+
+| Current name | Final classification |
+|---|---|
+| `ModelInferencePort` | MIGRATED to `model-inference` |
+| `CodeExecutionPort` | SPLIT/NARROW to `code-operation-execution` + external ExecutionRun management |
+| `DatabasePort` | MIGRATED to `database` |
+| `DesignReviewPort` | RECLASSIFY as review capability by default |
+| `WebAppPort` | RETIRE as one boundary; use narrower ports and framework/product bindings |
+| `EvaluationPort` | RECLASSIFY generic evaluation; DEFER scoped execution port pending evidence |
+| `DesignGenerationPort` | SPLIT/RECLASSIFY; DEFER rendering/product-surface contracts pending evidence |
+| `KnowledgeRetrievalPort` | DEFER candidate |
+| `RepositoryPort` | DEFER candidate |
+| `FileSystemPort` | DEFER candidate |
+| `BrowserResearchPort` | DEFER candidate |
+| `StoragePort` | DEFER candidate |
+| `PublishingPort` | DEFER product-surface/integration candidate |
+| `ObservabilityPort` | DEFER candidate |
+
+These general names were examples, not accepted active machine contracts. Their classification is complete in `port-inventory.yaml`; future acceptance requires separate ownership, consumer, compatibility, and evidence review.
+
+## 6. Runtime and workflow non-collapses
+
+### Agent runtime
 
 ```text
 existing ExecutionRun
@@ -103,15 +163,7 @@ product acceptance
 
 A runtime start request cannot create `running`; only an actual host observation plus the owning ExecutionRun transition can.
 
-### WorkflowOrchestrationPort
-
-Decision:
-
-```text
-RENAME/NARROW TO WorkflowCoordinationPort
-```
-
-Retained boundary:
+### Workflow coordination
 
 ```text
 WorkflowDefinition
@@ -123,106 +175,74 @@ WorkflowDefinition
 → exit-condition results
 ```
 
-The canonical domain model defines `WorkflowDefinition` and `ExecutionRun`, but not a separate `WorkflowRun` aggregate or status family. The former contract draft was rejected because it silently introduced `workflow_run_ref`, pause/resume/retry/cancel lifecycle, and completion-like state.
+The canonical domain model defines `WorkflowDefinition` and `ExecutionRun`, but not a separate `WorkflowRun` aggregate or status family. Concrete workflow-engine scheduling, transport, provider state, start, pause, resume, retry, and cancellation remain future integration or adapter concerns.
 
-Concrete workflow-engine start, pause, resume, retry, cancellation, scheduling, provider state, and transport semantics remain future integration-port or adapter concerns.
-
----
-
-## 4. General port decisions
-
-| Current name | Decision | Candidate boundary | Reason |
-|---|---|---|---|
-| `CodeExecutionPort` | SPLIT | code/tool operation integration plus execution-run management | actual operation, run record, review, risk, and approval are independent |
-| `DesignGenerationPort` | SPLIT | visual composition plus rendering/product output | reasoning, generation, rendering, and delivery are independent |
-| `DesignReviewPort` | RECLASSIFY by default | design-review capability agreement | a review method is not automatically an integration boundary |
-| `KnowledgeRetrievalPort` | RETAIN | `knowledge-retrieval` | coherent attributable retrieval boundary |
-| `RepositoryPort` | RETAIN | `repository` | coherent provider-neutral repository boundary |
-| `FileSystemPort` | RETAIN | `file-system` | distinct host file-system semantics |
-| `BrowserResearchPort` | RETAIN | `browser-research` | coherent attributable web retrieval boundary |
-| `WebAppPort` | RETIRE | narrower ports plus framework/product bindings | routes, pages, components, APIs, state, and rendering are not one capability |
-| `DatabasePort` | RETAIN | `database` | coherent structured persistence boundary |
-| `StoragePort` | RENAME candidate | `object-storage` | distinguishes product object lifecycle from host files |
-| `PublishingPort` | RETAIN | `publishing` | coherent external mutation boundary |
-| `EvaluationPort` | SPLIT/RECLASSIFY | evaluation capability or scoped evaluation execution boundary | generic outputs formerly collapsed evaluation, review, and approval |
-| `ObservabilityPort` | RETAIN | `observability` | coherent telemetry boundary |
-
-`CodeExecutionPort` is not accepted as one god port. The retained model is:
+## 7. Code and database boundaries
 
 ```text
-operation execution integration
-+ ExecutionRunManagementPort
-+ external review, approval, completion, and product acceptance
+actual code operation
+≠ generated plan or model output
+≠ ExecutionStatus
+≠ architecture decision
+≠ review
+≠ approval
+≠ completion or delivery
 ```
 
----
+`code-operation-execution` requires explicit operation, repository revision, adapter binding, and authorization references and returns attributable changed artifacts and command results.
 
-## 5. Control-plane decisions
+```text
+database operation result
+≠ canonical domain meaning
+≠ aggregate authority
+≠ product data policy
+≠ approval or product acceptance
+```
 
-| Current name | Decision | Canonical direction |
-|---|---|---|
-| `AgentRuntimePort` | MIGRATED/NARROWED | `agent-runtime` using external ExecutionRun and authorization references |
-| `WorkflowOrchestrationPort` | MIGRATED/RENAMED | `workflow-coordination` without WorkflowRun lifecycle |
-| `ExecutionRunPort` | MIGRATED | `execution-run-management` |
-| `ContextManagementPort` | MIGRATED | `context-resolution` |
-| `SkillManagementPort` | MIGRATED | `skill-resolution` |
-| `RuleManagementPort` | MIGRATED/SPLIT | `rule-resolution` + `rule-evaluation` |
-| `ReviewApprovalPort` | MIGRATED/SPLIT | review + approval + authorization contracts |
-| `ToolIntegrationPort` | RETIRE AS UMBRELLA CONTRACT | narrower integration contracts version independently |
+`database` preserves query, mutation, transaction, migration, schema, rollback, and failure evidence while keeping domain ownership external.
 
----
+## 8. Tool-integration subtype candidates
 
-## 6. Tool-integration subtypes
+The retired umbrella formerly listed:
 
-| Name | Decision | Boundary |
-|---|---|---|
-| `MCPGatewayPort` | RETAIN candidate | MCP protocol and gateway translation |
-| `APIConnectorPort` | RETAIN candidate | direct external API translation |
-| `AuthBrokerPort` | RETAIN candidate | external authentication and token lifecycle |
-| `ToolExecutionPort` | RETAIN WITH NARROWING | authorized external operation execution |
-| `ToolRegistryPort` | RETAIN candidate | discover external tool schemas and capabilities |
+```text
+MCPGatewayPort
+APIConnectorPort
+AuthBrokerPort
+ToolExecutionPort
+ToolRegistryPort
+```
 
-Mandatory distinction:
+Each remains `DEFER` until it has a real consumer, coherent operations, accepted mutation and authorization semantics, replaceable adapter evidence, and a stable version path.
+
+Required distinction:
 
 ```text
 external OAuth or tool permission
 ≠ Native AI Engineering authority
-≠ Approval
+≠ review
+≠ approval
 ≠ AuthorizationAssessment
+≠ actual execution
 ```
 
----
+See [`tool-integration-port.md`](tool-integration-port.md) for migration guidance.
 
-## 7. Capability-composition migration
+## 9. Product-surface status
 
-| Legacy skill-contract ID | Decision | Candidate port |
-|---|---|---|
-| `design-visual` | MIGRATED REPRESENTATIVE | `visual-direction-composition` |
-| `design-layout` | RETAIN FOR MIGRATION | `layout-composition` |
-| `design-strategy` | RETAIN FOR MIGRATION | `design-strategy-composition` |
-| `design-interaction` | RETAIN FOR MIGRATION | `interaction-composition` |
+Candidate names include assistant, content, creative rendering, media, learning, template, publishing, and product output.
 
-A legacy `skill_contract.type: port` remains active until consumers migrate. It may be referenced through `compatibility.legacy_contract_refs`, but static presence does not prove the existing adapter implements the new first-class port contract.
-
----
-
-## 8. Product-surface status
-
-Candidate names mentioned by issue scope include assistant, content, creative rendering, media, learning, template, and product output.
-
-Current decision:
+Final decision for issue `#7`:
 
 ```text
 DEFER
 ```
 
-No ProductSurfacePort should be created solely for taxonomy symmetry. Acceptance requires a real reusable consumer boundary, source artifact, ownership, and compatibility path.
+No `ProductSurfacePort` contract should be created without a proven reusable consumer boundary, source artifact, semantic owner, compatibility path, and separation from provider integration, delivery authorization, and product acceptance.
 
----
+## 10. Adapter reference compatibility
 
-## 9. Adapter reference migration
-
-A port adapter reference must declare:
+A port adapter reference declares:
 
 ```yaml
 port_adapter_reference:
@@ -238,55 +258,55 @@ Validate with:
 python3 scripts/validate-port-adapter-reference.py <reference.yaml>
 ```
 
-The validator checks stable ID, canonical path, and compatible version. This proves intended compatibility only, not implementation or runtime behavior.
+The validator checks stable ID, canonical path, and compatible exact, caret, or tilde version pin. This proves intended compatibility only, not implementation, runtime behavior, review, approval, completion, or product acceptance.
 
----
-
-## 10. Markdown authority reconciliation
-
-The following legacy documents are navigation and migration records only:
+## 11. Machine authority and documentation
 
 ```text
-docs/agent-runtime-port.md
-docs/workflow-orchestration-port.md
-docs/context-management-port.md
-docs/skill-management-port.md
-docs/rule-management-port.md
-docs/review-approval-port.md
+contracts/ports/**/*.port.yaml
+→ canonical machine semantics
+
+docs/port-inventory.yaml
+→ executable discovery and migration classification
+
+docs/port-retention-matrix.md
+→ human-readable decision rationale
+
+legacy docs/*-port.md
+→ navigation and migration records only
 ```
 
-Their machine semantics are superseded by or linked to the corresponding first-class contracts.
+The inventory regression verifies all eight dedicated source documents and all `skill_contract.type: port` artifacts. Migrated entries must point to existing first-class contracts; retired, reclassified, and deferred entries require explicit rationale.
 
----
+## 12. Downstream ownership
 
-## 11. Remaining migration work
+Issue `#7` does not implement provider adapters or build downstream registries.
+
+Known legacy downstream declarations are migration evidence and follow-up work:
 
 ```text
-migrate selected integration ports individually
-migrate remaining design composition facades
-resolve whether a scoped EvaluationExecutionPort is needed
-confirm or reject real ProductSurfacePort boundaries
-migrate downstream adapter declarations
-add conformance and runtime evidence
-complete final contradiction and acceptance review
+ai-native-skills issue #26
+ai-native-fw adapter manifests and registry
+product-specific bindings
 ```
 
-Bulk generation from a single generic template is prohibited. Each boundary must be reviewed independently against ownership, canonical object references, failure, authorization, lifecycle, and consumer semantics.
+They must adopt stable port ID, path, and version references only after the relevant core contract is accepted. Their static presence is not a blocker to this core taxonomy issue and does not prove conformance.
 
----
-
-## 12. Current status
+## 13. Final status
 
 ```text
 canonical kinds defined: yes
-active schema and validator: yes
-first-class contracts: 12
-adapter reference validation: yes
-agent runtime lifecycle duplication removed: yes
-unmodeled WorkflowRun lifecycle removed: yes
-legacy review/approval collapse removed: yes
-legacy control-port docs reconciled: yes
-all active ports migrated: no
-product-surface boundary proven: no
-ready for final issue acceptance: no
+active schema and semantic validator: yes
+active file-backed source inventory complete: yes
+dedicated port documents resolved: 8 of 8
+contract-declared composition ports migrated: 4 of 4
+first-class contracts: 17
+adapter path/version compatibility fixture: yes
+manifest registration and checksum generation: yes
+legacy Markdown competing authority removed: yes
+tool-integration umbrella retired: yes
+product-surface candidate family classified: yes, deferred
+provider adapters implemented: out of scope
+downstream registries migrated: follow-up owner work
+ready for issue acceptance: yes, subject to final CI and review
 ```
