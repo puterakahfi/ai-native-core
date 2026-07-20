@@ -1,0 +1,189 @@
+port_contract:
+  id: agent-runtime
+  kind: control_port
+  version: "0.1.0"
+  capability: control_bounded_agent_runtime_operations
+  direction: bidirectional
+  semantic_owner_context: runtime_and_execution
+  binding_owner_context: integration_and_binding
+  consumer_contexts:
+    - method_and_workflow
+    - runtime_and_execution
+    - governance_risk_and_authority
+    - evidence_evaluation_and_review
+  purpose: >
+    Start, inspect, pause, resume, and stop bounded agent-runtime operations through
+    replaceable runtime adapters while keeping tool execution, ExecutionRun records,
+    review, approval, completion, and product acceptance in their owning contexts.
+  boundary:
+    owns:
+      - agent_runtime_control_request
+      - agent_runtime_control_result
+      - runtime_instance_reference
+      - runtime_capability_snapshot
+      - runtime_control_failure
+    delegates:
+      - model_inference
+      - external_tool_execution
+      - execution_run_recording
+      - workflow_orchestration
+      - review
+      - approval
+      - completion_assessment
+    does_not_own:
+      - agent_definition
+      - workflow_definition
+      - execution_run_aggregate
+      - tool_operation_semantics
+      - review_disposition
+      - approval_status
+      - product_acceptance
+  interactions:
+    requests:
+      - id: start_agent_runtime
+        description: Start one bounded agent-runtime operation from explicit task, context, method, tool, and authorization references.
+        required_fields:
+          - id: request_id
+            description: Stable correlation identifier for the runtime-control request.
+          - id: agent_ref
+            description: Reference to the selected agent definition or role assignment.
+          - id: task_ref
+            description: Reference to the bounded task or use-case request.
+          - id: context_pack_ref
+            description: Attributable context pack accepted for this runtime operation.
+          - id: adapter_binding_ref
+            description: Runtime adapter binding selected to handle the operation.
+        optional_fields:
+          - id: skill_refs
+            description: Reusable skill definitions selected for the bounded operation.
+          - id: workflow_ref
+            description: Workflow definition coordinating the runtime operation when applicable.
+          - id: allowed_tool_refs
+            description: Tool bindings permitted for this operation.
+          - id: authorization_ref
+            description: Current authorization assessment when policy requires execution authority.
+      - id: control_agent_runtime
+        description: Inspect, pause, resume, or stop an existing runtime instance without redefining its ExecutionRun or approval state.
+        required_fields:
+          - id: request_id
+            description: Stable correlation identifier for the control request.
+          - id: runtime_instance_ref
+            description: Runtime instance being inspected or controlled.
+          - id: control_operation
+            description: Requested inspect, pause, resume, or stop operation.
+          - id: adapter_binding_ref
+            description: Runtime adapter binding handling the control operation.
+        optional_fields:
+          - id: expected_runtime_checkpoint
+            description: Expected current runtime checkpoint used for conflict detection.
+          - id: authorization_ref
+            description: Current authorization reference when the control operation is governed.
+    responses:
+      - id: agent_runtime_control_result
+        description: Return the actual runtime-control outcome and external execution references without broader completion or approval claims.
+        fields:
+          - id: request_id
+            description: Correlation identifier copied from the request.
+          - id: runtime_instance_ref
+            description: Stable reference to the runtime instance that handled the operation.
+          - id: control_outcome
+            description: Actual start, inspect, pause, resume, stop, blocked, or failed outcome.
+          - id: execution_run_refs
+            description: External ExecutionRun references produced or affected by the runtime.
+          - id: runtime_capability_snapshot
+            description: Capabilities, registered tools, and limitations observed for this runtime instance.
+          - id: limitations
+            description: Missing capabilities, unsupported controls, partial outcomes, or unverified runtime state.
+    events:
+      - id: agent_runtime_control_requested
+        description: A bounded agent-runtime start or control request was accepted for handling.
+      - id: agent_runtime_instance_started
+        description: A runtime adapter reported that a bounded agent-runtime instance actually started.
+      - id: agent_runtime_control_completed
+        description: A runtime adapter produced a terminal control outcome with attributable references.
+      - id: agent_runtime_control_failed
+        description: A runtime adapter produced a structured runtime-control failure.
+    streams: []
+  failures:
+    errors:
+      - code: invalid_agent_runtime_request
+        meaning: Required task, context, agent, adapter, or control data is missing or invalid.
+        retryable: false
+        partial_result_allowed: false
+      - code: agent_runtime_unavailable
+        meaning: No compatible runtime adapter can currently handle the requested operation.
+        retryable: true
+        partial_result_allowed: false
+      - code: agent_runtime_control_conflict
+        meaning: The observed runtime checkpoint differs from the expected control precondition.
+        retryable: true
+        partial_result_allowed: true
+      - code: agent_runtime_control_failed
+        meaning: The runtime adapter returned a structured terminal operation failure.
+        retryable: true
+        partial_result_allowed: true
+      - code: agent_runtime_not_checkable
+        meaning: Available runtime evidence is insufficient to classify the requested control outcome.
+        retryable: false
+        partial_result_allowed: true
+    partial_result_policy: explicit
+    unknown_or_not_checkable_policy: >
+      Return missing runtime evidence, unsupported controls, and uncertain checkpoints
+      explicitly; never convert a planned action, model response, or unavailable runtime
+      state into successful execution.
+  state_transitions: []
+  authorization:
+    mode: policy_dependent
+    required_for:
+      - start_agent_execution
+      - resume_agent_execution
+      - stop_agent_execution
+    permission_is_not_authority: true
+    review_is_not_approval: true
+    authority_reference_required: true
+  idempotency:
+    mode: operation_defined
+    key_scope: request_id_and_runtime_instance
+  observability:
+    required_events:
+      - agent_runtime_control_requested
+      - agent_runtime_control_completed
+      - agent_runtime_control_failed
+    correlation_fields:
+      - request_id
+      - runtime_instance_ref
+      - task_ref
+      - adapter_binding_ref
+    sensitive_fields:
+      - context_pack_ref
+      - authorization_ref
+      - allowed_tool_refs
+  adapter_requirements:
+    contract_reference:
+      require_id: true
+      require_path: true
+      require_version: true
+    requirements:
+      - preserve_agent_runtime_request_and_control_semantics
+      - distinguish_requested_planned_and_actual_runtime_operations
+      - route_external_tool_operations_through_integration_ports
+      - preserve_execution_run_review_approval_and_completion_as_external_ownership
+      - return_structured_failures_limitations_and_runtime_references
+  compatibility:
+    policy: semver
+    breaking_changes:
+      - change_required_agent_runtime_input
+      - change_control_operation_or_outcome_meaning
+      - remove_runtime_instance_or_execution_run_references
+      - weaken_authorization_or_observability_semantics
+      - absorb_tool_execution_review_approval_or_product_acceptance_ownership
+    aliases: []
+    supersedes: []
+    legacy_contract_refs: []
+  quality_gates:
+    - runtime_request_has_attributable_task_context_and_adapter_references
+    - actual_runtime_start_is_distinct_from_requested_or_planned_execution
+    - tool_execution_and_execution_run_records_remain_external
+    - governed_runtime_controls_require_current_authorization
+    - failures_partial_results_and_uncheckable_state_are_explicit
+    - review_approval_completion_and_product_acceptance_remain_external
