@@ -1,244 +1,147 @@
-# ToolIntegrationPort
+# ToolIntegrationPort Migration Record
 
-## Purpose
+Status: legacy navigation and migration record
 
-`ToolIntegrationPort` defines the boundary for connecting AI agents, workflows, and framework modules to external tools, applications, APIs, and MCP-compatible tool gateways.
+Canonical taxonomy: [`port-taxonomy.md`](port-taxonomy.md)
 
-It exists so Native AI Framework can use external capabilities without coupling the core domain to a specific integration vendor, app connector, authentication provider, or workflow automation platform.
+Canonical inventory: [`port-inventory.yaml`](port-inventory.yaml)
 
-## Position in the Framework
+Canonical machine contracts: [`../contracts/ports/`](../contracts/ports/)
 
-```text
-Intent
-→ Agent Planning
-→ Tool Selection
-→ Tool Integration
-→ External Action / API Call
-→ Result Normalization
-→ Review / Approval
-→ Workflow Continuation
-```
-
-`ToolIntegrationPort` sits between agent/workflow planning and external systems.
-
-It is not a task management layer, code execution layer, UI design layer, or creative rendering layer.
-
-## Primary Responsibilities
-
-- Expose external app actions to agents and workflows.
-- Route tool requests to the correct external integration.
-- Manage least-privilege tool access policies.
-- Separate read actions from write/destructive actions.
-- Return normalized tool results.
-- Return structured errors and execution metadata.
-- Preserve auditability and review control.
-- Require human approval for destructive, publishing, payment, or outbound communication actions.
-
-## Non-Responsibilities
-
-`ToolIntegrationPort` must not:
-
-- define product architecture,
-- create product tasks,
-- execute code tasks,
-- render creative assets,
-- bypass human approval,
-- expose secrets to client-side code,
-- replace domain ports with vendor-specific logic,
-- mutate external systems unless explicitly allowed by policy.
-
-## Subtype Ports
+## Decision
 
 ```text
 ToolIntegrationPort
-├── MCPGatewayPort
-├── APIConnectorPort
-├── AuthBrokerPort
-├── ToolExecutionPort
-└── ToolRegistryPort
+→ RETIRE AS ONE UMBRELLA CONTRACT
 ```
 
-### MCPGatewayPort
-
-Used for exposing MCP-compatible tool servers or gateways to AI agents.
-
-Example adapters:
+The former document bundled several independently owned and independently versioned concerns:
 
 ```text
-ComposioToolGatewayAdapter
-CustomMCPGatewayAdapter
-LocalMCPServerAdapter
+tool and schema discovery
+protocol or gateway translation
+direct API translation
+external authentication and token lifecycle
+external operation execution
+permission and least-privilege enforcement
+audit and observability
+review and approval routing
 ```
 
-### APIConnectorPort
+They do not form one coherent port contract.
 
-Used for direct external API integrations when MCP or a gateway is not required.
+No first-class contract or compatibility alias named `tool-integration` is created. Reintroducing that umbrella would collapse provider translation, permission, authority, execution, review, and approval.
 
-Example adapters:
+## Required separation
 
 ```text
-DirectGitHubApiAdapter
-DirectMetaApiAdapter
-DirectNotionApiAdapter
+external OAuth or provider permission
+≠ Native AI Engineering authority
+≠ ReviewDisposition
+≠ ApprovalStatus
+≠ AuthorizationAssessment
+
+registered tool capability
+≠ authorized operation
+≠ actual execution
+≠ successful ExecutionRun
+≠ completion
+≠ product acceptance
 ```
 
-### AuthBrokerPort
+A tool or gateway adapter may expose several capabilities, but each declared port reference must preserve one accepted boundary and version line.
 
-Used for managing user authorization, OAuth flows, access scopes, token refresh, and permission boundaries.
+## Candidate narrower integration boundaries
 
-Example adapters:
+The following historical subtype names remain candidates, not accepted first-class contracts:
 
 ```text
-ComposioAuthBrokerAdapter
-CustomOAuthBrokerAdapter
+MCPGatewayPort
+APIConnectorPort
+AuthBrokerPort
+ToolExecutionPort
+ToolRegistryPort
 ```
 
-### ToolExecutionPort
-
-Used for executing approved tool actions through a controlled runtime.
-
-Example adapters:
+Their current status is `DEFER` until each has:
 
 ```text
-ComposioToolExecutionAdapter
-N8nWorkflowExecutionAdapter
-MakeScenarioExecutionAdapter
-ZapierActionAdapter
+a real consumer context;
+a coherent request, response, and failure boundary;
+accepted authorization and mutation semantics;
+replaceable adapter evidence;
+a stable compatibility path;
+clear ownership relative to ExecutionRun, review, approval, and product policy.
 ```
 
-### ToolRegistryPort
+General candidate status is recorded in [`port-inventory.yaml`](port-inventory.yaml) and [`port-retention-matrix.md`](port-retention-matrix.md).
 
-Used for listing available tools, capabilities, permissions, and action schemas.
+## Accepted related boundaries
 
-Example adapters:
+Current accepted first-class contracts that cover narrower, evidenced concerns include:
 
 ```text
-ComposioToolRegistryAdapter
-CustomToolRegistryAdapter
+contracts/ports/integration/model-inference.port.yaml
+contracts/ports/integration/code-operation-execution.port.yaml
+contracts/ports/integration/database.port.yaml
+contracts/ports/control/agent-runtime.port.yaml
+contracts/ports/control/workflow-coordination.port.yaml
+contracts/ports/control/execution-run-management.port.yaml
+contracts/ports/control/review-management.port.yaml
+contracts/ports/control/approval-decision.port.yaml
+contracts/ports/control/authorization-assessment.port.yaml
 ```
 
-## Adapter Lifecycle
+These contracts are related; none is a replacement god port for every external tool operation.
 
-```text
-candidate
-→ allowed
-→ active
-→ deprecated
-→ retired
-```
+## Downstream adapter migration
 
-- `candidate`: adapter is documented but not yet used as a default workflow component.
-- `allowed`: adapter may be used in approved workflows.
-- `active`: adapter is the default implementation for a port in a product/app workflow.
-- `deprecated`: adapter should be replaced but may still exist for compatibility.
-- `retired`: adapter should not be used.
-
-## Default Tool Integration Workflow
-
-```text
-Agent Intent
-→ Tool Need Detected
-→ Tool Policy Check
-→ Permission Scope Check
-→ Human Approval When Needed
-→ Tool Execution
-→ Result Normalization
-→ Audit Log
-→ Agent Response / Workflow Continuation
-```
-
-## Approval Gate
-
-Tool integration must keep approval gates for high-impact actions.
-
-Actions that should require explicit approval by default:
-
-- sending emails or messages,
-- publishing content,
-- deleting records,
-- modifying payments or invoices,
-- changing production systems,
-- updating task/project status to approved or shipped,
-- posting to external platforms,
-- accessing sensitive user data beyond the approved scope.
-
-Read-only actions may run without approval when product policy allows it.
-
-## Input Contract
-
-A tool integration request should provide:
+Legacy runtime or product manifests may still contain declarations such as:
 
 ```yaml
-tool_integration_input:
-  agent_intent: ""
-  tool_request: ""
-  user_auth_context: ""
-  permission_scope: []
-  product: ""
-  workflow: ""
-  approval_policy: ""
-  context: {}
+adapter:
+  port: ToolIntegrationPort
+  subtype_port: MCPGatewayPort
 ```
 
-## Output Contract
+That declaration is discovery evidence only. It does not prove compatibility with a first-class core port.
 
-A tool integration adapter should return:
+A downstream adapter may migrate only after the relevant narrower contract is accepted, using a stable declaration such as:
 
 ```yaml
-tool_integration_output:
-  tool_result: {}
-  execution_metadata: {}
-  audit_log: []
-  approval_required: false
-  error_details: null
-  rate_limit_info: null
+port_adapter_reference:
+  adapter_id: example-adapter
+  port_id: accepted-port-id
+  port_path: contracts/ports/<kind>/<accepted-port-id>.port.yaml
+  port_version: ^0.1.0
 ```
 
-## Quality Gates
+Validate the reference with:
 
-Tool integration outputs should be checked for:
-
-- least-privilege permission use,
-- server-side secret handling,
-- read/write action separation,
-- approval policy compliance,
-- structured error handling,
-- audit log completeness,
-- rate limit awareness,
-- user data privacy,
-- external system mutation safety.
-
-## Example Adapter Placement
-
-```text
-adapters/tool-integration/composio-tool-gateway.adapter.yaml
+```bash
+python3 scripts/validate-port-adapter-reference.py <reference.yaml>
 ```
 
-`ComposioToolGatewayAdapter` is a candidate adapter for `ToolIntegrationPort` with subtype `MCPGatewayPort`.
+A valid ID, path, and version pin proves intended compatibility only. Implementation conformance, runtime behavior, authority, review, approval, completion, and product acceptance require separate evidence.
 
-It should be used for controlled AI agent access to authenticated external tools, not dashboard UI design, creative rendering, task management, or code execution.
+## Historical adapter examples
 
-## Product Opportunities
+Names previously listed here—including Composio, custom MCP servers, direct API adapters, OAuth brokers, n8n, Make, and Zapier—remain downstream candidate examples. They are not default providers, accepted bindings, or proof that a universal tool-integration contract exists.
 
-Potential products and workflows that can use `ToolIntegrationPort`:
+## Authority rule
 
-```text
-AI Personal Workflow Agent
-AI Social Media Ops Agent
-AI CRM Agent
-AI Calendar Assistant
-AI GitHub Project Automation Agent
-AI Business Operations Agent
-```
-
-Recommended flow:
+This Markdown file is explanatory only.
 
 ```text
-Agent Goal
-→ ToolIntegrationPort
-→ ComposioToolGatewayAdapter or another tool adapter
-→ External App/API
-→ Result
-→ Human Review When Needed
-→ Workflow Continuation
+contracts/ports/**/*.port.yaml
+→ machine semantics
+
+docs/port-inventory.yaml
+→ discovery classification and migration status
+
+docs/port-retention-matrix.md
+→ human-readable decision rationale
+
+this file
+→ legacy navigation and migration guidance
 ```
