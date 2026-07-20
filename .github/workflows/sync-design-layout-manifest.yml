@@ -1,0 +1,42 @@
+name: Sync Design Layout Manifest
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - contracts/skills/design/design-layout.contract.yaml
+      - .github/workflows/sync-design-layout-manifest.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          fetch-depth: 0
+
+      - name: Regenerate contract manifest
+        run: ./scripts/generate-manifest.sh
+
+      - name: Verify corrected contract identity
+        run: |
+          grep -A3 'id: design-layout' contracts/manifest.yaml
+          grep -q 'version: "2.0.1"' contracts/manifest.yaml
+          grep -q 'id: adaptive-component-design' contracts/skills/design/design-layout.contract.yaml
+          ! grep -q 'id: adaptive-ui-patterns' contracts/skills/design/design-layout.contract.yaml
+          git diff --check
+
+      - name: Commit generated manifest
+        env:
+          HEAD_BRANCH: ${{ github.head_ref }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add contracts/manifest.yaml
+          git commit -m "chore(governance): sync design layout manifest [skip ci]"
+          git push origin HEAD:${HEAD_BRANCH}
