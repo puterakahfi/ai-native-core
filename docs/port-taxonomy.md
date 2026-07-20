@@ -54,18 +54,20 @@ The shorthand `Port = capability contract` is retired.
 
 Boundary to an external provider, infrastructure surface, persistence system, protocol, framework service, or external application.
 
-Examples include model inference, repositories, knowledge retrieval, file systems, browsing, databases, object storage, publishing, observability, tool gateways, APIs, and external authentication.
+Examples include model inference, repositories, knowledge retrieval, file systems, browsing, databases, object storage, publishing, observability, tool gateways, APIs, external authentication, and provider-specific workflow engines.
 
 Integration ports translate external semantics without allowing provider models to redefine upstream domain meaning.
 
 ### ControlPort
 
-Boundary for coordinating, resolving, assessing, or recording domain lifecycle operations without implementing the external target or acquiring another context's authority.
+Boundary for coordinating, resolving, assessing, recording, or controlling domain lifecycle operations without implementing the external target or acquiring another context's authority.
 
 Current examples:
 
 ```text
 ExecutionRunManagementPort
+AgentRuntimePort
+WorkflowCoordinationPort
 ContextResolutionPort
 SkillResolutionPort
 RuleResolutionPort
@@ -75,7 +77,7 @@ ApprovalDecisionPort
 AuthorizationAssessmentPort
 ```
 
-A control port may coordinate an aggregate or decision process. It does not become the aggregate, review method, authority source, execution provider, or product acceptance owner.
+A control port may coordinate an aggregate, runtime control request, workflow definition, or decision process. It does not become the aggregate, runtime provider, review method, authority source, execution provider, or product acceptance owner.
 
 ### ProductSurfacePort
 
@@ -112,7 +114,7 @@ bidirectional
 → the agreement includes commands and observations in both directions
 ```
 
-Direction does not imply authority, mutation permission, or adapter technology.
+Direction does not imply authority, mutation permission, lifecycle ownership, or adapter technology.
 
 ---
 
@@ -137,7 +139,7 @@ capability
 ≠ authority
 ```
 
-Provider access, credentials, tool availability, or technical permission cannot create Native AI Engineering authority.
+Provider access, credentials, tool availability, runtime control, or technical permission cannot create Native AI Engineering authority.
 
 ---
 
@@ -207,7 +209,18 @@ ReviewManagementPort       → ReviewDisposition
 ApprovalDecisionPort       → ApprovalStatus
 ```
 
-`AuthorizationAssessmentPort` evaluates one current action attempt. It does not mutate `ApprovalStatus`, `ReviewDisposition`, or `ExecutionStatus`.
+`AgentRuntimePort`, `WorkflowCoordinationPort`, and `AuthorizationAssessmentPort` own no competing status family.
+
+```text
+runtime control outcome
+≠ ExecutionStatus
+
+workflow transition selection
+≠ WorkflowRun status
+
+AuthorizationAssessment
+≠ ApprovalStatus
+```
 
 Invalid collapse:
 
@@ -223,7 +236,44 @@ Ports may reference results from other families, but they do not mutate those st
 
 ---
 
-## 8. Review, evaluation, and authority
+## 8. Runtime and workflow rule
+
+### Agent runtime
+
+```text
+ExecutionRun
++ CapacityAssessment
++ AuthorizationAssessment
++ Agent
++ RuntimeEnvironment
++ AdapterBinding
+→ AgentRuntimePort start/control request
+→ attributable runtime observations
+→ external ExecutionRun recording
+```
+
+Agent runtime control does not own `ExecutionStatus`. A request, plan, model response, or runtime-provider checkpoint cannot become `running` or `succeeded` without the owning ExecutionRun transition and evidence.
+
+### Workflow coordination
+
+```text
+WorkflowDefinition
++ trigger
++ ContextPack
++ external GateResult, ExecutionRun, ReviewResult, and Approval references
+→ WorkflowCoordinationPort
+→ phase and transition selection
+→ handoff records
+→ exit-condition results
+```
+
+The canonical domain model currently defines `WorkflowDefinition` and `ExecutionRun`, not a separate `WorkflowRun` aggregate or status family. A port contract may not introduce that lifecycle without governed upstream domain evolution.
+
+Concrete workflow-engine start, pause, resume, retry, cancellation, and provider-state semantics remain external integration concerns.
+
+---
+
+## 9. Review, evaluation, and authority
 
 ```text
 GateOutcome
@@ -259,7 +309,7 @@ The legacy combined name `ReviewApprovalPort` has no canonical alias because pre
 
 ---
 
-## 9. Adapter references
+## 10. Adapter references
 
 A compatible adapter declaration references the port by:
 
@@ -281,7 +331,7 @@ A valid reference proves intended identity and version compatibility only. It do
 
 ---
 
-## 10. Current first-class contracts
+## 11. Current first-class contracts
 
 ```text
 IntegrationPort
@@ -289,6 +339,8 @@ IntegrationPort
 
 ControlPort
   execution-run-management@0.1.0
+  agent-runtime@0.1.0
+  workflow-coordination@0.1.0
   context-resolution@0.1.0
   skill-resolution@0.1.0
   rule-resolution@0.1.0
@@ -305,25 +357,26 @@ ProductSurfacePort remains intentionally uninstantiated.
 
 ---
 
-## 11. Migration policy
+## 12. Migration policy
 
 ```text
 1. classify the existing name
 2. retain, rename, split, reclassify, retire, or defer
 3. review the semantic boundary independently
-4. create a first-class contract
-5. register it in the generated manifest
-6. preserve explicit legacy references where valid
-7. migrate adapter ID/path/version declarations
-8. gather conformance and runtime evidence
-9. retire competing Markdown authority only after consumers migrate
+4. verify every referenced domain object and status family is canonical
+5. create a first-class contract
+6. register it in the generated manifest
+7. preserve explicit legacy references where valid
+8. migrate adapter ID/path/version declarations
+9. gather conformance and runtime evidence
+10. retire competing Markdown authority only after consumers migrate
 ```
 
-Do not bulk-generate every name ending in `Port` from one generic template.
+Do not bulk-generate every name ending in `Port` from one generic template. Do not invent an aggregate or status family inside a port merely because an adapter exposes one.
 
 ---
 
-## 12. Evidence boundary
+## 13. Evidence boundary
 
 Schema and manifest validation prove only that the artifact is structurally valid, aligned to its ID/path/kind, declares required boundary dimensions, and is registered at a version and checksum.
 
