@@ -1,0 +1,136 @@
+port_contract:
+  id: rule-evaluation
+  kind: control_port
+  version: 0.1.0
+  capability: evaluate_actions_against_governed_rules
+  direction: inbound
+  semantic_owner_context: governance_risk_and_authority
+  binding_owner_context: integration_and_binding
+  consumer_contexts:
+  - method_and_workflow
+  - runtime_and_execution
+  - evidence_evaluation_and_review
+  - product_delivery_and_registry
+  purpose: Evaluate a planned or observed action against resolved governed rules and return findings without granting approval, authority, or execution authorization.
+  boundary:
+    owns:
+    - rule_evaluation_request
+    - rule_finding_production
+    - rule_violation_classification
+    - evaluation_evidence_reference
+    delegates:
+    - rule_resolution
+    - rule_authoring
+    - approval_decision
+    - authorization_assessment
+    - execution
+    does_not_own:
+    - technical_permission
+    - authority_grant
+    - product_acceptance
+    - workflow_state
+    - task_state
+    - rule_mutation
+  interactions:
+    requests:
+    - id: evaluate_action_against_rules
+      description: Evaluate one planned or observed action against an explicit resolved rule set.
+      required_fields:
+      - id: request_id
+        description: Stable rule evaluation request identifier.
+      - id: subject_ref
+        description: Planned or observed action subject.
+      - id: resolved_rule_refs
+        description: Versioned Rule references used as evaluation criteria.
+      - id: evidence_refs
+        description: Evidence or observation references describing the subject.
+      optional_fields:
+      - id: risk_context_ref
+        description: Applicable risk context for severity and consequence interpretation.
+      - id: requested_scope
+        description: Bounded scope of the evaluation.
+    responses:
+    - id: rule_evaluation_result
+      description: Return rule findings, violations, limitations, and a non-authority evaluation disposition.
+      fields:
+      - id: request_id
+        description: Stable rule evaluation request identifier.
+      - id: finding_refs
+        description: Rule findings with criterion, evidence, severity, and affected scope.
+      - id: violated_rule_refs
+        description: Resolved rules whose declared constraints are not satisfied.
+      - id: evaluation_disposition
+        description: Non-authority result such as conforming, nonconforming, conditional, blocked, or not checkable.
+      - id: limitations
+        description: Missing evidence, unknown scope, or unresolved conflicts limiting the result.
+    events:
+    - id: rule_evaluation_completed
+      description: A bounded action was evaluated against explicit governed Rule references.
+    - id: rule_violation_detected
+      description: One or more governed rule constraints were found unsatisfied.
+    - id: rule_evaluation_not_checkable
+      description: Required rules, scope, or evidence were insufficient for a checkable result.
+    streams: []
+  failures:
+    errors:
+    - code: rule_evaluation_input_incomplete
+      meaning: Required subject, rule, scope, or evidence references are incomplete.
+      retryable: false
+      partial_result_allowed: true
+    - code: rule_evaluation_conflict
+      meaning: The resolved rule set contains unresolved material conflicts.
+      retryable: false
+      partial_result_allowed: true
+    - code: rule_evaluation_adapter_failure
+      meaning: The selected evaluation adapter failed to produce an attributable result.
+      retryable: true
+      partial_result_allowed: true
+    partial_result_policy: explicit
+    unknown_or_not_checkable_policy: Preserve missing, stale, conflicting, unavailable, or unverified information explicitly and never infer a successful result.
+  state_transitions: []
+  authorization:
+    mode: none
+    required_for: []
+    permission_is_not_authority: true
+    review_is_not_approval: true
+    authority_reference_required: false
+  idempotency:
+    mode: request_key
+    key_scope: request_id_subject_and_rule_version_set
+  observability:
+    required_events:
+    - rule_evaluation_completed
+    - rule_violation_detected
+    - rule_evaluation_not_checkable
+    correlation_fields:
+    - request_id
+    - subject_ref
+    - requested_scope
+    sensitive_fields:
+    - evidence_refs
+    - risk_context_ref
+  adapter_requirements:
+    contract_reference:
+      require_id: true
+      require_path: true
+      require_version: true
+    requirements:
+    - use_explicit_resolved_rule_references
+    - preserve_finding_evidence_and_scope
+    - return_not_checkable_when_inputs_are_insufficient
+    - never_convert_evaluation_into_approval_or_authorization
+  compatibility:
+    policy: semver
+    breaking_changes:
+    - change_rule_evaluation_disposition_meaning
+    - add_required_evaluation_input
+    - remove_finding_or_limitation_visibility
+    - collapse_evaluation_into_authority
+    aliases: []
+    supersedes: []
+    legacy_contract_refs:
+    - contracts/skills/governance/rule-manager.contract.yaml
+  quality_gates:
+  - evaluation_uses_explicit_rule_versions_and_evidence
+  - findings_preserve_scope_severity_and_limitations
+  - positive_evaluation_does_not_become_approval_or_authorization

@@ -1,100 +1,53 @@
-# SkillManagementPort
+# Skill Management Port — Legacy Navigation
 
-## Purpose
+Status: Superseded explanatory document
 
-`SkillManagementPort` defines the boundary for discovering, resolving, validating, and applying reusable AI execution skills inside Native AI Framework.
-
-Skills are reusable procedures. They are not one-off prompts.
-
-## Position in the Framework
+Canonical first-class contract:
 
 ```text
-Task / Workflow
-→ Skill Resolution
-→ Adapter Capability Check
-→ Execution Procedure
-→ Review
+contracts/ports/control/skill-resolution.port.yaml
 ```
 
-`SkillManagementPort` is part of execution governance. It is not a code executor, model provider, or task source.
-
-## Primary Responsibilities
-
-- List available skills.
-- Group skills by category.
-- Resolve skills required by a product, app, task, or adapter.
-- Validate whether an adapter supports required skills.
-- Expose skill metadata to the dashboard.
-- Help prevent generic prompting by enforcing reusable procedures.
-
-## Non-Responsibilities
-
-`SkillManagementPort` must not:
-
-- execute code,
-- mutate task state,
-- invent new skills during execution without review,
-- bypass adapter contracts,
-- replace rules or architecture constraints.
-
-## Candidate Adapters
+Canonical display name:
 
 ```text
-MarkdownSkillAdapter
-SkillRegistryYamlAdapter
-GitHubSkillRegistryAdapter
-DatabaseSkillRegistryAdapter
+SkillResolutionPort
 ```
 
-## Default Skill Workflow
+## Why the name changed
+
+`SkillManagementPort` suggested ownership of skill definition, installation, execution, and lifecycle. The retained reusable boundary is narrower:
 
 ```text
-Receive Task Requirements
-→ Resolve Product/App Required Skills
-→ Resolve Adapter Required Skills
-→ Validate Skill Availability
-→ Attach Skill References to Handoff
-→ Report Missing Skills
+required capabilities
+→ discover versioned SkillDefinition references
+→ resolve compatible skills
+→ report missing or incompatible requirements
+→ hand off references for method selection
 ```
 
-## Input Contract
-
-```yaml
-skill_management_input:
-  product_id: ""
-  app_id: ""
-  task_id: ""
-  adapter_name: ""
-  required_skills: []
-```
-
-## Output Contract
-
-```yaml
-skill_management_output:
-  resolved_skills: []
-  missing_skills: []
-  unsupported_skills: []
-  ready_for_execution: false
-```
-
-## Quality Gates
-
-- skill exists,
-- skill category is known,
-- required skills are resolved before execution,
-- adapter supports required skills,
-- missing skills block execution or trigger review,
-- skills remain reusable and not task-specific hacks.
-
-## Dashboard Usage
-
-`SkillManagementPort` should power:
+## Required distinctions
 
 ```text
-/skills
-/task required skills
-/adapter supported skills
+SkillResolutionPort
+≠ SkillDefinition authoring
+≠ skill installation
+≠ skill application
+≠ workflow execution
+≠ adapter binding
+≠ behavioral conformance
 ```
 
-It should help the dashboard show whether a task has the right execution procedures before Codex or another adapter runs.
+Discovering or selecting a skill does not prove that the skill was installed, applied correctly, or embodied in runtime behavior.
+
+The `ai-native-skills` repository owns executable skill implementations. `native-ai-fw` may orchestrate discovery and runtime binding. Product repositories own product-specific selection and acceptance policy.
+
+## Legacy adapter examples
+
+Markdown, YAML registry, GitHub registry, or database-backed discovery remain possible adapter choices. They are not universal core defaults.
+
+## Migration
+
+Consumers using the legacy name should migrate to the stable contract through its port ID, canonical path, and compatible version pin.
+
+The machine authority is the versioned port contract and generated manifest, not this Markdown document.

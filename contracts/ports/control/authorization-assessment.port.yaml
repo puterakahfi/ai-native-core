@@ -1,0 +1,163 @@
+port_contract:
+  id: authorization-assessment
+  kind: control_port
+  version: 0.1.0
+  capability: assess_action_authorization_from_current_authority
+  direction: inbound
+  semantic_owner_context: governance_risk_and_authority
+  binding_owner_context: integration_and_binding
+  consumer_contexts:
+  - method_and_workflow
+  - runtime_and_execution
+  - product_delivery_and_registry
+  - learning_and_evolution
+  purpose: Assess whether one concrete action may proceed now from current permission, authority, approval, policy, risk, scope, conditions, and validity references.
+  boundary:
+    owns:
+    - action_authorization_assessment
+    - authority_scope_check
+    - approval_condition_check
+    - risk_control_check
+    - authorization_limitation_recording
+    delegates:
+    - permission_grant
+    - authority_grant
+    - approval_decision
+    - risk_assessment
+    - execution
+    - delivery
+    does_not_own:
+    - technical_access
+    - subject_mutation
+    - execution_status
+    - review_disposition
+    - approval_status_transition
+    - product_acceptance
+  interactions:
+    requests:
+    - id: assess_action_authorization
+      description: Assess whether one bounded concrete action may proceed now.
+      required_fields:
+      - id: assessment_id
+        description: Stable authorization assessment identifier.
+      - id: action_ref
+        description: Concrete proposed action under assessment.
+      - id: actor_ref
+        description: Actor or runtime identity proposing the action.
+      - id: permission_refs
+        description: Technical or policy permission references.
+      - id: authority_refs
+        description: Applicable AuthorityGrant references.
+      - id: scope_ref
+        description: Requested action scope.
+      optional_fields:
+      - id: approval_refs
+        description: Applicable Approval decisions and conditions.
+      - id: risk_assessment_ref
+        description: Current risk assessment and controls.
+      - id: capacity_assessment_ref
+        description: Current capacity assessment.
+      - id: policy_refs
+        description: Policies governing authorization.
+    responses:
+    - id: authorization_assessment_result
+      description: Return an attributable proceed, conditional, blocked, denied, expired, or not-checkable assessment without executing the action.
+      fields:
+      - id: assessment_id
+        description: Stable authorization assessment identifier.
+      - id: action_ref
+        description: Concrete proposed action under assessment.
+      - id: authorization_disposition
+        description: Current scoped authorization result for this action attempt.
+      - id: satisfied_refs
+        description: Permission, authority, approval, policy, and control references satisfied.
+      - id: missing_or_invalid_refs
+        description: Missing, expired, revoked, insufficient, or conflicting requirements.
+      - id: conditions
+        description: Conditions that must remain true while proceeding.
+      - id: valid_until
+        description: Assessment validity boundary when applicable.
+      - id: limitations
+        description: Known scope, evidence, or policy limitations.
+    events:
+    - id: authorization_assessment_completed
+      description: One concrete action received an attributable authorization assessment.
+    - id: action_authorization_blocked
+      description: A concrete action was blocked by missing or invalid authority requirements.
+    - id: action_authorization_conditioned
+      description: A concrete action may proceed only under explicit recorded conditions.
+    - id: action_authorization_not_checkable
+      description: Required permission, authority, policy, risk, or scope evidence was insufficient.
+    streams: []
+  failures:
+    errors:
+    - code: authorization_input_incomplete
+      meaning: Required action, actor, permission, authority, or scope references are incomplete.
+      retryable: false
+      partial_result_allowed: true
+    - code: authorization_authority_invalid
+      meaning: Authority is expired, revoked, conflicting, or outside the requested scope.
+      retryable: false
+      partial_result_allowed: true
+    - code: authorization_policy_conflict
+      meaning: Applicable policies conflict materially and require decision resolution.
+      retryable: false
+      partial_result_allowed: true
+    - code: authorization_assessment_stale
+      meaning: A referenced approval, risk, capacity, or authority state changed during assessment.
+      retryable: true
+      partial_result_allowed: true
+    partial_result_policy: explicit
+    unknown_or_not_checkable_policy: Preserve missing, stale, conflicting, unavailable, or unverified information explicitly and never infer a successful result.
+  state_transitions: []
+  authorization:
+    mode: required
+    required_for:
+    - assess_action_authorization
+    permission_is_not_authority: true
+    review_is_not_approval: true
+    authority_reference_required: true
+  idempotency:
+    mode: request_key
+    key_scope: assessment_id_and_governance_version_set
+  observability:
+    required_events:
+    - authorization_assessment_completed
+    - action_authorization_blocked
+    - action_authorization_conditioned
+    - action_authorization_not_checkable
+    correlation_fields:
+    - assessment_id
+    - action_ref
+    - actor_ref
+    - scope_ref
+    sensitive_fields:
+    - permission_refs
+    - authority_refs
+    - approval_refs
+    - risk_assessment_ref
+  adapter_requirements:
+    contract_reference:
+      require_id: true
+      require_path: true
+      require_version: true
+    requirements:
+    - evaluate_permission_authority_approval_policy_risk_scope_and_validity
+    - return_not_checkable_for_missing_governance_evidence
+    - preserve_conditions_expiry_and_limitations
+    - never_execute_the_assessed_action
+  compatibility:
+    policy: semver
+    breaking_changes:
+    - change_authorization_disposition_meaning
+    - add_required_governance_reference
+    - remove_missing_requirement_or_limitation_visibility
+    - collapse_authorization_into_permission_or_approval
+    aliases: []
+    supersedes: []
+    legacy_contract_refs: []
+  quality_gates:
+  - permission_is_not_authority
+  - approval_is_not_execution_authorization_by_itself
+  - authorization_is_action_scope_time_and_condition_bound
+  - assessment_does_not_execute_the_action

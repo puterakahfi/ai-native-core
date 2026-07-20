@@ -1,0 +1,143 @@
+port_contract:
+  id: rule-resolution
+  kind: control_port
+  version: 0.1.0
+  capability: resolve_applicable_governance_rules
+  direction: inbound
+  semantic_owner_context: governance_risk_and_authority
+  binding_owner_context: integration_and_binding
+  consumer_contexts:
+  - intent_and_specification
+  - method_and_workflow
+  - runtime_and_execution
+  - product_delivery_and_registry
+  purpose: Discover and resolve applicable governed Rule references for a named scope without evaluating an action, granting authority, or mutating rule definitions.
+  boundary:
+    owns:
+    - rule_inventory_query
+    - rule_applicability_resolution
+    - rule_conflict_recording
+    - rule_reference_handoff
+    delegates:
+    - rule_authoring
+    - rule_mutation
+    - rule_evaluation
+    - approval_decision
+    - authorization_assessment
+    does_not_own:
+    - execution
+    - task_state
+    - technical_permission
+    - authority
+    - product_policy_ownership
+    - provider_configuration
+  interactions:
+    requests:
+    - id: resolve_applicable_rules
+      description: Resolve governed Rule references applicable to one subject, action class, product, repository, or workflow scope.
+      required_fields:
+      - id: request_id
+        description: Stable rule resolution request identifier.
+      - id: scope_ref
+        description: Subject and scope requiring applicable rules.
+      - id: action_class
+        description: Declared class of action under consideration.
+      optional_fields:
+      - id: product_policy_ref
+        description: Product-owned policy references when applicable.
+      - id: candidate_rule_refs
+        description: Optional candidate rules to validate for applicability.
+    - id: list_rule_inventory
+      description: List governed Rule references for one bounded category or authority scope.
+      required_fields:
+      - id: request_id
+        description: Stable rule inventory request identifier.
+      optional_fields:
+      - id: category
+        description: Optional governed rule category.
+      - id: authority_scope_ref
+        description: Optional authority scope filter.
+    responses:
+    - id: rule_resolution_result
+      description: Return applicable Rule references plus conflicts, gaps, and unresolved authority scope.
+      fields:
+      - id: request_id
+        description: Stable rule resolution request identifier.
+      - id: applicable_rule_refs
+        description: Versioned governed Rule references applicable to the declared scope.
+      - id: conflicting_rule_refs
+        description: Rules whose requirements materially conflict in scope.
+      - id: rule_gaps
+        description: Required governance coverage that remains missing or unknown.
+      - id: resolution_limitations
+        description: Scope, authority, version, or source limitations affecting use.
+    events:
+    - id: rule_resolution_completed
+      description: A bounded rule applicability query produced references or explicit gaps.
+    - id: rule_conflict_detected
+      description: Materially conflicting governed rules were detected in the same scope.
+    - id: rule_gap_detected
+      description: Required governance coverage remains absent or unknown for the named scope.
+    streams: []
+  failures:
+    errors:
+    - code: rule_not_found
+      meaning: A requested governed Rule identity cannot be resolved.
+      retryable: false
+      partial_result_allowed: true
+    - code: rule_scope_ambiguous
+      meaning: The subject, action class, or authority scope is insufficient to resolve applicability.
+      retryable: false
+      partial_result_allowed: true
+    - code: rule_conflict_unresolved
+      meaning: Applicable governed rules conflict materially and require authority resolution.
+      retryable: false
+      partial_result_allowed: true
+    partial_result_policy: explicit
+    unknown_or_not_checkable_policy: Preserve missing, stale, conflicting, unavailable, or unverified information explicitly and never infer a successful result.
+  state_transitions: []
+  authorization:
+    mode: none
+    required_for: []
+    permission_is_not_authority: true
+    review_is_not_approval: true
+    authority_reference_required: false
+  idempotency:
+    mode: request_key
+    key_scope: request_id_scope_and_rule_version_set
+  observability:
+    required_events:
+    - rule_resolution_completed
+    - rule_conflict_detected
+    - rule_gap_detected
+    correlation_fields:
+    - request_id
+    - scope_ref
+    - action_class
+    sensitive_fields:
+    - product_policy_ref
+  adapter_requirements:
+    contract_reference:
+      require_id: true
+      require_path: true
+      require_version: true
+    requirements:
+    - preserve_rule_identity_version_scope_and_authority
+    - report_rule_conflicts_and_gaps
+    - keep_resolution_distinct_from_evaluation
+    - do_not_infer_authority_from_rule_availability
+  compatibility:
+    policy: semver
+    breaking_changes:
+    - change_rule_applicability_meaning
+    - add_required_rule_scope_field
+    - remove_conflict_or_gap_reporting
+    - collapse_resolution_into_evaluation
+    aliases: []
+    supersedes: []
+    legacy_contract_refs:
+    - contracts/skills/governance/rule-manager.contract.yaml
+  quality_gates:
+  - applicable_rules_are_scope_and_version_bound
+  - conflicting_rules_are_not_silently_resolved
+  - rule_resolution_does_not_grant_authority_or_authorization

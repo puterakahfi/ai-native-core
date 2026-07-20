@@ -1,0 +1,137 @@
+port_contract:
+  id: skill-resolution
+  kind: control_port
+  version: 0.1.0
+  capability: resolve_reusable_skill_definitions
+  direction: inbound
+  semantic_owner_context: method_and_workflow
+  binding_owner_context: integration_and_binding
+  consumer_contexts:
+  - intent_and_specification
+  - runtime_and_execution
+  - product_delivery_and_registry
+  purpose: Discover and resolve reusable SkillDefinition references required by a scope without installing, applying, executing, or proving behavioral conformance.
+  boundary:
+    owns:
+    - skill_inventory_query
+    - skill_requirement_resolution
+    - skill_compatibility_gap_recording
+    - skill_reference_handoff
+    delegates:
+    - skill_definition_authoring
+    - skill_installation
+    - skill_application
+    - adapter_binding
+    - behavioral_evaluation
+    does_not_own:
+    - execution
+    - workflow_state
+    - task_state
+    - rule_definition
+    - approval
+    - skill_application_evidence
+  interactions:
+    requests:
+    - id: resolve_required_skills
+      description: Resolve reusable skill definitions required by a task, workflow, product, or adapter scope.
+      required_fields:
+      - id: request_id
+        description: Stable skill resolution request identifier.
+      - id: scope_ref
+        description: Task, workflow, product, or adapter scope.
+      - id: required_capabilities
+        description: Capabilities that must be supplied by reusable skills.
+      optional_fields:
+      - id: candidate_skill_refs
+        description: Optional candidate SkillDefinition references.
+      - id: runtime_constraint_ref
+        description: Runtime compatibility constraints affecting resolution.
+    - id: list_available_skills
+      description: List discoverable SkillDefinition references for a bounded category or capability query.
+      required_fields:
+      - id: request_id
+        description: Stable inventory query identifier.
+      optional_fields:
+      - id: category
+        description: Optional skill category filter.
+      - id: capability_query
+        description: Optional capability search expression.
+    responses:
+    - id: skill_resolution_result
+      description: Return resolved SkillDefinition references and explicit missing or incompatible requirements.
+      fields:
+      - id: request_id
+        description: Stable skill resolution request identifier.
+      - id: resolved_skill_refs
+        description: Versioned SkillDefinition references satisfying declared requirements.
+      - id: missing_capabilities
+        description: Required capabilities with no resolved skill.
+      - id: incompatible_skill_refs
+        description: Candidate skills that conflict with runtime or contract constraints.
+      - id: ready_for_method_selection
+        description: Whether skill requirements are sufficiently resolved for method selection.
+    events:
+    - id: skill_resolution_completed
+      description: A bounded skill requirement query produced resolved references or explicit gaps.
+    - id: skill_requirement_unresolved
+      description: A required reusable capability has no compatible SkillDefinition reference.
+    streams: []
+  failures:
+    errors:
+    - code: skill_definition_not_found
+      meaning: A requested SkillDefinition identity cannot be resolved.
+      retryable: false
+      partial_result_allowed: true
+    - code: skill_capability_unavailable
+      meaning: No discovered skill supplies one declared required capability.
+      retryable: false
+      partial_result_allowed: true
+    - code: skill_version_incompatible
+      meaning: A candidate SkillDefinition version conflicts with declared compatibility constraints.
+      retryable: false
+      partial_result_allowed: true
+    partial_result_policy: explicit
+    unknown_or_not_checkable_policy: Preserve missing, stale, conflicting, unavailable, or unverified information explicitly and never infer a successful result.
+  state_transitions: []
+  authorization:
+    mode: none
+    required_for: []
+    permission_is_not_authority: true
+    review_is_not_approval: true
+    authority_reference_required: false
+  idempotency:
+    mode: request_key
+    key_scope: request_id_and_requirement_set
+  observability:
+    required_events:
+    - skill_resolution_completed
+    - skill_requirement_unresolved
+    correlation_fields:
+    - request_id
+    - scope_ref
+    sensitive_fields: []
+  adapter_requirements:
+    contract_reference:
+      require_id: true
+      require_path: true
+      require_version: true
+    requirements:
+    - preserve_skill_definition_identity_and_version
+    - distinguish_resolution_from_installation_and_application
+    - report_missing_and_incompatible_capabilities
+    - do_not_claim_behavioral_conformance_from_discovery
+  compatibility:
+    policy: semver
+    breaking_changes:
+    - change_skill_resolution_meaning
+    - add_required_skill_resolution_field
+    - remove_missing_capability_reporting
+    - collapse_resolution_into_application
+    aliases:
+    - skill-management
+    supersedes: []
+    legacy_contract_refs: []
+  quality_gates:
+  - resolved_skills_are_versioned_references
+  - missing_and_incompatible_requirements_are_visible
+  - skill_resolution_does_not_claim_installation_application_or_conformance

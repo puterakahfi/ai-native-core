@@ -1,106 +1,62 @@
-# ContextManagementPort
+# Context Management Port — Legacy Navigation
 
-## Purpose
+Status: Superseded explanatory document
 
-`ContextManagementPort` defines the boundary for resolving, validating, and packaging context that AI agents, adapters, and workflows need to perform work safely and consistently.
-
-It exists so Native AI Framework can separate high-quality task context from ad hoc prompting.
-
-## Position in the Framework
+Canonical first-class contract:
 
 ```text
-Product / App / Task
-→ Context Resolution
-→ Context Pack
-→ Adapter Handoff
-→ Execution
-→ Review
+contracts/ports/control/context-resolution.port.yaml
 ```
 
-`ContextManagementPort` is a knowledge and execution-preparation port. It is not a memory substitute, model adapter, or task manager.
-
-## Primary Responsibilities
-
-- List available context packs.
-- Resolve context required by a task or workflow.
-- Validate required context before adapter handoff.
-- Package product, app, rule, skill, adapter, and task context into a reviewable bundle.
-- Track missing or stale context.
-- Prevent agents from executing with incomplete context.
-
-## Non-Responsibilities
-
-`ContextManagementPort` must not:
-
-- execute code,
-- mutate task status,
-- infer architecture without source files,
-- replace product configs,
-- bypass human review,
-- store secrets in context packs.
-
-## Candidate Adapters
+Canonical display name:
 
 ```text
-FileBackedContextPackAdapter
-GitHubContextPackAdapter
-DatabaseContextPackAdapter
-GeneratedContextBundleAdapter
+ContextResolutionPort
 ```
 
-## Default Context Workflow
+## Why the name changed
+
+`ContextManagementPort` mixed several responsibilities behind one broad verb. The retained reusable boundary is context resolution:
 
 ```text
-Receive Task / Workflow Reference
-→ Resolve Product Context
-→ Resolve App Context
-→ Resolve Rules / Skills
-→ Resolve Adapter Contracts
-→ Validate Completeness
-→ Build Context Bundle
-→ Handoff to Adapter
+context request
+→ attributable source references
+→ gap and staleness assessment
+→ versioned ContextPack checkpoint
+→ scoped readiness result
 ```
 
-## Input Contract
+The canonical port may resolve and assemble context, but it does not own the sources it references.
 
-```yaml
-context_management_input:
-  product_id: ""
-  app_id: ""
-  task_id: ""
-  required_context: []
-  adapter_target: ""
-```
-
-## Output Contract
-
-```yaml
-context_management_output:
-  context_bundle: {}
-  source_files: []
-  missing_context: []
-  warnings: []
-  ready_for_handoff: false
-```
-
-## Quality Gates
-
-- required product context exists,
-- app context exists when app-scoped,
-- required rules are resolved,
-- required skills are resolved,
-- adapter contract is resolved,
-- no secrets are included,
-- bundle is reviewable before execution.
-
-## Dashboard Usage
-
-`ContextManagementPort` should power:
+## Required distinctions
 
 ```text
-/context-packs
-/task context readiness
-/adapter handoff preview
+ContextResolutionPort
+≠ source retrieval provider
+≠ source-of-truth authority
+≠ knowledge acceptance
+≠ memory storage
+≠ skill or rule definition
+≠ execution authorization
+≠ execution
 ```
 
-It should help the dashboard show whether a task is safe to send to Codex or another execution adapter.
+A ContextPack records a purpose-specific checkpoint. Inclusion in the pack does not transfer source authority or turn memory, inference, or assumption into accepted knowledge.
+
+Missing, stale, conflicting, inaccessible, or insufficient context remains explicit. A positive readiness result is bounded by the named purpose and does not authorize execution.
+
+## Legacy adapter examples
+
+Earlier examples such as file-backed, GitHub-backed, database-backed, or generated context bundles remain possible adapters or bindings. They are not canonical core defaults.
+
+## Migration
+
+Consumers using the legacy name should migrate to the stable contract by declaring:
+
+```text
+port ID
+canonical contract path
+compatible contract version
+```
+
+The machine authority is the versioned port contract and generated manifest, not this Markdown document.

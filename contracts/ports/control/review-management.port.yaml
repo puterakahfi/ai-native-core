@@ -1,0 +1,201 @@
+port_contract:
+  id: review-management
+  kind: control_port
+  version: 0.1.0
+  capability: manage_traceable_review_requests_and_results
+  direction: inbound
+  semantic_owner_context: evidence_evaluation_and_review
+  binding_owner_context: integration_and_binding
+  consumer_contexts:
+  - method_and_workflow
+  - runtime_and_execution
+  - governance_risk_and_authority
+  - product_delivery_and_registry
+  purpose: Create, assign, transition, and preserve ReviewRequest and ReviewResult records without treating review completion or a positive verdict as approval.
+  boundary:
+    owns:
+    - review_request_creation
+    - review_assignment_recording
+    - review_disposition_transition
+    - review_finding_recording
+    - review_result_reference
+    delegates:
+    - review_method_execution
+    - approval_decision
+    - authorization_assessment
+    - completion_assessment
+    - product_acceptance
+    does_not_own:
+    - authority_grant
+    - technical_permission
+    - execution
+    - delivery
+    - task_state
+    - acceptance_criteria_evaluation
+  interactions:
+    requests:
+    - id: create_review_request
+      description: Create a scoped ReviewRequest with subject, criteria, evidence, and reviewer requirements.
+      required_fields:
+      - id: review_request_id
+        description: Stable ReviewRequest identifier.
+      - id: subject_ref
+        description: Artifact, claim, run, change, or decision subject being reviewed.
+      - id: criteria_refs
+        description: Declared criteria or review contract references.
+      - id: reviewer_requirement
+        description: Required reviewer qualification or role.
+      optional_fields:
+      - id: evidence_refs
+        description: Evidence available to the reviewer.
+      - id: risk_context_ref
+        description: Risk context affecting review depth or routing.
+      - id: due_at
+        description: Optional review due time.
+    - id: record_review_result
+      description: Record attributable findings or a verdict for one ReviewRequest.
+      required_fields:
+      - id: review_request_id
+        description: ReviewRequest receiving the result.
+      - id: reviewer_ref
+        description: Attributable reviewer identity.
+      - id: result_ref
+        description: Stable ReviewResult identifier.
+      - id: findings
+        description: Review findings or verdict with evidence references.
+      optional_fields:
+      - id: limitations
+        description: Known review coverage limitations.
+      - id: recommended_next_action
+        description: Non-authority recommendation after review.
+    - id: transition_review_disposition
+      description: Apply one valid ReviewDisposition transition with attributable cause.
+      required_fields:
+      - id: review_request_id
+        description: ReviewRequest being transitioned.
+      - id: expected_from
+        description: Expected current ReviewDisposition.
+      - id: transition_to
+        description: Target ReviewDisposition.
+      - id: cause_ref
+        description: Attributable cause of the transition.
+      optional_fields: []
+    responses:
+    - id: review_snapshot
+      description: Return current ReviewRequest, ReviewResult, findings, and canonical ReviewDisposition.
+      fields:
+      - id: review_request_id
+        description: Stable ReviewRequest identifier.
+      - id: review_disposition
+        description: Current canonical ReviewDisposition only.
+      - id: reviewer_refs
+        description: Assigned or participating reviewer identities.
+      - id: finding_refs
+        description: Attributable review findings and limitations.
+      - id: review_result_ref
+        description: Current ReviewResult reference when available.
+      - id: external_approval_refs
+        description: Separate Approval references when policy has recorded them.
+    events:
+    - id: review_request_created
+      description: A scoped ReviewRequest was created.
+    - id: review_disposition_changed
+      description: The ReviewRequest entered another canonical ReviewDisposition.
+    - id: review_result_recorded
+      description: An attributable ReviewResult and findings were recorded.
+    - id: review_changes_requested
+      description: The review requested changes without granting or denying approval.
+    streams: []
+  failures:
+    errors:
+    - code: review_request_not_found
+      meaning: The requested ReviewRequest identity cannot be resolved.
+      retryable: false
+      partial_result_allowed: false
+    - code: review_disposition_conflict
+      meaning: Expected and stored ReviewDisposition values do not match.
+      retryable: true
+      partial_result_allowed: false
+    - code: invalid_review_transition
+      meaning: The requested ReviewDisposition transition is not allowed.
+      retryable: false
+      partial_result_allowed: false
+    - code: review_result_unattributed
+      meaning: Reviewer identity, criteria, evidence, or scope is missing.
+      retryable: false
+      partial_result_allowed: true
+    partial_result_policy: explicit
+    unknown_or_not_checkable_policy: Preserve missing, stale, conflicting, unavailable, or unverified information explicitly and never infer a successful result.
+  state_transitions:
+  - status_family: review_disposition
+    from: not_requested
+    to: pending
+    condition: A scoped ReviewRequest with reviewer requirements was created.
+  - status_family: review_disposition
+    from: pending
+    to: in_review
+    condition: A qualified reviewer began the declared examination.
+  - status_family: review_disposition
+    from: in_review
+    to: changes_requested
+    condition: Material findings require subject revision before review completion.
+  - status_family: review_disposition
+    from: in_review
+    to: accepted_with_findings
+    condition: Review completed with visible nonblocking findings or limitations.
+  - status_family: review_disposition
+    from: in_review
+    to: completed
+    condition: The declared review process completed with an attributable result.
+  - status_family: review_disposition
+    from: changes_requested
+    to: pending
+    condition: A revised subject was submitted for another review pass.
+  authorization:
+    mode: none
+    required_for: []
+    permission_is_not_authority: true
+    review_is_not_approval: true
+    authority_reference_required: false
+  idempotency:
+    mode: resource_key
+    key_scope: review_request_id_and_operation_id
+  observability:
+    required_events:
+    - review_request_created
+    - review_disposition_changed
+    - review_result_recorded
+    - review_changes_requested
+    correlation_fields:
+    - review_request_id
+    - subject_ref
+    - reviewer_ref
+    - result_ref
+    sensitive_fields:
+    - findings
+    - evidence_refs
+    - risk_context_ref
+  adapter_requirements:
+    contract_reference:
+      require_id: true
+      require_path: true
+      require_version: true
+    requirements:
+    - preserve_review_disposition_family
+    - record_reviewer_identity_criteria_evidence_and_scope
+    - keep_approval_and_authorization_external
+    - do_not_expose_private_chain_of_thought
+  compatibility:
+    policy: semver
+    breaking_changes:
+    - change_review_disposition_meaning
+    - add_required_review_request_field
+    - remove_finding_or_limitation_visibility
+    - collapse_review_into_approval
+    aliases: []
+    supersedes: []
+    legacy_contract_refs: []
+  quality_gates:
+  - review_result_is_attributable_and_scope_bound
+  - review_completion_does_not_grant_approval
+  - changes_requested_preserves_context_and_findings

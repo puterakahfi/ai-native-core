@@ -4,15 +4,29 @@ on:
   pull_request:
     paths:
       - contracts/**
+      - schemas/port-contract.schema.yaml
       - scripts/generate-manifest.sh
       - scripts/validate-contract-identity.py
+      - scripts/validate-port-contracts.py
+      - scripts/validate-port-adapter-reference.py
+      - tests/test_validate_port_contracts.py
+      - tests/test_validate_port_adapter_reference.py
+      - tests/fixtures/port-contracts/**
+      - tests/fixtures/port-adapter-references/**
       - .github/workflows/contract-integrity.yml
   push:
     branches: [main]
     paths:
       - contracts/**
+      - schemas/port-contract.schema.yaml
       - scripts/generate-manifest.sh
       - scripts/validate-contract-identity.py
+      - scripts/validate-port-contracts.py
+      - scripts/validate-port-adapter-reference.py
+      - tests/test_validate_port_contracts.py
+      - tests/test_validate_port_adapter_reference.py
+      - tests/fixtures/port-contracts/**
+      - tests/fixtures/port-adapter-references/**
       - .github/workflows/contract-integrity.yml
 
 permissions:
@@ -26,11 +40,34 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install validator dependency
-        run: python3 -m pip install --disable-pip-version-check pyyaml
+      - name: Install validator dependencies
+        run: python3 -m pip install --disable-pip-version-check pyyaml jsonschema
 
-      - name: Validate canonical contract identity
+      - name: Compile validators and port tests
+        run: |
+          python3 -m py_compile \
+            scripts/validate-contract-identity.py \
+            scripts/validate-port-contracts.py \
+            scripts/validate-port-adapter-reference.py \
+            tests/test_validate_port_contracts.py \
+            tests/test_validate_port_adapter_reference.py
+
+      - name: Validate canonical skill contract identity
         run: python3 scripts/validate-contract-identity.py
+
+      - name: Validate first-class port contracts
+        run: python3 scripts/validate-port-contracts.py
+
+      - name: Validate adapter port reference fixture
+        run: >-
+          python3 scripts/validate-port-adapter-reference.py
+          tests/fixtures/port-adapter-references/valid-model-inference.port-reference.yaml
+
+      - name: Run port contract regression tests
+        run: python3 -m unittest discover -s tests -p 'test_validate_port_contracts.py' -v
+
+      - name: Run adapter port reference regression tests
+        run: python3 -m unittest discover -s tests -p 'test_validate_port_adapter_reference.py' -v
 
       - name: Regenerate contract manifest
         run: ./scripts/generate-manifest.sh

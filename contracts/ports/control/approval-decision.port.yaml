@@ -1,0 +1,208 @@
+port_contract:
+  id: approval-decision
+  kind: control_port
+  version: 0.1.0
+  capability: record_authority_bearing_approval_decisions
+  direction: inbound
+  semantic_owner_context: governance_risk_and_authority
+  binding_owner_context: integration_and_binding
+  consumer_contexts:
+  - intent_and_specification
+  - method_and_workflow
+  - runtime_and_execution
+  - evidence_evaluation_and_review
+  - product_delivery_and_registry
+  - learning_and_evolution
+  purpose: Record, condition, reject, revoke, expire, and inspect authority-bearing Approval decisions for a named subject and scope without performing the approved action.
+  boundary:
+    owns:
+    - approval_decision_recording
+    - approval_status_transition
+    - approval_condition_recording
+    - authority_and_scope_validation
+    - decision_provenance
+    delegates:
+    - review
+    - authorization_assessment
+    - execution
+    - delivery
+    - completion_assessment
+    - product_acceptance
+    does_not_own:
+    - technical_permission_grant
+    - authority_grant_creation
+    - subject_mutation
+    - workflow_state
+    - execution_status
+    - review_disposition
+  interactions:
+    requests:
+    - id: record_approval_decision
+      description: Record an authority-bearing approval, conditional approval, or rejection for one subject and scope.
+      required_fields:
+      - id: decision_id
+        description: Stable approval decision identifier.
+      - id: subject_ref
+        description: Action, transition, release, claim, risk, or canonical change under decision.
+      - id: authority_ref
+        description: Verified AuthorityGrant or delegated decision-right reference.
+      - id: scope_ref
+        description: Scope covered by the decision.
+      - id: decision
+        description: Approved, conditionally approved, or rejected decision.
+      optional_fields:
+      - id: condition_refs
+        description: Conditions limiting or qualifying the decision.
+      - id: evidence_refs
+        description: Evidence and review references considered.
+      - id: valid_until
+        description: Optional decision expiry time.
+    - id: transition_approval_status
+      description: Revoke or expire an existing approval with attributable authority and cause.
+      required_fields:
+      - id: decision_id
+        description: Approval decision being transitioned.
+      - id: expected_from
+        description: Expected current ApprovalStatus.
+      - id: transition_to
+        description: Target ApprovalStatus.
+      - id: authority_ref
+        description: Authority permitted to revoke or expire the approval.
+      - id: cause_ref
+        description: Attributable reason or policy event.
+      optional_fields: []
+    - id: inspect_approval_decision
+      description: Inspect one Approval decision without inferring action execution.
+      required_fields:
+      - id: decision_id
+        description: Approval decision to inspect.
+      optional_fields: []
+    responses:
+    - id: approval_decision_snapshot
+      description: Return the authority-bearing Approval decision, scope, conditions, provenance, and canonical ApprovalStatus.
+      fields:
+      - id: decision_id
+        description: Stable approval decision identifier.
+      - id: subject_ref
+        description: Subject governed by the approval decision.
+      - id: approval_status
+        description: Current canonical ApprovalStatus only.
+      - id: authority_ref
+        description: Authority under which the decision was recorded.
+      - id: scope_ref
+        description: Scope covered by the decision.
+      - id: condition_refs
+        description: Conditions attached to the decision.
+      - id: evidence_refs
+        description: Evidence and review references considered.
+      - id: validity
+        description: Current expiry, revocation, and condition information.
+    events:
+    - id: approval_decision_recorded
+      description: An authority-bearing Approval decision was recorded.
+    - id: approval_status_changed
+      description: An Approval entered another canonical ApprovalStatus.
+    - id: approval_revoked
+      description: An existing approval was revoked by applicable authority.
+    - id: approval_expired
+      description: An existing approval expired under its recorded validity conditions.
+    streams: []
+  failures:
+    errors:
+    - code: approval_authority_invalid
+      meaning: The supplied authority does not cover the decision subject or scope.
+      retryable: false
+      partial_result_allowed: false
+    - code: approval_scope_incomplete
+      meaning: The requested decision scope is missing, ambiguous, or broader than authority.
+      retryable: false
+      partial_result_allowed: true
+    - code: approval_status_conflict
+      meaning: Expected and stored ApprovalStatus values do not match.
+      retryable: true
+      partial_result_allowed: false
+    - code: approval_condition_unresolved
+      meaning: Required approval conditions remain missing or unresolved.
+      retryable: false
+      partial_result_allowed: true
+    partial_result_policy: explicit
+    unknown_or_not_checkable_policy: Preserve missing, stale, conflicting, unavailable, or unverified information explicitly and never infer a successful result.
+  state_transitions:
+  - status_family: approval_status
+    from: pending
+    to: approved
+    condition: Applicable authority recorded an unconditional positive decision for the named scope.
+  - status_family: approval_status
+    from: pending
+    to: conditionally_approved
+    condition: Applicable authority recorded a positive decision with explicit conditions.
+  - status_family: approval_status
+    from: pending
+    to: rejected
+    condition: Applicable authority recorded a negative decision for the named scope.
+  - status_family: approval_status
+    from: approved
+    to: revoked
+    condition: Applicable authority revoked the decision with attributable cause.
+  - status_family: approval_status
+    from: conditionally_approved
+    to: revoked
+    condition: Applicable authority revoked the conditional decision with attributable cause.
+  - status_family: approval_status
+    from: approved
+    to: expired
+    condition: The recorded approval validity period ended.
+  - status_family: approval_status
+    from: conditionally_approved
+    to: expired
+    condition: The recorded conditional approval validity period ended.
+  authorization:
+    mode: required
+    required_for:
+    - record_approval_decision
+    - revoke_approval
+    - expire_approval
+    permission_is_not_authority: true
+    review_is_not_approval: true
+    authority_reference_required: true
+  idempotency:
+    mode: resource_key
+    key_scope: decision_id_and_subject_ref
+  observability:
+    required_events:
+    - approval_decision_recorded
+    - approval_status_changed
+    - approval_revoked
+    - approval_expired
+    correlation_fields:
+    - decision_id
+    - subject_ref
+    - authority_ref
+    - scope_ref
+    sensitive_fields:
+    - evidence_refs
+    - condition_refs
+  adapter_requirements:
+    contract_reference:
+      require_id: true
+      require_path: true
+      require_version: true
+    requirements:
+    - verify_authority_scope_subject_and_validity
+    - preserve_approval_status_family
+    - record_conditions_provenance_and_expiry
+    - never_execute_the_approved_action
+  compatibility:
+    policy: semver
+    breaking_changes:
+    - change_approval_status_meaning
+    - add_required_authority_or_scope_field
+    - remove_condition_or_provenance_visibility
+    - collapse_approval_into_review_or_execution
+    aliases: []
+    supersedes: []
+    legacy_contract_refs: []
+  quality_gates:
+  - approval_records_authority_subject_scope_and_conditions
+  - review_or_gate_result_alone_cannot_create_approval
+  - approval_does_not_prove_execution_completion_or_acceptance

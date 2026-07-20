@@ -60,6 +60,34 @@ for catdir in "$CONTRACTS_DIR"/skills/*/; do
   done
 done
 
+# Ports — grouped by canonical port kind directory
+echo "  ports:" >> "$TEMP_MANIFEST"
+for kinddir in "$CONTRACTS_DIR"/ports/*/; do
+  [ -d "$kinddir" ] || continue
+  kind=$(basename "$kinddir")
+  has_files=false
+  for f in "$kinddir"*.port.yaml; do
+    [ -f "$f" ] || continue
+    has_files=true
+    break
+  done
+  $has_files || continue
+
+  echo "    $kind:" >> "$TEMP_MANIFEST"
+  for f in "$kinddir"*.port.yaml; do
+    [ -f "$f" ] || continue
+    name=$(basename "$f" .port.yaml)
+    relpath=$(realpath --relative-to="$CORE_ROOT" "$f")
+    sha=$(sha256sum "$f" | cut -c1-16)
+    version=$(grep -m1 'version:' "$f" | sed 's/.*version:[[:space:]]*//' | tr -d '"' | tr -d "'")
+    echo "      - id: $name" >> "$TEMP_MANIFEST"
+    echo "        path: $relpath" >> "$TEMP_MANIFEST"
+    echo "        version: \"${version:-0.0.0}\"" >> "$TEMP_MANIFEST"
+    echo "        sha256: $sha" >> "$TEMP_MANIFEST"
+    total=$((total + 1))
+  done
+done
+
 # Workflows
 echo "  workflows:" >> "$TEMP_MANIFEST"
 for f in "$CONTRACTS_DIR"/workflows/*.contract.yaml; do

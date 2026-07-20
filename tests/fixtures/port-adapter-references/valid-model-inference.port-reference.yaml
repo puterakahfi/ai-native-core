@@ -1,0 +1,5 @@
+port_adapter_reference:
+  adapter_id: fixture-model-inference-adapter
+  port_id: model-inference
+  port_path: contracts/ports/integration/model-inference.port.yaml
+  port_version: ^0.1.0

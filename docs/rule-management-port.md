@@ -1,104 +1,66 @@
-# RuleManagementPort
+# Rule Management Port — Legacy Navigation
 
-## Purpose
+Status: Superseded explanatory document
 
-`RuleManagementPort` defines the boundary for discovering, resolving, validating, and enforcing framework rules that constrain AI agents, adapters, workflows, and implementation tasks.
+The legacy `RuleManagementPort` combined discovery, applicability, evaluation, enforcement, blocking, and authority. It is replaced by two independently versioned boundaries.
 
-Rules are constraints. Skills are procedures.
-
-## Position in the Framework
+## Canonical contracts
 
 ```text
-Product / App / Task
-→ Rule Resolution
-→ Boundary Enforcement
-→ Adapter Handoff
-→ Review
+contracts/ports/control/rule-resolution.port.yaml
+contracts/ports/control/rule-evaluation.port.yaml
 ```
 
-`RuleManagementPort` is part of governance. It is not a skill registry, task source, or execution adapter.
-
-## Primary Responsibilities
-
-- List available rules.
-- Group rules by category.
-- Resolve applicable rules for a product, app, task, or adapter.
-- Validate architecture and boundary constraints.
-- Detect rule violations.
-- Expose rule readiness to the dashboard.
-- Block or warn before unsafe execution.
-
-## Non-Responsibilities
-
-`RuleManagementPort` must not:
-
-- execute code,
-- create tasks,
-- replace human approval,
-- mutate production systems,
-- become a vendor-specific adapter policy only.
-
-## Candidate Adapters
+Canonical display names:
 
 ```text
-MarkdownRuleAdapter
-RuleRegistryYamlAdapter
-ArchitectureRuleAdapter
-ProductRuleAdapter
-DatabaseRuleRegistryAdapter
+RuleResolutionPort
+RuleEvaluationPort
 ```
 
-## Default Rule Workflow
+## Rule resolution
 
 ```text
-Receive Task / Workflow Reference
-→ Resolve Product Rules
-→ Resolve App Rules
-→ Resolve Architecture Rules
-→ Validate Planned Action
-→ Report Violations
-→ Block / Warn / Allow
+subject and action scope
+→ discover governed Rule references
+→ determine applicability
+→ report conflicts and coverage gaps
 ```
 
-## Input Contract
+Resolution does not determine whether the action conforms.
 
-```yaml
-rule_management_input:
-  product_id: ""
-  app_id: ""
-  task_id: ""
-  adapter_name: ""
-  planned_action: ""
-```
-
-## Output Contract
-
-```yaml
-rule_management_output:
-  applicable_rules: []
-  violations: []
-  warnings: []
-  action: "allow"
-```
-
-## Quality Gates
-
-- applicable rules are resolved,
-- architecture boundary rules are checked,
-- destructive actions require approval,
-- adapter boundaries are preserved,
-- violations are visible before execution,
-- rule decisions are auditable.
-
-## Dashboard Usage
-
-`RuleManagementPort` should power:
+## Rule evaluation
 
 ```text
-/rules
-/task rule readiness
-/adapter safety boundaries
-/review gates
+resolved Rule references
++ subject evidence
++ bounded scope
+→ findings, violations, limitations, and evaluation disposition
 ```
 
-It should help the dashboard explain why an action is allowed, blocked, or needs review.
+Evaluation does not grant authority or permission to proceed.
+
+## Required distinctions
+
+```text
+Rule availability
+≠ rule applicability
+≠ rule evaluation
+≠ approval
+≠ authorization assessment
+≠ execution enforcement
+```
+
+A positive evaluation result is not an approval. A rule violation may block an action only through applicable policy and authorization handling; the evaluation port does not create authority by itself.
+
+Rule authoring and mutation remain separate governed capabilities. Product policy remains product-owned.
+
+## Legacy adapter examples
+
+Markdown rules, registries, architecture-rule adapters, product-rule adapters, and database-backed sources remain possible implementations or bindings. They are not canonical core defaults.
+
+## Migration
+
+Consumers must select the boundary they actually need and pin its stable ID, canonical path, and compatible version.
+
+The machine authority is the versioned port contracts and generated manifest, not this Markdown document.

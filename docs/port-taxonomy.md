@@ -1,250 +1,372 @@
-# Port Taxonomy
+# Native AI Engineering Port Taxonomy
 
-## Purpose
+Status: Candidate taxonomy under issue `#7`
 
-This document defines common ports used by Native AI Framework products.
+Canonical domain meanings: [`domain-model/README.md`](domain-model/README.md)
 
-A port is a required capability. It does not choose the tool or provider.
+Retention and migration decisions: [`port-retention-matrix.md`](port-retention-matrix.md)
 
-## Port Definition
+Discovery record: [`port-taxonomy-discovery.md`](port-taxonomy-discovery.md)
 
-```text
-Port = capability contract
-Adapter = replaceable implementation
-```
+Machine-readable representative contracts: [`../contracts/ports/`](../contracts/ports/)
 
-## 1. ModelInferencePort
+---
 
-Purpose:
-
-Use AI models to generate, transform, classify, evaluate, summarize, or reason over information.
-
-Common inputs:
+## 1. Canonical relationship
 
 ```text
-prompt
-context
-schema
-rules
-evaluation criteria
+DomainCapability
+→ stable ability required by the domain
+
+Port
+→ abstract boundary through which a consumer requests that ability
+
+Contract
+→ stable governed agreement for the boundary
+
+Adapter
+→ replaceable implementation or translation
+
+AdapterBinding
+→ selected adapter for a runtime, provider, framework, or product context
+
+ExecutionRun
+→ actual performed work
 ```
 
-Common outputs:
+Therefore:
 
 ```text
-text
-structured data
-classification
-evaluation report
-reasoning summary
+capability ≠ port
+port ≠ contract
+contract ≠ adapter
+adapter ≠ binding
+binding ≠ execution
 ```
 
-## 2. CodeExecutionPort
+The shorthand `Port = capability contract` is retired.
 
-Purpose:
+---
 
-Execute scoped software implementation tasks.
+## 2. Port kinds
 
-Common inputs:
+### IntegrationPort
+
+Boundary to an external provider, infrastructure surface, persistence system, protocol, framework service, or external application.
+
+Examples:
 
 ```text
-implementation task
-engineering contract
-allowed files
-rules
-skills
-acceptance criteria
+ModelInferencePort
+RepositoryPort
+KnowledgeRetrievalPort
+FileSystemPort
+BrowserResearchPort
+DatabasePort
+StoragePort
+PublishingPort
+ObservabilityPort
+MCPGatewayPort
+APIConnectorPort
+AuthBrokerPort
+ToolExecutionPort
+ToolRegistryPort
 ```
 
-Common outputs:
+Integration ports translate external semantics without allowing provider models to redefine upstream domain meaning.
+
+### ControlPort
+
+Boundary for coordinating, routing, or recording lifecycle operations.
+
+Examples:
 
 ```text
-changed files
-summary
-tests
-risks
-follow-up work
+AgentRuntimePort
+WorkflowOrchestrationPort
+ExecutionRunManagementPort
+ContextResolutionPort
+SkillResolutionPort
+RuleResolutionPort
+ReviewManagementPort
+AuthorizationAssessmentPort
 ```
 
-## 3. DesignGenerationPort
+A control port does not acquire the aggregate, review, approval, or product authority of the context it coordinates.
 
-Purpose:
+### ProductSurfacePort
 
-Generate or assist visual design, layout, component, or creative asset work.
+Boundary exposing a product-owned capability, interaction, or output to a consumer surface.
 
-Common inputs:
+Examples remain candidate-only until active reusable source boundaries are confirmed:
 
 ```text
-brand profile
-identity lock
-creative direction
-platform format
-design rules
+AssistantPort
+CreativeRenderingPort
+ProductOutputPort
 ```
 
-Common outputs:
+Do not create a product-surface port solely to mirror a UI page, component, provider endpoint, or private product feature.
+
+### CapabilityCompositionPort
+
+Boundary composing specialist capabilities behind one stable method-facing facade.
+
+Examples:
 
 ```text
-design draft
-layout spec
-component spec
-asset preview
-export notes
+VisualDirectionCompositionPort
+LayoutCompositionPort
+DesignStrategyCompositionPort
+InteractionCompositionPort
 ```
 
-## 4. DesignReviewPort
+A composition port selects and coordinates capabilities. It does not become an infrastructure port, a workflow run, or proof that specialist methods were executed.
 
-Purpose:
+---
 
-Evaluate design quality, brand fit, campaign clarity, mobile readability, and approval readiness.
+## 3. Direction
 
-Common outputs:
+Port kind and direction are independent.
 
 ```text
-review decision
-quality score
-required fixes
-recommendations
+inbound
+→ external or downstream consumer drives a capability owned by the semantic context;
+
+outbound
+→ the semantic context requests capability from an external or downstream boundary;
+
+bidirectional
+→ the agreement includes commands and observations in both directions.
 ```
 
-## 5. KnowledgeRetrievalPort
-
-Purpose:
-
-Retrieve product, domain, technical, and decision knowledge.
-
-Common sources:
+Examples:
 
 ```text
-repository docs
-knowledge base
-vector index
-product database
-document storage
+ModelInferencePort
+kind: integration_port
+direction: outbound
+
+ExecutionRunManagementPort
+kind: control_port
+direction: bidirectional
+
+VisualDirectionCompositionPort
+kind: capability_composition_port
+direction: inbound
 ```
 
-## 6. RepositoryPort
+---
 
-Purpose:
+## 4. Ownership
 
-Read and write repository files, branches, pull requests, issues, and review artifacts.
-
-Common outputs:
+Every first-class port contract declares:
 
 ```text
-file content
-commit
-pull request
-review comment
-issue
+semantic_owner_context
+→ owns the capability meaning and invariants;
+
+binding_owner_context
+→ Integration & Binding, which owns adapter selection and compatibility;
+
+consumer_contexts
+→ contexts allowed to request or observe the boundary.
 ```
 
-## 7. WebAppPort
-
-Purpose:
-
-Provide the web application implementation layer.
-
-Common capabilities:
+A port contract must not infer authority from technical access.
 
 ```text
-routing
-pages
-components
-server actions
-API routes
-state handling
-rendering
+capability
+≠ permission
+≠ authority
 ```
 
-## 8. DatabasePort
+---
 
-Purpose:
-
-Persist and query structured product data.
-
-Common capabilities:
+## 5. Contract location and identity
 
 ```text
-create
-read
-update
-delete
-transaction
-migration
-query
+contracts/ports/integration/<id>.port.yaml
+contracts/ports/control/<id>.port.yaml
+contracts/ports/product-surface/<id>.port.yaml
+contracts/ports/capability-composition/<id>.port.yaml
 ```
 
-## 9. StoragePort
-
-Purpose:
-
-Store files, media, exports, references, and generated assets.
-
-Common capabilities:
+Rules:
 
 ```text
-upload
-download
-presigned url
-metadata
-versioning
-delete
+ID and filename use kebab-case;
+ID omits the redundant "-port" suffix;
+capability and machine fields use snake_case;
+display type uses PascalCase plus Port;
+version follows repository compatibility policy.
 ```
 
-## 10. PublishingPort
-
-Purpose:
-
-Export, schedule, or publish approved outputs.
-
-Common capabilities:
+Example:
 
 ```text
-manual export
-schedule
-publish
-webhook
-platform API handoff
+contracts/ports/control/execution-run-management.port.yaml
+
+id: execution-run-management
+display type: ExecutionRunManagementPort
 ```
 
-## 11. EvaluationPort
+---
 
-Purpose:
+## 6. Required contract dimensions
 
-Evaluate whether output meets contract, rule, quality, safety, or business criteria.
-
-Common outputs:
+Every `port_contract` declares:
 
 ```text
-approved
-approved_with_comments
-needs_revision
-rejected
+identity, kind, version, and capability;
+direction and context ownership;
+purpose;
+owned, delegated, and excluded boundary;
+requests, responses, events, and streams;
+structured errors and partial-result behavior;
+typed state transitions;
+authorization boundary;
+idempotency;
+observability and sensitive fields;
+adapter ID/path/version reference requirements;
+compatibility, aliases, supersession, and legacy references;
+quality gates.
 ```
 
-## 12. ObservabilityPort
-
-Purpose:
-
-Track logs, traces, metrics, usage, cost, and errors.
-
-Common outputs:
+The canonical schema is:
 
 ```text
-log event
-metric
-trace
-alert
-cost report
+schemas/port-contract.schema.yaml
 ```
 
-## Port Design Checklist
+Validate with:
 
-- [ ] Capability is clear.
-- [ ] Inputs are explicit.
-- [ ] Outputs are explicit.
-- [ ] Failure behavior is defined.
-- [ ] Risk level is known.
-- [ ] Human approval requirement is clear.
-- [ ] Adapter can be replaced without changing domain model.
+```bash
+python3 scripts/validate-port-contracts.py
+```
+
+---
+
+## 7. Typed lifecycle rule
+
+One port contract may own transitions from at most one canonical status family.
+
+Examples:
+
+```text
+ExecutionRunManagementPort
+→ ExecutionStatus
+
+ReviewManagementPort
+→ ReviewDisposition
+
+ApprovalDecisionPort
+→ ApprovalStatus
+```
+
+Invalid:
+
+```text
+queued
+→ running
+→ completed
+→ needs_review
+→ approved
+```
+
+because it collapses execution, review, and approval.
+
+Ports may reference results from other families, but they do not mutate those states unless that family is their explicit owned boundary.
+
+---
+
+## 8. Review and authority rule
+
+```text
+GateOutcome
+≠ ReviewDisposition
+≠ ApprovalStatus
+≠ AuthorizationAssessment
+```
+
+A review port may preserve review findings and disposition.
+
+An approval or decision port must preserve authority, scope, subject, conditions, and provenance.
+
+An authorization assessment evaluates whether one concrete action may proceed now.
+
+No positive review or passing gate becomes approval automatically.
+
+---
+
+## 9. Adapter contract references
+
+A compatible adapter declaration must reference the port contract by:
+
+```text
+stable ID;
+canonical path;
+compatible version pin.
+```
+
+The declaration is evidence of intended compatibility, not proof of executable behavior.
+
+Adapter conformance, runtime evidence, and product acceptance remain separate evidence layers.
+
+---
+
+## 10. Representative contracts
+
+```text
+IntegrationPort
+→ model-inference@0.1.0
+
+ControlPort
+→ execution-run-management@0.1.0
+
+CapabilityCompositionPort
+→ visual-direction-composition@0.1.0
+```
+
+ProductSurfacePort remains uninstantiated until inventory confirms a reusable source boundary.
+
+---
+
+## 11. Migration policy
+
+```text
+1. classify the existing name;
+2. retain, rename, split, reclassify, retire, or defer;
+3. create the first-class port contract;
+4. register it in the generated manifest;
+5. preserve explicit legacy contract references;
+6. migrate adapter declarations;
+7. gather conformance and runtime evidence;
+8. retire competing Markdown or legacy authority only after consumers migrate.
+```
+
+Do not bulk-convert every name ending in `Port`.
+
+---
+
+## 12. Evidence boundary
+
+Schema and manifest validation prove only that:
+
+```text
+the port artifact is structurally valid;
+identity and path align;
+required boundary dimensions are declared;
+the artifact is registered at a version and checksum.
+```
+
+They do not prove:
+
+```text
+an adapter exists;
+an adapter conforms;
+the port was exercised;
+runtime behavior is correct;
+approval exists;
+a product accepted the result.
+```
