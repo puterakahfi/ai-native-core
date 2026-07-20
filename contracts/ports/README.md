@@ -53,3 +53,5 @@ capability-composition/
 `product-surface/` remains intentionally empty until issue `#7` confirms a universal reusable product-surface boundary.
 
 Registration in `contracts/manifest.yaml` proves artifact identity, path, version, and checksum only. Adapter implementation, conformance, runtime behavior, review, approval, and product acceptance require separate evidence.
+
+One-time migration generators and temporary validation workflows may support development, but they must be removed before acceptance. The retained contract tree, schema, permanent validators, tests, generated manifest, and public documentation are the reviewable source surface.
