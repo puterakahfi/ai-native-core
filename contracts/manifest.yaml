@@ -1,7 +1,7 @@
 version: "1.0.0"
-generated_at: "2026-07-20T14:49:47Z"
+generated_at: "2026-07-20T15:09:40Z"
 description: "Auto-generated contract manifest. Regenerate with: scripts/generate-manifest.sh"
-total_contracts: 124
+total_contracts: 127
 contracts:
   skills:
     architecture:
@@ -366,6 +366,18 @@ contracts:
         sha256: f20b9ea0499e133e
   ports:
     capability-composition:
+      - id: design-strategy-composition
+        path: contracts/ports/capability-composition/design-strategy-composition.port.yaml
+        version: "0.1.0"
+        sha256: f6c2580a8416ace6
+      - id: interaction-composition
+        path: contracts/ports/capability-composition/interaction-composition.port.yaml
+        version: "0.1.0"
+        sha256: c8b51e9d08d22317
+      - id: layout-composition
+        path: contracts/ports/capability-composition/layout-composition.port.yaml
+        version: "0.1.0"
+        sha256: 2acd65211e71b32d
       - id: visual-direction-composition
         path: contracts/ports/capability-composition/visual-direction-composition.port.yaml
         version: "0.1.0"
