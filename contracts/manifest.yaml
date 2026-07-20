@@ -1,7 +1,7 @@
 version: "1.0.0"
-generated_at: "2026-07-20T12:15:29Z"
+generated_at: "2026-07-20T12:22:01Z"
 description: "Auto-generated contract manifest. Regenerate with: scripts/generate-manifest.sh"
-total_contracts: 108
+total_contracts: 110
 contracts:
   skills:
     architecture:
@@ -248,6 +248,10 @@ contracts:
         path: contracts/skills/product/decision-making.contract.yaml
         version: "1.0.0"
         sha256: 4d94147cf37061ad
+      - id: delivery-work-breakdown
+        path: contracts/skills/product/delivery-work-breakdown.contract.yaml
+        version: "1.0.0"
+        sha256: 3a6751fdf3a61a51
       - id: experiment-design
         path: contracts/skills/product/experiment-design.contract.yaml
         version: "1.0.0"
@@ -386,6 +390,9 @@ contracts:
     - id: collection-discovery-design
       path: contracts/tests/collection-discovery-design.test.yaml
       sha256: bd2e956891836544
+    - id: delivery-work-breakdown
+      path: contracts/tests/delivery-work-breakdown.test.yaml
+      sha256: 2d6e68deba5070eb
     - id: design-review
       path: contracts/tests/design-review.test.yaml
       sha256: 0dd53425ba783d61
