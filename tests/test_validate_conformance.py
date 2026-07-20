@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import importlib.util
+import subprocess
+import sys
 import unittest
 from pathlib import Path
 
@@ -58,6 +60,23 @@ class BoundaryConformanceTests(unittest.TestCase):
         warnings = [violation for violation in violations if violation["severity"] == "WARN"]
         self.assertEqual(1, len(warnings))
         self.assertIn("invented_capability", warnings[0]["missing"])
+
+    def test_cli_exits_nonzero_for_explicit_boundary_overclaim(self):
+        result = subprocess.run(
+            [
+                sys.executable,
+                str(SCRIPT),
+                str(FIXTURES / "core"),
+                str(FIXTURES),
+            ],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(1, result.returncode)
+        self.assertIn("boundary [ERROR]", result.stdout)
+        self.assertIn("product_policy", result.stdout)
+        self.assertIn("Not checkable:", result.stdout)
 
     def test_existing_gate_input_output_checks_still_run(self):
         skill = self.skill("valid-boundary")
