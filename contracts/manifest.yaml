@@ -1,7 +1,7 @@
 version: "1.0.0"
-generated_at: "2026-07-20T12:29:29Z"
+generated_at: "2026-07-20T13:09:19Z"
 description: "Auto-generated contract manifest. Regenerate with: scripts/generate-manifest.sh"
-total_contracts: 110
+total_contracts: 120
 contracts:
   skills:
     architecture:
@@ -364,6 +364,50 @@ contracts:
         path: contracts/skills/visual-thinking/diagram-architect.contract.yaml
         version: "0.1.0"
         sha256: f20b9ea0499e133e
+  ports:
+    capability-composition:
+      - id: visual-direction-composition
+        path: contracts/ports/capability-composition/visual-direction-composition.port.yaml
+        version: "0.1.0"
+        sha256: fdf9a512f15081f7
+    control:
+      - id: approval-decision
+        path: contracts/ports/control/approval-decision.port.yaml
+        version: "0.1.0"
+        sha256: eae0db9d44d4f0e9
+      - id: authorization-assessment
+        path: contracts/ports/control/authorization-assessment.port.yaml
+        version: "0.1.0"
+        sha256: eb81e1362c5c38d3
+      - id: context-resolution
+        path: contracts/ports/control/context-resolution.port.yaml
+        version: "0.1.0"
+        sha256: 2255dad0fb5a3add
+      - id: execution-run-management
+        path: contracts/ports/control/execution-run-management.port.yaml
+        version: "0.1.0"
+        sha256: ca7c8d1af2996c55
+      - id: review-management
+        path: contracts/ports/control/review-management.port.yaml
+        version: "0.1.0"
+        sha256: ebaaa581264c35fb
+      - id: rule-evaluation
+        path: contracts/ports/control/rule-evaluation.port.yaml
+        version: "0.1.0"
+        sha256: 9bcff66c3ebb1e6f
+      - id: rule-resolution
+        path: contracts/ports/control/rule-resolution.port.yaml
+        version: "0.1.0"
+        sha256: f4d0f2d964d72963
+      - id: skill-resolution
+        path: contracts/ports/control/skill-resolution.port.yaml
+        version: "0.1.0"
+        sha256: d129f770e7e32e5d
+    integration:
+      - id: model-inference
+        path: contracts/ports/integration/model-inference.port.yaml
+        version: "0.1.0"
+        sha256: 658e4c2134ce4c75
   workflows:
     - id: bugfix
       path: contracts/workflows/bugfix.contract.yaml
