@@ -1,0 +1,128 @@
+design_contract_v2_migration:
+  schema_version: 1.0.0
+  issue: puterakahfi/ai-native-core#44
+  classification: breaking
+  rationale: >
+    The previous composition and visual-hierarchy contracts promoted
+    website-specific numeric and hero heuristics into universal quality gates.
+    Version 2 preserves those heuristics only as optional diagnostic inputs and
+    replaces universal thresholds with role, context, intent, relationship, and
+    rendered-evidence requirements.
+
+  contracts:
+    - id: composition
+      kind: skill_contract
+      path: contracts/skills/design/composition.contract.yaml
+      from_version: 1.0.0
+      to_version: 2.0.0
+      path_changed: false
+      removed_universal_gates:
+        - focal_point_must_be_at_or_above_optical_center
+        - no_unframed_dead_space_above_hero
+        - every_element_anchored_to_grid_or_sibling
+        - spacing_multiples_of_8px_base_unit
+      replacement_model:
+        - surface_and_viewing_context
+        - primary_task_or_message_and_content_roles
+        - focal_sequence_and_visual_weight
+        - intentional_balance_and_anchor_types
+        - named_empty_space_roles
+        - responsive_composition_intent
+        - rendered_evidence
+      retained_as_diagnostics:
+        - optical_center
+        - geometric_center
+        - f_pattern
+        - z_pattern
+        - rule_of_thirds
+        - modular_spacing_units
+        - grid_alignment
+        - above_fold_scan
+
+    - id: visual-hierarchy
+      kind: skill_contract
+      path: contracts/skills/design/visual-hierarchy.contract.yaml
+      from_version: 1.0.0
+      to_version: 2.0.0
+      path_changed: false
+      removed_universal_gates:
+        - supporting_h2_must_be_60pct_or_less_of_h1_size
+        - no_h2_larger_than_h1
+        - minimum_3_distinct_contrast_levels
+        - no_section_heading_heavier_than_hero_h1
+      replacement_model:
+        - semantic_task_action_and_state_roles
+        - principal_local_and_temporary_dominance
+        - multi_cue_hierarchy
+        - section_and_task_progression
+        - parent_child_and_action_priority
+        - responsive_and_state_relationship_preservation
+        - actual_content_and_rendered_evidence
+      retained_as_diagnostics:
+        - h1_h2_size_ratio
+        - monotonic_heading_decay
+        - distinct_contrast_level_count
+        - font_weight_delta
+        - spatial_isolation_delta
+        - section_weight_decay
+
+  compatibility_policy:
+    path_alias_required: false
+    automatic_major_upgrade_allowed: false
+    rules:
+      - consumers_pinned_to_version_1_remain_on_the_old_semantic_line
+      - consumers_must_review_actual_behavior_before_pinning_version_2
+      - exact_contract_id_and_path_match_do_not_prove_semantic_or_adapter_conformance
+      - removed_gate_names_must_not_be_reintroduced_as_universal_pass_rules
+      - diagnostic_heuristics_may_remain_in_reference_guidance_when_contextual_and_non_authoritative
+
+  downstream_consumers:
+    - repository: puterakahfi/ai-native-skills
+      issue: puterakahfi/ai-native-skills#26
+      current_state: merged_reviewed_exemptions
+      artifacts:
+        - skills/composition/SKILL.md
+        - skills/composition/contract.exemption.yaml
+        - skills/visual-hierarchy/SKILL.md
+        - skills/visual-hierarchy/contract.exemption.yaml
+      required_after_core_acceptance:
+        - review_each_executable_interface_and_boundary_against_contract_v2
+        - create_adjacent_adapter_conformance_declarations_pinned_to_caret_2_0_0
+        - remove_the_core_gap_exemptions_only_after_structural_conformance_is_confirmed
+        - preserve_behavioral_and_rendered_evidence_as_separate_claim_layers
+        - run_contract_coverage_skill_and_gate_contracts_and_relevant_behavioral_evals
+      prohibited_shortcuts:
+        - do_not_replace_exemptions_from_contract_id_match_alone
+        - do_not_copy_contract_gate_lists_without_executable_behavior_review
+        - do_not_claim_runtime_or_product_acceptance_from_static_conformance
+
+    - repository: all_other_consumers
+      required_after_core_acceptance:
+        - inventory_version_1_pins
+        - classify_whether_the_consumer_depends_on_removed_universal_heuristics
+        - update_to_version_2_only_after_semantic_review
+        - record_any_intentional_version_1_retention
+
+  validation:
+    core:
+      - regenerate_schema_aware_manifest
+      - regenerate_contract_schema_discovery
+      - validate_unified_contract_schemas_and_manifest_parity
+      - validate_cross_family_contract_identity
+      - validate_behavioral_test_contracts
+      - run_contract_integrity_regressions
+    downstream:
+      - validate_adapter_paths_and_version_pins
+      - validate_structured_adapter_conformance
+      - run_behavioral_evaluation
+
+  validation_authority:
+    workflow: .github/workflows/contract-integrity.yml
+    required_result: pass_on_exact_review_head
+
+  evidence_boundary:
+    - contract_registration_is_not_adapter_conformance
+    - structural_conformance_is_not_behavioral_verification
+    - behavioral_verification_is_not_runtime_evidence
+    - runtime_evidence_is_not_product_acceptance
+    - product_acceptance_is_not_approval_or_authorization

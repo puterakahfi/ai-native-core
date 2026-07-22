@@ -6,28 +6,130 @@ skill_contract:
   id: visual-hierarchy
   category: design
   type: skill
-  version: "1.0.0"
-  capability: typographic_hierarchy_and_weight_decay
+  version: "2.0.0"
+  capability: relational_visual_hierarchy_and_priority_reasoning
+
+  description: >
+    Defines visual hierarchy as a relational system across page, section, task,
+    group, item, metadata, action, feedback, state, and overlay contexts. It uses
+    scale, weight, contrast, measure, placement, spacing, containment, repetition,
+    imagery, motion, and interaction affordance together without treating fixed
+    H1/H2 ratios, contrast-level counts, or permanent hero dominance as universal
+    pass rules.
+
   roles:
     - visual_designer
     - typography_reviewer
     - design_reviewer
+
   inputs:
     required:
-      - heading_inventory
-      - type_scale_ref
+      - target_surface
+      - surface_profile
+      - semantic_role_map
+      - content_inventory
     optional:
-      - section_map
-      - color_token_ref
+      - primary_task_or_message
+      - viewing_contexts
+      - state_contexts
+      - responsive_contexts
+      - selected_design_direction
+      - typography_system_ref
+      - color_and_contrast_system_ref
+      - interaction_priority_map
+
   outputs:
+    required:
+      - hierarchy_context
+      - role_map
+      - principal_and_local_anchors
+      - cue_strategy_by_role
+      - section_weight_sequence
+      - action_and_state_priority
+      - responsive_hierarchy_rules
+      - evidence_requirements
     allowed:
-      - hierarchy_verdict
-      - weight_decay_report
-      - heading_role_map
-      - contrast_level_audit
-      - hierarchy_gate_scores
+      - ambiguity_risks
+      - typography_handoff
+      - accessibility_handoff
+      - design_review_handoff
+
+  hierarchy_roles:
+    common:
+      - page_anchor
+      - task_or_state_anchor
+      - section
+      - statement
+      - group_parent
+      - item
+      - metadata
+      - primary_action
+      - secondary_action
+      - feedback
+      - atmosphere
+    rules:
+      - roles_are_semantic_and_task_based_not_html_heading_level_aliases
+      - one_surface_may_have_principal_local_and_state_dependent_anchors
+      - blocking_feedback_or_modal_context_may_temporarily_outrank_page_identity
+      - repeated_roles_use_coherent_but_not_necessarily_identical_emphasis
+
+  diagnostic_heuristics:
+    allowed:
+      - h1_h2_size_ratio
+      - monotonic_heading_decay
+      - distinct_contrast_level_count
+      - font_weight_delta
+      - spatial_isolation_delta
+      - section_weight_decay
+    rules:
+      - heuristics_may_expose_ambiguity_or_accidental_competition
+      - no_fixed_ratio_or_level_count_defines_universal_hierarchy_quality
+      - html_heading_order_does_not_by_itself_determine_visual_dominance
+      - state_task_and_narrative_context_can_justify_local_or_temporary_dominance
+
   quality_gates:
-    - supporting_h2_must_be_60pct_or_less_of_h1_size
-    - no_h2_larger_than_h1
-    - minimum_3_distinct_contrast_levels
-    - no_section_heading_heavier_than_hero_h1
+    - semantic_task_and_state_roles_are_mapped_before_styling
+    - dominance_is_scoped_to_page_section_task_state_or_overlay_context
+    - hierarchy_uses_context_appropriate_cues_not_font_size_alone
+    - supporting_roles_remain_perceivable_readable_and_related_to_parents
+    - section_weight_sequence_matches_content_and_task_progression
+    - actions_metadata_and_feedback_have_appropriate_priority
+    - responsive_and_state_changes_preserve_relationships_and_reading_order
+    - numeric_ratios_contrast_counts_and_monotonic_heading_decay_are_diagnostic_not_universal
+    - actual_content_and_rendered_contexts_support_hierarchy_claims
+    - design_review_retains_gate_identity_scoring_and_verdict_authority
+
+  boundary:
+    covers:
+      - semantic_and_task_role_mapping
+      - principal_local_and_state_dependent_dominance
+      - multi_cue_hierarchy_strategy
+      - section_and_cross_section_weight_sequence
+      - action_metadata_and_feedback_priority
+      - responsive_and_state_hierarchy_preservation
+      - hierarchy_ambiguity_and_competition_risks
+    does_not_cover:
+      - typeface_selection_or_font_loading
+      - typography_scale_token_implementation
+      - accessibility_contrast_compliance_verdict
+      - content_strategy_or_information_architecture
+      - page_macrostructure_selection
+      - canonical_design_gate_identity_scoring_or_verdict
+      - product_acceptance_approval_or_authorization
+
+  adapter_requirements:
+    actual_content_evaluation: required
+    rendered_context_evidence: required
+    responsive_and_state_evaluation: required_when_applicable
+    typography_and_accessibility_handoff: required_when_specialist_claims_are_made
+    design_review_handoff: required_for_gate_verdict
+    numeric_heuristics_policy: diagnostic_only
+
+  compatibility:
+    classification: breaking
+    previous_version: "1.0.0"
+    rationale: >
+      Version 1 encoded website-specific H1/H2 ratios, minimum contrast-level
+      counts, and permanent hero dominance as universal gates. Version 2 replaces
+      them with transferable role, relationship, context, and evidence rules.
+    migration_document: docs/design-contract-v2-migration.yaml

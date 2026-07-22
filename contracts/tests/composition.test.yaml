@@ -1,0 +1,98 @@
+contract_schema:
+  kind: behavioral_test_contract
+  version: 1.0.0
+  path: schemas/behavioral-test-contract.schema.yaml
+skill_test:
+  skill: composition
+  version: "2.0.0"
+  description: Verify composition reasons from surface, message, task, visual weight, empty-space role, anchors, and rendered evidence instead of universal hero or numeric formulas
+
+  cases:
+    - id: asymmetric-editorial-focal-point-below-center
+      description: An editorial composition may place its focal image below optical center when title mass and sequence create an intentional counterbalance
+      trigger: "A magazine cover places the portrait below the geometric and optical center. A large title occupies the upper-left area, supporting copy bridges toward the portrait, and the final-size mockup shows a clear title-to-face-to-date sequence. Review the composition."
+      must_contain:
+        - "surface profile"
+        - "focal sequence"
+        - "asymmetrical"
+        - "visual weight"
+        - "rendered evidence"
+      must_not_contain:
+        - "must be at or above optical center"
+        - "FAIL because the focal point is below center"
+        - "move the portrait to the hero center"
+      quality_gates_tested:
+        - focal_sequence_matches_surface_viewing_context_and_task
+        - visual_weight_distribution_supports_content_priority
+        - balance_strategy_is_intentional_and_explainable
+        - numeric_positions_ratios_and_spacing_units_are_diagnostic_not_universal
+
+    - id: reserved-safe-area-is-utility-space
+      description: Empty space reserved for a channel overlay or safe area has a utility role and is not automatically dead space above a hero
+      trigger: "A marketplace poster reserves the top 18 percent for the platform's title and discount overlay. The product, offer, required facts, and CTA begin below that zone and remain clear in the actual placement preview. Classify the empty space and composition status."
+      must_contain:
+        - "UTILITY"
+        - "safe area"
+        - "viewing context"
+        - "focal sequence"
+        - "placement preview"
+      must_not_contain:
+        - "no unframed dead space above hero"
+        - "empty space above the hero always fails"
+        - "remove the safe area"
+      quality_gates_tested:
+        - empty_space_has_grouping_pacing_framing_narrative_or_utility_role
+        - focal_sequence_matches_surface_viewing_context_and_task
+        - rendered_evidence_supports_composition_claims
+
+    - id: coherent-non-eight-pixel-spacing-system
+      description: A coherent existing spacing system may use a different base or fluid scale without failing composition
+      trigger: "A native desktop application uses an established 10px density unit plus fluid container gaps. Components, grids, and repeated groups align consistently across windows. Decide whether composition fails because spacing is not based on 8px."
+      must_contain:
+        - "existing grid and spacing system"
+        - "consistent"
+        - "anchoring"
+        - "diagnostic"
+      must_not_contain:
+        - "spacing must use 8px"
+        - "convert every gap to multiples of 8"
+        - "non-8px spacing is automatically invalid"
+      quality_gates_tested:
+        - structural_relational_or_optical_anchors_are_explicit
+        - numeric_positions_ratios_and_spacing_units_are_diagnostic_not_universal
+
+    - id: dense-operational-surface-can-be-balanced
+      description: A dense task-critical surface can be compositionally valid when grouping, priority, and action flow are clear
+      trigger: "An incident-response dashboard shows current severity, affected services, timeline, responders, and mitigation actions in parallel. Operators need this context at once. Review whether the design must add large premium whitespace and reduce information density."
+      must_contain:
+        - "dense"
+        - "primary task"
+        - "grouping"
+        - "visual weight"
+        - "action"
+      must_not_contain:
+        - "large whitespace is required for balance"
+        - "premium composition requires an open hero"
+        - "remove operational context to make it minimal"
+      quality_gates_tested:
+        - primary_task_message_and_content_roles_are_explicit
+        - visual_weight_distribution_supports_content_priority
+        - balance_strategy_is_intentional_and_explainable
+
+    - id: responsive-composition-preserves-intent-not-coordinates
+      description: Responsive composition may change geometry while preserving sequence, grouping, weight, and action discoverability
+      trigger: "A desktop marketing layout uses an asymmetric text-and-image split. On mobile the image moves below proof points, but the promise, evidence, and CTA sequence stays clear and related content remains grouped. Evaluate the responsive composition."
+      must_contain:
+        - "composition intent"
+        - "focal sequence"
+        - "grouped"
+        - "responsive"
+        - "not coordinates"
+      must_not_contain:
+        - "preserve desktop coordinates"
+        - "mobile must keep the same split"
+        - "asymmetry must remain identical"
+      quality_gates_tested:
+        - focal_sequence_matches_surface_viewing_context_and_task
+        - responsive_contexts_preserve_composition_intent_not_coordinates
+        - rendered_evidence_supports_composition_claims

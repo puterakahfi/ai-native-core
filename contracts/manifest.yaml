@@ -3,9 +3,9 @@ contract_schema:
   version: 1.0.0
   path: schemas/contract-manifest.schema.yaml
 version: 2.0.0
-generated_at: '2026-07-22T04:45:46Z'
+generated_at: '2026-07-22T10:49:11Z'
 description: 'Auto-generated schema-aware contract manifest. Regenerate with: scripts/generate-manifest.sh'
-total_contracts: 129
+total_contracts: 131
 contracts:
   skills:
     architecture:
@@ -171,8 +171,8 @@ contracts:
       schema_version: 1.0.0
       schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/design/composition.contract.yaml
-      version: 1.0.0
-      sha256: 4c201c759437a343
+      version: 2.0.0
+      sha256: b2c78660adfd0347
     - id: dark-light-theming
       kind: skill_contract
       schema_version: 1.0.0
@@ -325,8 +325,8 @@ contracts:
       schema_version: 1.0.0
       schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/design/visual-hierarchy.contract.yaml
-      version: 1.0.0
-      sha256: e7a725b26993e6bc
+      version: 2.0.0
+      sha256: 6cab2b1e72ea681c
     engineering:
     - id: data-modeling
       kind: skill_contract
@@ -824,6 +824,13 @@ contracts:
     path: contracts/tests/collection-discovery-design.test.yaml
     version: 1.0.0
     sha256: a6259b584521b083
+  - id: composition
+    kind: behavioral_test_contract
+    schema_version: 1.0.0
+    schema_path: schemas/behavioral-test-contract.schema.yaml
+    path: contracts/tests/composition.test.yaml
+    version: 2.0.0
+    sha256: d5e344e3c5ae9f0f
   - id: delivery-work-breakdown
     kind: behavioral_test_contract
     schema_version: 1.0.0
@@ -880,6 +887,13 @@ contracts:
     path: contracts/tests/systematic-debugging.test.yaml
     version: 0.1.0
     sha256: 6cfc28d8085105f2
+  - id: visual-hierarchy
+    kind: behavioral_test_contract
+    schema_version: 1.0.0
+    schema_path: schemas/behavioral-test-contract.schema.yaml
+    path: contracts/tests/visual-hierarchy.test.yaml
+    version: 2.0.0
+    sha256: 0a6585b0475ea38c
   runtime:
   - id: agents-md
     kind: runtime_contract
