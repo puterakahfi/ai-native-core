@@ -1,0 +1,15 @@
+contract_schema:
+  kind: adapter_conformance
+  version: 1.0.0
+  path: schemas/adapter-conformance.schema.yaml
+adapter_conformance:
+  adapter:
+    id: malformed-declaration
+    kind: skill
+    entrypoint: skills/malformed-declaration/SKILL.md
+  implements:
+    contract_id: boundary-sample
+    contract_kind: skill_contract
+    contract_path: contracts/skills/test/boundary-sample.contract.yaml
+    contract_version: ^1.0.0
+  capability: boundary_sample
