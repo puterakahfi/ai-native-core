@@ -1,0 +1,34 @@
+name: Temporary schema discovery refresh
+
+on:
+  push:
+    branches:
+      - 8-unify-contract-schemas-and-workflow-contracts
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install generation dependencies
+        run: python3 -m pip install --disable-pip-version-check pyyaml
+      - name: Regenerate contract metadata
+        run: |
+          ./scripts/generate-manifest.sh
+          python3 scripts/inventory-contract-schemas.py
+          python3 scripts/inventory-contract-schemas.py --check
+      - name: Remove temporary workflow and commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm .github/workflows/tmp-refresh-schema-discovery.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add contracts/manifest.yaml docs/contract-schema-discovery.yaml .github/workflows/tmp-refresh-schema-discovery.yml
+          git commit -m 'docs(schemas): refresh post-migration schema inventory'
+          git push
