@@ -1,6 +1,6 @@
 # Contract Schemas
 
-This directory contains the canonical JSON Schema registry for Native AI Engineering contract artifacts.
+This directory contains the canonical JSON Schema registry for Native AI Engineering contract and conformance artifacts.
 
 Architecture authority:
 
@@ -14,9 +14,16 @@ Discovery evidence:
 docs/contract-schema-discovery.yaml
 ```
 
+Structured adapter conformance:
+
+```text
+docs/adapter-conformance.md
+docs/structured-adapter-conformance-discovery.md
+```
+
 ## Contract envelope
 
-Every active artifact declares its schema identity beside its family-owned body:
+Every governed artifact declares its schema identity beside its family-owned body:
 
 ```yaml
 contract_schema:
@@ -27,7 +34,6 @@ contract_schema:
 skill_contract:
   id: example
   version: "1.0.0"
-  # family-owned fields
 ```
 
 Required distinction:
@@ -39,7 +45,7 @@ schema version
 ≠ product release version
 ```
 
-## Active schemas
+## Active contract schemas
 
 ```text
 common.schema.yaml
@@ -51,6 +57,21 @@ behavioral-test-contract.schema.yaml
 compatibility-manifest.schema.yaml
 contract-manifest.schema.yaml
 ```
+
+## Active conformance schemas
+
+```text
+adapter-conformance.schema.yaml
+conformance-report.schema.yaml
+```
+
+`adapter-conformance.schema.yaml` governs the static declaration beside an executable adapter:
+
+```text
+skills/<adapter-id>/adapter.conformance.yaml
+```
+
+`conformance-report.schema.yaml` governs repository and per-adapter validator reports. It keeps structural, behavioral, runtime, product, and approval status separate.
 
 Supporting fixture-backed schemas:
 
@@ -70,6 +91,8 @@ runtime_contract
 port_contract
 skill_test
 compatibility_manifest
+adapter_conformance
+conformance_report
 ```
 
 `skill_test` remains the behavioral-test body root for compatibility; its schema kind is `behavioral_test_contract`.
@@ -90,12 +113,14 @@ Lifecycle workflows must not remain serialized as `skill_contract type: workflow
 schema identity
 contract and machine identifiers
 workflow phase identifiers
-semantic versions
+semantic versions and compatible version pins
 contract and schema paths
+adapter entrypoint paths
 string lists
 quality-gate identifiers
 workflow phases and transitions
 compatibility aliases
+evidence layer and reference serialization
 ```
 
 Family schemas own family invariants. Domain-specific structures remain explicit extensions under their owning family and are not normalized merely because they share names such as `evidence`, `approval`, `transition`, or `boundary`.
@@ -105,9 +130,11 @@ shared serialization
 ≠ shared domain meaning
 ```
 
+An evidence reference records an attributable pointer and layer. It does not prove that the evidence is sufficient, applicable, accepted, or authority-bearing.
+
 ## Validation
 
-Run the full repository pipeline:
+Run the full contract repository pipeline:
 
 ```bash
 python3 scripts/validate-contract-schemas.py
@@ -120,14 +147,28 @@ python3 -m unittest discover -s tests -p 'test_contract_resolution.py' -v
 python3 -m unittest discover -s tests -p 'test_validate_port_contracts.py' -v
 ```
 
-Regenerate schema-aware metadata:
+Run structured adapter conformance validation:
+
+```bash
+python3 scripts/validate-conformance.py \
+  ../ai-native-core \
+  ../ai-native-skills \
+  --mode migration \
+  --output-dir conformance-reports
+
+python3 -m unittest discover -s tests -p 'test_validate_conformance.py' -v
+```
+
+Regenerate schema-aware contract metadata:
 
 ```bash
 ./scripts/generate-manifest.sh
 python3 scripts/inventory-contract-schemas.py
 ```
 
-`Contract integrity` CI validates schemas, family/path identity, workflow references, compatibility aliases, port semantics, behavioral tests, fixtures, manifest parity, checksums, and discovery drift.
+`Contract integrity` CI validates contract schemas, family/path identity, workflow references, compatibility aliases, port semantics, behavioral tests, fixtures, manifest parity, checksums, and discovery drift.
+
+`Validate Conformance Tooling` validates structured declarations, report serialization, legacy migration behavior, deterministic result and exit semantics, and publishes a repository migration inventory for `ai-native-skills`.
 
 ## Compatibility
 
@@ -145,6 +186,8 @@ path alias
 ≠ adapter conformance
 ≠ runtime compatibility proof
 ```
+
+Legacy `SKILL.md` metadata remains a migration source, not a substitute for `adapter.conformance.yaml`.
 
 ## Evidence boundary
 
