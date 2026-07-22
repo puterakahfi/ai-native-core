@@ -1,0 +1,13 @@
+contract_schema:
+  kind: behavioral_test_contract
+  version: "1.0.0"
+  path: schemas/behavioral-test-contract.schema.yaml
+skill_test:
+  skill: fixture-skill
+  version: "1.0.0"
+  description: Validate the fixture skill response contract.
+  cases:
+    - id: attributable-result
+      trigger: Produce one fixture result.
+      must_contain:
+        - fixture_result
