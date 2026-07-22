@@ -125,7 +125,7 @@ $defs:
       - order
     properties:
       id:
-        $ref: "#/$defs/contract_id"
+        $ref: "#/$defs/machine_id"
       order:
         type: integer
         minimum: 1
@@ -152,9 +152,9 @@ $defs:
       - to
     properties:
       from:
-        $ref: "#/$defs/contract_id"
+        $ref: "#/$defs/machine_id"
       to:
-        $ref: "#/$defs/contract_id"
+        $ref: "#/$defs/machine_id"
       condition:
         $ref: "#/$defs/non_empty_string"
       when:
@@ -169,7 +169,7 @@ $defs:
       - load
     properties:
       phase:
-        $ref: "#/$defs/contract_id"
+        $ref: "#/$defs/machine_id"
       load:
         $ref: "#/$defs/unique_string_list"
   compatibility_alias:
