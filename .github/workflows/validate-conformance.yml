@@ -5,8 +5,10 @@ on:
     paths:
       - "contracts/manifest.yaml"
       - "contracts/compatibility/**"
+      - "CONTRIBUTING.md"
       - "docs/adapter-conformance.md"
       - "docs/structured-adapter-conformance-discovery.md"
+      - "docs/structured-adapter-conformance-acceptance-review.md"
       - "schemas/adapter-conformance.schema.yaml"
       - "schemas/conformance-report.schema.yaml"
       - "schemas/common.schema.yaml"
@@ -28,8 +30,10 @@ on:
     paths:
       - "contracts/manifest.yaml"
       - "contracts/compatibility/**"
+      - "CONTRIBUTING.md"
       - "docs/adapter-conformance.md"
       - "docs/structured-adapter-conformance-discovery.md"
+      - "docs/structured-adapter-conformance-acceptance-review.md"
       - "schemas/adapter-conformance.schema.yaml"
       - "schemas/conformance-report.schema.yaml"
       - "schemas/common.schema.yaml"
