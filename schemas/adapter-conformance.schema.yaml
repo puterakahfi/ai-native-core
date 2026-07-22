@@ -39,6 +39,7 @@ properties:
         required:
           - id
           - kind
+          - patterns
           - entrypoint
         properties:
           id:
@@ -48,10 +49,17 @@ properties:
             enum:
               - skill
               - workflow
-              - meta_skill
-              - facade
-              - runtime_adapter
-              - port_adapter
+              - meta-skill
+          patterns:
+            type: array
+            uniqueItems: true
+            items:
+              type: string
+              enum:
+                - facade
+                - skill-adapter
+                - runtime-adapter
+                - port-adapter
           entrypoint:
             $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/adapter_entrypoint"
       implements:
