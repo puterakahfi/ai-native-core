@@ -9,8 +9,7 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
-import yaml
-from jsonschema import Draft202012Validator
+from schema_validation import format_schema_error, load_yaml, validator_for
 
 ROOT = Path(__file__).resolve().parents[1]
 PORTS_ROOT = ROOT / "contracts" / "ports"
@@ -24,23 +23,9 @@ KIND_BY_DIRECTORY = {
 }
 
 
-def load_yaml(path: Path) -> dict[str, Any]:
-    payload = yaml.safe_load(path.read_text())
-    if not isinstance(payload, dict):
-        raise ValueError("document root must be a mapping")
-    return payload
-
-
-def format_schema_error(error: Any) -> str:
-    location = ".".join(str(part) for part in error.absolute_path)
-    if not location:
-        location = "<root>"
-    return f"{location}: {error.message}"
-
-
 def validate_contract(
     path: Path,
-    schema_validator: Draft202012Validator,
+    schema_validator: Any,
     *,
     root: Path = ROOT,
 ) -> tuple[dict[str, Any] | None, list[str]]:
@@ -165,12 +150,13 @@ def validate_paths(
     root: Path = ROOT,
 ) -> list[str]:
     try:
-        schema = load_yaml(schema_path)
-        Draft202012Validator.check_schema(schema)
+        schema_validator = validator_for(
+            schema_path,
+            schemas_root=root / "schemas",
+        )
     except Exception as exc:
-        return [f"{schema_path}: invalid schema: {exc}"]
+        return [f"{schema_path}: invalid schema registry: {exc}"]
 
-    schema_validator = Draft202012Validator(schema)
     errors: list[str] = []
     ids: dict[str, Path] = {}
     capabilities: dict[str, Path] = {}
