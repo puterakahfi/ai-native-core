@@ -3,6 +3,9 @@ name: Validate Conformance Tooling
 on:
   pull_request:
     paths:
+      - "contracts/manifest.yaml"
+      - "contracts/compatibility/**"
+      - "docs/contract-schema-*.md"
       - "scripts/contract_resolution.py"
       - "scripts/validate-conformance.py"
       - "scripts/validate-implements.py"
@@ -15,6 +18,9 @@ on:
     branches:
       - main
     paths:
+      - "contracts/manifest.yaml"
+      - "contracts/compatibility/**"
+      - "docs/contract-schema-*.md"
       - "scripts/contract_resolution.py"
       - "scripts/validate-conformance.py"
       - "scripts/validate-implements.py"
