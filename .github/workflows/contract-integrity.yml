@@ -3,8 +3,11 @@ name: Contract integrity
 on:
   pull_request:
     paths:
+      - README.md
+      - CONTRIBUTING.md
       - contracts/**
-      - docs/contract-schema-architecture.md
+      - docs/contract-catalog.md
+      - docs/contract-schema-*.md
       - docs/contract-schema-discovery.yaml
       - docs/workflow-contract-migration.yaml
       - docs/port-inventory.yaml
@@ -31,8 +34,11 @@ on:
   push:
     branches: [main]
     paths:
+      - README.md
+      - CONTRIBUTING.md
       - contracts/**
-      - docs/contract-schema-architecture.md
+      - docs/contract-catalog.md
+      - docs/contract-schema-*.md
       - docs/contract-schema-discovery.yaml
       - docs/workflow-contract-migration.yaml
       - docs/port-inventory.yaml
