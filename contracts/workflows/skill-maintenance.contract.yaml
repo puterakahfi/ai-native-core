@@ -1,0 +1,209 @@
+contract_schema:
+  kind: workflow_contract
+  version: 1.0.0
+  path: schemas/workflow-contract.schema.yaml
+workflow_contract:
+  id: skill-maintenance
+  category: quality
+  type: workflow
+  version: "1.0.0"
+  workflow_kind: quality_lifecycle
+  capability: reusable_skill_health_assessment_minimal_repair_and_verification
+
+  purpose: >
+    Defines a reusable maintenance lifecycle for auditing an existing executable
+    skill, triaging structural and knowledge-health defects, applying the smallest
+    justified repair, verifying references and contracts, and reporting remaining
+    limitations. Repository-specific thresholds and placement heuristics remain
+    adapter-owned diagnostics rather than universal quality law.
+
+  roles:
+    - skill_maintainer
+    - contradiction_reviewer
+    - reference_integrity_reviewer
+    - maintenance_verifier
+
+  boundary:
+    covers:
+      - existing_skill_health_assessment
+      - structural_and_knowledge_integrity_review
+      - contradiction_duplicate_and_stale_content_detection
+      - reference_and_delegation_integrity_review
+      - minimal_repair_planning_and_application
+      - post_repair_contract_reference_and_regression_verification
+      - maintenance_report_and_deferred_issue_recording
+    does_not_cover:
+      - behavioral_application_verdict_owned_by_skill_eval
+      - generalized_learning_promotion_owned_by_skill_evolution
+      - repository_specific_line_count_or_placement_thresholds_as_universal_rules
+      - product_feature_or_runtime_implementation
+      - repository_write_policy_approval_or_authorization
+
+  inputs:
+    required:
+      - target_skill_or_set
+      - executable_source
+      - repository_context
+      - maintenance_mode
+    optional:
+      - core_contract_refs
+      - adapter_conformance_declaration
+      - existing_eval_results
+      - related_skills
+      - reference_graph
+      - version_history
+      - known_failures
+      - repository_health_policy
+      - write_mode
+      - approval_mode
+
+  outputs:
+    required:
+      - health_assessment
+      - triage_decision
+      - preservation_plan
+      - minimal_repair_plan
+      - verification_result
+      - maintenance_report
+    allowed:
+      - skill_patch
+      - reference_patch
+      - split_or_extraction_plan
+      - deferred_issues
+      - no_change_reason
+      - skill_eval_handoff
+      - skill_evolution_handoff
+      - repository_governance_handoff
+
+  health_dimensions:
+    required:
+      - boundary_coherence
+      - instruction_and_reference_integrity
+      - internal_contradiction_status
+      - duplicate_or_competing_coverage
+      - stale_or_orphan_reference_status
+      - preservation_risk
+      - contract_and_conformance_alignment
+    diagnostic_only:
+      - line_count
+      - section_position
+      - repeated_reminder_position
+      - file_count
+      - reference_file_size
+    rules:
+      - diagnostics_may_trigger_review_but_do_not_establish_failure_alone
+      - repository_profiles_may_define_thresholds_without_promoting_them_to_core_law
+      - a_long_coherent_skill_must_not_be_split_only_to_satisfy_a_numeric_limit
+      - a_short_skill_with_contradiction_or_broken_references_is_not_healthy
+
+  triage_actions:
+    allowed:
+      - no_change
+      - trim_redundancy
+      - repair_contradiction
+      - repair_reference
+      - extract_reference
+      - split_separable_concerns
+      - rewrite_boundary
+      - defer_with_reason
+      - route_to_skill_eval
+      - route_to_skill_evolution
+    rules:
+      - action_traces_to_a_diagnosed_defect_and_preservation_risk
+      - split_requires_separable_concerns_or_loading_value_not_length_alone
+      - rewrite_requires_boundary_or_instruction_failure_not_style_preference
+      - new_reusable_rules_route_to_skill_evolution_instead_of_silent_invention
+
+  phases:
+    - id: audit
+      order: 1
+      purpose: Read the complete target and inspect structure, boundaries, references, contracts, contradictions, duplicates, and stale knowledge.
+      gate: target_must_be_fully_read_before_triage_or_mutation
+    - id: triage
+      order: 2
+      purpose: Classify each verified defect and select the smallest justified maintenance action or handoff.
+      gate: triage_action_must_trace_to_evidence_and_preservation_risk
+    - id: repair
+      order: 3
+      purpose: Apply the minimal approved repair while preserving valid behavior, boundaries, examples, and references.
+      gate: repair_must_preserve_functional_content_and_close_the_diagnosed_defect
+    - id: verify
+      order: 4
+      purpose: Re-resolve references, contracts, declarations, repository checks, and behavioral handoffs after repair.
+      gate: post_repair_integrity_and_required_regressions_must_pass
+    - id: report
+      order: 5
+      purpose: Record repaired, unchanged, deferred, unverified, and routed findings with evidence and remaining risks.
+      gate: report_must_distinguish_verified_repair_from_unverified_or_deferred_work
+
+  transitions:
+    - from: audit
+      to: triage
+      condition: health_assessment_is_complete
+    - from: triage
+      to: repair
+      condition: a_justified_in_scope_repair_is_selected
+    - from: triage
+      to: verify
+      condition: no_change_or_handoff_only_is_selected
+    - from: repair
+      to: verify
+      condition: approved_minimal_repair_is_applied
+    - from: verify
+      to: report
+      condition: integrity_checks_and_required_handoffs_are_recorded
+
+  handoffs:
+    - id: skill-eval
+      purpose: Verify executable agent behavior when maintenance claims behavioral improvement or regression safety.
+    - id: skill-evolution
+      purpose: Generalize verified new learning or reusable rules beyond the existing maintenance defect.
+    - id: repository-governance
+      purpose: Resolve write policy, approval, release, or ownership questions outside maintenance authority.
+
+  exit_conditions:
+    - every_verified_defect_has_a_repair_handoff_or_deferred_reason
+    - preserved_functional_content_and_boundaries_are_accounted_for
+    - references_contracts_and_declarations_resolve_or_are_reported
+    - required_repository_checks_are_recorded
+    - behavioral_claims_have_skill_eval_evidence_or_remain_unverified
+    - new_learning_candidates_are_handed_to_skill_evolution
+
+  skill_load_order:
+    - phase: audit
+      load:
+        - skill-eval
+    - phase: verify
+      load:
+        - skill-eval
+    - phase: report
+      load:
+        - skill-evolution
+
+  quality_gates:
+    - complete_target_and_relevant_references_are_read_before_mutation
+    - valid_functional_content_boundaries_and_examples_are_preserved
+    - contradictions_duplicates_stale_content_and_orphan_references_are_evidence_backed
+    - repository_specific_numeric_thresholds_remain_diagnostic_not_universal
+    - split_trim_rewrite_and_extraction_decisions_trace_to_separability_comprehension_or_behavior_risk
+    - repair_is_the_smallest_change_that_closes_the_verified_maintenance_defect
+    - references_contract_pins_and_conformance_declarations_are_rechecked_after_repair
+    - behavioral_improvement_or_regression_claims_require_skill_eval_evidence
+    - generalized_new_rules_and_learning_candidates_route_to_skill_evolution
+    - repository_write_approval_and_release_policy_is_respected
+    - report_distinguishes_repaired_unchanged_deferred_routed_and_unverified_findings
+
+  adapter_requirements:
+    complete_source_and_reference_reader: required
+    structural_and_reference_parser: required
+    contract_and_conformance_resolver: required
+    duplicate_and_contradiction_analysis: adapter_defined
+    patch_and_diff_method: runtime_defined
+    repository_validation_commands: repository_defined
+    behavioral_eval_runner: required_when_behavior_is_claimed
+    versioning_write_and_approval_policy: repository_defined
+
+  compatibility:
+    classification: new_contract
+    downstream_adapter: skills/skill-doctor/SKILL.md
+    migration_document: docs/missing-capability-contracts-migration.yaml
