@@ -200,7 +200,7 @@ A workflow definition is not an execution run. Schema validity does not prove th
 Moved contract paths are recorded in:
 
 ```text
-contracts/compatibility/contract-path-aliases.yaml
+contracts/compatibility/contract-path-aliases.contract.yaml
 ```
 
 A path alias records:

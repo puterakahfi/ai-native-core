@@ -4,21 +4,46 @@ contract_schema_discovery:
   artifact_count: 129
   path_family_counts:
     behavioral_test: 10
+    compatibility: 1
     port: 17
     runtime: 6
     skill: 85
-    unclassified: 1
     workflow: 10
   parse_status_counts:
-    ambiguous_contract_root: 1
-    parsed: 128
+    parsed: 129
   contract_root_counts:
+    compatibility_manifest: 1
     port_contract: 17
     runtime_contract: 6
     skill_contract: 85
     skill_test: 10
     workflow_contract: 10
   root_shapes:
+    compatibility_manifest:
+      artifact_count: 1
+      field_coverage:
+        aliases:
+          count: 1
+          coverage: 1.0
+          value_type_counts:
+            sequence: 1
+        evidence_boundary:
+          count: 1
+          coverage: 1.0
+          value_type_counts:
+            sequence: 1
+        id:
+          count: 1
+          coverage: 1.0
+          value_type_counts:
+            string: 1
+        version:
+          count: 1
+          coverage: 1.0
+          value_type_counts:
+            string: 1
+      declared_type_values: {}
+      declared_kind_values: {}
     port_contract:
       artifact_count: 17
       field_coverage:
@@ -1164,9 +1189,13 @@ contract_schema_discovery:
       version: []
       description: []
       cases: []
+    compatibility:
+      id: []
+      version: []
+      aliases: []
   extension_key_path_counts:
     adapter_requirements: 86
-    aliases: 3
+    aliases: 4
     compatibility: 18
     compatibility.aliases: 17
     memory_types[].lifecycle: 1
@@ -3311,10 +3340,7 @@ contract_schema_discovery:
       version: 0.1.0
       sha256: 80518c367d002130
   anomalies:
-    invalid_or_ambiguous_documents:
-    - path: contracts/compatibility/contract-path-aliases.contract.yaml
-      status: ambiguous_contract_root
-      detail: null
+    invalid_or_ambiguous_documents: []
     path_root_mismatches: []
     missing_contract_ids: []
     missing_contract_versions: []
@@ -3383,13 +3409,49 @@ contract_schema_discovery:
         path: contracts/tests/systematic-debugging.test.yaml
   artifacts:
   - path: contracts/compatibility/contract-path-aliases.contract.yaml
-    path_family: unclassified
+    path_family: compatibility
     expected_id: contract-path-aliases
     document_root_keys:
     - compatibility_manifest
     - contract_schema
-    parse_status: ambiguous_contract_root
-    candidate_contract_roots: []
+    parse_status: parsed
+    contract_root: compatibility_manifest
+    identifier_field: id
+    contract_id: contract-path-aliases
+    contract_version: 1.0.0
+    declared_type: null
+    declared_kind: null
+    root_fields:
+    - aliases
+    - evidence_boundary
+    - id
+    - version
+    root_field_shapes:
+      aliases:
+        value_type: sequence
+        item_type_counts:
+          mapping: 4
+        mapping_item_count: 4
+        mapping_item_field_counts:
+          contract_id: 4
+          contract_kind: 4
+          from_path: 4
+          rationale: 4
+          status: 4
+          to_path: 4
+          version_constraint: 4
+      evidence_boundary:
+        value_type: sequence
+        item_type_counts:
+          string: 3
+      id:
+        value_type: string
+      version:
+        value_type: string
+    extension_key_paths:
+    - aliases
+    expected_contract_root: compatibility_manifest
+    root_matches_path_family: true
   - path: contracts/ports/capability-composition/design-strategy-composition.port.yaml
     path_family: port
     expected_id: design-strategy-composition

@@ -21,6 +21,9 @@ EXPECTED_ROOT_BY_FAMILY = {
     "runtime": "runtime_contract",
     "port": "port_contract",
     "behavioral_test": "skill_test",
+    "compatibility": "compatibility_manifest",
+    "adapter": "port_adapter_reference",
+    "domain": "domain_contract",
 }
 
 COMMON_FIELDS_BY_FAMILY = {
@@ -70,6 +73,7 @@ COMMON_FIELDS_BY_FAMILY = {
         "quality_gates",
     ],
     "behavioral_test": ["skill", "version", "description", "cases"],
+    "compatibility": ["id", "version", "aliases"],
 }
 
 TARGET_EXTENSION_KEYS = {
@@ -123,6 +127,9 @@ def family_for(path: Path) -> str:
         "runtime": "runtime",
         "ports": "port",
         "tests": "behavioral_test",
+        "compatibility": "compatibility",
+        "adapters": "adapter",
+        "domains": "domain",
     }.get(first, "unclassified")
 
 
@@ -178,7 +185,7 @@ def root_candidates(payload: dict[str, Any]) -> list[str]:
     return sorted(
         str(key)
         for key in payload
-        if str(key).endswith(("_contract", "_test"))
+        if str(key).endswith(("_contract", "_test", "_manifest"))
     )
 
 
