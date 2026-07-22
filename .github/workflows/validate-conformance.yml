@@ -98,13 +98,19 @@ jobs:
       - name: Generate repository migration inventory
         id: migration_inventory
         continue-on-error: true
+        shell: bash
         run: |
+          set -o pipefail
           python scripts/validate-conformance.py \
             . \
             ai-native-skills \
             --mode migration \
             --output-dir /tmp/conformance-reports \
-            --format json
+            --format json \
+            > /tmp/conformance-inventory.log 2>&1
+          status=$?
+          tail -n 200 /tmp/conformance-inventory.log
+          exit "$status"
 
       - name: Upload conformance diagnostics and reports
         if: always()
@@ -113,6 +119,7 @@ jobs:
           name: structured-conformance-${{ github.run_id }}
           path: |
             /tmp/conformance-regressions.log
+            /tmp/conformance-inventory.log
             /tmp/conformance-reports
           if-no-files-found: warn
 
