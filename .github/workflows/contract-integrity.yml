@@ -6,6 +6,8 @@ on:
       - README.md
       - CONTRIBUTING.md
       - contracts/**
+      - docs/adapter-conformance.md
+      - docs/structured-adapter-conformance-*.md
       - docs/contract-catalog.md
       - docs/contract-schema-*.md
       - docs/contract-schema-discovery.yaml
@@ -13,6 +15,8 @@ on:
       - docs/port-inventory.yaml
       - schemas/**
       - scripts/contract_resolution.py
+      - scripts/conformance_*.py
+      - scripts/validate-conformance.py
       - scripts/generate-manifest.py
       - scripts/generate-manifest.sh
       - scripts/inventory-contract-schemas.py
@@ -22,11 +26,14 @@ on:
       - scripts/validate-port-contracts.py
       - scripts/validate-port-adapter-reference.py
       - scripts/run-eval.py
+      - tests/test_conformance_*.py
+      - tests/test_validate_conformance.py
       - tests/test_validate_contract_schemas.py
       - tests/test_contract_resolution.py
       - tests/test_validate_port_contracts.py
       - tests/test_validate_port_adapter_reference.py
       - tests/test_port_inventory.py
+      - tests/fixtures/conformance-boundaries/**
       - tests/fixtures/contract-schemas/**
       - tests/fixtures/port-contracts/**
       - tests/fixtures/port-adapter-references/**
@@ -37,6 +44,8 @@ on:
       - README.md
       - CONTRIBUTING.md
       - contracts/**
+      - docs/adapter-conformance.md
+      - docs/structured-adapter-conformance-*.md
       - docs/contract-catalog.md
       - docs/contract-schema-*.md
       - docs/contract-schema-discovery.yaml
@@ -44,6 +53,8 @@ on:
       - docs/port-inventory.yaml
       - schemas/**
       - scripts/contract_resolution.py
+      - scripts/conformance_*.py
+      - scripts/validate-conformance.py
       - scripts/generate-manifest.py
       - scripts/generate-manifest.sh
       - scripts/inventory-contract-schemas.py
@@ -53,11 +64,14 @@ on:
       - scripts/validate-port-contracts.py
       - scripts/validate-port-adapter-reference.py
       - scripts/run-eval.py
+      - tests/test_conformance_*.py
+      - tests/test_validate_conformance.py
       - tests/test_validate_contract_schemas.py
       - tests/test_contract_resolution.py
       - tests/test_validate_port_contracts.py
       - tests/test_validate_port_adapter_reference.py
       - tests/test_port_inventory.py
+      - tests/fixtures/conformance-boundaries/**
       - tests/fixtures/contract-schemas/**
       - tests/fixtures/port-contracts/**
       - tests/fixtures/port-adapter-references/**
