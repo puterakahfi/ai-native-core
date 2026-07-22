@@ -2391,7 +2391,7 @@ contract_schema_discovery:
       schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/design/visual-hierarchy.contract.yaml
       version: 2.0.0
-      sha256: 47f51adac2ff1032
+      sha256: 6cab2b1e72ea681c
     - family_path: skills/engineering
       metadata_fields:
       - id

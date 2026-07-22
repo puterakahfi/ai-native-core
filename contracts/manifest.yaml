@@ -3,7 +3,7 @@ contract_schema:
   version: 1.0.0
   path: schemas/contract-manifest.schema.yaml
 version: 2.0.0
-generated_at: '2026-07-22T10:40:50Z'
+generated_at: '2026-07-22T10:49:11Z'
 description: 'Auto-generated schema-aware contract manifest. Regenerate with: scripts/generate-manifest.sh'
 total_contracts: 131
 contracts:
@@ -326,7 +326,7 @@ contracts:
       schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/design/visual-hierarchy.contract.yaml
       version: 2.0.0
-      sha256: 47f51adac2ff1032
+      sha256: 6cab2b1e72ea681c
     engineering:
     - id: data-modeling
       kind: skill_contract
