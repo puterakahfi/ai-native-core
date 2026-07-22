@@ -1,0 +1,54 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "https://native-ai.engineering/schemas/domain-contract.schema.yaml"
+title: Native AI Engineering Domain Contract
+type: object
+additionalProperties: false
+required:
+  - contract_schema
+  - domain_contract
+properties:
+  contract_schema:
+    allOf:
+      - $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/contract_schema_identity"
+      - type: object
+        properties:
+          kind:
+            const: domain_contract
+          version:
+            const: "1.0.0"
+          path:
+            const: schemas/domain-contract.schema.yaml
+  domain_contract:
+    type: object
+    additionalProperties: true
+    required:
+      - id
+      - version
+      - bounded_context
+      - purpose
+      - boundary
+      - invariants
+    properties:
+      id:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/contract_id"
+      version:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/semantic_version"
+      bounded_context:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/machine_id"
+      purpose:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/non_empty_string"
+      boundary:
+        type: object
+        additionalProperties: false
+        required: [owns, delegates, does_not_own]
+        properties:
+          owns:
+            $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/non_empty_unique_string_list"
+          delegates:
+            $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/unique_string_list"
+          does_not_own:
+            $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/non_empty_unique_string_list"
+      invariants:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/non_empty_unique_string_list"
+      extensions:
+        type: object
