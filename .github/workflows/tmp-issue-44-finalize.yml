@@ -1,0 +1,149 @@
+name: Temporary issue 44 finalize
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - contracts/skills/design/composition.contract.yaml
+      - contracts/skills/design/visual-hierarchy.contract.yaml
+      - contracts/tests/composition.test.yaml
+      - contracts/tests/visual-hierarchy.test.yaml
+      - docs/design-contract-v2-migration.yaml
+      - .github/workflows/tmp-issue-44-finalize.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: temporary-issue-44-finalize
+  cancel-in-progress: true
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout issue branch
+        uses: actions/checkout@v4
+        with:
+          ref: 44-refine-composition-visual-hierarchy-contracts
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install validation dependencies
+        run: python3 -m pip install --disable-pip-version-check pyyaml jsonschema
+
+      - name: Compile validation tooling
+        run: |
+          python3 -m py_compile \
+            scripts/contract_resolution.py \
+            scripts/generate-manifest.py \
+            scripts/inventory-contract-schemas.py \
+            scripts/schema_validation.py \
+            scripts/validate-contract-identity.py \
+            scripts/validate-contract-schemas.py \
+            scripts/validate-port-contracts.py \
+            scripts/validate-port-adapter-reference.py \
+            scripts/run-eval.py \
+            tests/test_validate_contract_schemas.py \
+            tests/test_contract_resolution.py \
+            tests/test_validate_port_contracts.py \
+            tests/test_validate_port_adapter_reference.py \
+            tests/test_port_inventory.py
+
+      - name: Regenerate canonical metadata
+        run: |
+          ./scripts/generate-manifest.sh
+          python3 scripts/inventory-contract-schemas.py
+
+      - name: Validate contracts and behavioral cases
+        run: |
+          set -euo pipefail
+          mkdir -p .tmp/issue-44
+          python3 scripts/validate-contract-schemas.py | tee .tmp/issue-44/schema.txt
+          python3 scripts/validate-contract-identity.py | tee .tmp/issue-44/identity.txt
+          python3 scripts/validate-port-contracts.py | tee .tmp/issue-44/ports.txt
+          python3 scripts/run-eval.py --all --validate-tests | tee .tmp/issue-44/behavioral-tests.txt
+          python3 -m unittest discover -s tests -p 'test_validate_contract_schemas.py' -v 2>&1 | tee .tmp/issue-44/schema-regressions.txt
+          python3 -m unittest discover -s tests -p 'test_contract_resolution.py' -v 2>&1 | tee .tmp/issue-44/resolution-regressions.txt
+          python3 -m unittest discover -s tests -p 'test_validate_port_contracts.py' -v 2>&1 | tee .tmp/issue-44/port-regressions.txt
+          python3 -m unittest discover -s tests -p 'test_port_inventory.py' -v 2>&1 | tee .tmp/issue-44/port-inventory-regressions.txt
+          python3 -m unittest discover -s tests -p 'test_validate_port_adapter_reference.py' -v 2>&1 | tee .tmp/issue-44/adapter-port-regressions.txt
+          python3 scripts/inventory-contract-schemas.py --check | tee .tmp/issue-44/discovery-check.txt
+
+      - name: Assert issue 44 semantic correction
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import yaml
+
+          root = Path('.')
+          composition = yaml.safe_load((root / 'contracts/skills/design/composition.contract.yaml').read_text())['skill_contract']
+          hierarchy = yaml.safe_load((root / 'contracts/skills/design/visual-hierarchy.contract.yaml').read_text())['skill_contract']
+          composition_test = yaml.safe_load((root / 'contracts/tests/composition.test.yaml').read_text())['skill_test']
+          hierarchy_test = yaml.safe_load((root / 'contracts/tests/visual-hierarchy.test.yaml').read_text())['skill_test']
+          migration = yaml.safe_load((root / 'docs/design-contract-v2-migration.yaml').read_text())['design_contract_v2_migration']
+
+          old_composition = {
+              'focal_point_must_be_at_or_above_optical_center',
+              'no_unframed_dead_space_above_hero',
+              'every_element_anchored_to_grid_or_sibling',
+              'spacing_multiples_of_8px_base_unit',
+          }
+          old_hierarchy = {
+              'supporting_h2_must_be_60pct_or_less_of_h1_size',
+              'no_h2_larger_than_h1',
+              'minimum_3_distinct_contrast_levels',
+              'no_section_heading_heavier_than_hero_h1',
+          }
+
+          assert composition['version'] == '2.0.0'
+          assert hierarchy['version'] == '2.0.0'
+          assert composition_test['version'] == '2.0.0'
+          assert hierarchy_test['version'] == '2.0.0'
+          assert len(composition_test['cases']) >= 5
+          assert len(hierarchy_test['cases']) >= 5
+          assert not old_composition.intersection(composition['quality_gates'])
+          assert not old_hierarchy.intersection(hierarchy['quality_gates'])
+
+          diagnostics_c = set(composition['diagnostic_heuristics']['allowed'])
+          diagnostics_h = set(hierarchy['diagnostic_heuristics']['allowed'])
+          assert {'optical_center', 'modular_spacing_units'}.issubset(diagnostics_c)
+          assert {'h1_h2_size_ratio', 'distinct_contrast_level_count'}.issubset(diagnostics_h)
+
+          contracts = {item['id']: item for item in migration['contracts']}
+          assert set(contracts['composition']['removed_universal_gates']) == old_composition
+          assert set(contracts['visual-hierarchy']['removed_universal_gates']) == old_hierarchy
+          assert migration['compatibility_policy']['automatic_major_upgrade_allowed'] is False
+          assert migration['compatibility_policy']['path_alias_required'] is False
+
+          composition_gates = set(composition['quality_gates'])
+          hierarchy_gates = set(hierarchy['quality_gates'])
+          for case in composition_test['cases']:
+              assert set(case['quality_gates_tested']).issubset(composition_gates)
+          for case in hierarchy_test['cases']:
+              assert set(case['quality_gates_tested']).issubset(hierarchy_gates)
+
+          print('PASS — issue 44 contracts, tests, diagnostics, and migration semantics are aligned.')
+          PY
+
+      - name: Upload validation evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue-44-contract-evidence-${{ github.run_id }}
+          path: .tmp/issue-44
+          retention-days: 30
+
+      - name: Commit generated metadata and remove temporary workflow
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/tmp-issue-44-finalize.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'chore(design): finalize issue 44 contract metadata'
+          git push origin HEAD:44-refine-composition-visual-hierarchy-contracts
