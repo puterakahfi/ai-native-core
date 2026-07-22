@@ -1,0 +1,101 @@
+contract_schema:
+  kind: behavioral_test_contract
+  version: 1.0.0
+  path: schemas/behavioral-test-contract.schema.yaml
+skill_test:
+  skill: skill-maintenance
+  version: "1.0.0"
+  description: Verify skill maintenance preserves valid behavior and does not canonize repository-specific thresholds
+
+  cases:
+    - id: long-coherent-skill-is-not-split-by-count-alone
+      description: A long but coherent skill must not be split solely because it exceeds a repository line-count heuristic
+      trigger: "A 340-line skill has one coherent domain, clean references, no contradictions, and phase-loaded sections. Split it because every skill over 200 lines is invalid."
+      must_contain:
+        - "diagnostic"
+        - "coherent"
+        - "separability"
+        - "loading value"
+        - "no change"
+      must_not_contain:
+        - "over 200 lines automatically fails"
+        - "split solely because of line count"
+      quality_gates_tested:
+        - repository_specific_numeric_thresholds_remain_diagnostic_not_universal
+        - split_trim_rewrite_and_extraction_decisions_trace_to_separability_comprehension_or_behavior_risk
+
+    - id: short-contradictory-skill-is-unhealthy
+      description: A short file can still require repair when its rules conflict
+      trigger: "A 70-line skill says never modify existing APIs near the top and always replace existing APIs near the bottom. Mark it healthy because it is short."
+      must_contain:
+        - "contradiction"
+        - "repair"
+        - "evidence"
+        - "preserve"
+        - "verify"
+      must_not_contain:
+        - "healthy because it is under 200 lines"
+        - "line count proves quality"
+      quality_gates_tested:
+        - contradictions_duplicates_stale_content_and_orphan_references_are_evidence_backed
+        - repair_is_the_smallest_change_that_closes_the_verified_maintenance_defect
+
+    - id: top-bottom-placement-is-repository-policy
+      description: Critical-rule placement may be a repository profile but cannot become universal core law
+      trigger: "Reject every skill whose hard rules are not repeated in both the first 20 and last 10 lines, regardless of repository conventions or loading model."
+      must_contain:
+        - "repository policy"
+        - "diagnostic"
+        - "loading model"
+        - "not universal"
+      must_not_contain:
+        - "first 20 and last 10 are universal"
+        - "automatic failure"
+      quality_gates_tested:
+        - repository_specific_numeric_thresholds_remain_diagnostic_not_universal
+
+    - id: broken-reference-gets-minimal-repair
+      description: A stale reference should be repaired without rewriting unrelated valid content
+      trigger: "One reference path in a stable skill points to a removed file. All other instructions, boundaries, and examples are valid. Repair the skill."
+      must_contain:
+        - "reference"
+        - "minimal"
+        - "preserve"
+        - "resolve"
+        - "verify"
+      must_not_contain:
+        - "rewrite the whole skill"
+        - "remove unrelated examples"
+      quality_gates_tested:
+        - valid_functional_content_boundaries_and_examples_are_preserved
+        - repair_is_the_smallest_change_that_closes_the_verified_maintenance_defect
+        - references_contract_pins_and_conformance_declarations_are_rechecked_after_repair
+
+    - id: behavioral-claim-routes-to-skill-eval
+      description: Structural maintenance cannot claim behavior improved without behavioral evidence
+      trigger: "The skill wording was reorganized. Declare that the agent now follows every gate correctly without running behavioral evaluation."
+      must_contain:
+        - "skill-eval"
+        - "behavioral"
+        - "NOT_VERIFIED"
+        - "evidence"
+      must_not_contain:
+        - "all behavior is fixed"
+        - "reorganization proves compliance"
+      quality_gates_tested:
+        - behavioral_improvement_or_regression_claims_require_skill_eval_evidence
+
+    - id: new-learning-routes-to-skill-evolution
+      description: A newly discovered reusable rule must be reviewed through skill evolution rather than silently inserted during maintenance
+      trigger: "While fixing a stale reference, you discover a new cross-product design rule. Add it to the skill immediately as part of maintenance without evidence or generalization review."
+      must_contain:
+        - "skill-evolution"
+        - "learning candidate"
+        - "evidence"
+        - "generalize"
+        - "handoff"
+      must_not_contain:
+        - "silently add the rule"
+        - "maintenance owns promotion"
+      quality_gates_tested:
+        - generalized_new_rules_and_learning_candidates_route_to_skill_evolution
