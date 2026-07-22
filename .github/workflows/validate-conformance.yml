@@ -55,6 +55,27 @@ jobs:
             tests/test_contract_resolution.py
 
       - name: Run conformance regression tests
+        id: regressions
+        continue-on-error: true
+        shell: bash
         run: |
-          python -m unittest discover -s tests -p 'test_validate_conformance.py' -v
-          python -m unittest discover -s tests -p 'test_contract_resolution.py' -v
+          set -o pipefail
+          {
+            python -m unittest discover -s tests -p 'test_validate_conformance.py' -v
+            python -m unittest discover -s tests -p 'test_contract_resolution.py' -v
+          } > /tmp/conformance-regressions.log 2>&1
+          status=$?
+          tail -n 120 /tmp/conformance-regressions.log
+          exit "$status"
+
+      - name: Upload conformance diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: conformance-regressions-${{ github.run_id }}
+          path: /tmp/conformance-regressions.log
+          if-no-files-found: error
+
+      - name: Enforce regression result
+        if: steps.regressions.outcome == 'failure'
+        run: exit 1
