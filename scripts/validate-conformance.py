@@ -28,6 +28,8 @@ from typing import Any, Dict, List, Optional, Tuple
 
 import yaml
 
+from contract_resolution import load_contract_document, resolve_contract_reference
+
 BOUNDARY_COVERS_KEY = "ai-native-skills.boundary.covers"
 BOUNDARY_DELEGATES_KEY = "ai-native-skills.boundary.delegates"
 BOUNDARY_MAPPING_KEY = "ai-native-skills.boundary"
@@ -58,18 +60,18 @@ def find_paths():
 
 
 def parse_contract(path: Path) -> Optional[Dict[str, Any]]:
-    """Parse a contract YAML and extract checkable fields."""
+    """Parse any declared contract family and extract shared checkable fields."""
     try:
-        with path.open(encoding="utf-8") as handle:
-            data = yaml.safe_load(handle)
-        skill_contract = data.get("skill_contract", data)
+        kind, contract, _document = load_contract_document(path)
+        gates = contract.get("quality_gates") or contract.get("safety_gates") or []
         return {
-            "id": skill_contract.get("id", ""),
-            "version": skill_contract.get("version", "0.0.0"),
-            "quality_gates": skill_contract.get("quality_gates", []) or [],
-            "outputs": skill_contract.get("outputs", {}),
-            "inputs": skill_contract.get("inputs", {}),
-            "boundary": skill_contract.get("boundary", {}),
+            "kind": kind,
+            "id": contract.get("id", contract.get("skill", "")),
+            "version": contract.get("version", "0.0.0"),
+            "quality_gates": gates,
+            "outputs": contract.get("outputs", {}),
+            "inputs": contract.get("inputs", {}),
+            "boundary": contract.get("boundary", {}),
         }
     except Exception as exc:
         print("  WARN: failed to parse {}: {}".format(path, exc))
@@ -509,9 +511,11 @@ def main():
             continue
 
         contract_rel = impl.replace("ai-native-core/", "")
-        contract_path = core_path / contract_rel
-        if not contract_path.exists():
+        resolution = resolve_contract_reference(core_path, contract_rel)
+        if not resolution:
+            print("  WARN: unresolved contract reference {} for {}".format(contract_rel, skill_md))
             continue
+        contract_path = resolution["path"]
 
         contract = parse_contract(contract_path)
         if not contract:
