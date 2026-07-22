@@ -65,6 +65,8 @@ adapter_conformance:
   adapter:
     id: example-adapter
     kind: skill
+    patterns:
+      - skill-adapter
     entrypoint: skills/example-adapter/SKILL.md
 
   implements:
@@ -96,16 +98,37 @@ adapter_conformance:
   evidence_refs: []
 ```
 
-Supported adapter kinds:
+### Executable kind
+
+`adapter.kind` must match `metadata["ai-native-skills.type"]` in `SKILL.md`.
+
+Official kinds:
 
 ```text
 skill
 workflow
-meta_skill
-facade
-runtime_adapter
-port_adapter
+meta-skill
 ```
+
+### Adapter patterns
+
+Every contract-backed declaration includes:
+
+```text
+skill-adapter
+```
+
+Additional accepted declaration patterns:
+
+```text
+facade
+runtime-adapter
+port-adapter
+```
+
+Patterns are not executable types. For example, a facade remains a `meta-skill` with both `skill-adapter` and `facade` patterns.
+
+Legacy reports may preserve additional downstream pattern values such as `domain-reviewer`. Preserving a legacy value in a migration report does not automatically make it an accepted v2 declaration pattern.
 
 `capability` may be `null` only when the implemented contract family does not define a capability identity.
 
@@ -116,6 +139,7 @@ The validator checks:
 ```text
 declaration schema
 adapter ID and entrypoint
+executable kind and declared patterns
 canonical or active aliased contract path
 contract ID
 contract kind
@@ -133,6 +157,34 @@ evidence-reference layers
 ```
 
 Unknown interface or boundary identifiers are errors. Missing required coverage is partial. Explicit ownership of a delegated responsibility is an error.
+
+## Interface semantics
+
+### Inputs
+
+Every required input must be declared. Optional inputs form an allowed universe and may be omitted. Declaring an unknown input is an error.
+
+### Outputs
+
+Required outputs must be declared. Allowed outputs form the output universe; an adapter does not need to support every allowed output to be conformant.
+
+```text
+allowed output omitted
+→ no coverage failure
+
+required output omitted
+→ PARTIAL
+
+contract output explicitly marked unsupported
+→ visible PARTIAL limitation
+
+unknown output declared
+→ ERROR
+```
+
+### Gates
+
+Every contract quality or safety gate must be declared. Unknown gate identifiers are errors.
 
 ## Boundary declarations
 
@@ -165,6 +217,22 @@ boundary:
 
 Use exact identifiers from the contract. Separator and case normalization support comparison, but the validator does not perform fuzzy semantic matching.
 
+```text
+contract-owned responsibility omitted
+→ PARTIAL
+
+contract-delegated responsibility omitted
+→ PARTIAL
+
+contract-delegated responsibility claimed under covers
+→ ERROR
+
+same responsibility under covers and delegates
+→ ERROR
+```
+
+Adapter-specific dependencies, handoffs, or requirements may be declared beyond the reusable core contract. They are preserved as migration diagnostics rather than treated as contract-owned guarantees.
+
 ## Result classes
 
 ### Structural status
@@ -172,7 +240,7 @@ Use exact identifiers from the contract. Separator and case normalization suppor
 | Status | Meaning |
 |---|---|
 | `CONFORMANT` | all checkable required structural declarations match the resolved contract |
-| `PARTIAL` | declaration exists but required coverage is incomplete or required responsibility is marked unsupported |
+| `PARTIAL` | declaration exists but required coverage is incomplete or a contract responsibility is explicitly unsupported |
 | `ERROR` | declaration is malformed, contradictory, incompatible, unresolved, unknown, or explicitly out of bounds |
 | `NOT_CHECKABLE` | a v2 structured declaration is absent or required static evidence cannot be evaluated |
 
@@ -250,6 +318,8 @@ The report schema is:
 schemas/conformance-report.schema.yaml
 ```
 
+Reports preserve legacy migration observations without converting them into accepted declaration semantics.
+
 ## Legacy migration
 
 Existing adapters may still declare:
@@ -286,6 +356,11 @@ python3 -m unittest discover \
   -s tests \
   -p 'test_validate_conformance.py' \
   -v
+
+python3 -m unittest discover \
+  -s tests \
+  -p 'test_conformance_semantics.py' \
+  -v
 ```
 
 Path and version-only compatibility remains available through:
@@ -305,14 +380,15 @@ python3 scripts/run-eval.py --all --validate-tests
 For each contract-backed adapter:
 
 1. resolve the canonical contract and compatible version;
-2. review actual executable ownership and handoffs;
-3. create `adapter.conformance.yaml` manually;
-4. declare only inputs, outputs, gates, boundaries, dependencies, handoffs, and requirements the adapter genuinely supports;
-5. record unsupported required responsibilities honestly;
-6. run migration mode;
-7. resolve `ERROR`, then review every `PARTIAL` and `NOT_CHECKABLE` result;
-8. run strict mode when the migration slice is intended to be complete;
-9. keep behavioral, runtime, product, and approval evidence separate.
+2. confirm the executable kind and applicable adapter patterns;
+3. review actual executable ownership and handoffs;
+4. create `adapter.conformance.yaml` manually;
+5. declare only inputs, outputs, gates, boundaries, dependencies, handoffs, and requirements the adapter genuinely supports;
+6. record unsupported contract responsibilities honestly;
+7. run migration mode;
+8. resolve `ERROR`, then review every `PARTIAL` and `NOT_CHECKABLE` result;
+9. run strict mode when the migration slice is intended to be complete;
+10. keep behavioral, runtime, product, and approval evidence separate.
 
 Do not bulk-copy contract values without reviewing executable behavior.
 
