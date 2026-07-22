@@ -6,6 +6,8 @@ adapter_conformance:
   adapter:
     id: overclaim-boundary
     kind: skill
+    patterns:
+      - skill-adapter
     entrypoint: skills/overclaim-boundary/SKILL.md
   implements:
     contract_id: boundary-sample
