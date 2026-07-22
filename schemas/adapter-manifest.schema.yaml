@@ -1,0 +1,39 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "https://native-ai.engineering/schemas/adapter-manifest.schema.yaml"
+title: Native AI Engineering Adapter Manifest
+type: object
+additionalProperties: false
+required:
+  - contract_schema
+  - port_adapter_reference
+properties:
+  contract_schema:
+    allOf:
+      - $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/contract_schema_identity"
+      - type: object
+        properties:
+          kind:
+            const: adapter_manifest
+          version:
+            const: "1.0.0"
+          path:
+            const: schemas/adapter-manifest.schema.yaml
+  port_adapter_reference:
+    type: object
+    additionalProperties: false
+    required:
+      - adapter_id
+      - port_id
+      - port_path
+      - port_version
+    properties:
+      adapter_id:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/contract_id"
+      port_id:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/contract_id"
+      port_path:
+        type: string
+        pattern: "^contracts/ports/.+\\.port\\.yaml$"
+      port_version:
+        type: string
+        pattern: "^(?:\\^|~)?[0-9]+\\.[0-9]+(?:\\.[0-9]+)?(?:-[0-9A-Za-z.-]+)?$"
