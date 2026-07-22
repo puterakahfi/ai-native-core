@@ -1,0 +1,115 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "https://native-ai.engineering/schemas/adapter-conformance.schema.yaml"
+title: Native AI Engineering Adapter Conformance Declaration
+type: object
+additionalProperties: false
+required:
+  - contract_schema
+  - adapter_conformance
+properties:
+  contract_schema:
+    allOf:
+      - $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/contract_schema_identity"
+      - type: object
+        properties:
+          kind:
+            const: adapter_conformance
+          version:
+            const: "1.0.0"
+          path:
+            const: schemas/adapter-conformance.schema.yaml
+  adapter_conformance:
+    type: object
+    additionalProperties: false
+    required:
+      - adapter
+      - implements
+      - capability
+      - interface
+      - boundary
+      - dependencies
+      - handoffs
+      - unsupported_claims
+      - adapter_requirements
+      - evidence_refs
+    properties:
+      adapter:
+        type: object
+        additionalProperties: false
+        required:
+          - id
+          - kind
+          - entrypoint
+        properties:
+          id:
+            $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/contract_id"
+          kind:
+            type: string
+            enum:
+              - skill
+              - workflow
+              - meta_skill
+              - facade
+              - runtime_adapter
+              - port_adapter
+          entrypoint:
+            $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/adapter_entrypoint"
+      implements:
+        type: object
+        additionalProperties: false
+        required:
+          - contract_id
+          - contract_kind
+          - contract_path
+          - contract_version
+        properties:
+          contract_id:
+            $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/contract_id"
+          contract_kind:
+            type: string
+            enum:
+              - skill_contract
+              - workflow_contract
+              - runtime_contract
+              - port_contract
+          contract_path:
+            $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/contract_path"
+          contract_version:
+            $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/version_pin"
+      capability:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/machine_id"
+      interface:
+        type: object
+        additionalProperties: false
+        required:
+          - inputs
+          - outputs
+          - gates
+        properties:
+          inputs:
+            $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/unique_string_list"
+          outputs:
+            $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/unique_string_list"
+          gates:
+            $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/unique_string_list"
+      boundary:
+        type: object
+        additionalProperties: false
+        required:
+          - covers
+          - delegates
+        properties:
+          covers:
+            $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/unique_string_list"
+          delegates:
+            $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/unique_string_list"
+      dependencies:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/unique_string_list"
+      handoffs:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/unique_string_list"
+      unsupported_claims:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/unique_string_list"
+      adapter_requirements:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/unique_string_list"
+      evidence_refs:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/evidence_references"
