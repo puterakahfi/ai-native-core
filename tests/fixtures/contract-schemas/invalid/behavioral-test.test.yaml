@@ -1,0 +1,11 @@
+contract_schema:
+  kind: behavioral_test_contract
+  version: "1.0.0"
+  path: schemas/behavioral-test-contract.schema.yaml
+skill_test:
+  skill: fixture-skill
+  version: "1.0.0"
+  description: This case intentionally has no checkable assertion.
+  cases:
+    - id: missing-assertion
+      trigger: Produce one fixture result.
