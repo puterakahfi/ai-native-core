@@ -14,6 +14,7 @@ Core describes **what must remain stable**. Adapters decide **how it is implemen
 | Understanding the canonical Native AI Engineering domain model | [Canonical domain model](docs/domain-model/README.md) |
 | Reading the framework architecture | [Architecture v0.2](docs/architecture-v0.2.md) |
 | Looking for a capability or lifecycle contract | [Contract catalog](docs/contract-catalog.md) |
+| Understanding contract kinds, schema versions, and workflow migration | [Contract schema architecture](docs/contract-schema-architecture.md) |
 | Implementing a skill adapter | [Adapter implementation path](#implement-a-contract) and [adapter conformance](docs/adapter-conformance.md) |
 | Building a runtime or product adapter | [Repository boundaries](#repository-boundaries) and [ports and adapters](docs/ports-and-adapters.md) |
 | Checking terminology | [Glossary](docs/glossary.md) |
@@ -144,9 +145,14 @@ Per-case model or agent outputs can be evaluated with `--skill`, `--output-file`
 
 ## Contract shape
 
-A skill contract is a YAML interface, not executable methodology:
+A skill contract is a YAML interface, not executable methodology. Every artifact declares schema identity separately from contract version:
 
 ```yaml
+contract_schema:
+  kind: skill_contract
+  version: "1.0.0"
+  path: schemas/skill-contract.schema.yaml
+
 skill_contract:
   id: example-capability
   category: engineering
@@ -168,7 +174,7 @@ skill_contract:
     does_not_cover: []
 ```
 
-Workflow contracts use the same principles but emphasize ordered phases, gates, ownership, evidence, handoffs, and exit conditions.
+Workflow contracts use `workflow_contract` under `contracts/workflows/` and emphasize ordered phases, gates, ownership, evidence, handoffs, and exit conditions. Internal skill procedure phases do not automatically create a workflow contract.
 
 ## Repository map
 
@@ -186,7 +192,7 @@ contracts/tests/
   behavioral evaluation contracts
 
 contracts/manifest.yaml
-  generated registry of IDs, paths, checksums, and skill-contract versions where recorded
+  schema-aware registry of IDs, kinds, schema versions, canonical paths, contract versions, and checksums
 
 docs/
   philosophy, architecture, domain, glossary, port, and integration documentation
@@ -201,7 +207,7 @@ skills/
   shared human-readable methodology where core-level teaching material is appropriate
 
 schemas/
-  reserved validation schemas; only add with a real artifact and validator path
+  canonical family schemas, shared primitives, manifest schemas, and fixture-backed future boundaries
 
 scripts/
   manifest, compatibility, conformance, and behavioral-eval tooling
@@ -241,13 +247,14 @@ Regenerate it after any contract content, version, path, filename, addition, or 
 ./scripts/generate-manifest.sh
 ```
 
-Review and commit the resulting ID, path, checksum, skill-contract version where recorded, and total changes. Do not hand-edit the manifest.
+Review and commit the resulting ID, kind, schema version, schema path, canonical artifact path, contract version, checksum, and total changes. Do not hand-edit the manifest.
 
 ## Validation tools
 
 | Tool | Responsibility |
 |---|---|
-| [`generate-manifest.sh`](scripts/generate-manifest.sh) | regenerate contract registry and checksums |
+| [`validate-contract-schemas.py`](scripts/validate-contract-schemas.py) | validate all contract families, workflow references, compatibility aliases, and manifest parity |
+| [`generate-manifest.sh`](scripts/generate-manifest.sh) | regenerate schema-aware contract registry and checksums |
 | [`validate-implements.sh`](scripts/validate-implements.sh) | validate adapter paths and pinned versions |
 | [`validate-conformance.py`](scripts/validate-conformance.py) | inspect gate/input/output coverage and structured boundary declarations |
 | [`run-eval.py`](scripts/run-eval.py) | validate and execute behavioral evaluation contracts |
@@ -273,6 +280,8 @@ These checks answer different questions. Manifest identity, compatible pins, int
 - [Adapter registry](docs/adapter-registry.md)
 - [Adapter conformance](docs/adapter-conformance.md)
 - [Contract catalog](docs/contract-catalog.md)
+- [Contract schema architecture](docs/contract-schema-architecture.md)
+- [Schema registry](schemas/README.md)
 
 ### Runtime concepts
 

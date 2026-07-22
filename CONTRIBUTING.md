@@ -56,13 +56,13 @@ Do not encode provider names, framework-specific code, private product policy, c
 
 Use `contracts/workflows/` when the stable agreement is an ordered lifecycle.
 
-A workflow contract should make phases, gates, ownership, evidence, handoffs, and exit conditions explicit. Specialist methodology remains in executable skills or supporting documentation; the contract owns lifecycle expectations.
+A workflow contract uses the `workflow_contract` root under `contracts/workflows/` and makes phases, gates, ownership, evidence, handoffs, and exit conditions explicit. Specialist methodology remains in executable skills or supporting documentation; the contract owns lifecycle expectations. A skill with internal procedure phases remains a skill unless it owns a separately coordinated lifecycle.
 
 ### Add or refine a runtime contract
 
 Use `contracts/runtime/` for runtime-facing agreements that must remain implementation-agnostic, such as context files, execution loops, memory, hooks, tool registration, or operating procedures.
 
-Runtime contracts define required capabilities and constraints. Provider commands, infrastructure policy, deployment credentials, and installed runtime state belong in adapters or product repositories.
+Runtime contracts define required capabilities and constraints. They must not own an ordered phase-transition workflow lifecycle. Provider commands, infrastructure policy, deployment credentials, and installed runtime state belong in adapters or product repositories.
 
 ### Add a behavioral test contract
 
@@ -98,23 +98,33 @@ Use `templates/` for generic artifact starting points such as ADRs, blueprints, 
 
 Templates must remain product-neutral. Product-specific defaults, branding, environments, and private workflow policy belong in product adapters.
 
-### Add a schema
+### Add or evolve a schema
 
-`schemas/` is reserved for reusable validation schemas and may not yet contain a validator for every artifact family.
+`schemas/` is the canonical registry for contract-family schemas and shared serialization primitives.
 
-When introducing a schema:
+When introducing or changing a schema:
 
-- connect it to a real artifact and validation path;
-- document what it validates and what it does not validate;
-- add fixtures or tests where applicable;
-- avoid introducing an unused schema as aspirational documentation;
-- update the README or relevant architecture document.
+- declare whether the change affects schema version, contract version, or both;
+- preserve family-owned domain meaning and avoid semantic normalization by field name alone;
+- connect it to active artifacts or an explicit fixture-backed future boundary;
+- add positive and negative fixtures;
+- add repository and semantic regression tests;
+- define compatibility and migration behavior;
+- regenerate the manifest and schema discovery report;
+- document what structural validation proves and what remains unverified.
+
+Do not add an unused schema as aspirational documentation or weaken a family schema merely to make incompatible artifacts pass.
 
 ## Contract format
 
-A typical skill contract follows this shape:
+A typical skill contract follows this envelope. Schema version and contract version are independent:
 
 ```yaml
+contract_schema:
+  kind: skill_contract
+  version: "1.0.0"
+  path: schemas/skill-contract.schema.yaml
+
 skill_contract:
   id: example-capability
   category: engineering
@@ -219,8 +229,9 @@ Regenerate it after any contract content, path, filename, addition, deletion, or
 
 Then inspect and commit the resulting manifest changes. Verify:
 
-- contract ID and path;
-- version where recorded;
+- contract ID and kind;
+- schema version and schema path;
+- canonical artifact path and contract version;
 - checksum change;
 - total artifact count;
 - removed or moved entries;
@@ -230,7 +241,16 @@ Documentation-only changes do not require manifest regeneration.
 
 ## Validation
 
-Install Python dependencies required by the scripts, including PyYAML, before running Python validation.
+Install Python dependencies required by the scripts, including PyYAML and jsonschema, before running Python validation.
+
+### Validate all contract families and generated metadata
+
+```bash
+python3 scripts/validate-contract-schemas.py
+python3 scripts/validate-contract-identity.py
+./scripts/generate-manifest.sh
+python3 scripts/inventory-contract-schemas.py --check
+```
 
 ### Validate behavioral test contracts
 
@@ -311,10 +331,10 @@ Before requesting review:
 - [ ] The issue objective and acceptance criteria are satisfied.
 - [ ] The change belongs in the public core rather than a skill, framework, or product adapter.
 - [ ] Existing contracts and consumers were inspected.
-- [ ] IDs, paths, versions, boundaries, and terminology are consistent.
+- [ ] Contract kind, schema version/path, ID, canonical path, contract version, boundaries, and terminology are consistent.
 - [ ] Compatibility impact is classified honestly.
 - [ ] Affected adapters and migration needs are disclosed.
-- [ ] The manifest was regenerated for contract changes.
+- [ ] The manifest and schema discovery report were regenerated for contract changes.
 - [ ] Behavioral test contracts validate when affected.
 - [ ] Validator unit and CLI regression tests pass when tooling changes.
 - [ ] Adapter path/version and conformance checks were run when adapter repositories were available.
