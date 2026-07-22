@@ -1,23 +1,23 @@
 contract_schema_discovery:
   version: 0.2.0
   source_root: contracts
-  artifact_count: 129
+  artifact_count: 135
   path_family_counts:
-    behavioral_test: 10
+    behavioral_test: 13
     compatibility: 1
     port: 17
     runtime: 6
-    skill: 85
-    workflow: 10
+    skill: 87
+    workflow: 11
   parse_status_counts:
-    parsed: 129
+    parsed: 135
   contract_root_counts:
     compatibility_manifest: 1
     port_contract: 17
     runtime_contract: 6
-    skill_contract: 85
-    skill_test: 10
-    workflow_contract: 10
+    skill_contract: 87
+    skill_test: 13
+    workflow_contract: 11
   root_shapes:
     compatibility_manifest:
       artifact_count: 1
@@ -288,805 +288,855 @@ contract_schema_discovery:
       declared_type_values: {}
       declared_kind_values: {}
     skill_contract:
-      artifact_count: 85
+      artifact_count: 87
       field_coverage:
         adaptation_modes:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         adapter_capability_families:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         adapter_catalog:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             sequence: 1
         adapter_requirements:
-          count: 54
-          coverage: 0.6353
+          count: 56
+          coverage: 0.6437
           value_type_counts:
-            mapping: 54
+            mapping: 56
         adapter_selection_rules:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             sequence: 1
         adapters:
           count: 3
-          coverage: 0.0353
+          coverage: 0.0345
           value_type_counts:
             sequence: 3
         adaptive_family_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         aliases:
           count: 3
-          coverage: 0.0353
+          coverage: 0.0345
           value_type_counts:
             sequence: 3
         anti_slop_contract:
           count: 4
-          coverage: 0.0471
+          coverage: 0.046
           value_type_counts:
             mapping: 4
+        audit_depths:
+          count: 1
+          coverage: 0.0115
+          value_type_counts:
+            mapping: 1
         authority_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         boundary:
-          count: 11
-          coverage: 0.1294
+          count: 13
+          coverage: 0.1494
           value_type_counts:
-            mapping: 11
+            mapping: 13
         branch_topology_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         candidate_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         canonicality_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         capability:
-          count: 85
+          count: 87
           coverage: 1.0
           value_type_counts:
-            string: 85
+            string: 87
         capability_aliases:
           count: 5
-          coverage: 0.0588
+          coverage: 0.0575
           value_type_counts:
             sequence: 5
         category:
-          count: 85
+          count: 87
           coverage: 1.0
           value_type_counts:
-            string: 85
+            string: 87
         classification_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         collection_state_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
+        compatibility:
+          count: 2
+          coverage: 0.023
+          value_type_counts:
+            mapping: 2
         component_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         component_coverage_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         component_selection_rules:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             sequence: 1
         conflict_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         context_adaptation_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         convention_lock_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         coverage_modes:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             sequence: 1
         decision_factors:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         decision_record_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         depth_modes:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         depth_role_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         description:
           count: 16
-          coverage: 0.1882
+          coverage: 0.1839
           value_type_counts:
             string: 16
         diagnosis_contract:
           count: 3
-          coverage: 0.0353
+          coverage: 0.0345
           value_type_counts:
             mapping: 3
         diagram_model:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
+          value_type_counts:
+            mapping: 1
+        dialect_policy:
+          count: 1
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         direction_candidate_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         direction_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         domain_reviewer_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         epic_acceptance_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         epic_classification:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         evidence_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         evidence_policy:
           count: 2
-          coverage: 0.0235
+          coverage: 0.023
           value_type_counts:
             mapping: 2
         experiment_types:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         expression_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         extended_by:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             sequence: 1
         extends:
           count: 2
-          coverage: 0.0235
+          coverage: 0.023
           value_type_counts:
             'null': 1
             string: 1
         family_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         family_decisions:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         gate_registry_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         hard_gate_policy:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         hierarchy_model:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         horizontal_rail_requirements:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             sequence: 1
         id:
-          count: 85
+          count: 87
           coverage: 1.0
           value_type_counts:
-            string: 85
+            string: 87
         identity_states:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             sequence: 1
         implementation_decision_ladder:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         inputs:
-          count: 81
-          coverage: 0.9529
+          count: 83
+          coverage: 0.954
           value_type_counts:
-            mapping: 81
+            mapping: 83
         integration_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         internal_routes:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
+          value_type_counts:
+            mapping: 1
+        iteration_policy:
+          count: 1
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         layer_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         layer_model:
           count: 2
-          coverage: 0.0235
+          coverage: 0.023
           value_type_counts:
             mapping: 2
+        lifecycle_recommendations:
+          count: 1
+          coverage: 0.0115
+          value_type_counts:
+            mapping: 1
         loading_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         model_classes:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         new_dependency_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         official_registry_component_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         outputs:
-          count: 81
-          coverage: 0.9529
+          count: 83
+          coverage: 0.954
           value_type_counts:
-            mapping: 81
+            mapping: 83
         ownership_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         phases:
           count: 2
-          coverage: 0.0235
+          coverage: 0.023
           value_type_counts:
             sequence: 2
         pr_target_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         presets:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
+          value_type_counts:
+            mapping: 1
+        prompt_structure:
+          count: 1
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         purpose:
-          count: 5
-          coverage: 0.0588
+          count: 7
+          coverage: 0.0805
           value_type_counts:
-            string: 5
+            string: 7
         quality_gates:
-          count: 84
-          coverage: 0.9882
+          count: 86
+          coverage: 0.9885
           value_type_counts:
-            sequence: 84
+            sequence: 86
         release_units:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         required_experiment_sections:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             sequence: 1
         required_prd_sections:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             sequence: 1
         retrieval_modes:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         reuse_extension_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         roles:
-          count: 84
-          coverage: 0.9882
+          count: 86
+          coverage: 0.9885
           value_type_counts:
-            sequence: 84
+            sequence: 86
         route_classes:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             sequence: 1
         route_targets:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         runtime_model:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         safety_gates:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             sequence: 1
         scoring_policy:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         selection_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         semantic_native_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         similarity_boundary:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         skill_pack_requirements:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         source_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         specialist_delegation:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         strategy_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         supersedes:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             sequence: 1
         technique_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         template_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         traceability:
           count: 2
-          coverage: 0.0235
+          coverage: 0.023
           value_type_counts:
             mapping: 2
         type:
-          count: 85
+          count: 87
           coverage: 1.0
           value_type_counts:
-            string: 85
+            string: 87
         typography_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         verdict_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         verdicts:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             sequence: 1
         verification_contract:
           count: 3
-          coverage: 0.0353
+          coverage: 0.0345
           value_type_counts:
             mapping: 3
         version:
-          count: 85
+          count: 87
           coverage: 1.0
           value_type_counts:
-            string: 85
+            string: 87
         visual_direction_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
         work_hierarchy_contract:
           count: 1
-          coverage: 0.0118
+          coverage: 0.0115
           value_type_counts:
             mapping: 1
       declared_type_values:
         contract: 7
         meta-skill: 2
         port: 4
-        skill: 72
+        skill: 74
       declared_kind_values: {}
     skill_test:
-      artifact_count: 10
+      artifact_count: 13
       field_coverage:
         cases:
-          count: 10
+          count: 13
           coverage: 1.0
           value_type_counts:
-            sequence: 10
+            sequence: 13
         description:
-          count: 10
+          count: 13
           coverage: 1.0
           value_type_counts:
-            string: 10
+            string: 13
         skill:
-          count: 10
+          count: 13
           coverage: 1.0
           value_type_counts:
-            string: 10
+            string: 13
         version:
-          count: 10
+          count: 13
           coverage: 1.0
           value_type_counts:
-            string: 10
+            string: 13
       declared_type_values: {}
       declared_kind_values: {}
     workflow_contract:
-      artifact_count: 10
+      artifact_count: 11
       field_coverage:
         acceptance_matrix_contract:
           count: 1
-          coverage: 0.1
+          coverage: 0.0909
           value_type_counts:
             mapping: 1
         adapter_requirements:
-          count: 10
+          count: 11
           coverage: 1.0
           value_type_counts:
-            mapping: 10
+            mapping: 11
         approval_policy:
           count: 1
-          coverage: 0.1
+          coverage: 0.0909
           value_type_counts:
             mapping: 1
         automatic_promotion_policy:
           count: 1
-          coverage: 0.1
+          coverage: 0.0909
           value_type_counts:
             mapping: 1
         boundary:
-          count: 2
-          coverage: 0.2
+          count: 3
+          coverage: 0.2727
           value_type_counts:
-            mapping: 2
+            mapping: 3
         candidate_contract:
           count: 1
-          coverage: 0.1
+          coverage: 0.0909
           value_type_counts:
             mapping: 1
         capability:
-          count: 3
-          coverage: 0.3
+          count: 4
+          coverage: 0.3636
           value_type_counts:
-            string: 3
+            string: 4
         category:
-          count: 10
+          count: 11
           coverage: 1.0
           value_type_counts:
-            string: 10
+            string: 11
         change_budget_contract:
           count: 1
-          coverage: 0.1
+          coverage: 0.0909
           value_type_counts:
             mapping: 1
         code_review_contract:
           count: 1
-          coverage: 0.1
+          coverage: 0.0909
           value_type_counts:
             mapping: 1
         compatibility:
-          count: 1
-          coverage: 0.1
+          count: 2
+          coverage: 0.1818
           value_type_counts:
-            mapping: 1
+            mapping: 2
         completion_contract:
           count: 1
-          coverage: 0.1
+          coverage: 0.0909
           value_type_counts:
             mapping: 1
         concurrent_write_contract:
           count: 1
-          coverage: 0.1
+          coverage: 0.0909
           value_type_counts:
             mapping: 1
         decision_provenance_contract:
           count: 3
-          coverage: 0.3
+          coverage: 0.2727
           value_type_counts:
             mapping: 3
         defect_contract:
           count: 1
-          coverage: 0.1
+          coverage: 0.0909
           value_type_counts:
             mapping: 1
         defect_diagnosis_contract:
           count: 1
-          coverage: 0.1
+          coverage: 0.0909
           value_type_counts:
             mapping: 1
         delegation_contract:
           count: 1
-          coverage: 0.1
+          coverage: 0.0909
           value_type_counts:
             mapping: 1
         delivery_contract:
           count: 1
-          coverage: 0.1
+          coverage: 0.0909
           value_type_counts:
             mapping: 1
         deployment_authorization_contract:
           count: 1
-          coverage: 0.1
+          coverage: 0.0909
           value_type_counts:
             mapping: 1
         description:
           count: 2
-          coverage: 0.2
+          coverage: 0.1818
           value_type_counts:
             string: 2
         design_acceptance_contract:
           count: 1
-          coverage: 0.1
+          coverage: 0.0909
           value_type_counts:
             mapping: 1
         design_lifecycle_contract:
           count: 1
-          coverage: 0.1
+          coverage: 0.0909
           value_type_counts:
             mapping: 1
         design_review_contract:
           count: 1
-          coverage: 0.1
+          coverage: 0.0909
           value_type_counts:
             mapping: 1
         execution_contract:
           count: 1
-          coverage: 0.1
+          coverage: 0.0909
           value_type_counts:
             mapping: 1
-        generalization_requirements:
+        exit_conditions:
           count: 1
-          coverage: 0.1
+          coverage: 0.0909
           value_type_counts:
             sequence: 1
+        generalization_requirements:
+          count: 1
+          coverage: 0.0909
+          value_type_counts:
+            sequence: 1
+        handoffs:
+          count: 1
+          coverage: 0.0909
+          value_type_counts:
+            sequence: 1
+        health_dimensions:
+          count: 1
+          coverage: 0.0909
+          value_type_counts:
+            mapping: 1
         id:
-          count: 10
+          count: 11
           coverage: 1.0
           value_type_counts:
-            string: 10
+            string: 11
         inputs:
-          count: 3
-          coverage: 0.3
+          count: 4
+          coverage: 0.3636
           value_type_counts:
-            mapping: 3
+            mapping: 4
         iteration_policy:
           count: 1
-          coverage: 0.1
+          coverage: 0.0909
           value_type_counts:
             mapping: 1
         learning_promotion_policy:
           count: 1
-          coverage: 0.1
+          coverage: 0.0909
           value_type_counts:
             mapping: 1
         outcome_contract:
           count: 1
-          coverage: 0.1
+          coverage: 0.0909
           value_type_counts:
             mapping: 1
         outputs:
-          count: 4
-          coverage: 0.4
+          count: 5
+          coverage: 0.4545
           value_type_counts:
-            mapping: 4
+            mapping: 5
         phases:
-          count: 10
+          count: 11
           coverage: 1.0
           value_type_counts:
-            sequence: 10
+            sequence: 11
         purpose:
-          count: 10
+          count: 11
           coverage: 1.0
           value_type_counts:
-            string: 10
+            string: 11
         quality_gates:
-          count: 10
+          count: 11
           coverage: 1.0
           value_type_counts:
-            sequence: 10
+            sequence: 11
         refinement_lock_contract:
           count: 1
-          coverage: 0.1
+          coverage: 0.0909
           value_type_counts:
             mapping: 1
         release_authorization:
           count: 1
-          coverage: 0.1
+          coverage: 0.0909
           value_type_counts:
             mapping: 1
         release_eligibility:
           count: 1
-          coverage: 0.1
+          coverage: 0.0909
           value_type_counts:
             mapping: 1
         review_contract:
           count: 2
-          coverage: 0.2
+          coverage: 0.1818
           value_type_counts:
             mapping: 2
         role_contract:
           count: 1
-          coverage: 0.1
+          coverage: 0.0909
           value_type_counts:
             mapping: 1
         roles:
-          count: 2
-          coverage: 0.2
+          count: 3
+          coverage: 0.2727
           value_type_counts:
-            sequence: 2
+            sequence: 3
         route_contract:
           count: 1
-          coverage: 0.1
+          coverage: 0.0909
           value_type_counts:
             mapping: 1
         scope_diff_contract:
           count: 1
-          coverage: 0.1
+          coverage: 0.0909
           value_type_counts:
             mapping: 1
         shortcuts:
           count: 1
-          coverage: 0.1
+          coverage: 0.0909
           value_type_counts:
             sequence: 1
         skill_load_order:
-          count: 10
+          count: 11
           coverage: 1.0
           value_type_counts:
-            sequence: 10
+            sequence: 11
         stop_points:
           count: 1
-          coverage: 0.1
+          coverage: 0.0909
           value_type_counts:
             sequence: 1
         target_layers:
           count: 1
-          coverage: 0.1
+          coverage: 0.0909
           value_type_counts:
             sequence: 1
         technical_readiness_contract:
           count: 1
-          coverage: 0.1
+          coverage: 0.0909
           value_type_counts:
             mapping: 1
         transitions:
-          count: 2
-          coverage: 0.2
+          count: 3
+          coverage: 0.2727
           value_type_counts:
-            sequence: 2
+            sequence: 3
+        triage_actions:
+          count: 1
+          coverage: 0.0909
+          value_type_counts:
+            mapping: 1
         type:
-          count: 10
+          count: 11
           coverage: 1.0
           value_type_counts:
-            string: 10
+            string: 11
         verdict_contract:
           count: 1
-          coverage: 0.1
+          coverage: 0.0909
           value_type_counts:
             mapping: 1
         verification_contract:
           count: 3
-          coverage: 0.3
+          coverage: 0.2727
           value_type_counts:
             mapping: 3
         version:
-          count: 10
+          count: 11
           coverage: 1.0
           value_type_counts:
-            string: 10
+            string: 11
         workflow_kind:
-          count: 10
+          count: 11
           coverage: 1.0
           value_type_counts:
-            string: 10
+            string: 11
       declared_type_values:
-        workflow: 10
+        workflow: 11
       declared_kind_values: {}
   field_presence_gaps:
     skill:
@@ -1157,6 +1207,7 @@ contract_schema_discovery:
       - contracts/workflows/product-development.contract.yaml
       - contracts/workflows/redesign-workflow.contract.yaml
       - contracts/workflows/skill-evolution.contract.yaml
+      - contracts/workflows/skill-maintenance.contract.yaml
       - contracts/workflows/spec-driven.contract.yaml
       skill_load_order: []
       quality_gates: []
@@ -1194,14 +1245,15 @@ contract_schema_discovery:
       version: []
       aliases: []
   extension_key_path_counts:
-    adapter_requirements: 86
+    adapter_requirements: 89
     aliases: 4
-    compatibility: 18
+    compatibility: 21
     compatibility.aliases: 17
+    handoffs: 1
     memory_types[].lifecycle: 1
     review_contract.facade: 1
     state_transitions: 17
-    transitions: 2
+    transitions: 3
   workflow_representation_inventory:
     canonical_workflow_contract_paths:
     - contracts/workflows/bugfix.contract.yaml
@@ -1213,6 +1265,7 @@ contract_schema_discovery:
     - contracts/workflows/product-development.contract.yaml
     - contracts/workflows/redesign-workflow.contract.yaml
     - contracts/workflows/skill-evolution.contract.yaml
+    - contracts/workflows/skill-maintenance.contract.yaml
     - contracts/workflows/spec-driven.contract.yaml
     declared_skill_workflow_candidates: []
     skill_internal_phase_procedures:
@@ -1228,7 +1281,7 @@ contract_schema_discovery:
       - phases
     runtime_lifecycle_candidates: []
   manifest_inventory:
-    entry_count: 129
+    entry_count: 135
     family_path_counts:
       compatibility: 1
       ports/capability-composition: 4
@@ -1238,38 +1291,38 @@ contract_schema_discovery:
       skills/architecture: 10
       skills/content: 3
       skills/context: 4
-      skills/design: 28
+      skills/design: 29
       skills/engineering: 9
       skills/governance: 2
       skills/meta: 2
       skills/product: 7
-      skills/quality: 9
+      skills/quality: 10
       skills/runtime: 8
       skills/security: 2
       skills/visual-thinking: 1
-      tests: 10
-      workflows: 10
+      tests: 13
+      workflows: 11
     metadata_field_coverage:
       id:
-        count: 129
+        count: 135
         coverage: 1.0
       kind:
-        count: 129
+        count: 135
         coverage: 1.0
       path:
-        count: 129
+        count: 135
         coverage: 1.0
       schema_path:
-        count: 129
+        count: 135
         coverage: 1.0
       schema_version:
-        count: 129
+        count: 135
         coverage: 1.0
       sha256:
-        count: 129
+        count: 135
         coverage: 1.0
       version:
-        count: 129
+        count: 135
         coverage: 1.0
     missing_kind_paths: []
     missing_schema_version_paths: []
@@ -2212,6 +2265,22 @@ contract_schema_discovery:
       - schema_version
       - sha256
       - version
+      id: image-prompt-engineering
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/design/image-prompt-engineering.contract.yaml
+      version: 1.0.0
+      sha256: 2a33875343f8c0e1
+    - family_path: skills/design
+      metadata_fields:
+      - id
+      - kind
+      - path
+      - schema_path
+      - schema_version
+      - sha256
+      - version
       id: information-architecture
       kind: skill_contract
       schema_version: 1.0.0
@@ -2756,6 +2825,22 @@ contract_schema_discovery:
       - schema_version
       - sha256
       - version
+      id: design-audit
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/quality/design-audit.contract.yaml
+      version: 1.0.0
+      sha256: 77cfdb07cdc4d0f8
+    - family_path: skills/quality
+      metadata_fields:
+      - id
+      - kind
+      - path
+      - schema_path
+      - schema_version
+      - sha256
+      - version
       id: design-review
       kind: skill_contract
       schema_version: 1.0.0
@@ -3076,6 +3161,22 @@ contract_schema_discovery:
       - schema_version
       - sha256
       - version
+      id: design-audit
+      kind: behavioral_test_contract
+      schema_version: 1.0.0
+      schema_path: schemas/behavioral-test-contract.schema.yaml
+      path: contracts/tests/design-audit.test.yaml
+      version: 1.0.0
+      sha256: b5dbf254cf8d3599
+    - family_path: tests
+      metadata_fields:
+      - id
+      - kind
+      - path
+      - schema_path
+      - schema_version
+      - sha256
+      - version
       id: design-review
       kind: behavioral_test_contract
       schema_version: 1.0.0
@@ -3083,6 +3184,22 @@ contract_schema_discovery:
       path: contracts/tests/design-review.test.yaml
       version: 0.2.0
       sha256: 78c71ef846e14378
+    - family_path: tests
+      metadata_fields:
+      - id
+      - kind
+      - path
+      - schema_path
+      - schema_version
+      - sha256
+      - version
+      id: image-prompt-engineering
+      kind: behavioral_test_contract
+      schema_version: 1.0.0
+      schema_path: schemas/behavioral-test-contract.schema.yaml
+      path: contracts/tests/image-prompt-engineering.test.yaml
+      version: 1.0.0
+      sha256: ae7bc3da6f6e9f9a
     - family_path: tests
       metadata_fields:
       - id
@@ -3163,6 +3280,22 @@ contract_schema_discovery:
       path: contracts/tests/skill-evolution.test.yaml
       version: 1.0.0
       sha256: 5524fa8025599be6
+    - family_path: tests
+      metadata_fields:
+      - id
+      - kind
+      - path
+      - schema_path
+      - schema_version
+      - sha256
+      - version
+      id: skill-maintenance
+      kind: behavioral_test_contract
+      schema_version: 1.0.0
+      schema_path: schemas/behavioral-test-contract.schema.yaml
+      path: contracts/tests/skill-maintenance.test.yaml
+      version: 1.0.0
+      sha256: cf6eb40861a5f971
     - family_path: tests
       metadata_fields:
       - id
@@ -3332,6 +3465,22 @@ contract_schema_discovery:
       - schema_version
       - sha256
       - version
+      id: skill-maintenance
+      kind: workflow_contract
+      schema_version: 1.0.0
+      schema_path: schemas/workflow-contract.schema.yaml
+      path: contracts/workflows/skill-maintenance.contract.yaml
+      version: 1.0.0
+      sha256: 42f34a579a73ce90
+    - family_path: workflows
+      metadata_fields:
+      - id
+      - kind
+      - path
+      - schema_path
+      - schema_version
+      - sha256
+      - version
       id: spec-driven
       kind: workflow_contract
       schema_version: 1.0.0
@@ -3365,12 +3514,24 @@ contract_schema_discovery:
         path: contracts/skills/product/delivery-work-breakdown.contract.yaml
       - family: behavioral_test
         path: contracts/tests/delivery-work-breakdown.test.yaml
+    - contract_id: design-audit
+      occurrences:
+      - family: skill
+        path: contracts/skills/quality/design-audit.contract.yaml
+      - family: behavioral_test
+        path: contracts/tests/design-audit.test.yaml
     - contract_id: design-review
       occurrences:
       - family: skill
         path: contracts/skills/quality/design-review.contract.yaml
       - family: behavioral_test
         path: contracts/tests/design-review.test.yaml
+    - contract_id: image-prompt-engineering
+      occurrences:
+      - family: skill
+        path: contracts/skills/design/image-prompt-engineering.contract.yaml
+      - family: behavioral_test
+        path: contracts/tests/image-prompt-engineering.test.yaml
     - contract_id: implementation-context-discovery
       occurrences:
       - family: skill
@@ -3401,6 +3562,12 @@ contract_schema_discovery:
         path: contracts/tests/skill-evolution.test.yaml
       - family: workflow
         path: contracts/workflows/skill-evolution.contract.yaml
+    - contract_id: skill-maintenance
+      occurrences:
+      - family: behavioral_test
+        path: contracts/tests/skill-maintenance.test.yaml
+      - family: workflow
+        path: contracts/workflows/skill-maintenance.contract.yaml
     - contract_id: systematic-debugging
       occurrences:
       - family: skill
@@ -8232,6 +8399,105 @@ contract_schema_discovery:
     extension_key_paths: []
     expected_contract_root: skill_contract
     root_matches_path_family: true
+  - path: contracts/skills/design/image-prompt-engineering.contract.yaml
+    path_family: skill
+    expected_id: image-prompt-engineering
+    document_root_keys:
+    - contract_schema
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    identifier_field: id
+    contract_id: image-prompt-engineering
+    contract_version: 1.0.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - boundary
+    - capability
+    - category
+    - compatibility
+    - dialect_policy
+    - id
+    - inputs
+    - iteration_policy
+    - outputs
+    - prompt_structure
+    - purpose
+    - quality_gates
+    - roles
+    - type
+    - version
+    root_field_shapes:
+      adapter_requirements:
+        value_type: mapping
+        mapping_keys:
+        - asset_and_identity_lock_resolver
+        - generation_capability_metadata
+        - model_profile_and_dialect_registry
+        - observed_output_evidence
+        - prompt_serialization
+        - safety_and_rights_check
+      boundary:
+        value_type: mapping
+        mapping_keys:
+        - covers
+        - does_not_cover
+      capability:
+        value_type: string
+      category:
+        value_type: string
+      compatibility:
+        value_type: mapping
+        mapping_keys:
+        - classification
+        - downstream_adapter
+        - migration_document
+      dialect_policy:
+        value_type: mapping
+        mapping_keys:
+        - rules
+      id:
+        value_type: string
+      inputs:
+        value_type: mapping
+        mapping_keys:
+        - optional
+        - required
+      iteration_policy:
+        value_type: mapping
+        mapping_keys:
+        - rules
+      outputs:
+        value_type: mapping
+        mapping_keys:
+        - allowed
+        - required
+      prompt_structure:
+        value_type: mapping
+        mapping_keys:
+        - concerns
+        - rules
+      purpose:
+        value_type: string
+      quality_gates:
+        value_type: sequence
+        item_type_counts:
+          string: 11
+      roles:
+        value_type: sequence
+        item_type_counts:
+          string: 4
+      type:
+        value_type: string
+      version:
+        value_type: string
+    extension_key_paths:
+    - adapter_requirements
+    - compatibility
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
   - path: contracts/skills/design/information-architecture.contract.yaml
     path_family: skill
     expected_id: information-architecture
@@ -10604,6 +10870,102 @@ contract_schema_discovery:
     extension_key_paths: []
     expected_contract_root: skill_contract
     root_matches_path_family: true
+  - path: contracts/skills/quality/design-audit.contract.yaml
+    path_family: skill
+    expected_id: design-audit
+    document_root_keys:
+    - contract_schema
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    identifier_field: id
+    contract_id: design-audit
+    contract_version: 1.0.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - audit_depths
+    - boundary
+    - capability
+    - category
+    - compatibility
+    - id
+    - inputs
+    - lifecycle_recommendations
+    - outputs
+    - purpose
+    - quality_gates
+    - roles
+    - type
+    - version
+    root_field_shapes:
+      adapter_requirements:
+        value_type: mapping
+        mapping_keys:
+        - artifact_and_surface_classification
+        - canonical_gate_registry
+        - design_review_facade
+        - evidence_capture_mechanism
+        - lifecycle_handoff_mechanism
+        - root_cause_grouping_method
+        - specialist_reviewer_loading
+      audit_depths:
+        value_type: mapping
+        mapping_keys:
+        - allowed
+        - rules
+      boundary:
+        value_type: mapping
+        mapping_keys:
+        - covers
+        - does_not_cover
+      capability:
+        value_type: string
+      category:
+        value_type: string
+      compatibility:
+        value_type: mapping
+        mapping_keys:
+        - classification
+        - downstream_adapter
+        - migration_document
+      id:
+        value_type: string
+      inputs:
+        value_type: mapping
+        mapping_keys:
+        - optional
+        - required
+      lifecycle_recommendations:
+        value_type: mapping
+        mapping_keys:
+        - allowed
+        - rules
+      outputs:
+        value_type: mapping
+        mapping_keys:
+        - allowed
+        - required
+      purpose:
+        value_type: string
+      quality_gates:
+        value_type: sequence
+        item_type_counts:
+          string: 11
+      roles:
+        value_type: sequence
+        item_type_counts:
+          string: 4
+      type:
+        value_type: string
+      version:
+        value_type: string
+    extension_key_paths:
+    - adapter_requirements
+    - compatibility
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
   - path: contracts/skills/quality/design-review.contract.yaml
     path_family: skill
     expected_id: design-review
@@ -11900,6 +12262,46 @@ contract_schema_discovery:
     extension_key_paths: []
     expected_contract_root: skill_test
     root_matches_path_family: true
+  - path: contracts/tests/design-audit.test.yaml
+    path_family: behavioral_test
+    expected_id: design-audit
+    document_root_keys:
+    - contract_schema
+    - skill_test
+    parse_status: parsed
+    contract_root: skill_test
+    identifier_field: skill
+    contract_id: design-audit
+    contract_version: 1.0.0
+    declared_type: null
+    declared_kind: null
+    root_fields:
+    - cases
+    - description
+    - skill
+    - version
+    root_field_shapes:
+      cases:
+        value_type: sequence
+        item_type_counts:
+          mapping: 5
+        mapping_item_count: 5
+        mapping_item_field_counts:
+          description: 5
+          id: 5
+          must_contain: 5
+          must_not_contain: 5
+          quality_gates_tested: 5
+          trigger: 5
+      description:
+        value_type: string
+      skill:
+        value_type: string
+      version:
+        value_type: string
+    extension_key_paths: []
+    expected_contract_root: skill_test
+    root_matches_path_family: true
   - path: contracts/tests/design-review.test.yaml
     path_family: behavioral_test
     expected_id: design-review
@@ -11931,6 +12333,46 @@ contract_schema_discovery:
           must_not_contain: 2
           quality_gates_tested: 2
           trigger: 2
+      description:
+        value_type: string
+      skill:
+        value_type: string
+      version:
+        value_type: string
+    extension_key_paths: []
+    expected_contract_root: skill_test
+    root_matches_path_family: true
+  - path: contracts/tests/image-prompt-engineering.test.yaml
+    path_family: behavioral_test
+    expected_id: image-prompt-engineering
+    document_root_keys:
+    - contract_schema
+    - skill_test
+    parse_status: parsed
+    contract_root: skill_test
+    identifier_field: skill
+    contract_id: image-prompt-engineering
+    contract_version: 1.0.0
+    declared_type: null
+    declared_kind: null
+    root_fields:
+    - cases
+    - description
+    - skill
+    - version
+    root_field_shapes:
+      cases:
+        value_type: sequence
+        item_type_counts:
+          mapping: 6
+        mapping_item_count: 6
+        mapping_item_field_counts:
+          description: 6
+          id: 6
+          must_contain: 6
+          must_not_contain: 6
+          quality_gates_tested: 6
+          trigger: 6
       description:
         value_type: string
       skill:
@@ -12132,6 +12574,46 @@ contract_schema_discovery:
           must_not_contain: 4
           quality_gates_tested: 4
           trigger: 4
+      description:
+        value_type: string
+      skill:
+        value_type: string
+      version:
+        value_type: string
+    extension_key_paths: []
+    expected_contract_root: skill_test
+    root_matches_path_family: true
+  - path: contracts/tests/skill-maintenance.test.yaml
+    path_family: behavioral_test
+    expected_id: skill-maintenance
+    document_root_keys:
+    - contract_schema
+    - skill_test
+    parse_status: parsed
+    contract_root: skill_test
+    identifier_field: skill
+    contract_id: skill-maintenance
+    contract_version: 1.0.0
+    declared_type: null
+    declared_kind: null
+    root_fields:
+    - cases
+    - description
+    - skill
+    - version
+    root_field_shapes:
+      cases:
+        value_type: sequence
+        item_type_counts:
+          mapping: 6
+        mapping_item_count: 6
+        mapping_item_field_counts:
+          description: 6
+          id: 6
+          must_contain: 6
+          must_not_contain: 6
+          quality_gates_tested: 6
+          trigger: 6
       description:
         value_type: string
       skill:
@@ -13265,6 +13747,153 @@ contract_schema_discovery:
         value_type: string
     extension_key_paths:
     - adapter_requirements
+    expected_contract_root: workflow_contract
+    root_matches_path_family: true
+  - path: contracts/workflows/skill-maintenance.contract.yaml
+    path_family: workflow
+    expected_id: skill-maintenance
+    document_root_keys:
+    - contract_schema
+    - workflow_contract
+    parse_status: parsed
+    contract_root: workflow_contract
+    identifier_field: id
+    contract_id: skill-maintenance
+    contract_version: 1.0.0
+    declared_type: workflow
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - boundary
+    - capability
+    - category
+    - compatibility
+    - exit_conditions
+    - handoffs
+    - health_dimensions
+    - id
+    - inputs
+    - outputs
+    - phases
+    - purpose
+    - quality_gates
+    - roles
+    - skill_load_order
+    - transitions
+    - triage_actions
+    - type
+    - version
+    - workflow_kind
+    root_field_shapes:
+      adapter_requirements:
+        value_type: mapping
+        mapping_keys:
+        - behavioral_eval_runner
+        - complete_source_and_reference_reader
+        - contract_and_conformance_resolver
+        - duplicate_and_contradiction_analysis
+        - patch_and_diff_method
+        - repository_validation_commands
+        - structural_and_reference_parser
+        - versioning_write_and_approval_policy
+      boundary:
+        value_type: mapping
+        mapping_keys:
+        - covers
+        - does_not_cover
+      capability:
+        value_type: string
+      category:
+        value_type: string
+      compatibility:
+        value_type: mapping
+        mapping_keys:
+        - classification
+        - downstream_adapter
+        - migration_document
+      exit_conditions:
+        value_type: sequence
+        item_type_counts:
+          string: 6
+      handoffs:
+        value_type: sequence
+        item_type_counts:
+          mapping: 3
+        mapping_item_count: 3
+        mapping_item_field_counts:
+          id: 3
+          purpose: 3
+      health_dimensions:
+        value_type: mapping
+        mapping_keys:
+        - diagnostic_only
+        - required
+        - rules
+      id:
+        value_type: string
+      inputs:
+        value_type: mapping
+        mapping_keys:
+        - optional
+        - required
+      outputs:
+        value_type: mapping
+        mapping_keys:
+        - allowed
+        - required
+      phases:
+        value_type: sequence
+        item_type_counts:
+          mapping: 5
+        mapping_item_count: 5
+        mapping_item_field_counts:
+          gate: 5
+          id: 5
+          order: 5
+          purpose: 5
+      purpose:
+        value_type: string
+      quality_gates:
+        value_type: sequence
+        item_type_counts:
+          string: 11
+      roles:
+        value_type: sequence
+        item_type_counts:
+          string: 4
+      skill_load_order:
+        value_type: sequence
+        item_type_counts:
+          mapping: 3
+        mapping_item_count: 3
+        mapping_item_field_counts:
+          load: 3
+          phase: 3
+      transitions:
+        value_type: sequence
+        item_type_counts:
+          mapping: 5
+        mapping_item_count: 5
+        mapping_item_field_counts:
+          condition: 5
+          from: 5
+          to: 5
+      triage_actions:
+        value_type: mapping
+        mapping_keys:
+        - allowed
+        - rules
+      type:
+        value_type: string
+      version:
+        value_type: string
+      workflow_kind:
+        value_type: string
+    extension_key_paths:
+    - adapter_requirements
+    - compatibility
+    - handoffs
+    - transitions
     expected_contract_root: workflow_contract
     root_matches_path_family: true
   - path: contracts/workflows/spec-driven.contract.yaml

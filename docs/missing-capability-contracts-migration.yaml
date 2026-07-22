@@ -1,0 +1,149 @@
+missing_capability_contracts_migration:
+  schema_version: 1.0.0
+  issue: puterakahfi/ai-native-core#45
+  classification: additive_new_contracts
+  rationale: >
+    Three reusable executable capabilities were discovered as owned core gaps in
+    ai-native-skills. This migration creates runtime-agnostic contracts while
+    leaving provider syntax, repository thresholds, write policy, and concrete
+    execution mechanisms in adapters and repositories.
+
+  contracts:
+    - id: design-audit
+      kind: skill_contract
+      path: contracts/skills/quality/design-audit.contract.yaml
+      version: 1.0.0
+      downstream_adapter: skills/design-audit/SKILL.md
+      adapter_version_at_discovery: 2.2.0
+      canonical_boundary:
+        - classify_audit_context
+        - plan_surface_appropriate_evidence
+        - reference_design_review_result
+        - group_and_prioritize_verified_gaps
+        - report_coverage_limitations
+        - recommend_next_lifecycle
+      delegated_authority:
+        design_review:
+          - domain_and_reviewer_routing
+          - canonical_gate_identity
+          - evidence_normalization
+          - scoring_and_coverage
+          - verdict_and_review_report_semantics
+        specialist_reviewers:
+          - domain_specific_diagnosis
+        calling_workflow_or_user:
+          - authorization_to_start_refinement_redesign_or_implementation
+
+    - id: image-prompt-engineering
+      kind: skill_contract
+      path: contracts/skills/design/image-prompt-engineering.contract.yaml
+      version: 1.0.0
+      downstream_adapter: skills/prompt-engineer/SKILL.md
+      adapter_version_at_discovery: 1.0.0
+      canonical_boundary:
+        - generation_intent_classification
+        - provider_neutral_prompt_structure
+        - visual_constraint_and_lock_modeling
+        - declared_dialect_handoff
+        - prompt_validation
+        - observed_output_failure_iteration
+      adapter_owned_details:
+        - provider_syntax_and_parameters
+        - token_character_and_weight_limits
+        - model_capability_profiles
+        - provider_safety_policy
+        - prompt_serialization
+        - model_inference_and_generation
+
+    - id: skill-maintenance
+      kind: workflow_contract
+      path: contracts/workflows/skill-maintenance.contract.yaml
+      version: 1.0.0
+      downstream_adapter: skills/skill-doctor/SKILL.md
+      adapter_version_at_discovery: 1.0.0
+      canonical_lifecycle:
+        - audit
+        - triage
+        - repair
+        - verify
+        - report
+      delegated_authority:
+        repository_profile:
+          - line_count_and_placement_diagnostics
+          - source_and_reference_layout
+          - validation_commands
+          - versioning_and_write_policy
+        skill_eval:
+          - behavioral_application_verdict
+          - behavioral_regression_evidence
+        skill_evolution:
+          - reusable_learning_generalization
+          - new_rule_promotion
+        repository_governance:
+          - write_approval_release_and_ownership
+
+  downstream_consumer:
+    repository: puterakahfi/ai-native-skills
+    originating_issue: puterakahfi/ai-native-skills#26
+    current_state: merged_core_gap_exemptions
+    exemptions:
+      - skills/design-audit/contract.exemption.yaml
+      - skills/prompt-engineer/contract.exemption.yaml
+      - skills/skill-doctor/contract.exemption.yaml
+    required_after_core_acceptance:
+      - review_each_executable_against_the_complete_canonical_interface_and_boundary
+      - update_provider_or_repository_specific_rules_to_explicit_adapter_owned_extensions
+      - create_adjacent_adapter_conformance_declarations_with_compatible_version_pins
+      - require_structural_conformance_before_removing_each_exemption
+      - preserve_behavioral_runtime_and_product_evidence_as_separate_dimensions
+      - run_contract_coverage_skill_and_gate_skill_pack_and_capability_inventory_workflows
+    expected_pins:
+      design-audit: "^1.0.0"
+      prompt-engineer: "^1.0.0"
+      skill-doctor: "^1.0.0"
+    mapping:
+      design-audit:
+        contract_id: design-audit
+        executable_id: design-audit
+      prompt-engineer:
+        contract_id: image-prompt-engineering
+        executable_id: prompt-engineer
+      skill-doctor:
+        contract_id: skill-maintenance
+        executable_id: skill-doctor
+    prohibited_shortcuts:
+      - do_not_remove_exemptions_from_name_similarity_or_file_presence_alone
+      - do_not_copy_contract_gates_without_reviewing_executable_behavior
+      - do_not_relabel_provider_or_repository_specific_heuristics_as_core_requirements
+      - do_not_claim_behavioral_runtime_or_product_acceptance_from_static_conformance
+
+  compatibility_policy:
+    path_aliases_required: false
+    automatic_adapter_conformance: false
+    rules:
+      - all_three_contracts_are_new_and_do_not_replace_existing_core_contract_ids
+      - prompt_optimizer_remains_a_distinct_generic_prompt_precision_capability
+      - design_review_remains_the_authority_for_design_review_routing_gates_scores_coverage_and_verdicts
+      - skill_eval_and_skill_evolution_remain_distinct_from_skill_maintenance
+      - adapter_specific_extensions_must_not_weaken_or_claim_ownership_of_core_boundaries
+
+  validation:
+    core:
+      - regenerate_schema_aware_manifest
+      - regenerate_contract_schema_discovery
+      - validate_unified_contract_schemas_and_identity
+      - validate_behavioral_test_contracts
+      - run_contract_integrity_regressions
+      - run_conformance_tooling_regressions
+    downstream:
+      - validate_contract_paths_and_version_pins
+      - validate_structured_adapter_conformance
+      - run_relevant_behavioral_evaluations
+      - validate_exemption_removal_and_inventory_drift
+
+  evidence_boundary:
+    - contract_registration_is_not_adapter_conformance
+    - structural_conformance_is_not_behavioral_verification
+    - behavioral_verification_is_not_runtime_evidence
+    - runtime_evidence_is_not_product_acceptance
+    - review_or_product_acceptance_is_not_approval_or_authorization
