@@ -1,0 +1,140 @@
+contract_schema:
+  kind: skill_contract
+  version: 1.0.0
+  path: schemas/skill-contract.schema.yaml
+skill_contract:
+  id: image-prompt-engineering
+  category: design
+  type: skill
+  version: "1.0.0"
+  capability: provider_neutral_image_prompt_structuring_validation_and_iteration
+
+  purpose: >
+    Defines provider-neutral reasoning for translating image-generation intent into
+    a structured prompt plan, explicit visual constraints, a dialect-neutral prompt,
+    and evidence-driven iteration. Provider syntax, weighting conventions, model
+    limits, and volatile vendor behavior remain adapter-owned.
+
+  roles:
+    - image_prompt_engineer
+    - visual_constraint_modeler
+    - prompt_quality_reviewer
+    - generation_failure_analyst
+
+  inputs:
+    required:
+      - generation_intent
+      - target_output_context
+      - subject_requirements
+    optional:
+      - action_or_pose_requirements
+      - environment_requirements
+      - style_direction
+      - lighting_direction
+      - color_direction
+      - composition_direction
+      - asset_locks
+      - identity_locks
+      - text_requirements
+      - negative_constraints
+      - reference_assets
+      - model_profile_ref
+      - safety_and_rights_context
+      - observed_output
+      - failure_observations
+
+  outputs:
+    required:
+      - prompt_intent_model
+      - prompt_structure
+      - constraint_map
+      - dialect_neutral_prompt
+      - validation_report
+      - evidence_requirements
+    allowed:
+      - dialect_rendered_prompt
+      - negative_prompt
+      - iteration_patch
+      - unresolved_constraints
+      - provider_handoff
+      - model_limitation_report
+
+  prompt_structure:
+    concerns:
+      - subject
+      - action_or_pose
+      - environment
+      - style_or_medium
+      - lighting
+      - color
+      - composition_and_camera
+      - text_or_graphic_requirements
+      - identity_and_asset_locks
+      - exclusions
+    rules:
+      - only_relevant_concerns_are_required_for_a_specific_generation
+      - subject_action_and_environment_are_distinguished_when_each_is_material
+      - style_words_do_not_replace_subject_or_composition_clarity
+      - constraints_are_traceable_to_user_intent_assets_or_delivery_context
+      - unknown_or_conflicting_requirements_are_reported_not_silently_invented
+
+  dialect_policy:
+    rules:
+      - semantic_prompt_plan_precedes_provider_dialect_rendering
+      - provider_syntax_is_loaded_only_from_a_declared_model_profile_or_adapter
+      - token_character_weight_and_parameter_limits_are_not_universal_core_rules
+      - unsupported_or_unknown_model_capabilities_are_reported_as_limitations
+      - one_provider_dialect_must_not_be_presented_as_portable_to_another
+
+  iteration_policy:
+    rules:
+      - observed_output_is_compared_against_declared_constraints_and_locks
+      - failure_is_classified_before_prompt_changes_are_proposed
+      - iteration_changes_the_smallest_prompt_or_adapter_factor_supported_by_evidence
+      - adding_generic_quality_tags_is_not_a_valid_root_cause_fix
+      - prompt_changes_do_not_claim_to_guarantee_model_output
+
+  quality_gates:
+    - generation_intent_output_context_and_subject_requirements_are_explicit
+    - prompt_structure_covers_each_material_visual_constraint
+    - identity_assets_text_and_exclusions_are_preserved_as_traceable_locks
+    - dialect_neutral_semantics_are_defined_before_provider_specific_rendering
+    - provider_syntax_limits_and_weighting_rules_are_adapter_owned
+    - negative_constraints_are_relevant_to_known_risks_not_generic_boilerplate
+    - conflicting_unknown_or_unsupported_requirements_are_reported
+    - observed_output_failures_trace_to_specific_constraints_model_limits_or_asset_conditions
+    - iteration_uses_the_smallest_evidence_supported_change
+    - prompt_quality_claims_do_not_substitute_for_generated_output_evidence
+    - policy_rights_identity_and_safety_checks_are_not_bypassed_by_prompt_rewriting
+
+  boundary:
+    covers:
+      - generation_intent_classification
+      - provider_neutral_prompt_planning
+      - visual_constraint_structuring
+      - asset_identity_text_and_exclusion_lock_modeling
+      - declared_model_dialect_handoff
+      - prompt_completeness_and_contradiction_review
+      - observed_output_failure_analysis
+      - evidence_driven_prompt_iteration
+    does_not_cover:
+      - model_inference_or_image_generation
+      - provider_specific_syntax_registry
+      - model_selection_or_provider_routing
+      - safety_policy_or_rights_clearance_authority
+      - identity_or_asset_authenticity_verification
+      - generated_image_quality_acceptance
+      - product_acceptance_approval_or_authorization
+
+  adapter_requirements:
+    model_profile_and_dialect_registry: required_for_dialect_rendering
+    generation_capability_metadata: required_when_model_limits_are_claimed
+    asset_and_identity_lock_resolver: required_when_locks_are_present
+    safety_and_rights_check: product_or_provider_defined
+    observed_output_evidence: required_for_failure_driven_iteration
+    prompt_serialization: adapter_defined
+
+  compatibility:
+    classification: new_contract
+    downstream_adapter: skills/prompt-engineer/SKILL.md
+    migration_document: docs/missing-capability-contracts-migration.yaml
