@@ -1,0 +1,24 @@
+contract_schema:
+  kind: contract_manifest
+  version: "1.0.0"
+  path: schemas/contract-manifest.schema.yaml
+version: "2.0.0"
+generated_at: "2026-07-22T00:00:00Z"
+description: Manifest fixture with incomplete artifact metadata.
+total_contracts: 1
+contracts:
+  skills:
+    quality:
+      - id: fixture-skill
+        kind: skill_contract
+        schema_path: schemas/skill-contract.schema.yaml
+        path: contracts/skills/quality/fixture-skill.contract.yaml
+        version: "1.0.0"
+        sha256: 0123456789abcdef
+  ports: {}
+  workflows: []
+  tests: []
+  runtime: []
+  compatibility: []
+  adapters: []
+  domains: []
