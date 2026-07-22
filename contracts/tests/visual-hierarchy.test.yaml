@@ -1,0 +1,100 @@
+contract_schema:
+  kind: behavioral_test_contract
+  version: 1.0.0
+  path: schemas/behavioral-test-contract.schema.yaml
+skill_test:
+  skill: visual-hierarchy
+  version: "2.0.0"
+  description: Verify hierarchy maps semantic, task, action, and state relationships using contextual cues rather than fixed H1 ratios, contrast counts, or permanent hero dominance
+
+  cases:
+    - id: blocking-error-temporarily-outranks-page-heading
+      description: A blocking state may temporarily dominate page identity when task recovery requires immediate attention
+      trigger: "A payment screen has a clear page heading, but submission returns a blocking authorization error with recovery actions. The error panel becomes the strongest visual element until resolved. Review the hierarchy."
+      must_contain:
+        - "state"
+        - "blocking"
+        - "temporarily"
+        - "recovery"
+        - "page identity"
+      must_not_contain:
+        - "the H1 must always remain dominant"
+        - "no state may outweigh the hero heading"
+        - "reduce the error because it is heavier than H1"
+      quality_gates_tested:
+        - dominance_is_scoped_to_page_section_task_state_or_overlay_context
+        - actions_metadata_and_feedback_have_appropriate_priority
+        - hierarchy_uses_context_appropriate_cues_not_font_size_alone
+
+    - id: application-task-anchor-may-be-larger-than-page-title
+      description: A persistent application title may remain smaller than the active task anchor without breaking semantic hierarchy
+      trigger: "A dense analytics application keeps the product/page title small in persistent chrome. The active investigation title and current anomaly value are larger because they define the operator's immediate task. The HTML heading structure remains valid. Evaluate the hierarchy."
+      must_contain:
+        - "task anchor"
+        - "semantic role"
+        - "local dominance"
+        - "immediate task"
+        - "multiple cues"
+      must_not_contain:
+        - "no H2 may be larger than H1"
+        - "supporting H2 must be 60 percent or less"
+        - "hero H1 must remain the heaviest element"
+      quality_gates_tested:
+        - semantic_task_and_state_roles_are_mapped_before_styling
+        - dominance_is_scoped_to_page_section_task_state_or_overlay_context
+        - numeric_ratios_contrast_counts_and_monotonic_heading_decay_are_diagnostic_not_universal
+
+    - id: presentation-resets-dominance-by-slide
+      description: A presentation may establish a new principal anchor on each slide while preserving narrative continuity across the deck
+      trigger: "A presentation uses a restrained deck title slide, then a later evidence slide makes one result statement much larger than the earlier title. The slide sequence and narration clearly establish the result as the current focal point. Review the hierarchy."
+      must_contain:
+        - "presentation"
+        - "current focal point"
+        - "slide"
+        - "narrative"
+        - "scoped dominance"
+      must_not_contain:
+        - "later headings must always decay from the first H1"
+        - "no section heading may outweigh the original hero"
+        - "monotonic size reduction is mandatory"
+      quality_gates_tested:
+        - dominance_is_scoped_to_page_section_task_state_or_overlay_context
+        - section_weight_sequence_matches_content_and_task_progression
+        - numeric_ratios_contrast_counts_and_monotonic_heading_decay_are_diagnostic_not_universal
+
+    - id: two-clear-emphasis-levels-can-be-sufficient
+      description: A simple surface does not need an arbitrary minimum number of contrast levels when its role relationships are already clear
+      trigger: "A confirmation screen contains one success statement, one short explanation, and a single next action. It uses two clear emphasis levels plus spacing and placement. Decide whether it fails for not having three distinct contrast levels."
+      must_contain:
+        - "role relationships"
+        - "spacing"
+        - "placement"
+        - "sufficient"
+        - "context"
+      must_not_contain:
+        - "minimum 3 distinct contrast levels"
+        - "add a third contrast level to pass"
+        - "two levels always fail"
+      quality_gates_tested:
+        - hierarchy_uses_context_appropriate_cues_not_font_size_alone
+        - supporting_roles_remain_perceivable_readable_and_related_to_parents
+        - numeric_ratios_contrast_counts_and_monotonic_heading_decay_are_diagnostic_not_universal
+
+    - id: responsive-state-preserves-relationships
+      description: Responsive hierarchy may change scale and placement while preserving parent-child, action, and state priority
+      trigger: "A desktop workflow shows a section title beside metadata and actions. On mobile the title wraps, metadata moves below it, and the primary action becomes sticky. The reading order, group relationship, and action priority remain clear. Evaluate the hierarchy."
+      must_contain:
+        - "responsive"
+        - "parent"
+        - "reading order"
+        - "action priority"
+        - "actual content"
+      must_not_contain:
+        - "preserve identical desktop sizes"
+        - "metadata must stay beside the heading"
+        - "fixed heading ratios prove responsiveness"
+      quality_gates_tested:
+        - supporting_roles_remain_perceivable_readable_and_related_to_parents
+        - actions_metadata_and_feedback_have_appropriate_priority
+        - responsive_and_state_changes_preserve_relationships_and_reading_order
+        - actual_content_and_rendered_contexts_support_hierarchy_claims
