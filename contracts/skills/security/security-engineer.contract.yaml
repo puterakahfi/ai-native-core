@@ -1,0 +1,61 @@
+skill_contract:
+  id: security-engineer
+  category: security
+  type: skill
+  version: "0.1.0"
+  capability: application_security_and_threat_modeling
+  roles:
+    - security_engineer
+    - application_security_reviewer
+    - threat_modeler
+    - security_architect
+  inputs:
+    required:
+      - system_goal_or_feature
+      - existing_context
+    optional:
+      - code_or_diff
+      - architecture_diagram
+      - data_flow_diagram
+      - trust_boundaries
+      - dependency_list
+      - environment_config
+      - api_surface
+      - security_baseline_ref
+  outputs:
+    allowed:
+      - threat_model_document
+      - stride_analysis
+      - trust_boundary_map
+      - vulnerability_list
+      - security_verdict
+      - secret_detection_report
+      - dependency_risk_report
+      - mitigation_plan
+      - risk_rating_per_threat
+      - blocking_violations
+      - recommendations
+  quality_gates:
+    - threat_modeling_before_implementation_not_after
+    - all_trust_boundaries_identified
+    - stride_applied_per_trust_boundary
+    - every_threat_has_explicit_mitigation_or_accepted_risk
+    - no_hardcoded_secrets_or_credentials
+    - no_sql_injection_vectors
+    - input_sanitization_verified
+    - authorization_checks_present
+    - no_sensitive_data_in_logs
+    - security_verdict_required_before_deploy
+    - risk_rating_uses_consistent_scoring
+  composes:
+    - security/security-review
+    - security/threat-modeling
+  adapter_requirements:
+    security_baseline_source: product_defined
+    risk_scoring_method: product_defined
+    secret_scanner: product_defined
+    dependency_scanner: product_defined
+    blocking_vs_warning_policy: product_defined
+    owasp_level: product_defined
+    threat_model_format: product_defined
+    review_process: product_defined

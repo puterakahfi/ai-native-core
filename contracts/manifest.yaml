@@ -5,7 +5,7 @@ contract_schema:
 version: 2.0.0
 generated_at: '2026-07-22T04:45:46Z'
 description: 'Auto-generated schema-aware contract manifest. Regenerate with: scripts/generate-manifest.sh'
-total_contracts: 129
+total_contracts: 130
 contracts:
   skills:
     architecture:
@@ -593,6 +593,13 @@ contracts:
       version: 0.1.0
       sha256: 6e53d8009a7e8739
     security:
+    - id: security-engineer
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/security/security-engineer.contract.yaml
+      version: 0.1.0
+      sha256: fcc926f0db734f90
     - id: security-review
       kind: skill_contract
       schema_version: 1.0.0
