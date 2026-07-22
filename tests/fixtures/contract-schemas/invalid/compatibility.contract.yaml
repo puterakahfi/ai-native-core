@@ -1,0 +1,13 @@
+contract_schema:
+  kind: compatibility_manifest
+  version: "1.0.0"
+  path: schemas/compatibility-manifest.schema.yaml
+compatibility_manifest:
+  id: fixture-path-aliases-invalid
+  version: "1.0.0"
+  aliases:
+    - from_path: contracts/skills/quality/fixture-workflow.contract.yaml
+      contract_id: fixture-workflow
+      contract_kind: workflow_contract
+      version_constraint: ^1.0.0
+      status: active
