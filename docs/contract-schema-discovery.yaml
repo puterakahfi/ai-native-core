@@ -1,0 +1,4179 @@
+contract_schema_discovery:
+  version: 0.1.0
+  source_root: contracts
+  artifact_count: 128
+  path_family_counts:
+    behavioral_test: 10
+    port: 17
+    runtime: 7
+    skill: 88
+    workflow: 6
+  parse_status_counts:
+    ambiguous_contract_root: 10
+    parsed: 118
+  contract_root_counts:
+    port_contract: 17
+    runtime_contract: 7
+    skill_contract: 88
+    workflow_contract: 6
+  root_shapes:
+    port_contract:
+      artifact_count: 17
+      field_coverage:
+        adapter_requirements:
+          count: 17
+          coverage: 1.0
+        authorization:
+          count: 17
+          coverage: 1.0
+        binding_owner_context:
+          count: 17
+          coverage: 1.0
+        boundary:
+          count: 17
+          coverage: 1.0
+        capability:
+          count: 17
+          coverage: 1.0
+        compatibility:
+          count: 17
+          coverage: 1.0
+        consumer_contexts:
+          count: 17
+          coverage: 1.0
+        direction:
+          count: 17
+          coverage: 1.0
+        failures:
+          count: 17
+          coverage: 1.0
+        id:
+          count: 17
+          coverage: 1.0
+        idempotency:
+          count: 17
+          coverage: 1.0
+        interactions:
+          count: 17
+          coverage: 1.0
+        kind:
+          count: 17
+          coverage: 1.0
+        observability:
+          count: 17
+          coverage: 1.0
+        purpose:
+          count: 17
+          coverage: 1.0
+        quality_gates:
+          count: 17
+          coverage: 1.0
+        semantic_owner_context:
+          count: 17
+          coverage: 1.0
+        state_transitions:
+          count: 17
+          coverage: 1.0
+        version:
+          count: 17
+          coverage: 1.0
+      declared_type_values: {}
+      declared_kind_values:
+        capability_composition_port: 4
+        control_port: 10
+        integration_port: 3
+    runtime_contract:
+      artifact_count: 7
+      field_coverage:
+        access_control:
+          count: 1
+          coverage: 0.1429
+        adapter_requirements:
+          count: 6
+          coverage: 0.8571
+        authoring_rules:
+          count: 1
+          coverage: 0.1429
+        boundary:
+          count: 1
+          coverage: 0.1429
+        categories:
+          count: 1
+          coverage: 0.1429
+        description:
+          count: 6
+          coverage: 0.8571
+        execution:
+          count: 2
+          coverage: 0.2857
+        hook_schema:
+          count: 1
+          coverage: 0.1429
+        id:
+          count: 7
+          coverage: 1.0
+        lifecycle_points:
+          count: 1
+          coverage: 0.1429
+        mcp_integration:
+          count: 1
+          coverage: 0.1429
+        memory_types:
+          count: 1
+          coverage: 0.1429
+        optional_fields:
+          count: 1
+          coverage: 0.1429
+        optional_sections:
+          count: 1
+          coverage: 0.1429
+        phases:
+          count: 1
+          coverage: 0.1429
+        promotion_rules:
+          count: 1
+          coverage: 0.1429
+        purpose:
+          count: 7
+          coverage: 1.0
+        quality_gates:
+          count: 6
+          coverage: 0.8571
+        required_fields:
+          count: 1
+          coverage: 0.1429
+        required_sections:
+          count: 1
+          coverage: 0.1429
+        risk_levels:
+          count: 1
+          coverage: 0.1429
+        rules:
+          count: 1
+          coverage: 0.1429
+        scope:
+          count: 1
+          coverage: 0.1429
+        shortcuts:
+          count: 1
+          coverage: 0.1429
+        sop_schema:
+          count: 1
+          coverage: 0.1429
+        step_schema:
+          count: 1
+          coverage: 0.1429
+        taxonomy:
+          count: 1
+          coverage: 0.1429
+        tool_schema:
+          count: 1
+          coverage: 0.1429
+        transitions:
+          count: 1
+          coverage: 0.1429
+        version:
+          count: 7
+          coverage: 1.0
+      declared_type_values: {}
+      declared_kind_values: {}
+    skill_contract:
+      artifact_count: 88
+      field_coverage:
+        adaptation_modes:
+          count: 1
+          coverage: 0.0114
+        adapter_capability_families:
+          count: 1
+          coverage: 0.0114
+        adapter_catalog:
+          count: 1
+          coverage: 0.0114
+        adapter_requirements:
+          count: 56
+          coverage: 0.6364
+        adapter_selection_rules:
+          count: 1
+          coverage: 0.0114
+        adapters:
+          count: 3
+          coverage: 0.0341
+        adaptive_family_contract:
+          count: 1
+          coverage: 0.0114
+        aliases:
+          count: 3
+          coverage: 0.0341
+        anti_slop_contract:
+          count: 4
+          coverage: 0.0455
+        approval_policy:
+          count: 1
+          coverage: 0.0114
+        authority_contract:
+          count: 1
+          coverage: 0.0114
+        automatic_promotion_policy:
+          count: 1
+          coverage: 0.0114
+        boundary:
+          count: 13
+          coverage: 0.1477
+        branch_topology_contract:
+          count: 1
+          coverage: 0.0114
+        candidate_contract:
+          count: 1
+          coverage: 0.0114
+        canonicality_contract:
+          count: 1
+          coverage: 0.0114
+        capability:
+          count: 88
+          coverage: 1.0
+        capability_aliases:
+          count: 5
+          coverage: 0.0568
+        category:
+          count: 88
+          coverage: 1.0
+        change_budget_contract:
+          count: 1
+          coverage: 0.0114
+        classification_contract:
+          count: 1
+          coverage: 0.0114
+        collection_state_contract:
+          count: 1
+          coverage: 0.0114
+        compatibility:
+          count: 1
+          coverage: 0.0114
+        completion_contract:
+          count: 1
+          coverage: 0.0114
+        component_contract:
+          count: 1
+          coverage: 0.0114
+        component_coverage_contract:
+          count: 1
+          coverage: 0.0114
+        component_selection_rules:
+          count: 1
+          coverage: 0.0114
+        concurrent_write_contract:
+          count: 1
+          coverage: 0.0114
+        conflict_contract:
+          count: 1
+          coverage: 0.0114
+        context_adaptation_contract:
+          count: 1
+          coverage: 0.0114
+        convention_lock_contract:
+          count: 1
+          coverage: 0.0114
+        coverage_modes:
+          count: 1
+          coverage: 0.0114
+        decision_factors:
+          count: 1
+          coverage: 0.0114
+        decision_record_contract:
+          count: 1
+          coverage: 0.0114
+        defect_contract:
+          count: 1
+          coverage: 0.0114
+        defect_diagnosis_contract:
+          count: 1
+          coverage: 0.0114
+        delegation_contract:
+          count: 1
+          coverage: 0.0114
+        delivery_contract:
+          count: 1
+          coverage: 0.0114
+        depth_modes:
+          count: 1
+          coverage: 0.0114
+        depth_role_contract:
+          count: 1
+          coverage: 0.0114
+        description:
+          count: 17
+          coverage: 0.1932
+        diagnosis_contract:
+          count: 3
+          coverage: 0.0341
+        diagram_model:
+          count: 1
+          coverage: 0.0114
+        direction_candidate_contract:
+          count: 1
+          coverage: 0.0114
+        direction_contract:
+          count: 1
+          coverage: 0.0114
+        domain_reviewer_contract:
+          count: 1
+          coverage: 0.0114
+        epic_acceptance_contract:
+          count: 1
+          coverage: 0.0114
+        epic_classification:
+          count: 1
+          coverage: 0.0114
+        evidence_contract:
+          count: 1
+          coverage: 0.0114
+        evidence_policy:
+          count: 2
+          coverage: 0.0227
+        experiment_types:
+          count: 1
+          coverage: 0.0114
+        expression_contract:
+          count: 1
+          coverage: 0.0114
+        extended_by:
+          count: 1
+          coverage: 0.0114
+        extends:
+          count: 2
+          coverage: 0.0227
+        family_contract:
+          count: 1
+          coverage: 0.0114
+        family_decisions:
+          count: 1
+          coverage: 0.0114
+        gate_registry_contract:
+          count: 1
+          coverage: 0.0114
+        generalization_requirements:
+          count: 1
+          coverage: 0.0114
+        hard_gate_policy:
+          count: 1
+          coverage: 0.0114
+        hierarchy_model:
+          count: 1
+          coverage: 0.0114
+        horizontal_rail_requirements:
+          count: 1
+          coverage: 0.0114
+        id:
+          count: 88
+          coverage: 1.0
+        identity_states:
+          count: 1
+          coverage: 0.0114
+        implementation_decision_ladder:
+          count: 1
+          coverage: 0.0114
+        inputs:
+          count: 84
+          coverage: 0.9545
+        integration_contract:
+          count: 1
+          coverage: 0.0114
+        internal_routes:
+          count: 1
+          coverage: 0.0114
+        iteration_policy:
+          count: 1
+          coverage: 0.0114
+        layer_contract:
+          count: 1
+          coverage: 0.0114
+        layer_model:
+          count: 2
+          coverage: 0.0227
+        learning_promotion_policy:
+          count: 1
+          coverage: 0.0114
+        loading_contract:
+          count: 1
+          coverage: 0.0114
+        model_classes:
+          count: 1
+          coverage: 0.0114
+        new_dependency_contract:
+          count: 1
+          coverage: 0.0114
+        official_registry_component_contract:
+          count: 1
+          coverage: 0.0114
+        outputs:
+          count: 84
+          coverage: 0.9545
+        ownership_contract:
+          count: 1
+          coverage: 0.0114
+        phases:
+          count: 3
+          coverage: 0.0341
+        pr_target_contract:
+          count: 1
+          coverage: 0.0114
+        presets:
+          count: 1
+          coverage: 0.0114
+        purpose:
+          count: 7
+          coverage: 0.0795
+        quality_gates:
+          count: 87
+          coverage: 0.9886
+        refinement_lock_contract:
+          count: 1
+          coverage: 0.0114
+        release_units:
+          count: 1
+          coverage: 0.0114
+        required_experiment_sections:
+          count: 1
+          coverage: 0.0114
+        required_phases:
+          count: 2
+          coverage: 0.0227
+        required_prd_sections:
+          count: 1
+          coverage: 0.0114
+        retrieval_modes:
+          count: 1
+          coverage: 0.0114
+        reuse_extension_contract:
+          count: 1
+          coverage: 0.0114
+        review_contract:
+          count: 1
+          coverage: 0.0114
+        role_contract:
+          count: 1
+          coverage: 0.0114
+        roles:
+          count: 86
+          coverage: 0.9773
+        route_classes:
+          count: 1
+          coverage: 0.0114
+        route_contract:
+          count: 1
+          coverage: 0.0114
+        route_targets:
+          count: 1
+          coverage: 0.0114
+        runtime_model:
+          count: 1
+          coverage: 0.0114
+        safety_gates:
+          count: 1
+          coverage: 0.0114
+        scope_diff_contract:
+          count: 1
+          coverage: 0.0114
+        scoring_policy:
+          count: 1
+          coverage: 0.0114
+        selection_contract:
+          count: 1
+          coverage: 0.0114
+        semantic_native_contract:
+          count: 1
+          coverage: 0.0114
+        similarity_boundary:
+          count: 1
+          coverage: 0.0114
+        skill_load_order:
+          count: 1
+          coverage: 0.0114
+        skill_pack_requirements:
+          count: 1
+          coverage: 0.0114
+        source_contract:
+          count: 1
+          coverage: 0.0114
+        specialist_delegation:
+          count: 1
+          coverage: 0.0114
+        strategy_contract:
+          count: 1
+          coverage: 0.0114
+        supersedes:
+          count: 1
+          coverage: 0.0114
+        target_layers:
+          count: 1
+          coverage: 0.0114
+        technique_contract:
+          count: 1
+          coverage: 0.0114
+        template_contract:
+          count: 1
+          coverage: 0.0114
+        traceability:
+          count: 2
+          coverage: 0.0227
+        transitions:
+          count: 1
+          coverage: 0.0114
+        type:
+          count: 88
+          coverage: 1.0
+        typography_contract:
+          count: 1
+          coverage: 0.0114
+        verdict_contract:
+          count: 1
+          coverage: 0.0114
+        verdicts:
+          count: 1
+          coverage: 0.0114
+        verification_contract:
+          count: 5
+          coverage: 0.0568
+        version:
+          count: 88
+          coverage: 1.0
+        visual_direction_contract:
+          count: 1
+          coverage: 0.0114
+        work_hierarchy_contract:
+          count: 1
+          coverage: 0.0114
+      declared_type_values:
+        contract: 7
+        meta-skill: 2
+        port: 4
+        skill: 72
+        workflow: 3
+      declared_kind_values: {}
+    workflow_contract:
+      artifact_count: 6
+      field_coverage:
+        acceptance_matrix_contract:
+          count: 1
+          coverage: 0.1667
+        adapter_requirements:
+          count: 6
+          coverage: 1.0
+        candidate_contract:
+          count: 1
+          coverage: 0.1667
+        category:
+          count: 6
+          coverage: 1.0
+        code_review_contract:
+          count: 1
+          coverage: 0.1667
+        decision_provenance_contract:
+          count: 3
+          coverage: 0.5
+        deployment_authorization_contract:
+          count: 1
+          coverage: 0.1667
+        design_acceptance_contract:
+          count: 1
+          coverage: 0.1667
+        design_lifecycle_contract:
+          count: 1
+          coverage: 0.1667
+        design_review_contract:
+          count: 1
+          coverage: 0.1667
+        execution_contract:
+          count: 1
+          coverage: 0.1667
+        id:
+          count: 6
+          coverage: 1.0
+        outcome_contract:
+          count: 1
+          coverage: 0.1667
+        outputs:
+          count: 1
+          coverage: 0.1667
+        purpose:
+          count: 6
+          coverage: 1.0
+        quality_gates:
+          count: 6
+          coverage: 1.0
+        release_authorization:
+          count: 1
+          coverage: 0.1667
+        release_eligibility:
+          count: 1
+          coverage: 0.1667
+        required_phases:
+          count: 6
+          coverage: 1.0
+        review_contract:
+          count: 1
+          coverage: 0.1667
+        skill_load_order:
+          count: 6
+          coverage: 1.0
+        stop_points:
+          count: 1
+          coverage: 0.1667
+        technical_readiness_contract:
+          count: 1
+          coverage: 0.1667
+        type:
+          count: 6
+          coverage: 1.0
+        verdict_contract:
+          count: 1
+          coverage: 0.1667
+        verification_contract:
+          count: 1
+          coverage: 0.1667
+        version:
+          count: 6
+          coverage: 1.0
+      declared_type_values:
+        workflow: 6
+      declared_kind_values: {}
+  extension_key_path_counts:
+    adapter_requirements: 85
+    aliases: 3
+    compatibility: 18
+    compatibility.aliases: 17
+    memory_types[].lifecycle: 1
+    review_contract.facade: 1
+    state_transitions: 17
+    transitions: 2
+  workflow_representation_inventory:
+    canonical_workflow_contract_paths:
+    - contracts/workflows/bugfix.contract.yaml
+    - contracts/workflows/code-review.contract.yaml
+    - contracts/workflows/deployment.contract.yaml
+    - contracts/workflows/new-feature.contract.yaml
+    - contracts/workflows/product-development.contract.yaml
+    - contracts/workflows/spec-driven.contract.yaml
+    skill_workflow_candidates:
+    - path: contracts/skills/quality/design-refinement.contract.yaml
+      contract_id: design-refinement
+      contract_version: 1.2.0
+      reasons:
+      - declared_type_workflow
+    - path: contracts/skills/quality/design-review.contract.yaml
+      contract_id: design-review
+      contract_version: 0.2.0
+      reasons:
+      - lifecycle_fields:phases
+    - path: contracts/skills/quality/redesign-workflow.contract.yaml
+      contract_id: redesign-workflow
+      contract_version: 2.2.0
+      reasons:
+      - declared_type_workflow
+      - lifecycle_fields:phases,transitions
+    - path: contracts/skills/quality/skill-evolution.contract.yaml
+      contract_id: skill-evolution
+      contract_version: 1.0.0
+      reasons:
+      - declared_type_workflow
+    - path: contracts/skills/quality/systematic-debugging.contract.yaml
+      contract_id: systematic-debugging
+      contract_version: 0.1.0
+      reasons:
+      - lifecycle_fields:phases
+  anomalies:
+    invalid_or_ambiguous_documents:
+    - path: contracts/tests/architecture-review.test.yaml
+      status: ambiguous_contract_root
+      detail: null
+    - path: contracts/tests/collection-discovery-design.test.yaml
+      status: ambiguous_contract_root
+      detail: null
+    - path: contracts/tests/delivery-work-breakdown.test.yaml
+      status: ambiguous_contract_root
+      detail: null
+    - path: contracts/tests/design-review.test.yaml
+      status: ambiguous_contract_root
+      detail: null
+    - path: contracts/tests/implementation-context-discovery.test.yaml
+      status: ambiguous_contract_root
+      detail: null
+    - path: contracts/tests/prompt-optimizer.test.yaml
+      status: ambiguous_contract_root
+      detail: null
+    - path: contracts/tests/response-contract.test.yaml
+      status: ambiguous_contract_root
+      detail: null
+    - path: contracts/tests/role-switcher.test.yaml
+      status: ambiguous_contract_root
+      detail: null
+    - path: contracts/tests/skill-evolution.test.yaml
+      status: ambiguous_contract_root
+      detail: null
+    - path: contracts/tests/systematic-debugging.test.yaml
+      status: ambiguous_contract_root
+      detail: null
+    path_root_mismatches: []
+    missing_contract_ids: []
+    missing_contract_versions: []
+    filename_id_mismatches: []
+    duplicate_ids_within_family: []
+    cross_family_id_collisions: []
+  artifacts:
+  - path: contracts/ports/capability-composition/design-strategy-composition.port.yaml
+    path_family: port
+    expected_id: design-strategy-composition
+    document_root_keys:
+    - port_contract
+    parse_status: parsed
+    contract_root: port_contract
+    contract_id: design-strategy-composition
+    contract_version: 0.1.0
+    declared_type: null
+    declared_kind: capability_composition_port
+    root_fields:
+    - adapter_requirements
+    - authorization
+    - binding_owner_context
+    - boundary
+    - capability
+    - compatibility
+    - consumer_contexts
+    - direction
+    - failures
+    - id
+    - idempotency
+    - interactions
+    - kind
+    - observability
+    - purpose
+    - quality_gates
+    - semantic_owner_context
+    - state_transitions
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    - compatibility
+    - compatibility.aliases
+    - state_transitions
+    expected_contract_root: port_contract
+    root_matches_path_family: true
+  - path: contracts/ports/capability-composition/interaction-composition.port.yaml
+    path_family: port
+    expected_id: interaction-composition
+    document_root_keys:
+    - port_contract
+    parse_status: parsed
+    contract_root: port_contract
+    contract_id: interaction-composition
+    contract_version: 0.1.0
+    declared_type: null
+    declared_kind: capability_composition_port
+    root_fields:
+    - adapter_requirements
+    - authorization
+    - binding_owner_context
+    - boundary
+    - capability
+    - compatibility
+    - consumer_contexts
+    - direction
+    - failures
+    - id
+    - idempotency
+    - interactions
+    - kind
+    - observability
+    - purpose
+    - quality_gates
+    - semantic_owner_context
+    - state_transitions
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    - compatibility
+    - compatibility.aliases
+    - state_transitions
+    expected_contract_root: port_contract
+    root_matches_path_family: true
+  - path: contracts/ports/capability-composition/layout-composition.port.yaml
+    path_family: port
+    expected_id: layout-composition
+    document_root_keys:
+    - port_contract
+    parse_status: parsed
+    contract_root: port_contract
+    contract_id: layout-composition
+    contract_version: 0.1.0
+    declared_type: null
+    declared_kind: capability_composition_port
+    root_fields:
+    - adapter_requirements
+    - authorization
+    - binding_owner_context
+    - boundary
+    - capability
+    - compatibility
+    - consumer_contexts
+    - direction
+    - failures
+    - id
+    - idempotency
+    - interactions
+    - kind
+    - observability
+    - purpose
+    - quality_gates
+    - semantic_owner_context
+    - state_transitions
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    - compatibility
+    - compatibility.aliases
+    - state_transitions
+    expected_contract_root: port_contract
+    root_matches_path_family: true
+  - path: contracts/ports/capability-composition/visual-direction-composition.port.yaml
+    path_family: port
+    expected_id: visual-direction-composition
+    document_root_keys:
+    - port_contract
+    parse_status: parsed
+    contract_root: port_contract
+    contract_id: visual-direction-composition
+    contract_version: 0.1.0
+    declared_type: null
+    declared_kind: capability_composition_port
+    root_fields:
+    - adapter_requirements
+    - authorization
+    - binding_owner_context
+    - boundary
+    - capability
+    - compatibility
+    - consumer_contexts
+    - direction
+    - failures
+    - id
+    - idempotency
+    - interactions
+    - kind
+    - observability
+    - purpose
+    - quality_gates
+    - semantic_owner_context
+    - state_transitions
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    - compatibility
+    - compatibility.aliases
+    - state_transitions
+    expected_contract_root: port_contract
+    root_matches_path_family: true
+  - path: contracts/ports/control/agent-runtime.port.yaml
+    path_family: port
+    expected_id: agent-runtime
+    document_root_keys:
+    - port_contract
+    parse_status: parsed
+    contract_root: port_contract
+    contract_id: agent-runtime
+    contract_version: 0.1.0
+    declared_type: null
+    declared_kind: control_port
+    root_fields:
+    - adapter_requirements
+    - authorization
+    - binding_owner_context
+    - boundary
+    - capability
+    - compatibility
+    - consumer_contexts
+    - direction
+    - failures
+    - id
+    - idempotency
+    - interactions
+    - kind
+    - observability
+    - purpose
+    - quality_gates
+    - semantic_owner_context
+    - state_transitions
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    - compatibility
+    - compatibility.aliases
+    - state_transitions
+    expected_contract_root: port_contract
+    root_matches_path_family: true
+  - path: contracts/ports/control/approval-decision.port.yaml
+    path_family: port
+    expected_id: approval-decision
+    document_root_keys:
+    - port_contract
+    parse_status: parsed
+    contract_root: port_contract
+    contract_id: approval-decision
+    contract_version: 0.1.0
+    declared_type: null
+    declared_kind: control_port
+    root_fields:
+    - adapter_requirements
+    - authorization
+    - binding_owner_context
+    - boundary
+    - capability
+    - compatibility
+    - consumer_contexts
+    - direction
+    - failures
+    - id
+    - idempotency
+    - interactions
+    - kind
+    - observability
+    - purpose
+    - quality_gates
+    - semantic_owner_context
+    - state_transitions
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    - compatibility
+    - compatibility.aliases
+    - state_transitions
+    expected_contract_root: port_contract
+    root_matches_path_family: true
+  - path: contracts/ports/control/authorization-assessment.port.yaml
+    path_family: port
+    expected_id: authorization-assessment
+    document_root_keys:
+    - port_contract
+    parse_status: parsed
+    contract_root: port_contract
+    contract_id: authorization-assessment
+    contract_version: 0.1.0
+    declared_type: null
+    declared_kind: control_port
+    root_fields:
+    - adapter_requirements
+    - authorization
+    - binding_owner_context
+    - boundary
+    - capability
+    - compatibility
+    - consumer_contexts
+    - direction
+    - failures
+    - id
+    - idempotency
+    - interactions
+    - kind
+    - observability
+    - purpose
+    - quality_gates
+    - semantic_owner_context
+    - state_transitions
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    - compatibility
+    - compatibility.aliases
+    - state_transitions
+    expected_contract_root: port_contract
+    root_matches_path_family: true
+  - path: contracts/ports/control/context-resolution.port.yaml
+    path_family: port
+    expected_id: context-resolution
+    document_root_keys:
+    - port_contract
+    parse_status: parsed
+    contract_root: port_contract
+    contract_id: context-resolution
+    contract_version: 0.1.0
+    declared_type: null
+    declared_kind: control_port
+    root_fields:
+    - adapter_requirements
+    - authorization
+    - binding_owner_context
+    - boundary
+    - capability
+    - compatibility
+    - consumer_contexts
+    - direction
+    - failures
+    - id
+    - idempotency
+    - interactions
+    - kind
+    - observability
+    - purpose
+    - quality_gates
+    - semantic_owner_context
+    - state_transitions
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    - compatibility
+    - compatibility.aliases
+    - state_transitions
+    expected_contract_root: port_contract
+    root_matches_path_family: true
+  - path: contracts/ports/control/execution-run-management.port.yaml
+    path_family: port
+    expected_id: execution-run-management
+    document_root_keys:
+    - port_contract
+    parse_status: parsed
+    contract_root: port_contract
+    contract_id: execution-run-management
+    contract_version: 0.1.0
+    declared_type: null
+    declared_kind: control_port
+    root_fields:
+    - adapter_requirements
+    - authorization
+    - binding_owner_context
+    - boundary
+    - capability
+    - compatibility
+    - consumer_contexts
+    - direction
+    - failures
+    - id
+    - idempotency
+    - interactions
+    - kind
+    - observability
+    - purpose
+    - quality_gates
+    - semantic_owner_context
+    - state_transitions
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    - compatibility
+    - compatibility.aliases
+    - state_transitions
+    expected_contract_root: port_contract
+    root_matches_path_family: true
+  - path: contracts/ports/control/review-management.port.yaml
+    path_family: port
+    expected_id: review-management
+    document_root_keys:
+    - port_contract
+    parse_status: parsed
+    contract_root: port_contract
+    contract_id: review-management
+    contract_version: 0.1.0
+    declared_type: null
+    declared_kind: control_port
+    root_fields:
+    - adapter_requirements
+    - authorization
+    - binding_owner_context
+    - boundary
+    - capability
+    - compatibility
+    - consumer_contexts
+    - direction
+    - failures
+    - id
+    - idempotency
+    - interactions
+    - kind
+    - observability
+    - purpose
+    - quality_gates
+    - semantic_owner_context
+    - state_transitions
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    - compatibility
+    - compatibility.aliases
+    - state_transitions
+    expected_contract_root: port_contract
+    root_matches_path_family: true
+  - path: contracts/ports/control/rule-evaluation.port.yaml
+    path_family: port
+    expected_id: rule-evaluation
+    document_root_keys:
+    - port_contract
+    parse_status: parsed
+    contract_root: port_contract
+    contract_id: rule-evaluation
+    contract_version: 0.1.0
+    declared_type: null
+    declared_kind: control_port
+    root_fields:
+    - adapter_requirements
+    - authorization
+    - binding_owner_context
+    - boundary
+    - capability
+    - compatibility
+    - consumer_contexts
+    - direction
+    - failures
+    - id
+    - idempotency
+    - interactions
+    - kind
+    - observability
+    - purpose
+    - quality_gates
+    - semantic_owner_context
+    - state_transitions
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    - compatibility
+    - compatibility.aliases
+    - state_transitions
+    expected_contract_root: port_contract
+    root_matches_path_family: true
+  - path: contracts/ports/control/rule-resolution.port.yaml
+    path_family: port
+    expected_id: rule-resolution
+    document_root_keys:
+    - port_contract
+    parse_status: parsed
+    contract_root: port_contract
+    contract_id: rule-resolution
+    contract_version: 0.1.0
+    declared_type: null
+    declared_kind: control_port
+    root_fields:
+    - adapter_requirements
+    - authorization
+    - binding_owner_context
+    - boundary
+    - capability
+    - compatibility
+    - consumer_contexts
+    - direction
+    - failures
+    - id
+    - idempotency
+    - interactions
+    - kind
+    - observability
+    - purpose
+    - quality_gates
+    - semantic_owner_context
+    - state_transitions
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    - compatibility
+    - compatibility.aliases
+    - state_transitions
+    expected_contract_root: port_contract
+    root_matches_path_family: true
+  - path: contracts/ports/control/skill-resolution.port.yaml
+    path_family: port
+    expected_id: skill-resolution
+    document_root_keys:
+    - port_contract
+    parse_status: parsed
+    contract_root: port_contract
+    contract_id: skill-resolution
+    contract_version: 0.1.0
+    declared_type: null
+    declared_kind: control_port
+    root_fields:
+    - adapter_requirements
+    - authorization
+    - binding_owner_context
+    - boundary
+    - capability
+    - compatibility
+    - consumer_contexts
+    - direction
+    - failures
+    - id
+    - idempotency
+    - interactions
+    - kind
+    - observability
+    - purpose
+    - quality_gates
+    - semantic_owner_context
+    - state_transitions
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    - compatibility
+    - compatibility.aliases
+    - state_transitions
+    expected_contract_root: port_contract
+    root_matches_path_family: true
+  - path: contracts/ports/control/workflow-coordination.port.yaml
+    path_family: port
+    expected_id: workflow-coordination
+    document_root_keys:
+    - port_contract
+    parse_status: parsed
+    contract_root: port_contract
+    contract_id: workflow-coordination
+    contract_version: 0.1.0
+    declared_type: null
+    declared_kind: control_port
+    root_fields:
+    - adapter_requirements
+    - authorization
+    - binding_owner_context
+    - boundary
+    - capability
+    - compatibility
+    - consumer_contexts
+    - direction
+    - failures
+    - id
+    - idempotency
+    - interactions
+    - kind
+    - observability
+    - purpose
+    - quality_gates
+    - semantic_owner_context
+    - state_transitions
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    - compatibility
+    - compatibility.aliases
+    - state_transitions
+    expected_contract_root: port_contract
+    root_matches_path_family: true
+  - path: contracts/ports/integration/code-operation-execution.port.yaml
+    path_family: port
+    expected_id: code-operation-execution
+    document_root_keys:
+    - port_contract
+    parse_status: parsed
+    contract_root: port_contract
+    contract_id: code-operation-execution
+    contract_version: 0.1.0
+    declared_type: null
+    declared_kind: integration_port
+    root_fields:
+    - adapter_requirements
+    - authorization
+    - binding_owner_context
+    - boundary
+    - capability
+    - compatibility
+    - consumer_contexts
+    - direction
+    - failures
+    - id
+    - idempotency
+    - interactions
+    - kind
+    - observability
+    - purpose
+    - quality_gates
+    - semantic_owner_context
+    - state_transitions
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    - compatibility
+    - compatibility.aliases
+    - state_transitions
+    expected_contract_root: port_contract
+    root_matches_path_family: true
+  - path: contracts/ports/integration/database.port.yaml
+    path_family: port
+    expected_id: database
+    document_root_keys:
+    - port_contract
+    parse_status: parsed
+    contract_root: port_contract
+    contract_id: database
+    contract_version: 0.1.0
+    declared_type: null
+    declared_kind: integration_port
+    root_fields:
+    - adapter_requirements
+    - authorization
+    - binding_owner_context
+    - boundary
+    - capability
+    - compatibility
+    - consumer_contexts
+    - direction
+    - failures
+    - id
+    - idempotency
+    - interactions
+    - kind
+    - observability
+    - purpose
+    - quality_gates
+    - semantic_owner_context
+    - state_transitions
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    - compatibility
+    - compatibility.aliases
+    - state_transitions
+    expected_contract_root: port_contract
+    root_matches_path_family: true
+  - path: contracts/ports/integration/model-inference.port.yaml
+    path_family: port
+    expected_id: model-inference
+    document_root_keys:
+    - port_contract
+    parse_status: parsed
+    contract_root: port_contract
+    contract_id: model-inference
+    contract_version: 0.1.0
+    declared_type: null
+    declared_kind: integration_port
+    root_fields:
+    - adapter_requirements
+    - authorization
+    - binding_owner_context
+    - boundary
+    - capability
+    - compatibility
+    - consumer_contexts
+    - direction
+    - failures
+    - id
+    - idempotency
+    - interactions
+    - kind
+    - observability
+    - purpose
+    - quality_gates
+    - semantic_owner_context
+    - state_transitions
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    - compatibility
+    - compatibility.aliases
+    - state_transitions
+    expected_contract_root: port_contract
+    root_matches_path_family: true
+  - path: contracts/runtime/agents-md.contract.yaml
+    path_family: runtime
+    expected_id: agents-md
+    document_root_keys:
+    - runtime_contract
+    parse_status: parsed
+    contract_root: runtime_contract
+    contract_id: agents-md
+    contract_version: 1.0.0
+    declared_type: null
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - authoring_rules
+    - description
+    - id
+    - optional_sections
+    - purpose
+    - quality_gates
+    - required_sections
+    - scope
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: runtime_contract
+    root_matches_path_family: true
+  - path: contracts/runtime/core-source.contract.yaml
+    path_family: runtime
+    expected_id: core-source
+    document_root_keys:
+    - runtime_contract
+    parse_status: parsed
+    contract_root: runtime_contract
+    contract_id: core-source
+    contract_version: 0.1.0
+    declared_type: null
+    declared_kind: null
+    root_fields:
+    - id
+    - optional_fields
+    - purpose
+    - required_fields
+    - rules
+    - version
+    extension_key_paths: []
+    expected_contract_root: runtime_contract
+    root_matches_path_family: true
+  - path: contracts/runtime/development-loop.contract.yaml
+    path_family: runtime
+    expected_id: development-loop
+    document_root_keys:
+    - runtime_contract
+    parse_status: parsed
+    contract_root: runtime_contract
+    contract_id: development-loop
+    contract_version: 1.0.0
+    declared_type: null
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - description
+    - id
+    - phases
+    - purpose
+    - quality_gates
+    - shortcuts
+    - transitions
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    - transitions
+    expected_contract_root: runtime_contract
+    root_matches_path_family: true
+  - path: contracts/runtime/hook.contract.yaml
+    path_family: runtime
+    expected_id: hook
+    document_root_keys:
+    - runtime_contract
+    parse_status: parsed
+    contract_root: runtime_contract
+    contract_id: hook
+    contract_version: 1.0.0
+    declared_type: null
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - description
+    - execution
+    - hook_schema
+    - id
+    - lifecycle_points
+    - purpose
+    - quality_gates
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: runtime_contract
+    root_matches_path_family: true
+  - path: contracts/runtime/memory.contract.yaml
+    path_family: runtime
+    expected_id: memory
+    document_root_keys:
+    - runtime_contract
+    parse_status: parsed
+    contract_root: runtime_contract
+    contract_id: memory
+    contract_version: 1.0.0
+    declared_type: null
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - boundary
+    - description
+    - id
+    - memory_types
+    - promotion_rules
+    - purpose
+    - quality_gates
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    - memory_types[].lifecycle
+    expected_contract_root: runtime_contract
+    root_matches_path_family: true
+  - path: contracts/runtime/sop.contract.yaml
+    path_family: runtime
+    expected_id: sop
+    document_root_keys:
+    - runtime_contract
+    parse_status: parsed
+    contract_root: runtime_contract
+    contract_id: sop
+    contract_version: 1.0.0
+    declared_type: null
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - categories
+    - description
+    - execution
+    - id
+    - purpose
+    - quality_gates
+    - sop_schema
+    - step_schema
+    - taxonomy
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: runtime_contract
+    root_matches_path_family: true
+  - path: contracts/runtime/tool-registration.contract.yaml
+    path_family: runtime
+    expected_id: tool-registration
+    document_root_keys:
+    - runtime_contract
+    parse_status: parsed
+    contract_root: runtime_contract
+    contract_id: tool-registration
+    contract_version: 1.0.0
+    declared_type: null
+    declared_kind: null
+    root_fields:
+    - access_control
+    - adapter_requirements
+    - description
+    - id
+    - mcp_integration
+    - purpose
+    - quality_gates
+    - risk_levels
+    - tool_schema
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: runtime_contract
+    root_matches_path_family: true
+  - path: contracts/skills/architecture/adr.contract.yaml
+    path_family: skill
+    expected_id: adr
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: adr
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/architecture/ai-system-design.contract.yaml
+    path_family: skill
+    expected_id: ai-system-design
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: ai-system-design
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/architecture/api-contract.contract.yaml
+    path_family: skill
+    expected_id: api-contract
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: api-contract
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/architecture/design-patterns.contract.yaml
+    path_family: skill
+    expected_id: design-patterns
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: design-patterns
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/architecture/domain-driven-design.contract.yaml
+    path_family: skill
+    expected_id: domain-driven-design
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: domain-driven-design
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/architecture/event-driven-design.contract.yaml
+    path_family: skill
+    expected_id: event-driven-design
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: event-driven-design
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/architecture/micro-frontend.contract.yaml
+    path_family: skill
+    expected_id: micro-frontend
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: micro-frontend
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/architecture/ports-and-adapters.contract.yaml
+    path_family: skill
+    expected_id: ports-and-adapters
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: ports-and-adapters
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/architecture/service-design.contract.yaml
+    path_family: skill
+    expected_id: service-design
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: service-design
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/architecture/systems-thinking.contract.yaml
+    path_family: skill
+    expected_id: systems-thinking
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: systems-thinking
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/content/content-strategy.contract.yaml
+    path_family: skill
+    expected_id: content-strategy
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: content-strategy
+    contract_version: 1.0.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths: []
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/content/copywriting.contract.yaml
+    path_family: skill
+    expected_id: copywriting
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: copywriting
+    contract_version: 1.0.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths: []
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/content/cro.contract.yaml
+    path_family: skill
+    expected_id: cro
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: cro
+    contract_version: 1.0.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths: []
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/context/context-engineering.contract.yaml
+    path_family: skill
+    expected_id: context-engineering
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: context-engineering
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/context/context-manager.contract.yaml
+    path_family: skill
+    expected_id: context-manager
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: context-manager
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/context/prompt-optimizer.contract.yaml
+    path_family: skill
+    expected_id: prompt-optimizer
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: prompt-optimizer
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/context/response-contract.contract.yaml
+    path_family: skill
+    expected_id: response-contract
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: response-contract
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/design/accessibility.contract.yaml
+    path_family: skill
+    expected_id: accessibility
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: accessibility
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/design/adaptive-component-design.contract.yaml
+    path_family: skill
+    expected_id: adaptive-component-design
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: adaptive-component-design
+    contract_version: 1.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adaptation_modes
+    - adapter_requirements
+    - aliases
+    - boundary
+    - capability
+    - capability_aliases
+    - category
+    - component_contract
+    - component_selection_rules
+    - decision_factors
+    - description
+    - diagnosis_contract
+    - horizontal_rail_requirements
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - supersedes
+    - type
+    - verification_contract
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    - aliases
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/design/collection-discovery-design.contract.yaml
+    path_family: skill
+    expected_id: collection-discovery-design
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: collection-discovery-design
+    contract_version: 1.0.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_capability_families
+    - adapter_requirements
+    - adapter_selection_rules
+    - aliases
+    - boundary
+    - capability
+    - capability_aliases
+    - category
+    - collection_state_contract
+    - context_adaptation_contract
+    - description
+    - diagnosis_contract
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - retrieval_modes
+    - roles
+    - strategy_contract
+    - type
+    - verification_contract
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    - aliases
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/design/color-theory.contract.yaml
+    path_family: skill
+    expected_id: color-theory
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: color-theory
+    contract_version: 1.0.0
+    declared_type: contract
+    declared_kind: null
+    root_fields:
+    - boundary
+    - capability
+    - category
+    - description
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths: []
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/design/component-family-design.contract.yaml
+    path_family: skill
+    expected_id: component-family-design
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: component-family-design
+    contract_version: 1.0.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - adaptive_family_contract
+    - boundary
+    - capability
+    - capability_aliases
+    - category
+    - description
+    - diagnosis_contract
+    - family_contract
+    - family_decisions
+    - hierarchy_model
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - template_contract
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/design/composition.contract.yaml
+    path_family: skill
+    expected_id: composition
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: composition
+    contract_version: 1.0.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths: []
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/design/dark-light-theming.contract.yaml
+    path_family: skill
+    expected_id: dark-light-theming
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: dark-light-theming
+    contract_version: 1.0.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths: []
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/design/design-brand.contract.yaml
+    path_family: skill
+    expected_id: design-brand
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: design-brand
+    contract_version: 1.0.0
+    declared_type: contract
+    declared_kind: null
+    root_fields:
+    - capability
+    - category
+    - description
+    - extends
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths: []
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/design/design-depth.contract.yaml
+    path_family: skill
+    expected_id: design-depth
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: design-depth
+    contract_version: 2.1.0
+    declared_type: contract
+    declared_kind: null
+    root_fields:
+    - anti_slop_contract
+    - boundary
+    - capability
+    - category
+    - depth_modes
+    - depth_role_contract
+    - description
+    - id
+    - inputs
+    - layer_contract
+    - outputs
+    - quality_gates
+    - roles
+    - technique_contract
+    - type
+    - version
+    extension_key_paths: []
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/design/design-foundation.contract.yaml
+    path_family: skill
+    expected_id: design-foundation
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: design-foundation
+    contract_version: 1.0.0
+    declared_type: contract
+    declared_kind: null
+    root_fields:
+    - capability
+    - category
+    - description
+    - extended_by
+    - extends
+    - id
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths: []
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/design/design-genre.contract.yaml
+    path_family: skill
+    expected_id: design-genre
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: design-genre
+    contract_version: 1.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - anti_slop_contract
+    - candidate_contract
+    - capability
+    - category
+    - expression_contract
+    - id
+    - inputs
+    - outputs
+    - purpose
+    - quality_gates
+    - roles
+    - selection_contract
+    - type
+    - version
+    extension_key_paths: []
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/design/design-interaction.contract.yaml
+    path_family: skill
+    expected_id: design-interaction
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: design-interaction
+    contract_version: 1.0.0
+    declared_type: port
+    declared_kind: null
+    root_fields:
+    - adapters
+    - capability
+    - category
+    - description
+    - id
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths: []
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/design/design-layout.contract.yaml
+    path_family: skill
+    expected_id: design-layout
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: design-layout
+    contract_version: 2.0.1
+    declared_type: port
+    declared_kind: null
+    root_fields:
+    - adapters
+    - capability
+    - category
+    - description
+    - id
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths: []
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/design/design-strategy.contract.yaml
+    path_family: skill
+    expected_id: design-strategy
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: design-strategy
+    contract_version: 1.1.0
+    declared_type: port
+    declared_kind: null
+    root_fields:
+    - adapters
+    - capability
+    - category
+    - description
+    - id
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths: []
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/design/design-system.contract.yaml
+    path_family: skill
+    expected_id: design-system
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: design-system
+    contract_version: 1.0.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths: []
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/design/design-visual.contract.yaml
+    path_family: skill
+    expected_id: design-visual
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: design-visual
+    contract_version: 1.1.0
+    declared_type: port
+    declared_kind: null
+    root_fields:
+    - adapter_catalog
+    - anti_slop_contract
+    - capability
+    - category
+    - description
+    - direction_contract
+    - id
+    - inputs
+    - loading_contract
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths: []
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/design/iconography.contract.yaml
+    path_family: skill
+    expected_id: iconography
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: iconography
+    contract_version: 1.0.0
+    declared_type: contract
+    declared_kind: null
+    root_fields:
+    - boundary
+    - capability
+    - category
+    - description
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths: []
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/design/information-architecture.contract.yaml
+    path_family: skill
+    expected_id: information-architecture
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: information-architecture
+    contract_version: 1.0.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths: []
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/design/macrostructures.contract.yaml
+    path_family: skill
+    expected_id: macrostructures
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: macrostructures
+    contract_version: 1.0.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths: []
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/design/master-design.contract.yaml
+    path_family: skill
+    expected_id: master-design
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: master-design
+    contract_version: 0.2.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - anti_slop_contract
+    - capability
+    - category
+    - direction_candidate_contract
+    - id
+    - inputs
+    - outputs
+    - ownership_contract
+    - purpose
+    - quality_gates
+    - roles
+    - specialist_delegation
+    - type
+    - version
+    - visual_direction_contract
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/design/motion-design.contract.yaml
+    path_family: skill
+    expected_id: motion-design
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: motion-design
+    contract_version: 1.0.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths: []
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/design/readability.contract.yaml
+    path_family: skill
+    expected_id: readability
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: readability
+    contract_version: 1.0.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths: []
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/design/responsiveness.contract.yaml
+    path_family: skill
+    expected_id: responsiveness
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: responsiveness
+    contract_version: 1.0.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths: []
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/design/spacing.contract.yaml
+    path_family: skill
+    expected_id: spacing
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: spacing
+    contract_version: 1.0.0
+    declared_type: contract
+    declared_kind: null
+    root_fields:
+    - boundary
+    - capability
+    - category
+    - description
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths: []
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/design/typography.contract.yaml
+    path_family: skill
+    expected_id: typography
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: typography
+    contract_version: 1.0.0
+    declared_type: contract
+    declared_kind: null
+    root_fields:
+    - boundary
+    - capability
+    - category
+    - description
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths: []
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/design/ux-psychology.contract.yaml
+    path_family: skill
+    expected_id: ux-psychology
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: ux-psychology
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/design/ux-ui-patterns.contract.yaml
+    path_family: skill
+    expected_id: ux-ui-patterns
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: ux-ui-patterns
+    contract_version: 1.0.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths: []
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/design/visual-hierarchy.contract.yaml
+    path_family: skill
+    expected_id: visual-hierarchy
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: visual-hierarchy
+    contract_version: 1.0.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths: []
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/engineering/data-modeling.contract.yaml
+    path_family: skill
+    expected_id: data-modeling
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: data-modeling
+    contract_version: 1.0.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths: []
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/engineering/git-workflow.contract.yaml
+    path_family: skill
+    expected_id: git-workflow
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: git-workflow
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/engineering/implementation-context-discovery.contract.yaml
+    path_family: skill
+    expected_id: implementation-context-discovery
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: implementation-context-discovery
+    contract_version: 1.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - aliases
+    - boundary
+    - canonicality_contract
+    - capability
+    - capability_aliases
+    - category
+    - classification_contract
+    - component_coverage_contract
+    - convention_lock_contract
+    - description
+    - evidence_contract
+    - id
+    - implementation_decision_ladder
+    - inputs
+    - new_dependency_contract
+    - official_registry_component_contract
+    - outputs
+    - quality_gates
+    - reuse_extension_contract
+    - roles
+    - semantic_native_contract
+    - type
+    - typography_contract
+    - verification_contract
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    - aliases
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/engineering/master-engineer.contract.yaml
+    path_family: skill
+    expected_id: master-engineer
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: master-engineer
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/engineering/plan.contract.yaml
+    path_family: skill
+    expected_id: plan
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: plan
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/engineering/refactoring.contract.yaml
+    path_family: skill
+    expected_id: refactoring
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: refactoring
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/engineering/spike.contract.yaml
+    path_family: skill
+    expected_id: spike
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: spike
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/engineering/technical-debt-governance.contract.yaml
+    path_family: skill
+    expected_id: technical-debt-governance
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: technical-debt-governance
+    contract_version: 1.0.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths: []
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/engineering/test-driven-development.contract.yaml
+    path_family: skill
+    expected_id: test-driven-development
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: test-driven-development
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/governance/language-standards.contract.yaml
+    path_family: skill
+    expected_id: language-standards
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: language-standards
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/governance/rule-manager.contract.yaml
+    path_family: skill
+    expected_id: rule-manager
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: rule-manager
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/meta/role-switcher.contract.yaml
+    path_family: skill
+    expected_id: role-switcher
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: role-switcher
+    contract_version: 0.1.0
+    declared_type: meta-skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/meta/workflow-router.contract.yaml
+    path_family: skill
+    expected_id: workflow-router
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: workflow-router
+    contract_version: 0.2.1
+    declared_type: meta-skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - internal_routes
+    - outputs
+    - quality_gates
+    - roles
+    - route_classes
+    - route_targets
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/product/business-value-alignment.contract.yaml
+    path_family: skill
+    expected_id: business-value-alignment
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: business-value-alignment
+    contract_version: 1.0.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/product/decision-making.contract.yaml
+    path_family: skill
+    expected_id: decision-making
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: decision-making
+    contract_version: 1.0.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths: []
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/product/delivery-work-breakdown.contract.yaml
+    path_family: skill
+    expected_id: delivery-work-breakdown
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: delivery-work-breakdown
+    contract_version: 1.0.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - boundary
+    - branch_topology_contract
+    - capability
+    - capability_aliases
+    - category
+    - description
+    - epic_acceptance_contract
+    - epic_classification
+    - id
+    - inputs
+    - outputs
+    - pr_target_contract
+    - quality_gates
+    - release_units
+    - roles
+    - type
+    - version
+    - work_hierarchy_contract
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/product/experiment-design.contract.yaml
+    path_family: skill
+    expected_id: experiment-design
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: experiment-design
+    contract_version: 1.0.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - experiment_types
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - required_experiment_sections
+    - roles
+    - traceability
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/product/product-manager.contract.yaml
+    path_family: skill
+    expected_id: product-manager
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: product-manager
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/product/product-requirements.contract.yaml
+    path_family: skill
+    expected_id: product-requirements
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: product-requirements
+    contract_version: 0.2.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - required_prd_sections
+    - roles
+    - traceability
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/product/user-research.contract.yaml
+    path_family: skill
+    expected_id: user-research
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: user-research
+    contract_version: 1.0.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths: []
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/quality/architecture-review.contract.yaml
+    path_family: skill
+    expected_id: architecture-review
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: architecture-review
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/quality/brand-identity-review.contract.yaml
+    path_family: skill
+    expected_id: brand-identity-review
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: brand-identity-review
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - domain_reviewer_contract
+    - evidence_policy
+    - hard_gate_policy
+    - id
+    - identity_states
+    - inputs
+    - outputs
+    - purpose
+    - quality_gates
+    - roles
+    - similarity_boundary
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/quality/decision-provenance.contract.yaml
+    path_family: skill
+    expected_id: decision-provenance
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: decision-provenance
+    contract_version: 1.0.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - authority_contract
+    - boundary
+    - capability
+    - category
+    - conflict_contract
+    - decision_record_contract
+    - id
+    - inputs
+    - integration_contract
+    - outputs
+    - purpose
+    - quality_gates
+    - source_contract
+    - type
+    - verdict_contract
+    - version
+    extension_key_paths: []
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/quality/design-refinement.contract.yaml
+    path_family: skill
+    expected_id: design-refinement
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: design-refinement
+    contract_version: 1.2.0
+    declared_type: workflow
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - change_budget_contract
+    - completion_contract
+    - defect_diagnosis_contract
+    - id
+    - inputs
+    - learning_promotion_policy
+    - outputs
+    - purpose
+    - quality_gates
+    - refinement_lock_contract
+    - required_phases
+    - roles
+    - route_contract
+    - skill_load_order
+    - type
+    - verification_contract
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/quality/design-review.contract.yaml
+    path_family: skill
+    expected_id: design-review
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: design-review
+    contract_version: 0.2.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - coverage_modes
+    - evidence_policy
+    - gate_registry_contract
+    - id
+    - inputs
+    - outputs
+    - phases
+    - purpose
+    - quality_gates
+    - roles
+    - scoring_policy
+    - type
+    - verdicts
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/quality/ethics-responsible-ai.contract.yaml
+    path_family: skill
+    expected_id: ethics-responsible-ai
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: ethics-responsible-ai
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/quality/redesign-workflow.contract.yaml
+    path_family: skill
+    expected_id: redesign-workflow
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: redesign-workflow
+    contract_version: 2.2.0
+    declared_type: workflow
+    declared_kind: null
+    root_fields:
+    - approval_policy
+    - boundary
+    - capability
+    - category
+    - compatibility
+    - concurrent_write_contract
+    - defect_contract
+    - delegation_contract
+    - delivery_contract
+    - id
+    - inputs
+    - iteration_policy
+    - outputs
+    - phases
+    - purpose
+    - quality_gates
+    - review_contract
+    - role_contract
+    - scope_diff_contract
+    - transitions
+    - type
+    - verification_contract
+    - version
+    extension_key_paths:
+    - compatibility
+    - review_contract.facade
+    - transitions
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/quality/resilience-engineering.contract.yaml
+    path_family: skill
+    expected_id: resilience-engineering
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: resilience-engineering
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/quality/skill-eval.contract.yaml
+    path_family: skill
+    expected_id: skill-eval
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: skill-eval
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/quality/skill-evolution.contract.yaml
+    path_family: skill
+    expected_id: skill-evolution
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: skill-evolution
+    contract_version: 1.0.0
+    declared_type: workflow
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - automatic_promotion_policy
+    - boundary
+    - capability
+    - category
+    - description
+    - generalization_requirements
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - required_phases
+    - roles
+    - target_layers
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/quality/systematic-debugging.contract.yaml
+    path_family: skill
+    expected_id: systematic-debugging
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: systematic-debugging
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - phases
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/quality/web-performance.contract.yaml
+    path_family: skill
+    expected_id: web-performance
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: web-performance
+    contract_version: 1.0.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths: []
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/runtime/incident-response.contract.yaml
+    path_family: skill
+    expected_id: incident-response
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: incident-response
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/runtime/model-selection.contract.yaml
+    path_family: skill
+    expected_id: model-selection
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: model-selection
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - model_classes
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/runtime/native-ai-engineer.contract.yaml
+    path_family: skill
+    expected_id: native-ai-engineer
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: native-ai-engineer
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - layer_model
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/runtime/native-ai-runtime-agent.contract.yaml
+    path_family: skill
+    expected_id: native-ai-runtime-agent
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: native-ai-runtime-agent
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/runtime/native-ai-runtime-ops.contract.yaml
+    path_family: skill
+    expected_id: native-ai-runtime-ops
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: native-ai-runtime-ops
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - runtime_model
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/runtime/observability-design.contract.yaml
+    path_family: skill
+    expected_id: observability-design
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: observability-design
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/runtime/onboarding.contract.yaml
+    path_family: skill
+    expected_id: onboarding
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: onboarding
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/runtime/profile-bootstrap.contract.yaml
+    path_family: skill
+    expected_id: profile-bootstrap
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: profile-bootstrap
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - layer_model
+    - outputs
+    - presets
+    - roles
+    - safety_gates
+    - skill_pack_requirements
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/security/security-review.contract.yaml
+    path_family: skill
+    expected_id: security-review
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: security-review
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/security/threat-modeling.contract.yaml
+    path_family: skill
+    expected_id: threat-modeling
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: threat-modeling
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/skills/visual-thinking/diagram-architect.contract.yaml
+    path_family: skill
+    expected_id: diagram-architect
+    document_root_keys:
+    - skill_contract
+    parse_status: parsed
+    contract_root: skill_contract
+    contract_id: diagram-architect
+    contract_version: 0.1.0
+    declared_type: skill
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - diagram_model
+    - id
+    - inputs
+    - outputs
+    - quality_gates
+    - roles
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: skill_contract
+    root_matches_path_family: true
+  - path: contracts/tests/architecture-review.test.yaml
+    path_family: behavioral_test
+    expected_id: architecture-review
+    document_root_keys:
+    - skill_test
+    parse_status: ambiguous_contract_root
+    candidate_contract_roots: []
+  - path: contracts/tests/collection-discovery-design.test.yaml
+    path_family: behavioral_test
+    expected_id: collection-discovery-design
+    document_root_keys:
+    - skill_test
+    parse_status: ambiguous_contract_root
+    candidate_contract_roots: []
+  - path: contracts/tests/delivery-work-breakdown.test.yaml
+    path_family: behavioral_test
+    expected_id: delivery-work-breakdown
+    document_root_keys:
+    - skill_test
+    parse_status: ambiguous_contract_root
+    candidate_contract_roots: []
+  - path: contracts/tests/design-review.test.yaml
+    path_family: behavioral_test
+    expected_id: design-review
+    document_root_keys:
+    - skill_test
+    parse_status: ambiguous_contract_root
+    candidate_contract_roots: []
+  - path: contracts/tests/implementation-context-discovery.test.yaml
+    path_family: behavioral_test
+    expected_id: implementation-context-discovery
+    document_root_keys:
+    - skill_test
+    parse_status: ambiguous_contract_root
+    candidate_contract_roots: []
+  - path: contracts/tests/prompt-optimizer.test.yaml
+    path_family: behavioral_test
+    expected_id: prompt-optimizer
+    document_root_keys:
+    - skill_test
+    parse_status: ambiguous_contract_root
+    candidate_contract_roots: []
+  - path: contracts/tests/response-contract.test.yaml
+    path_family: behavioral_test
+    expected_id: response-contract
+    document_root_keys:
+    - skill_test
+    parse_status: ambiguous_contract_root
+    candidate_contract_roots: []
+  - path: contracts/tests/role-switcher.test.yaml
+    path_family: behavioral_test
+    expected_id: role-switcher
+    document_root_keys:
+    - skill_test
+    parse_status: ambiguous_contract_root
+    candidate_contract_roots: []
+  - path: contracts/tests/skill-evolution.test.yaml
+    path_family: behavioral_test
+    expected_id: skill-evolution
+    document_root_keys:
+    - skill_test
+    parse_status: ambiguous_contract_root
+    candidate_contract_roots: []
+  - path: contracts/tests/systematic-debugging.test.yaml
+    path_family: behavioral_test
+    expected_id: systematic-debugging
+    document_root_keys:
+    - skill_test
+    parse_status: ambiguous_contract_root
+    candidate_contract_roots: []
+  - path: contracts/workflows/bugfix.contract.yaml
+    path_family: workflow
+    expected_id: bugfix
+    document_root_keys:
+    - workflow_contract
+    parse_status: parsed
+    contract_root: workflow_contract
+    contract_id: bugfix
+    contract_version: 0.3.0
+    declared_type: workflow
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - category
+    - id
+    - purpose
+    - quality_gates
+    - required_phases
+    - skill_load_order
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: workflow_contract
+    root_matches_path_family: true
+  - path: contracts/workflows/code-review.contract.yaml
+    path_family: workflow
+    expected_id: code-review
+    document_root_keys:
+    - workflow_contract
+    parse_status: parsed
+    contract_root: workflow_contract
+    contract_id: code-review
+    contract_version: 0.3.0
+    declared_type: workflow
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - category
+    - decision_provenance_contract
+    - design_review_contract
+    - id
+    - purpose
+    - quality_gates
+    - required_phases
+    - skill_load_order
+    - type
+    - verdict_contract
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: workflow_contract
+    root_matches_path_family: true
+  - path: contracts/workflows/deployment.contract.yaml
+    path_family: workflow
+    expected_id: deployment
+    document_root_keys:
+    - workflow_contract
+    parse_status: parsed
+    contract_root: workflow_contract
+    contract_id: deployment
+    contract_version: 0.2.0
+    declared_type: workflow
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - candidate_contract
+    - category
+    - deployment_authorization_contract
+    - execution_contract
+    - id
+    - outcome_contract
+    - outputs
+    - purpose
+    - quality_gates
+    - required_phases
+    - skill_load_order
+    - technical_readiness_contract
+    - type
+    - verification_contract
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: workflow_contract
+    root_matches_path_family: true
+  - path: contracts/workflows/new-feature.contract.yaml
+    path_family: workflow
+    expected_id: new-feature
+    document_root_keys:
+    - workflow_contract
+    parse_status: parsed
+    contract_root: workflow_contract
+    contract_id: new-feature
+    contract_version: 0.4.0
+    declared_type: workflow
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - category
+    - decision_provenance_contract
+    - design_lifecycle_contract
+    - id
+    - purpose
+    - quality_gates
+    - required_phases
+    - review_contract
+    - skill_load_order
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: workflow_contract
+    root_matches_path_family: true
+  - path: contracts/workflows/product-development.contract.yaml
+    path_family: workflow
+    expected_id: product-development
+    document_root_keys:
+    - workflow_contract
+    parse_status: parsed
+    contract_root: workflow_contract
+    contract_id: product-development
+    contract_version: 0.3.0
+    declared_type: workflow
+    declared_kind: null
+    root_fields:
+    - acceptance_matrix_contract
+    - adapter_requirements
+    - category
+    - code_review_contract
+    - decision_provenance_contract
+    - design_acceptance_contract
+    - id
+    - purpose
+    - quality_gates
+    - release_authorization
+    - release_eligibility
+    - required_phases
+    - skill_load_order
+    - stop_points
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: workflow_contract
+    root_matches_path_family: true
+  - path: contracts/workflows/spec-driven.contract.yaml
+    path_family: workflow
+    expected_id: spec-driven
+    document_root_keys:
+    - workflow_contract
+    parse_status: parsed
+    contract_root: workflow_contract
+    contract_id: spec-driven
+    contract_version: 0.1.0
+    declared_type: workflow
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - category
+    - id
+    - purpose
+    - quality_gates
+    - required_phases
+    - skill_load_order
+    - type
+    - version
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: workflow_contract
+    root_matches_path_family: true
+  evidence_boundary:
+  - inventory proves observed YAML shape only
+  - field presence does not prove semantic correctness
+  - declared type does not prove executable behavior
+  - workflow candidacy requires reviewed migration decisions
+  - schema validity will not prove adapter conformance or product acceptance
