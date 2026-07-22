@@ -1,0 +1,14 @@
+contract_schema:
+  kind: workflow_contract
+  version: "1.0.0"
+  path: schemas/workflow-contract.schema.yaml
+workflow_contract:
+  id: fixture-workflow-invalid
+  type: workflow
+  version: "1.0.0"
+  category: engineering
+  workflow_kind: engineering_lifecycle
+  purpose: This fixture intentionally omits required phases and gates.
+  skill_load_order: []
+  adapter_requirements:
+    must_preserve_phase_order: true
