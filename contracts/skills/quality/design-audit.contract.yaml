@@ -1,0 +1,124 @@
+contract_schema:
+  kind: skill_contract
+  version: 1.0.0
+  path: schemas/skill-contract.schema.yaml
+skill_contract:
+  id: design-audit
+  category: quality
+  type: skill
+  version: "1.0.0"
+  capability: evidence_backed_design_audit_and_lifecycle_recommendation
+
+  purpose: >
+    Defines a bounded audit method for classifying an existing design artifact,
+    planning evidence capture, invoking the canonical design-review facade,
+    grouping and prioritizing verified gaps, and recommending the correct next
+    lifecycle without silently redesigning or implementing the artifact.
+
+  roles:
+    - design_auditor
+    - evidence_coordinator
+    - gap_prioritizer
+    - lifecycle_router
+
+  inputs:
+    required:
+      - target
+      - goal
+      - design_domain
+      - artifact_state
+      - review_depth
+    optional:
+      - surface_profile
+      - viewing_contexts
+      - required_assets
+      - selected_scope
+      - domain_reviewer_refs
+      - specialist_lens_refs
+      - evidence_available
+      - evidence_gaps
+      - repository_or_source_context
+
+  outputs:
+    required:
+      - audit_context
+      - evidence_plan
+      - review_result_ref
+      - prioritized_gap_report
+      - coverage_limitations
+      - lifecycle_recommendation
+    allowed:
+      - audit_report
+      - root_cause_groups
+      - specialist_handoffs
+      - implementation_handoff
+      - no_action_reason
+
+  audit_depths:
+    allowed:
+      - quick
+      - focused
+      - full
+      - release
+    rules:
+      - depth_changes_scope_not_evidence_truth
+      - full_means_full_only_for_loaded_and_supported_primary_domains
+      - release_requires_all_applicable_hard_gates_and_required_domain_evidence
+      - unsupported_primary_domains_use_limited_review_or_route_elsewhere
+
+  lifecycle_recommendations:
+    allowed:
+      - local_fix
+      - specialist_diagnosis
+      - design_refinement
+      - redesign_workflow
+      - ready
+      - route_elsewhere
+    rules:
+      - recommendation_uses_coverage_hard_gates_root_causes_and_direction
+      - recommendation_is_not_derived_from_average_score_alone
+      - audit_does_not_start_the_recommended_lifecycle_without_explicit_authority
+
+  quality_gates:
+    - design_domain_surface_and_artifact_state_are_classified_before_evidence_capture
+    - canonical_design_review_facade_route_is_resolved_before_gate_interpretation
+    - evidence_method_matches_surface_state_viewing_context_and_claim
+    - unavailable_or_unsupported_evidence_remains_not_verified_not_zero
+    - primary_domain_coverage_and_scope_limitations_are_explicit
+    - every_gap_traces_to_evidence_impact_governing_owner_and_correction_direction
+    - repeated_symptoms_are_grouped_under_their_governing_root_cause
+    - lifecycle_recommendation_uses_coverage_hard_gates_root_cause_and_direction
+    - unsupported_primary_domains_do_not_receive_a_complete_pass
+    - audit_ends_with_a_report_unless_the_next_lifecycle_is_explicitly_authorized
+    - design_review_retains_gate_identity_routing_scoring_coverage_and_verdict_authority
+
+  boundary:
+    covers:
+      - audit_context_classification
+      - evidence_capture_planning
+      - review_result_reference_and_gap_aggregation
+      - root_cause_grouping
+      - gap_impact_and_priority_analysis
+      - coverage_limitation_reporting
+      - lifecycle_recommendation
+      - audit_report_assembly
+    does_not_cover:
+      - canonical_design_gate_identity_or_registry
+      - design_review_routing_scoring_coverage_or_verdict_semantics
+      - specialist_domain_diagnosis_without_a_loaded_reviewer
+      - redesign_or_implementation_output
+      - product_acceptance_approval_or_authorization
+
+  adapter_requirements:
+    design_review_facade: required
+    canonical_gate_registry: required
+    evidence_capture_mechanism: runtime_defined
+    specialist_reviewer_loading: adapter_defined
+    artifact_and_surface_classification: required
+    root_cause_grouping_method: adapter_defined
+    lifecycle_handoff_mechanism: product_or_workflow_defined
+
+  compatibility:
+    classification: new_contract
+    downstream_adapter: skills/design-audit/SKILL.md
+    migration_document: docs/missing-capability-contracts-migration.yaml
