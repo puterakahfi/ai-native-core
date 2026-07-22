@@ -1,21 +1,23 @@
 contract_schema_discovery:
   version: 0.2.0
   source_root: contracts
-  artifact_count: 128
+  artifact_count: 129
   path_family_counts:
     behavioral_test: 10
     port: 17
-    runtime: 7
-    skill: 88
-    workflow: 6
+    runtime: 6
+    skill: 85
+    unclassified: 1
+    workflow: 10
   parse_status_counts:
+    ambiguous_contract_root: 1
     parsed: 128
   contract_root_counts:
     port_contract: 17
-    runtime_contract: 7
-    skill_contract: 88
+    runtime_contract: 6
+    skill_contract: 85
     skill_test: 10
-    workflow_contract: 6
+    workflow_contract: 10
   root_shapes:
     port_contract:
       artifact_count: 17
@@ -121,768 +123,642 @@ contract_schema_discovery:
         control_port: 10
         integration_port: 3
     runtime_contract:
-      artifact_count: 7
+      artifact_count: 6
       field_coverage:
         access_control:
           count: 1
-          coverage: 0.1429
+          coverage: 0.1667
           value_type_counts:
             mapping: 1
         adapter_requirements:
-          count: 6
-          coverage: 0.8571
+          count: 5
+          coverage: 0.8333
           value_type_counts:
-            mapping: 6
+            mapping: 5
         authoring_rules:
           count: 1
-          coverage: 0.1429
+          coverage: 0.1667
           value_type_counts:
             sequence: 1
         boundary:
           count: 1
-          coverage: 0.1429
+          coverage: 0.1667
           value_type_counts:
             mapping: 1
         categories:
           count: 1
-          coverage: 0.1429
+          coverage: 0.1667
           value_type_counts:
             sequence: 1
         description:
-          count: 6
-          coverage: 0.8571
+          count: 5
+          coverage: 0.8333
           value_type_counts:
-            string: 6
+            string: 5
         execution:
           count: 2
-          coverage: 0.2857
+          coverage: 0.3333
           value_type_counts:
             mapping: 2
         hook_schema:
           count: 1
-          coverage: 0.1429
+          coverage: 0.1667
           value_type_counts:
             mapping: 1
         id:
-          count: 7
+          count: 6
           coverage: 1.0
           value_type_counts:
-            string: 7
+            string: 6
         lifecycle_points:
           count: 1
-          coverage: 0.1429
+          coverage: 0.1667
           value_type_counts:
             sequence: 1
         mcp_integration:
           count: 1
-          coverage: 0.1429
+          coverage: 0.1667
           value_type_counts:
             mapping: 1
         memory_types:
           count: 1
-          coverage: 0.1429
+          coverage: 0.1667
           value_type_counts:
             sequence: 1
         optional_fields:
           count: 1
-          coverage: 0.1429
+          coverage: 0.1667
           value_type_counts:
             sequence: 1
         optional_sections:
           count: 1
-          coverage: 0.1429
-          value_type_counts:
-            sequence: 1
-        phases:
-          count: 1
-          coverage: 0.1429
+          coverage: 0.1667
           value_type_counts:
             sequence: 1
         promotion_rules:
           count: 1
-          coverage: 0.1429
+          coverage: 0.1667
           value_type_counts:
             sequence: 1
         purpose:
-          count: 7
+          count: 6
           coverage: 1.0
           value_type_counts:
-            string: 7
+            string: 6
         quality_gates:
-          count: 6
-          coverage: 0.8571
+          count: 5
+          coverage: 0.8333
           value_type_counts:
-            sequence: 6
+            sequence: 5
         required_fields:
           count: 1
-          coverage: 0.1429
+          coverage: 0.1667
           value_type_counts:
             sequence: 1
         required_sections:
           count: 1
-          coverage: 0.1429
+          coverage: 0.1667
           value_type_counts:
             sequence: 1
         risk_levels:
           count: 1
-          coverage: 0.1429
+          coverage: 0.1667
           value_type_counts:
             sequence: 1
         rules:
           count: 1
-          coverage: 0.1429
+          coverage: 0.1667
           value_type_counts:
             sequence: 1
         scope:
           count: 1
-          coverage: 0.1429
-          value_type_counts:
-            sequence: 1
-        shortcuts:
-          count: 1
-          coverage: 0.1429
+          coverage: 0.1667
           value_type_counts:
             sequence: 1
         sop_schema:
           count: 1
-          coverage: 0.1429
+          coverage: 0.1667
           value_type_counts:
             mapping: 1
         step_schema:
           count: 1
-          coverage: 0.1429
+          coverage: 0.1667
           value_type_counts:
             mapping: 1
         taxonomy:
           count: 1
-          coverage: 0.1429
+          coverage: 0.1667
           value_type_counts:
             mapping: 1
         tool_schema:
           count: 1
-          coverage: 0.1429
+          coverage: 0.1667
           value_type_counts:
             mapping: 1
-        transitions:
-          count: 1
-          coverage: 0.1429
-          value_type_counts:
-            sequence: 1
         version:
-          count: 7
+          count: 6
           coverage: 1.0
           value_type_counts:
-            string: 7
+            string: 6
       declared_type_values: {}
       declared_kind_values: {}
     skill_contract:
-      artifact_count: 88
+      artifact_count: 85
       field_coverage:
         adaptation_modes:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         adapter_capability_families:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         adapter_catalog:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             sequence: 1
         adapter_requirements:
-          count: 56
-          coverage: 0.6364
+          count: 54
+          coverage: 0.6353
           value_type_counts:
-            mapping: 56
+            mapping: 54
         adapter_selection_rules:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             sequence: 1
         adapters:
           count: 3
-          coverage: 0.0341
+          coverage: 0.0353
           value_type_counts:
             sequence: 3
         adaptive_family_contract:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         aliases:
           count: 3
-          coverage: 0.0341
+          coverage: 0.0353
           value_type_counts:
             sequence: 3
         anti_slop_contract:
           count: 4
-          coverage: 0.0455
+          coverage: 0.0471
           value_type_counts:
             mapping: 4
-        approval_policy:
-          count: 1
-          coverage: 0.0114
-          value_type_counts:
-            mapping: 1
         authority_contract:
           count: 1
-          coverage: 0.0114
-          value_type_counts:
-            mapping: 1
-        automatic_promotion_policy:
-          count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         boundary:
-          count: 13
-          coverage: 0.1477
+          count: 11
+          coverage: 0.1294
           value_type_counts:
-            mapping: 13
+            mapping: 11
         branch_topology_contract:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         candidate_contract:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         canonicality_contract:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         capability:
-          count: 88
+          count: 85
           coverage: 1.0
           value_type_counts:
-            string: 88
+            string: 85
         capability_aliases:
           count: 5
-          coverage: 0.0568
+          coverage: 0.0588
           value_type_counts:
             sequence: 5
         category:
-          count: 88
+          count: 85
           coverage: 1.0
           value_type_counts:
-            string: 88
-        change_budget_contract:
-          count: 1
-          coverage: 0.0114
-          value_type_counts:
-            mapping: 1
+            string: 85
         classification_contract:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         collection_state_contract:
           count: 1
-          coverage: 0.0114
-          value_type_counts:
-            mapping: 1
-        compatibility:
-          count: 1
-          coverage: 0.0114
-          value_type_counts:
-            mapping: 1
-        completion_contract:
-          count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         component_contract:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         component_coverage_contract:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         component_selection_rules:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             sequence: 1
-        concurrent_write_contract:
-          count: 1
-          coverage: 0.0114
-          value_type_counts:
-            mapping: 1
         conflict_contract:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         context_adaptation_contract:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         convention_lock_contract:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         coverage_modes:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             sequence: 1
         decision_factors:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         decision_record_contract:
           count: 1
-          coverage: 0.0114
-          value_type_counts:
-            mapping: 1
-        defect_contract:
-          count: 1
-          coverage: 0.0114
-          value_type_counts:
-            mapping: 1
-        defect_diagnosis_contract:
-          count: 1
-          coverage: 0.0114
-          value_type_counts:
-            mapping: 1
-        delegation_contract:
-          count: 1
-          coverage: 0.0114
-          value_type_counts:
-            mapping: 1
-        delivery_contract:
-          count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         depth_modes:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         depth_role_contract:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         description:
-          count: 17
-          coverage: 0.1932
+          count: 16
+          coverage: 0.1882
           value_type_counts:
-            string: 17
+            string: 16
         diagnosis_contract:
           count: 3
-          coverage: 0.0341
+          coverage: 0.0353
           value_type_counts:
             mapping: 3
         diagram_model:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         direction_candidate_contract:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         direction_contract:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         domain_reviewer_contract:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         epic_acceptance_contract:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         epic_classification:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         evidence_contract:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         evidence_policy:
           count: 2
-          coverage: 0.0227
+          coverage: 0.0235
           value_type_counts:
             mapping: 2
         experiment_types:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         expression_contract:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         extended_by:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             sequence: 1
         extends:
           count: 2
-          coverage: 0.0227
+          coverage: 0.0235
           value_type_counts:
             'null': 1
             string: 1
         family_contract:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         family_decisions:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         gate_registry_contract:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
-        generalization_requirements:
-          count: 1
-          coverage: 0.0114
-          value_type_counts:
-            sequence: 1
         hard_gate_policy:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         hierarchy_model:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         horizontal_rail_requirements:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             sequence: 1
         id:
-          count: 88
+          count: 85
           coverage: 1.0
           value_type_counts:
-            string: 88
+            string: 85
         identity_states:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             sequence: 1
         implementation_decision_ladder:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         inputs:
-          count: 84
-          coverage: 0.9545
+          count: 81
+          coverage: 0.9529
           value_type_counts:
-            mapping: 84
+            mapping: 81
         integration_contract:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         internal_routes:
           count: 1
-          coverage: 0.0114
-          value_type_counts:
-            mapping: 1
-        iteration_policy:
-          count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         layer_contract:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         layer_model:
           count: 2
-          coverage: 0.0227
+          coverage: 0.0235
           value_type_counts:
             mapping: 2
-        learning_promotion_policy:
-          count: 1
-          coverage: 0.0114
-          value_type_counts:
-            mapping: 1
         loading_contract:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         model_classes:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         new_dependency_contract:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         official_registry_component_contract:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         outputs:
-          count: 84
-          coverage: 0.9545
+          count: 81
+          coverage: 0.9529
           value_type_counts:
-            mapping: 84
+            mapping: 81
         ownership_contract:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         phases:
-          count: 3
-          coverage: 0.0341
+          count: 2
+          coverage: 0.0235
           value_type_counts:
-            mapping: 1
             sequence: 2
         pr_target_contract:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         presets:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         purpose:
-          count: 7
-          coverage: 0.0795
+          count: 5
+          coverage: 0.0588
           value_type_counts:
-            string: 7
+            string: 5
         quality_gates:
-          count: 87
-          coverage: 0.9886
+          count: 84
+          coverage: 0.9882
           value_type_counts:
-            sequence: 87
-        refinement_lock_contract:
-          count: 1
-          coverage: 0.0114
-          value_type_counts:
-            mapping: 1
+            sequence: 84
         release_units:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         required_experiment_sections:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             sequence: 1
-        required_phases:
-          count: 2
-          coverage: 0.0227
-          value_type_counts:
-            sequence: 2
         required_prd_sections:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             sequence: 1
         retrieval_modes:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         reuse_extension_contract:
           count: 1
-          coverage: 0.0114
-          value_type_counts:
-            mapping: 1
-        review_contract:
-          count: 1
-          coverage: 0.0114
-          value_type_counts:
-            mapping: 1
-        role_contract:
-          count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         roles:
-          count: 86
-          coverage: 0.9773
+          count: 84
+          coverage: 0.9882
           value_type_counts:
-            sequence: 86
+            sequence: 84
         route_classes:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             sequence: 1
-        route_contract:
-          count: 1
-          coverage: 0.0114
-          value_type_counts:
-            mapping: 1
         route_targets:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         runtime_model:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         safety_gates:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             sequence: 1
-        scope_diff_contract:
-          count: 1
-          coverage: 0.0114
-          value_type_counts:
-            mapping: 1
         scoring_policy:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         selection_contract:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         semantic_native_contract:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         similarity_boundary:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
-        skill_load_order:
-          count: 1
-          coverage: 0.0114
-          value_type_counts:
-            sequence: 1
         skill_pack_requirements:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         source_contract:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         specialist_delegation:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         strategy_contract:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         supersedes:
           count: 1
-          coverage: 0.0114
-          value_type_counts:
-            sequence: 1
-        target_layers:
-          count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             sequence: 1
         technique_contract:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         template_contract:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         traceability:
           count: 2
-          coverage: 0.0227
+          coverage: 0.0235
           value_type_counts:
             mapping: 2
-        transitions:
-          count: 1
-          coverage: 0.0114
-          value_type_counts:
-            sequence: 1
         type:
-          count: 88
+          count: 85
           coverage: 1.0
           value_type_counts:
-            string: 88
+            string: 85
         typography_contract:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         verdict_contract:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         verdicts:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             sequence: 1
         verification_contract:
-          count: 5
-          coverage: 0.0568
+          count: 3
+          coverage: 0.0353
           value_type_counts:
-            mapping: 5
+            mapping: 3
         version:
-          count: 88
+          count: 85
           coverage: 1.0
           value_type_counts:
-            string: 88
+            string: 85
         visual_direction_contract:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
         work_hierarchy_contract:
           count: 1
-          coverage: 0.0114
+          coverage: 0.0118
           value_type_counts:
             mapping: 1
       declared_type_values:
@@ -890,7 +766,6 @@ contract_schema_discovery:
         meta-skill: 2
         port: 4
         skill: 72
-        workflow: 3
       declared_kind_values: {}
     skill_test:
       artifact_count: 10
@@ -918,145 +793,275 @@ contract_schema_discovery:
       declared_type_values: {}
       declared_kind_values: {}
     workflow_contract:
-      artifact_count: 6
+      artifact_count: 10
       field_coverage:
         acceptance_matrix_contract:
           count: 1
-          coverage: 0.1667
+          coverage: 0.1
           value_type_counts:
             mapping: 1
         adapter_requirements:
-          count: 6
+          count: 10
           coverage: 1.0
           value_type_counts:
-            mapping: 6
-        candidate_contract:
+            mapping: 10
+        approval_policy:
           count: 1
-          coverage: 0.1667
+          coverage: 0.1
           value_type_counts:
             mapping: 1
+        automatic_promotion_policy:
+          count: 1
+          coverage: 0.1
+          value_type_counts:
+            mapping: 1
+        boundary:
+          count: 2
+          coverage: 0.2
+          value_type_counts:
+            mapping: 2
+        candidate_contract:
+          count: 1
+          coverage: 0.1
+          value_type_counts:
+            mapping: 1
+        capability:
+          count: 3
+          coverage: 0.3
+          value_type_counts:
+            string: 3
         category:
-          count: 6
+          count: 10
           coverage: 1.0
           value_type_counts:
-            string: 6
+            string: 10
+        change_budget_contract:
+          count: 1
+          coverage: 0.1
+          value_type_counts:
+            mapping: 1
         code_review_contract:
           count: 1
-          coverage: 0.1667
+          coverage: 0.1
+          value_type_counts:
+            mapping: 1
+        compatibility:
+          count: 1
+          coverage: 0.1
+          value_type_counts:
+            mapping: 1
+        completion_contract:
+          count: 1
+          coverage: 0.1
+          value_type_counts:
+            mapping: 1
+        concurrent_write_contract:
+          count: 1
+          coverage: 0.1
           value_type_counts:
             mapping: 1
         decision_provenance_contract:
           count: 3
-          coverage: 0.5
+          coverage: 0.3
           value_type_counts:
             mapping: 3
-        deployment_authorization_contract:
+        defect_contract:
           count: 1
-          coverage: 0.1667
+          coverage: 0.1
           value_type_counts:
             mapping: 1
+        defect_diagnosis_contract:
+          count: 1
+          coverage: 0.1
+          value_type_counts:
+            mapping: 1
+        delegation_contract:
+          count: 1
+          coverage: 0.1
+          value_type_counts:
+            mapping: 1
+        delivery_contract:
+          count: 1
+          coverage: 0.1
+          value_type_counts:
+            mapping: 1
+        deployment_authorization_contract:
+          count: 1
+          coverage: 0.1
+          value_type_counts:
+            mapping: 1
+        description:
+          count: 2
+          coverage: 0.2
+          value_type_counts:
+            string: 2
         design_acceptance_contract:
           count: 1
-          coverage: 0.1667
+          coverage: 0.1
           value_type_counts:
             mapping: 1
         design_lifecycle_contract:
           count: 1
-          coverage: 0.1667
+          coverage: 0.1
           value_type_counts:
             mapping: 1
         design_review_contract:
           count: 1
-          coverage: 0.1667
+          coverage: 0.1
           value_type_counts:
             mapping: 1
         execution_contract:
           count: 1
-          coverage: 0.1667
+          coverage: 0.1
           value_type_counts:
             mapping: 1
+        generalization_requirements:
+          count: 1
+          coverage: 0.1
+          value_type_counts:
+            sequence: 1
         id:
-          count: 6
+          count: 10
           coverage: 1.0
           value_type_counts:
-            string: 6
+            string: 10
+        inputs:
+          count: 3
+          coverage: 0.3
+          value_type_counts:
+            mapping: 3
+        iteration_policy:
+          count: 1
+          coverage: 0.1
+          value_type_counts:
+            mapping: 1
+        learning_promotion_policy:
+          count: 1
+          coverage: 0.1
+          value_type_counts:
+            mapping: 1
         outcome_contract:
           count: 1
-          coverage: 0.1667
+          coverage: 0.1
           value_type_counts:
             mapping: 1
         outputs:
+          count: 4
+          coverage: 0.4
+          value_type_counts:
+            mapping: 4
+        phases:
+          count: 10
+          coverage: 1.0
+          value_type_counts:
+            sequence: 10
+        purpose:
+          count: 10
+          coverage: 1.0
+          value_type_counts:
+            string: 10
+        quality_gates:
+          count: 10
+          coverage: 1.0
+          value_type_counts:
+            sequence: 10
+        refinement_lock_contract:
           count: 1
-          coverage: 0.1667
+          coverage: 0.1
           value_type_counts:
             mapping: 1
-        purpose:
-          count: 6
-          coverage: 1.0
-          value_type_counts:
-            string: 6
-        quality_gates:
-          count: 6
-          coverage: 1.0
-          value_type_counts:
-            sequence: 6
         release_authorization:
           count: 1
-          coverage: 0.1667
+          coverage: 0.1
           value_type_counts:
             mapping: 1
         release_eligibility:
           count: 1
-          coverage: 0.1667
+          coverage: 0.1
           value_type_counts:
             mapping: 1
-        required_phases:
-          count: 6
-          coverage: 1.0
-          value_type_counts:
-            sequence: 6
         review_contract:
+          count: 2
+          coverage: 0.2
+          value_type_counts:
+            mapping: 2
+        role_contract:
           count: 1
-          coverage: 0.1667
+          coverage: 0.1
           value_type_counts:
             mapping: 1
+        roles:
+          count: 2
+          coverage: 0.2
+          value_type_counts:
+            sequence: 2
+        route_contract:
+          count: 1
+          coverage: 0.1
+          value_type_counts:
+            mapping: 1
+        scope_diff_contract:
+          count: 1
+          coverage: 0.1
+          value_type_counts:
+            mapping: 1
+        shortcuts:
+          count: 1
+          coverage: 0.1
+          value_type_counts:
+            sequence: 1
         skill_load_order:
-          count: 6
+          count: 10
           coverage: 1.0
           value_type_counts:
-            sequence: 6
+            sequence: 10
         stop_points:
           count: 1
-          coverage: 0.1667
+          coverage: 0.1
+          value_type_counts:
+            sequence: 1
+        target_layers:
+          count: 1
+          coverage: 0.1
           value_type_counts:
             sequence: 1
         technical_readiness_contract:
           count: 1
-          coverage: 0.1667
+          coverage: 0.1
           value_type_counts:
             mapping: 1
+        transitions:
+          count: 2
+          coverage: 0.2
+          value_type_counts:
+            sequence: 2
         type:
-          count: 6
+          count: 10
           coverage: 1.0
           value_type_counts:
-            string: 6
+            string: 10
         verdict_contract:
           count: 1
-          coverage: 0.1667
+          coverage: 0.1
           value_type_counts:
             mapping: 1
         verification_contract:
-          count: 1
-          coverage: 0.1667
+          count: 3
+          coverage: 0.3
           value_type_counts:
-            mapping: 1
+            mapping: 3
         version:
-          count: 6
+          count: 10
           coverage: 1.0
           value_type_counts:
-            string: 6
+            string: 10
+        workflow_kind:
+          count: 10
+          coverage: 1.0
+          value_type_counts:
+            string: 10
       declared_type_values:
-        workflow: 6
+        workflow: 10
       declared_kind_values: {}
   field_presence_gaps:
     skill:
@@ -1067,7 +1072,6 @@ contract_schema_discovery:
       capability: []
       roles:
       - contracts/skills/quality/decision-provenance.contract.yaml
-      - contracts/skills/quality/redesign-workflow.contract.yaml
       inputs:
       - contracts/skills/design/design-foundation.contract.yaml
       - contracts/skills/design/design-interaction.contract.yaml
@@ -1111,7 +1115,6 @@ contract_schema_discovery:
       - contracts/skills/product/decision-making.contract.yaml
       - contracts/skills/product/user-research.contract.yaml
       - contracts/skills/quality/decision-provenance.contract.yaml
-      - contracts/skills/quality/redesign-workflow.contract.yaml
       - contracts/skills/quality/web-performance.contract.yaml
     workflow:
       id: []
@@ -1119,7 +1122,17 @@ contract_schema_discovery:
       version: []
       category: []
       purpose: []
-      required_phases: []
+      required_phases:
+      - contracts/workflows/bugfix.contract.yaml
+      - contracts/workflows/code-review.contract.yaml
+      - contracts/workflows/deployment.contract.yaml
+      - contracts/workflows/design-refinement.contract.yaml
+      - contracts/workflows/development-loop.contract.yaml
+      - contracts/workflows/new-feature.contract.yaml
+      - contracts/workflows/product-development.contract.yaml
+      - contracts/workflows/redesign-workflow.contract.yaml
+      - contracts/workflows/skill-evolution.contract.yaml
+      - contracts/workflows/spec-driven.contract.yaml
       skill_load_order: []
       quality_gates: []
       adapter_requirements: []
@@ -1152,7 +1165,7 @@ contract_schema_discovery:
       description: []
       cases: []
   extension_key_path_counts:
-    adapter_requirements: 85
+    adapter_requirements: 86
     aliases: 3
     compatibility: 18
     compatibility.aliases: 17
@@ -1165,26 +1178,14 @@ contract_schema_discovery:
     - contracts/workflows/bugfix.contract.yaml
     - contracts/workflows/code-review.contract.yaml
     - contracts/workflows/deployment.contract.yaml
+    - contracts/workflows/design-refinement.contract.yaml
+    - contracts/workflows/development-loop.contract.yaml
     - contracts/workflows/new-feature.contract.yaml
     - contracts/workflows/product-development.contract.yaml
+    - contracts/workflows/redesign-workflow.contract.yaml
+    - contracts/workflows/skill-evolution.contract.yaml
     - contracts/workflows/spec-driven.contract.yaml
-    declared_skill_workflow_candidates:
-    - path: contracts/skills/quality/design-refinement.contract.yaml
-      contract_id: design-refinement
-      contract_version: 1.2.0
-      lifecycle_fields:
-      - required_phases
-    - path: contracts/skills/quality/redesign-workflow.contract.yaml
-      contract_id: redesign-workflow
-      contract_version: 2.2.0
-      lifecycle_fields:
-      - phases
-      - transitions
-    - path: contracts/skills/quality/skill-evolution.contract.yaml
-      contract_id: skill-evolution
-      contract_version: 1.0.0
-      lifecycle_fields:
-      - required_phases
+    declared_skill_workflow_candidates: []
     skill_internal_phase_procedures:
     - path: contracts/skills/quality/design-review.contract.yaml
       contract_id: design-review
@@ -1196,20 +1197,15 @@ contract_schema_discovery:
       contract_version: 0.1.0
       lifecycle_fields:
       - phases
-    runtime_lifecycle_candidates:
-    - path: contracts/runtime/development-loop.contract.yaml
-      contract_id: development-loop
-      contract_version: 1.0.0
-      lifecycle_fields:
-      - phases
-      - transitions
+    runtime_lifecycle_candidates: []
   manifest_inventory:
-    entry_count: 128
+    entry_count: 129
     family_path_counts:
+      compatibility: 1
       ports/capability-composition: 4
       ports/control: 10
       ports/integration: 3
-      runtime: 7
+      runtime: 6
       skills/architecture: 10
       skills/content: 3
       skills/context: 4
@@ -1218,1544 +1214,2107 @@ contract_schema_discovery:
       skills/governance: 2
       skills/meta: 2
       skills/product: 7
-      skills/quality: 12
+      skills/quality: 9
       skills/runtime: 8
       skills/security: 2
       skills/visual-thinking: 1
       tests: 10
-      workflows: 6
+      workflows: 10
     metadata_field_coverage:
       id:
-        count: 128
+        count: 129
+        coverage: 1.0
+      kind:
+        count: 129
         coverage: 1.0
       path:
-        count: 128
+        count: 129
+        coverage: 1.0
+      schema_path:
+        count: 129
+        coverage: 1.0
+      schema_version:
+        count: 129
         coverage: 1.0
       sha256:
-        count: 128
+        count: 129
         coverage: 1.0
       version:
-        count: 105
-        coverage: 0.8203
-    missing_kind_paths:
-    - contracts/ports/capability-composition/design-strategy-composition.port.yaml
-    - contracts/ports/capability-composition/interaction-composition.port.yaml
-    - contracts/ports/capability-composition/layout-composition.port.yaml
-    - contracts/ports/capability-composition/visual-direction-composition.port.yaml
-    - contracts/ports/control/agent-runtime.port.yaml
-    - contracts/ports/control/approval-decision.port.yaml
-    - contracts/ports/control/authorization-assessment.port.yaml
-    - contracts/ports/control/context-resolution.port.yaml
-    - contracts/ports/control/execution-run-management.port.yaml
-    - contracts/ports/control/review-management.port.yaml
-    - contracts/ports/control/rule-evaluation.port.yaml
-    - contracts/ports/control/rule-resolution.port.yaml
-    - contracts/ports/control/skill-resolution.port.yaml
-    - contracts/ports/control/workflow-coordination.port.yaml
-    - contracts/ports/integration/code-operation-execution.port.yaml
-    - contracts/ports/integration/database.port.yaml
-    - contracts/ports/integration/model-inference.port.yaml
-    - contracts/runtime/agents-md.contract.yaml
-    - contracts/runtime/core-source.contract.yaml
-    - contracts/runtime/development-loop.contract.yaml
-    - contracts/runtime/hook.contract.yaml
-    - contracts/runtime/memory.contract.yaml
-    - contracts/runtime/sop.contract.yaml
-    - contracts/runtime/tool-registration.contract.yaml
-    - contracts/skills/architecture/adr.contract.yaml
-    - contracts/skills/architecture/ai-system-design.contract.yaml
-    - contracts/skills/architecture/api-contract.contract.yaml
-    - contracts/skills/architecture/design-patterns.contract.yaml
-    - contracts/skills/architecture/domain-driven-design.contract.yaml
-    - contracts/skills/architecture/event-driven-design.contract.yaml
-    - contracts/skills/architecture/micro-frontend.contract.yaml
-    - contracts/skills/architecture/ports-and-adapters.contract.yaml
-    - contracts/skills/architecture/service-design.contract.yaml
-    - contracts/skills/architecture/systems-thinking.contract.yaml
-    - contracts/skills/content/content-strategy.contract.yaml
-    - contracts/skills/content/copywriting.contract.yaml
-    - contracts/skills/content/cro.contract.yaml
-    - contracts/skills/context/context-engineering.contract.yaml
-    - contracts/skills/context/context-manager.contract.yaml
-    - contracts/skills/context/prompt-optimizer.contract.yaml
-    - contracts/skills/context/response-contract.contract.yaml
-    - contracts/skills/design/accessibility.contract.yaml
-    - contracts/skills/design/adaptive-component-design.contract.yaml
-    - contracts/skills/design/collection-discovery-design.contract.yaml
-    - contracts/skills/design/color-theory.contract.yaml
-    - contracts/skills/design/component-family-design.contract.yaml
-    - contracts/skills/design/composition.contract.yaml
-    - contracts/skills/design/dark-light-theming.contract.yaml
-    - contracts/skills/design/design-brand.contract.yaml
-    - contracts/skills/design/design-depth.contract.yaml
-    - contracts/skills/design/design-foundation.contract.yaml
-    - contracts/skills/design/design-genre.contract.yaml
-    - contracts/skills/design/design-interaction.contract.yaml
-    - contracts/skills/design/design-layout.contract.yaml
-    - contracts/skills/design/design-strategy.contract.yaml
-    - contracts/skills/design/design-system.contract.yaml
-    - contracts/skills/design/design-visual.contract.yaml
-    - contracts/skills/design/iconography.contract.yaml
-    - contracts/skills/design/information-architecture.contract.yaml
-    - contracts/skills/design/macrostructures.contract.yaml
-    - contracts/skills/design/master-design.contract.yaml
-    - contracts/skills/design/motion-design.contract.yaml
-    - contracts/skills/design/readability.contract.yaml
-    - contracts/skills/design/responsiveness.contract.yaml
-    - contracts/skills/design/spacing.contract.yaml
-    - contracts/skills/design/typography.contract.yaml
-    - contracts/skills/design/ux-psychology.contract.yaml
-    - contracts/skills/design/ux-ui-patterns.contract.yaml
-    - contracts/skills/design/visual-hierarchy.contract.yaml
-    - contracts/skills/engineering/data-modeling.contract.yaml
-    - contracts/skills/engineering/git-workflow.contract.yaml
-    - contracts/skills/engineering/implementation-context-discovery.contract.yaml
-    - contracts/skills/engineering/master-engineer.contract.yaml
-    - contracts/skills/engineering/plan.contract.yaml
-    - contracts/skills/engineering/refactoring.contract.yaml
-    - contracts/skills/engineering/spike.contract.yaml
-    - contracts/skills/engineering/technical-debt-governance.contract.yaml
-    - contracts/skills/engineering/test-driven-development.contract.yaml
-    - contracts/skills/governance/language-standards.contract.yaml
-    - contracts/skills/governance/rule-manager.contract.yaml
-    - contracts/skills/meta/role-switcher.contract.yaml
-    - contracts/skills/meta/workflow-router.contract.yaml
-    - contracts/skills/product/business-value-alignment.contract.yaml
-    - contracts/skills/product/decision-making.contract.yaml
-    - contracts/skills/product/delivery-work-breakdown.contract.yaml
-    - contracts/skills/product/experiment-design.contract.yaml
-    - contracts/skills/product/product-manager.contract.yaml
-    - contracts/skills/product/product-requirements.contract.yaml
-    - contracts/skills/product/user-research.contract.yaml
-    - contracts/skills/quality/architecture-review.contract.yaml
-    - contracts/skills/quality/brand-identity-review.contract.yaml
-    - contracts/skills/quality/decision-provenance.contract.yaml
-    - contracts/skills/quality/design-refinement.contract.yaml
-    - contracts/skills/quality/design-review.contract.yaml
-    - contracts/skills/quality/ethics-responsible-ai.contract.yaml
-    - contracts/skills/quality/redesign-workflow.contract.yaml
-    - contracts/skills/quality/resilience-engineering.contract.yaml
-    - contracts/skills/quality/skill-eval.contract.yaml
-    - contracts/skills/quality/skill-evolution.contract.yaml
-    - contracts/skills/quality/systematic-debugging.contract.yaml
-    - contracts/skills/quality/web-performance.contract.yaml
-    - contracts/skills/runtime/incident-response.contract.yaml
-    - contracts/skills/runtime/model-selection.contract.yaml
-    - contracts/skills/runtime/native-ai-engineer.contract.yaml
-    - contracts/skills/runtime/native-ai-runtime-agent.contract.yaml
-    - contracts/skills/runtime/native-ai-runtime-ops.contract.yaml
-    - contracts/skills/runtime/observability-design.contract.yaml
-    - contracts/skills/runtime/onboarding.contract.yaml
-    - contracts/skills/runtime/profile-bootstrap.contract.yaml
-    - contracts/skills/security/security-review.contract.yaml
-    - contracts/skills/security/threat-modeling.contract.yaml
-    - contracts/skills/visual-thinking/diagram-architect.contract.yaml
-    - contracts/tests/architecture-review.test.yaml
-    - contracts/tests/collection-discovery-design.test.yaml
-    - contracts/tests/delivery-work-breakdown.test.yaml
-    - contracts/tests/design-review.test.yaml
-    - contracts/tests/implementation-context-discovery.test.yaml
-    - contracts/tests/prompt-optimizer.test.yaml
-    - contracts/tests/response-contract.test.yaml
-    - contracts/tests/role-switcher.test.yaml
-    - contracts/tests/skill-evolution.test.yaml
-    - contracts/tests/systematic-debugging.test.yaml
-    - contracts/workflows/bugfix.contract.yaml
-    - contracts/workflows/code-review.contract.yaml
-    - contracts/workflows/deployment.contract.yaml
-    - contracts/workflows/new-feature.contract.yaml
-    - contracts/workflows/product-development.contract.yaml
-    - contracts/workflows/spec-driven.contract.yaml
-    missing_schema_version_paths:
-    - contracts/ports/capability-composition/design-strategy-composition.port.yaml
-    - contracts/ports/capability-composition/interaction-composition.port.yaml
-    - contracts/ports/capability-composition/layout-composition.port.yaml
-    - contracts/ports/capability-composition/visual-direction-composition.port.yaml
-    - contracts/ports/control/agent-runtime.port.yaml
-    - contracts/ports/control/approval-decision.port.yaml
-    - contracts/ports/control/authorization-assessment.port.yaml
-    - contracts/ports/control/context-resolution.port.yaml
-    - contracts/ports/control/execution-run-management.port.yaml
-    - contracts/ports/control/review-management.port.yaml
-    - contracts/ports/control/rule-evaluation.port.yaml
-    - contracts/ports/control/rule-resolution.port.yaml
-    - contracts/ports/control/skill-resolution.port.yaml
-    - contracts/ports/control/workflow-coordination.port.yaml
-    - contracts/ports/integration/code-operation-execution.port.yaml
-    - contracts/ports/integration/database.port.yaml
-    - contracts/ports/integration/model-inference.port.yaml
-    - contracts/runtime/agents-md.contract.yaml
-    - contracts/runtime/core-source.contract.yaml
-    - contracts/runtime/development-loop.contract.yaml
-    - contracts/runtime/hook.contract.yaml
-    - contracts/runtime/memory.contract.yaml
-    - contracts/runtime/sop.contract.yaml
-    - contracts/runtime/tool-registration.contract.yaml
-    - contracts/skills/architecture/adr.contract.yaml
-    - contracts/skills/architecture/ai-system-design.contract.yaml
-    - contracts/skills/architecture/api-contract.contract.yaml
-    - contracts/skills/architecture/design-patterns.contract.yaml
-    - contracts/skills/architecture/domain-driven-design.contract.yaml
-    - contracts/skills/architecture/event-driven-design.contract.yaml
-    - contracts/skills/architecture/micro-frontend.contract.yaml
-    - contracts/skills/architecture/ports-and-adapters.contract.yaml
-    - contracts/skills/architecture/service-design.contract.yaml
-    - contracts/skills/architecture/systems-thinking.contract.yaml
-    - contracts/skills/content/content-strategy.contract.yaml
-    - contracts/skills/content/copywriting.contract.yaml
-    - contracts/skills/content/cro.contract.yaml
-    - contracts/skills/context/context-engineering.contract.yaml
-    - contracts/skills/context/context-manager.contract.yaml
-    - contracts/skills/context/prompt-optimizer.contract.yaml
-    - contracts/skills/context/response-contract.contract.yaml
-    - contracts/skills/design/accessibility.contract.yaml
-    - contracts/skills/design/adaptive-component-design.contract.yaml
-    - contracts/skills/design/collection-discovery-design.contract.yaml
-    - contracts/skills/design/color-theory.contract.yaml
-    - contracts/skills/design/component-family-design.contract.yaml
-    - contracts/skills/design/composition.contract.yaml
-    - contracts/skills/design/dark-light-theming.contract.yaml
-    - contracts/skills/design/design-brand.contract.yaml
-    - contracts/skills/design/design-depth.contract.yaml
-    - contracts/skills/design/design-foundation.contract.yaml
-    - contracts/skills/design/design-genre.contract.yaml
-    - contracts/skills/design/design-interaction.contract.yaml
-    - contracts/skills/design/design-layout.contract.yaml
-    - contracts/skills/design/design-strategy.contract.yaml
-    - contracts/skills/design/design-system.contract.yaml
-    - contracts/skills/design/design-visual.contract.yaml
-    - contracts/skills/design/iconography.contract.yaml
-    - contracts/skills/design/information-architecture.contract.yaml
-    - contracts/skills/design/macrostructures.contract.yaml
-    - contracts/skills/design/master-design.contract.yaml
-    - contracts/skills/design/motion-design.contract.yaml
-    - contracts/skills/design/readability.contract.yaml
-    - contracts/skills/design/responsiveness.contract.yaml
-    - contracts/skills/design/spacing.contract.yaml
-    - contracts/skills/design/typography.contract.yaml
-    - contracts/skills/design/ux-psychology.contract.yaml
-    - contracts/skills/design/ux-ui-patterns.contract.yaml
-    - contracts/skills/design/visual-hierarchy.contract.yaml
-    - contracts/skills/engineering/data-modeling.contract.yaml
-    - contracts/skills/engineering/git-workflow.contract.yaml
-    - contracts/skills/engineering/implementation-context-discovery.contract.yaml
-    - contracts/skills/engineering/master-engineer.contract.yaml
-    - contracts/skills/engineering/plan.contract.yaml
-    - contracts/skills/engineering/refactoring.contract.yaml
-    - contracts/skills/engineering/spike.contract.yaml
-    - contracts/skills/engineering/technical-debt-governance.contract.yaml
-    - contracts/skills/engineering/test-driven-development.contract.yaml
-    - contracts/skills/governance/language-standards.contract.yaml
-    - contracts/skills/governance/rule-manager.contract.yaml
-    - contracts/skills/meta/role-switcher.contract.yaml
-    - contracts/skills/meta/workflow-router.contract.yaml
-    - contracts/skills/product/business-value-alignment.contract.yaml
-    - contracts/skills/product/decision-making.contract.yaml
-    - contracts/skills/product/delivery-work-breakdown.contract.yaml
-    - contracts/skills/product/experiment-design.contract.yaml
-    - contracts/skills/product/product-manager.contract.yaml
-    - contracts/skills/product/product-requirements.contract.yaml
-    - contracts/skills/product/user-research.contract.yaml
-    - contracts/skills/quality/architecture-review.contract.yaml
-    - contracts/skills/quality/brand-identity-review.contract.yaml
-    - contracts/skills/quality/decision-provenance.contract.yaml
-    - contracts/skills/quality/design-refinement.contract.yaml
-    - contracts/skills/quality/design-review.contract.yaml
-    - contracts/skills/quality/ethics-responsible-ai.contract.yaml
-    - contracts/skills/quality/redesign-workflow.contract.yaml
-    - contracts/skills/quality/resilience-engineering.contract.yaml
-    - contracts/skills/quality/skill-eval.contract.yaml
-    - contracts/skills/quality/skill-evolution.contract.yaml
-    - contracts/skills/quality/systematic-debugging.contract.yaml
-    - contracts/skills/quality/web-performance.contract.yaml
-    - contracts/skills/runtime/incident-response.contract.yaml
-    - contracts/skills/runtime/model-selection.contract.yaml
-    - contracts/skills/runtime/native-ai-engineer.contract.yaml
-    - contracts/skills/runtime/native-ai-runtime-agent.contract.yaml
-    - contracts/skills/runtime/native-ai-runtime-ops.contract.yaml
-    - contracts/skills/runtime/observability-design.contract.yaml
-    - contracts/skills/runtime/onboarding.contract.yaml
-    - contracts/skills/runtime/profile-bootstrap.contract.yaml
-    - contracts/skills/security/security-review.contract.yaml
-    - contracts/skills/security/threat-modeling.contract.yaml
-    - contracts/skills/visual-thinking/diagram-architect.contract.yaml
-    - contracts/tests/architecture-review.test.yaml
-    - contracts/tests/collection-discovery-design.test.yaml
-    - contracts/tests/delivery-work-breakdown.test.yaml
-    - contracts/tests/design-review.test.yaml
-    - contracts/tests/implementation-context-discovery.test.yaml
-    - contracts/tests/prompt-optimizer.test.yaml
-    - contracts/tests/response-contract.test.yaml
-    - contracts/tests/role-switcher.test.yaml
-    - contracts/tests/skill-evolution.test.yaml
-    - contracts/tests/systematic-debugging.test.yaml
-    - contracts/workflows/bugfix.contract.yaml
-    - contracts/workflows/code-review.contract.yaml
-    - contracts/workflows/deployment.contract.yaml
-    - contracts/workflows/new-feature.contract.yaml
-    - contracts/workflows/product-development.contract.yaml
-    - contracts/workflows/spec-driven.contract.yaml
-    missing_contract_version_paths:
-    - contracts/runtime/agents-md.contract.yaml
-    - contracts/runtime/core-source.contract.yaml
-    - contracts/runtime/development-loop.contract.yaml
-    - contracts/runtime/hook.contract.yaml
-    - contracts/runtime/memory.contract.yaml
-    - contracts/runtime/sop.contract.yaml
-    - contracts/runtime/tool-registration.contract.yaml
-    - contracts/tests/architecture-review.test.yaml
-    - contracts/tests/collection-discovery-design.test.yaml
-    - contracts/tests/delivery-work-breakdown.test.yaml
-    - contracts/tests/design-review.test.yaml
-    - contracts/tests/implementation-context-discovery.test.yaml
-    - contracts/tests/prompt-optimizer.test.yaml
-    - contracts/tests/response-contract.test.yaml
-    - contracts/tests/role-switcher.test.yaml
-    - contracts/tests/skill-evolution.test.yaml
-    - contracts/tests/systematic-debugging.test.yaml
-    - contracts/workflows/bugfix.contract.yaml
-    - contracts/workflows/code-review.contract.yaml
-    - contracts/workflows/deployment.contract.yaml
-    - contracts/workflows/new-feature.contract.yaml
-    - contracts/workflows/product-development.contract.yaml
-    - contracts/workflows/spec-driven.contract.yaml
+        count: 129
+        coverage: 1.0
+    missing_kind_paths: []
+    missing_schema_version_paths: []
+    missing_contract_version_paths: []
     entries:
+    - family_path: compatibility
+      metadata_fields:
+      - id
+      - kind
+      - path
+      - schema_path
+      - schema_version
+      - sha256
+      - version
+      id: contract-path-aliases
+      kind: compatibility_manifest
+      schema_version: 1.0.0
+      schema_path: schemas/compatibility-manifest.schema.yaml
+      path: contracts/compatibility/contract-path-aliases.contract.yaml
+      version: 1.0.0
+      sha256: 70b9012210ffeefa
     - family_path: ports/capability-composition
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: design-strategy-composition
+      kind: port_contract
+      schema_version: 1.0.0
+      schema_path: schemas/port-contract.schema.yaml
       path: contracts/ports/capability-composition/design-strategy-composition.port.yaml
       version: 0.1.0
-      sha256: f6c2580a8416ace6
+      sha256: 57f2dcdcc127628d
     - family_path: ports/capability-composition
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: interaction-composition
+      kind: port_contract
+      schema_version: 1.0.0
+      schema_path: schemas/port-contract.schema.yaml
       path: contracts/ports/capability-composition/interaction-composition.port.yaml
       version: 0.1.0
-      sha256: c8b51e9d08d22317
+      sha256: f44588dd1385554d
     - family_path: ports/capability-composition
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: layout-composition
+      kind: port_contract
+      schema_version: 1.0.0
+      schema_path: schemas/port-contract.schema.yaml
       path: contracts/ports/capability-composition/layout-composition.port.yaml
       version: 0.1.0
-      sha256: 2acd65211e71b32d
+      sha256: 191bf65d44c511d8
     - family_path: ports/capability-composition
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: visual-direction-composition
+      kind: port_contract
+      schema_version: 1.0.0
+      schema_path: schemas/port-contract.schema.yaml
       path: contracts/ports/capability-composition/visual-direction-composition.port.yaml
       version: 0.1.0
-      sha256: fdf9a512f15081f7
+      sha256: 6fd89c48ccbce61c
     - family_path: ports/control
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: agent-runtime
+      kind: port_contract
+      schema_version: 1.0.0
+      schema_path: schemas/port-contract.schema.yaml
       path: contracts/ports/control/agent-runtime.port.yaml
       version: 0.1.0
-      sha256: 42d23b7033f3f541
+      sha256: 1b62d1edd7d6e8cc
     - family_path: ports/control
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: approval-decision
+      kind: port_contract
+      schema_version: 1.0.0
+      schema_path: schemas/port-contract.schema.yaml
       path: contracts/ports/control/approval-decision.port.yaml
       version: 0.1.0
-      sha256: eae0db9d44d4f0e9
+      sha256: b772125857b9f9a3
     - family_path: ports/control
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: authorization-assessment
+      kind: port_contract
+      schema_version: 1.0.0
+      schema_path: schemas/port-contract.schema.yaml
       path: contracts/ports/control/authorization-assessment.port.yaml
       version: 0.1.0
-      sha256: eb81e1362c5c38d3
+      sha256: feb69df10112eb94
     - family_path: ports/control
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: context-resolution
+      kind: port_contract
+      schema_version: 1.0.0
+      schema_path: schemas/port-contract.schema.yaml
       path: contracts/ports/control/context-resolution.port.yaml
       version: 0.1.0
-      sha256: 2255dad0fb5a3add
+      sha256: 8a8b16d74e980a30
     - family_path: ports/control
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: execution-run-management
+      kind: port_contract
+      schema_version: 1.0.0
+      schema_path: schemas/port-contract.schema.yaml
       path: contracts/ports/control/execution-run-management.port.yaml
       version: 0.1.0
-      sha256: 927ed3dbeced6081
+      sha256: ba0604f85f9109b9
     - family_path: ports/control
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: review-management
+      kind: port_contract
+      schema_version: 1.0.0
+      schema_path: schemas/port-contract.schema.yaml
       path: contracts/ports/control/review-management.port.yaml
       version: 0.1.0
-      sha256: ebaaa581264c35fb
+      sha256: 2e0c918588570d1a
     - family_path: ports/control
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: rule-evaluation
+      kind: port_contract
+      schema_version: 1.0.0
+      schema_path: schemas/port-contract.schema.yaml
       path: contracts/ports/control/rule-evaluation.port.yaml
       version: 0.1.0
-      sha256: 9bcff66c3ebb1e6f
+      sha256: fe8faeb4c41394fc
     - family_path: ports/control
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: rule-resolution
+      kind: port_contract
+      schema_version: 1.0.0
+      schema_path: schemas/port-contract.schema.yaml
       path: contracts/ports/control/rule-resolution.port.yaml
       version: 0.1.0
-      sha256: f4d0f2d964d72963
+      sha256: 6c2dae769cf95ff2
     - family_path: ports/control
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: skill-resolution
+      kind: port_contract
+      schema_version: 1.0.0
+      schema_path: schemas/port-contract.schema.yaml
       path: contracts/ports/control/skill-resolution.port.yaml
       version: 0.1.0
-      sha256: d129f770e7e32e5d
+      sha256: 31dc939c513d5723
     - family_path: ports/control
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: workflow-coordination
+      kind: port_contract
+      schema_version: 1.0.0
+      schema_path: schemas/port-contract.schema.yaml
       path: contracts/ports/control/workflow-coordination.port.yaml
       version: 0.1.0
-      sha256: 7c589d3331a07160
+      sha256: 4c4fe2e8768f404e
     - family_path: ports/integration
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: code-operation-execution
+      kind: port_contract
+      schema_version: 1.0.0
+      schema_path: schemas/port-contract.schema.yaml
       path: contracts/ports/integration/code-operation-execution.port.yaml
       version: 0.1.0
-      sha256: 0efd693c111d9a67
+      sha256: 8b119c6da4b0057f
     - family_path: ports/integration
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: database
+      kind: port_contract
+      schema_version: 1.0.0
+      schema_path: schemas/port-contract.schema.yaml
       path: contracts/ports/integration/database.port.yaml
       version: 0.1.0
-      sha256: 85e7882e2963cc30
+      sha256: 2698c51243122c41
     - family_path: ports/integration
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: model-inference
+      kind: port_contract
+      schema_version: 1.0.0
+      schema_path: schemas/port-contract.schema.yaml
       path: contracts/ports/integration/model-inference.port.yaml
       version: 0.1.0
-      sha256: 658e4c2134ce4c75
+      sha256: cdb3a90bf0562009
     - family_path: runtime
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
+      - version
       id: agents-md
+      kind: runtime_contract
+      schema_version: 1.0.0
+      schema_path: schemas/runtime-contract.schema.yaml
       path: contracts/runtime/agents-md.contract.yaml
-      sha256: 9dcd55c5db03fc30
+      version: 1.0.0
+      sha256: 38f045ec49680167
     - family_path: runtime
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
+      - version
       id: core-source
+      kind: runtime_contract
+      schema_version: 1.0.0
+      schema_path: schemas/runtime-contract.schema.yaml
       path: contracts/runtime/core-source.contract.yaml
-      sha256: 0590b76b0bb390e8
+      version: 0.1.0
+      sha256: e1a8008e54a7884e
     - family_path: runtime
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
-      id: development-loop
-      path: contracts/runtime/development-loop.contract.yaml
-      sha256: a65ab20af42c7803
-    - family_path: runtime
-      metadata_fields:
-      - id
-      - path
-      - sha256
+      - version
       id: hook
+      kind: runtime_contract
+      schema_version: 1.0.0
+      schema_path: schemas/runtime-contract.schema.yaml
       path: contracts/runtime/hook.contract.yaml
-      sha256: f2f8d758c352a29e
+      version: 1.0.0
+      sha256: 03b84a8597ffed4b
     - family_path: runtime
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
+      - version
       id: memory
+      kind: runtime_contract
+      schema_version: 1.0.0
+      schema_path: schemas/runtime-contract.schema.yaml
       path: contracts/runtime/memory.contract.yaml
-      sha256: 47bd03d6e2361f6b
+      version: 1.0.0
+      sha256: 5285c6c9b85cff86
     - family_path: runtime
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
+      - version
       id: sop
+      kind: runtime_contract
+      schema_version: 1.0.0
+      schema_path: schemas/runtime-contract.schema.yaml
       path: contracts/runtime/sop.contract.yaml
-      sha256: 82783cafe567eaeb
+      version: 1.0.0
+      sha256: 78feb2afb732eeab
     - family_path: runtime
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
+      - version
       id: tool-registration
+      kind: runtime_contract
+      schema_version: 1.0.0
+      schema_path: schemas/runtime-contract.schema.yaml
       path: contracts/runtime/tool-registration.contract.yaml
-      sha256: eab231cf46c1a595
+      version: 1.0.0
+      sha256: 03520809ca17b7ba
     - family_path: skills/architecture
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: adr
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/architecture/adr.contract.yaml
       version: 0.1.0
-      sha256: aa83ad460c55418c
+      sha256: 82792c924b67f20a
     - family_path: skills/architecture
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: ai-system-design
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/architecture/ai-system-design.contract.yaml
       version: 0.1.0
-      sha256: 6809a4219bc6f138
+      sha256: 468be9b66f0c1a5b
     - family_path: skills/architecture
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: api-contract
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/architecture/api-contract.contract.yaml
       version: 0.1.0
-      sha256: defe7f33d13d7c65
+      sha256: ef500bd540a13a52
     - family_path: skills/architecture
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: design-patterns
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/architecture/design-patterns.contract.yaml
       version: 0.1.0
-      sha256: 588ecf745aae5d9f
+      sha256: 462b9c6490e700c8
     - family_path: skills/architecture
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: domain-driven-design
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/architecture/domain-driven-design.contract.yaml
       version: 0.1.0
-      sha256: 34240016bc39231c
+      sha256: 583d6650c0eb3e1a
     - family_path: skills/architecture
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: event-driven-design
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/architecture/event-driven-design.contract.yaml
       version: 0.1.0
-      sha256: bb307f80c98d1025
+      sha256: dc9b0e0f6a905959
     - family_path: skills/architecture
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: micro-frontend
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/architecture/micro-frontend.contract.yaml
       version: 0.1.0
-      sha256: 44a689f2fa36ba98
+      sha256: d6ac666d6471c08b
     - family_path: skills/architecture
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: ports-and-adapters
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/architecture/ports-and-adapters.contract.yaml
       version: 0.1.0
-      sha256: c13102d7546c4525
+      sha256: 1aee334a025356a5
     - family_path: skills/architecture
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: service-design
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/architecture/service-design.contract.yaml
       version: 0.1.0
-      sha256: 7f6346dd2f339704
+      sha256: 28216867d2bab75f
     - family_path: skills/architecture
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: systems-thinking
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/architecture/systems-thinking.contract.yaml
       version: 0.1.0
-      sha256: 4f2c7a7ebf088aa1
+      sha256: 8672485a4003e66e
     - family_path: skills/content
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: content-strategy
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/content/content-strategy.contract.yaml
       version: 1.0.0
-      sha256: 182921169d3921e1
+      sha256: bdf0695e299aa5f9
     - family_path: skills/content
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: copywriting
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/content/copywriting.contract.yaml
       version: 1.0.0
-      sha256: 5b0f48d026d8374b
+      sha256: 9299686bc5ae9909
     - family_path: skills/content
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: cro
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/content/cro.contract.yaml
       version: 1.0.0
-      sha256: d876aacd4ac53be9
+      sha256: 7bdf0cf23927bf61
     - family_path: skills/context
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: context-engineering
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/context/context-engineering.contract.yaml
       version: 0.1.0
-      sha256: 34daded3b56e105d
+      sha256: cdfa969a599ebdb5
     - family_path: skills/context
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: context-manager
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/context/context-manager.contract.yaml
       version: 0.1.0
-      sha256: 30e5209b4c3dc170
+      sha256: b69b873c70ae056c
     - family_path: skills/context
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: prompt-optimizer
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/context/prompt-optimizer.contract.yaml
       version: 0.1.0
-      sha256: 03ca4b96f08d119e
+      sha256: 1cae2621cbf53561
     - family_path: skills/context
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: response-contract
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/context/response-contract.contract.yaml
       version: 0.1.0
-      sha256: 635b308915c34581
+      sha256: a0396584a1e9e6a9
     - family_path: skills/design
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: accessibility
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/design/accessibility.contract.yaml
       version: 0.1.0
-      sha256: 30e4235087db0f98
+      sha256: 153fa8cabebba9a4
     - family_path: skills/design
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: adaptive-component-design
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/design/adaptive-component-design.contract.yaml
       version: 1.1.0
-      sha256: 1ce6838618a0e370
+      sha256: 9712a739155d4538
     - family_path: skills/design
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: collection-discovery-design
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/design/collection-discovery-design.contract.yaml
       version: 1.0.0
-      sha256: 0666b2e1565f0222
+      sha256: 5f74049f2994696a
     - family_path: skills/design
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: color-theory
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/design/color-theory.contract.yaml
       version: 1.0.0
-      sha256: edf1f61dcbc0ccd0
+      sha256: f9dc819af0f5a044
     - family_path: skills/design
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: component-family-design
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/design/component-family-design.contract.yaml
       version: 1.0.0
-      sha256: c8cb2e979d3f1828
+      sha256: c6d8c536a6d4a89e
     - family_path: skills/design
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: composition
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/design/composition.contract.yaml
       version: 1.0.0
-      sha256: 35001185a50a61de
+      sha256: 4c201c759437a343
     - family_path: skills/design
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: dark-light-theming
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/design/dark-light-theming.contract.yaml
       version: 1.0.0
-      sha256: 7664f35f61f4a8d8
+      sha256: ce4459be0d4e910c
     - family_path: skills/design
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: design-brand
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/design/design-brand.contract.yaml
       version: 1.0.0
-      sha256: 121030b8887edea1
+      sha256: 21b84b099039d6b5
     - family_path: skills/design
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: design-depth
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/design/design-depth.contract.yaml
       version: 2.1.0
-      sha256: a01e1dde59231eff
+      sha256: 3e7e9b2e77d272cb
     - family_path: skills/design
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: design-foundation
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/design/design-foundation.contract.yaml
       version: 1.0.0
-      sha256: 0a8cf5fe4988f439
+      sha256: 4016c968b0581849
     - family_path: skills/design
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: design-genre
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/design/design-genre.contract.yaml
       version: 1.1.0
-      sha256: d73fe29c21235f0a
+      sha256: fa5c3071702adf32
     - family_path: skills/design
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: design-interaction
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/design/design-interaction.contract.yaml
       version: 1.0.0
-      sha256: 3e475671782654db
+      sha256: 335c496268827ff1
     - family_path: skills/design
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: design-layout
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/design/design-layout.contract.yaml
       version: 2.0.1
-      sha256: 27b01c7878b0f9f1
+      sha256: 1bdb32af4fdcf004
     - family_path: skills/design
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: design-strategy
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/design/design-strategy.contract.yaml
       version: 1.1.0
-      sha256: 6c33144e41d5a88c
+      sha256: d14f692e6345f027
     - family_path: skills/design
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: design-system
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/design/design-system.contract.yaml
       version: 1.0.0
-      sha256: 16940add74710b51
+      sha256: 8ccd45fbd0b36749
     - family_path: skills/design
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: design-visual
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/design/design-visual.contract.yaml
       version: 1.1.0
-      sha256: 9febc31e92d64275
+      sha256: 716fe79b6c134235
     - family_path: skills/design
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: iconography
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/design/iconography.contract.yaml
       version: 1.0.0
-      sha256: 7c479047c00360dd
+      sha256: c6f5bf56e88c84a0
     - family_path: skills/design
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: information-architecture
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/design/information-architecture.contract.yaml
       version: 1.0.0
-      sha256: c8df9aab850240aa
+      sha256: 8d0dbdb764c4267e
     - family_path: skills/design
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: macrostructures
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/design/macrostructures.contract.yaml
       version: 1.0.0
-      sha256: a29f568650d8705f
+      sha256: 86858ef782bd7879
     - family_path: skills/design
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: master-design
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/design/master-design.contract.yaml
       version: 0.2.0
-      sha256: 20301b034cd72c65
+      sha256: ce6cda957f258c96
     - family_path: skills/design
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: motion-design
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/design/motion-design.contract.yaml
       version: 1.0.0
-      sha256: b6f3ccea3038e3be
+      sha256: 23f57b5beb4a90a7
     - family_path: skills/design
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: readability
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/design/readability.contract.yaml
       version: 1.0.0
-      sha256: ca85bb9baaac93c9
+      sha256: a5587a3bdc2e3125
     - family_path: skills/design
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: responsiveness
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/design/responsiveness.contract.yaml
       version: 1.0.0
-      sha256: 25c4117a779bf475
+      sha256: cffe60394403bbb8
     - family_path: skills/design
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: spacing
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/design/spacing.contract.yaml
       version: 1.0.0
-      sha256: 2a531399366a2a5b
+      sha256: 50940268cd32fa31
     - family_path: skills/design
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: typography
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/design/typography.contract.yaml
       version: 1.0.0
-      sha256: 97ee42a254869d3d
+      sha256: ecd0ff1835a97920
     - family_path: skills/design
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: ux-psychology
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/design/ux-psychology.contract.yaml
       version: 0.1.0
-      sha256: 3a83b34c2944567d
+      sha256: 93d22afff6e7f2e9
     - family_path: skills/design
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: ux-ui-patterns
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/design/ux-ui-patterns.contract.yaml
       version: 1.0.0
-      sha256: a9597b3298f2b243
+      sha256: 61ec5d463d0deb11
     - family_path: skills/design
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: visual-hierarchy
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/design/visual-hierarchy.contract.yaml
       version: 1.0.0
-      sha256: 07edcbaf7790f1b4
+      sha256: e7a725b26993e6bc
     - family_path: skills/engineering
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: data-modeling
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/engineering/data-modeling.contract.yaml
       version: 1.0.0
-      sha256: 5996b3b346880e3b
+      sha256: 7b6b307dddedcea7
     - family_path: skills/engineering
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: git-workflow
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/engineering/git-workflow.contract.yaml
       version: 0.1.0
-      sha256: 79259535170b5086
+      sha256: 232a812a3bd2685f
     - family_path: skills/engineering
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: implementation-context-discovery
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/engineering/implementation-context-discovery.contract.yaml
       version: 1.1.0
-      sha256: 71200a1217d33f22
+      sha256: e7d3eeedf99c0400
     - family_path: skills/engineering
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: master-engineer
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/engineering/master-engineer.contract.yaml
       version: 0.1.0
-      sha256: d4f17ba0b6375de5
+      sha256: 48b7f8a1b3f25683
     - family_path: skills/engineering
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: plan
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/engineering/plan.contract.yaml
       version: 0.1.0
-      sha256: 3f614bcda30da872
+      sha256: 5211a100814ddf93
     - family_path: skills/engineering
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: refactoring
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/engineering/refactoring.contract.yaml
       version: 0.1.0
-      sha256: 9e0af0d731c96fef
+      sha256: ae9ab3c049ae87a8
     - family_path: skills/engineering
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: spike
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/engineering/spike.contract.yaml
       version: 0.1.0
-      sha256: a0148df0f2158d05
+      sha256: 3e7081b91bbe2dda
     - family_path: skills/engineering
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: technical-debt-governance
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/engineering/technical-debt-governance.contract.yaml
       version: 1.0.0
-      sha256: f287a24e23791f66
+      sha256: 0c85bd447b6b54ba
     - family_path: skills/engineering
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: test-driven-development
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/engineering/test-driven-development.contract.yaml
       version: 0.1.0
-      sha256: c30dc8f51b30261b
+      sha256: 635b47d758cbdbcc
     - family_path: skills/governance
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: language-standards
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/governance/language-standards.contract.yaml
       version: 0.1.0
-      sha256: a3510a723844ebcd
+      sha256: ae275d5f1a46bf04
     - family_path: skills/governance
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: rule-manager
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/governance/rule-manager.contract.yaml
       version: 0.1.0
-      sha256: 094ebc7710fa665f
+      sha256: 33938296fd5fac8f
     - family_path: skills/meta
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: role-switcher
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/meta/role-switcher.contract.yaml
       version: 0.1.0
-      sha256: b4f9163d6afecd27
+      sha256: 98070db532d3fc60
     - family_path: skills/meta
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: workflow-router
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/meta/workflow-router.contract.yaml
       version: 0.2.1
-      sha256: 3b254a53795c7034
+      sha256: f6666cd8bab44001
     - family_path: skills/product
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: business-value-alignment
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/product/business-value-alignment.contract.yaml
       version: 1.0.0
-      sha256: 18c1adb41c1d549d
+      sha256: fb5c1c629210b1cd
     - family_path: skills/product
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: decision-making
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/product/decision-making.contract.yaml
       version: 1.0.0
-      sha256: 4d94147cf37061ad
+      sha256: c839d2b7413d737c
     - family_path: skills/product
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: delivery-work-breakdown
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/product/delivery-work-breakdown.contract.yaml
       version: 1.0.0
-      sha256: 3a6751fdf3a61a51
+      sha256: 74497c19e6d447e8
     - family_path: skills/product
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: experiment-design
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/product/experiment-design.contract.yaml
       version: 1.0.0
-      sha256: f2d38544f4f0a270
+      sha256: e6339870a0d07324
     - family_path: skills/product
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: product-manager
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/product/product-manager.contract.yaml
       version: 0.1.0
-      sha256: 3fb2255262e477e3
+      sha256: 9584e4773945c697
     - family_path: skills/product
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: product-requirements
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/product/product-requirements.contract.yaml
       version: 0.2.0
-      sha256: 83d4d8bc01ffab01
+      sha256: b9e3454223247898
     - family_path: skills/product
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: user-research
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/product/user-research.contract.yaml
       version: 1.0.0
-      sha256: 43e219a11bf1bb7f
+      sha256: b7e3deba11977113
     - family_path: skills/quality
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: architecture-review
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/quality/architecture-review.contract.yaml
       version: 0.1.0
-      sha256: 4d5ebe30dd17f8ab
+      sha256: 237b402391c648d8
     - family_path: skills/quality
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: brand-identity-review
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/quality/brand-identity-review.contract.yaml
       version: 0.1.0
-      sha256: 0642b84ed49e7d06
+      sha256: 7c40c5cd0d579083
     - family_path: skills/quality
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: decision-provenance
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/quality/decision-provenance.contract.yaml
       version: 1.0.0
-      sha256: 0c45b4258ca0ac3d
+      sha256: ebc516e08f9aaca0
     - family_path: skills/quality
       metadata_fields:
       - id
+      - kind
       - path
-      - sha256
-      - version
-      id: design-refinement
-      path: contracts/skills/quality/design-refinement.contract.yaml
-      version: 1.2.0
-      sha256: cab9a3b1dd826566
-    - family_path: skills/quality
-      metadata_fields:
-      - id
-      - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: design-review
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/quality/design-review.contract.yaml
       version: 0.2.0
-      sha256: 3a58862c2a7a3a83
+      sha256: 74837a0300a429e2
     - family_path: skills/quality
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: ethics-responsible-ai
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/quality/ethics-responsible-ai.contract.yaml
       version: 0.1.0
-      sha256: 7df8b8b20709c4ac
+      sha256: 2883cc6552e8e857
     - family_path: skills/quality
       metadata_fields:
       - id
+      - kind
       - path
-      - sha256
-      - version
-      id: redesign-workflow
-      path: contracts/skills/quality/redesign-workflow.contract.yaml
-      version: 2.2.0
-      sha256: 8dc020620b214e49
-    - family_path: skills/quality
-      metadata_fields:
-      - id
-      - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: resilience-engineering
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/quality/resilience-engineering.contract.yaml
       version: 0.1.0
-      sha256: 91803fb97d5b8925
+      sha256: fc76c0a3938e6d71
     - family_path: skills/quality
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: skill-eval
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/quality/skill-eval.contract.yaml
       version: 0.1.0
-      sha256: 5066982a1e2daa9e
+      sha256: 1f296c246c0d81aa
     - family_path: skills/quality
       metadata_fields:
       - id
+      - kind
       - path
-      - sha256
-      - version
-      id: skill-evolution
-      path: contracts/skills/quality/skill-evolution.contract.yaml
-      version: 1.0.0
-      sha256: e3845ef4ee54bd64
-    - family_path: skills/quality
-      metadata_fields:
-      - id
-      - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: systematic-debugging
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/quality/systematic-debugging.contract.yaml
       version: 0.1.0
-      sha256: 7075c7f6b16a5dc2
+      sha256: 9dfd706866275295
     - family_path: skills/quality
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: web-performance
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/quality/web-performance.contract.yaml
       version: 1.0.0
-      sha256: d6714f6aef7973a3
+      sha256: b94235dcced72e4f
     - family_path: skills/runtime
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: incident-response
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/runtime/incident-response.contract.yaml
       version: 0.1.0
-      sha256: 4890e645901ffaff
+      sha256: b2f15d6b365cd846
     - family_path: skills/runtime
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: model-selection
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/runtime/model-selection.contract.yaml
       version: 0.1.0
-      sha256: 6f14dc7eadb81dff
+      sha256: da702dd39e360c10
     - family_path: skills/runtime
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: native-ai-engineer
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/runtime/native-ai-engineer.contract.yaml
       version: 0.1.0
-      sha256: 76d4efc4571583ce
+      sha256: f015cb488cc355cc
     - family_path: skills/runtime
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: native-ai-runtime-agent
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/runtime/native-ai-runtime-agent.contract.yaml
       version: 0.1.0
-      sha256: b15c61e360ba480d
+      sha256: 1d60f0c6b9672a74
     - family_path: skills/runtime
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: native-ai-runtime-ops
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/runtime/native-ai-runtime-ops.contract.yaml
       version: 0.1.0
-      sha256: a41e2df8f5edae5a
+      sha256: 723cea5ac4412da9
     - family_path: skills/runtime
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: observability-design
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/runtime/observability-design.contract.yaml
       version: 0.1.0
-      sha256: 33b4d5cdcd3f5dbe
+      sha256: 6a56f440d8d565bd
     - family_path: skills/runtime
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: onboarding
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/runtime/onboarding.contract.yaml
       version: 0.1.0
-      sha256: 4f726c72b56e18f4
+      sha256: 78077c7dc0f1cf66
     - family_path: skills/runtime
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: profile-bootstrap
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/runtime/profile-bootstrap.contract.yaml
       version: 0.1.0
-      sha256: 734de81ec1287008
+      sha256: 6e53d8009a7e8739
     - family_path: skills/security
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: security-review
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/security/security-review.contract.yaml
       version: 0.1.0
-      sha256: eca1e0d3583bf6f7
+      sha256: cf0d82a8c580c938
     - family_path: skills/security
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: threat-modeling
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/security/threat-modeling.contract.yaml
       version: 0.1.0
-      sha256: 0034147663d0feab
+      sha256: 59e732bb4f885393
     - family_path: skills/visual-thinking
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
       - version
       id: diagram-architect
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/visual-thinking/diagram-architect.contract.yaml
       version: 0.1.0
-      sha256: f20b9ea0499e133e
+      sha256: 53ded905e6499195
     - family_path: tests
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
+      - version
       id: architecture-review
+      kind: behavioral_test_contract
+      schema_version: 1.0.0
+      schema_path: schemas/behavioral-test-contract.schema.yaml
       path: contracts/tests/architecture-review.test.yaml
-      sha256: 7f5724d56e047306
+      version: 0.1.0
+      sha256: ead10ed58cc67d25
     - family_path: tests
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
+      - version
       id: collection-discovery-design
+      kind: behavioral_test_contract
+      schema_version: 1.0.0
+      schema_path: schemas/behavioral-test-contract.schema.yaml
       path: contracts/tests/collection-discovery-design.test.yaml
-      sha256: bd2e956891836544
+      version: 1.0.0
+      sha256: a6259b584521b083
     - family_path: tests
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
+      - version
       id: delivery-work-breakdown
+      kind: behavioral_test_contract
+      schema_version: 1.0.0
+      schema_path: schemas/behavioral-test-contract.schema.yaml
       path: contracts/tests/delivery-work-breakdown.test.yaml
-      sha256: 2d6e68deba5070eb
+      version: 1.0.0
+      sha256: 4b27f8eaeff45401
     - family_path: tests
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
+      - version
       id: design-review
+      kind: behavioral_test_contract
+      schema_version: 1.0.0
+      schema_path: schemas/behavioral-test-contract.schema.yaml
       path: contracts/tests/design-review.test.yaml
-      sha256: 0dd53425ba783d61
+      version: 0.2.0
+      sha256: 78c71ef846e14378
     - family_path: tests
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
+      - version
       id: implementation-context-discovery
+      kind: behavioral_test_contract
+      schema_version: 1.0.0
+      schema_path: schemas/behavioral-test-contract.schema.yaml
       path: contracts/tests/implementation-context-discovery.test.yaml
-      sha256: c7960f0e5a48c712
+      version: 1.1.0
+      sha256: c08ea7c42289676d
     - family_path: tests
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
+      - version
       id: prompt-optimizer
+      kind: behavioral_test_contract
+      schema_version: 1.0.0
+      schema_path: schemas/behavioral-test-contract.schema.yaml
       path: contracts/tests/prompt-optimizer.test.yaml
-      sha256: a120ba66597f2d03
+      version: 0.1.0
+      sha256: 71849741dc444db0
     - family_path: tests
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
+      - version
       id: response-contract
+      kind: behavioral_test_contract
+      schema_version: 1.0.0
+      schema_path: schemas/behavioral-test-contract.schema.yaml
       path: contracts/tests/response-contract.test.yaml
-      sha256: a0f04cd8de5bec72
+      version: 0.1.0
+      sha256: 3698bd8954fdfe67
     - family_path: tests
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
+      - version
       id: role-switcher
+      kind: behavioral_test_contract
+      schema_version: 1.0.0
+      schema_path: schemas/behavioral-test-contract.schema.yaml
       path: contracts/tests/role-switcher.test.yaml
-      sha256: 3a8d9ff9a20b276f
+      version: 0.1.0
+      sha256: 8addc977627a7ac8
     - family_path: tests
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
+      - version
       id: skill-evolution
+      kind: behavioral_test_contract
+      schema_version: 1.0.0
+      schema_path: schemas/behavioral-test-contract.schema.yaml
       path: contracts/tests/skill-evolution.test.yaml
-      sha256: 8ccf1ec5b4c92ff0
+      version: 1.0.0
+      sha256: 5524fa8025599be6
     - family_path: tests
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
+      - version
       id: systematic-debugging
+      kind: behavioral_test_contract
+      schema_version: 1.0.0
+      schema_path: schemas/behavioral-test-contract.schema.yaml
       path: contracts/tests/systematic-debugging.test.yaml
-      sha256: a5f6b0cf8f521c40
+      version: 0.1.0
+      sha256: 6cfc28d8085105f2
     - family_path: workflows
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
+      - version
       id: bugfix
+      kind: workflow_contract
+      schema_version: 1.0.0
+      schema_path: schemas/workflow-contract.schema.yaml
       path: contracts/workflows/bugfix.contract.yaml
-      sha256: 32973e22cff60007
+      version: 0.3.0
+      sha256: 7170202fc3d4fe4e
     - family_path: workflows
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
+      - version
       id: code-review
+      kind: workflow_contract
+      schema_version: 1.0.0
+      schema_path: schemas/workflow-contract.schema.yaml
       path: contracts/workflows/code-review.contract.yaml
-      sha256: 1ae47123b2903d9d
+      version: 0.3.0
+      sha256: 9726a72d4a4790fb
     - family_path: workflows
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
+      - version
       id: deployment
+      kind: workflow_contract
+      schema_version: 1.0.0
+      schema_path: schemas/workflow-contract.schema.yaml
       path: contracts/workflows/deployment.contract.yaml
-      sha256: 7e27823420e2dadd
+      version: 0.2.0
+      sha256: 24ec047b3b2f3526
     - family_path: workflows
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
+      - version
+      id: design-refinement
+      kind: workflow_contract
+      schema_version: 1.0.0
+      schema_path: schemas/workflow-contract.schema.yaml
+      path: contracts/workflows/design-refinement.contract.yaml
+      version: 1.2.0
+      sha256: ce7b28433d0c145f
+    - family_path: workflows
+      metadata_fields:
+      - id
+      - kind
+      - path
+      - schema_path
+      - schema_version
+      - sha256
+      - version
+      id: development-loop
+      kind: workflow_contract
+      schema_version: 1.0.0
+      schema_path: schemas/workflow-contract.schema.yaml
+      path: contracts/workflows/development-loop.contract.yaml
+      version: 1.0.0
+      sha256: b663f9671dfb9043
+    - family_path: workflows
+      metadata_fields:
+      - id
+      - kind
+      - path
+      - schema_path
+      - schema_version
+      - sha256
+      - version
       id: new-feature
+      kind: workflow_contract
+      schema_version: 1.0.0
+      schema_path: schemas/workflow-contract.schema.yaml
       path: contracts/workflows/new-feature.contract.yaml
-      sha256: 756d8a87d77da097
+      version: 0.4.0
+      sha256: 80308d777e211114
     - family_path: workflows
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
+      - version
       id: product-development
+      kind: workflow_contract
+      schema_version: 1.0.0
+      schema_path: schemas/workflow-contract.schema.yaml
       path: contracts/workflows/product-development.contract.yaml
-      sha256: 2d48360f572b0209
+      version: 0.3.0
+      sha256: ca0781c8e6aae48f
     - family_path: workflows
       metadata_fields:
       - id
+      - kind
       - path
+      - schema_path
+      - schema_version
       - sha256
+      - version
+      id: redesign-workflow
+      kind: workflow_contract
+      schema_version: 1.0.0
+      schema_path: schemas/workflow-contract.schema.yaml
+      path: contracts/workflows/redesign-workflow.contract.yaml
+      version: 2.2.0
+      sha256: 9f5a050c6d1992a7
+    - family_path: workflows
+      metadata_fields:
+      - id
+      - kind
+      - path
+      - schema_path
+      - schema_version
+      - sha256
+      - version
+      id: skill-evolution
+      kind: workflow_contract
+      schema_version: 1.0.0
+      schema_path: schemas/workflow-contract.schema.yaml
+      path: contracts/workflows/skill-evolution.contract.yaml
+      version: 1.0.0
+      sha256: aa4b42c9f7d727a0
+    - family_path: workflows
+      metadata_fields:
+      - id
+      - kind
+      - path
+      - schema_path
+      - schema_version
+      - sha256
+      - version
       id: spec-driven
+      kind: workflow_contract
+      schema_version: 1.0.0
+      schema_path: schemas/workflow-contract.schema.yaml
       path: contracts/workflows/spec-driven.contract.yaml
-      sha256: 79eec0967fa75ad0
+      version: 0.1.0
+      sha256: 80518c367d002130
   anomalies:
-    invalid_or_ambiguous_documents: []
+    invalid_or_ambiguous_documents:
+    - path: contracts/compatibility/contract-path-aliases.contract.yaml
+      status: ambiguous_contract_root
+      detail: null
     path_root_mismatches: []
     missing_contract_ids: []
     missing_contract_versions: []
@@ -2812,10 +3371,10 @@ contract_schema_discovery:
         path: contracts/tests/role-switcher.test.yaml
     - contract_id: skill-evolution
       occurrences:
-      - family: skill
-        path: contracts/skills/quality/skill-evolution.contract.yaml
       - family: behavioral_test
         path: contracts/tests/skill-evolution.test.yaml
+      - family: workflow
+        path: contracts/workflows/skill-evolution.contract.yaml
     - contract_id: systematic-debugging
       occurrences:
       - family: skill
@@ -2823,10 +3382,19 @@ contract_schema_discovery:
       - family: behavioral_test
         path: contracts/tests/systematic-debugging.test.yaml
   artifacts:
+  - path: contracts/compatibility/contract-path-aliases.contract.yaml
+    path_family: unclassified
+    expected_id: contract-path-aliases
+    document_root_keys:
+    - compatibility_manifest
+    - contract_schema
+    parse_status: ambiguous_contract_root
+    candidate_contract_roots: []
   - path: contracts/ports/capability-composition/design-strategy-composition.port.yaml
     path_family: port
     expected_id: design-strategy-composition
     document_root_keys:
+    - contract_schema
     - port_contract
     parse_status: parsed
     contract_root: port_contract
@@ -2945,6 +3513,7 @@ contract_schema_discovery:
     path_family: port
     expected_id: interaction-composition
     document_root_keys:
+    - contract_schema
     - port_contract
     parse_status: parsed
     contract_root: port_contract
@@ -3063,6 +3632,7 @@ contract_schema_discovery:
     path_family: port
     expected_id: layout-composition
     document_root_keys:
+    - contract_schema
     - port_contract
     parse_status: parsed
     contract_root: port_contract
@@ -3181,6 +3751,7 @@ contract_schema_discovery:
     path_family: port
     expected_id: visual-direction-composition
     document_root_keys:
+    - contract_schema
     - port_contract
     parse_status: parsed
     contract_root: port_contract
@@ -3299,6 +3870,7 @@ contract_schema_discovery:
     path_family: port
     expected_id: agent-runtime
     document_root_keys:
+    - contract_schema
     - port_contract
     parse_status: parsed
     contract_root: port_contract
@@ -3417,6 +3989,7 @@ contract_schema_discovery:
     path_family: port
     expected_id: approval-decision
     document_root_keys:
+    - contract_schema
     - port_contract
     parse_status: parsed
     contract_root: port_contract
@@ -3542,6 +4115,7 @@ contract_schema_discovery:
     path_family: port
     expected_id: authorization-assessment
     document_root_keys:
+    - contract_schema
     - port_contract
     parse_status: parsed
     contract_root: port_contract
@@ -3660,6 +4234,7 @@ contract_schema_discovery:
     path_family: port
     expected_id: context-resolution
     document_root_keys:
+    - contract_schema
     - port_contract
     parse_status: parsed
     contract_root: port_contract
@@ -3778,6 +4353,7 @@ contract_schema_discovery:
     path_family: port
     expected_id: execution-run-management
     document_root_keys:
+    - contract_schema
     - port_contract
     parse_status: parsed
     contract_root: port_contract
@@ -3903,6 +4479,7 @@ contract_schema_discovery:
     path_family: port
     expected_id: review-management
     document_root_keys:
+    - contract_schema
     - port_contract
     parse_status: parsed
     contract_root: port_contract
@@ -4028,6 +4605,7 @@ contract_schema_discovery:
     path_family: port
     expected_id: rule-evaluation
     document_root_keys:
+    - contract_schema
     - port_contract
     parse_status: parsed
     contract_root: port_contract
@@ -4146,6 +4724,7 @@ contract_schema_discovery:
     path_family: port
     expected_id: rule-resolution
     document_root_keys:
+    - contract_schema
     - port_contract
     parse_status: parsed
     contract_root: port_contract
@@ -4264,6 +4843,7 @@ contract_schema_discovery:
     path_family: port
     expected_id: skill-resolution
     document_root_keys:
+    - contract_schema
     - port_contract
     parse_status: parsed
     contract_root: port_contract
@@ -4382,6 +4962,7 @@ contract_schema_discovery:
     path_family: port
     expected_id: workflow-coordination
     document_root_keys:
+    - contract_schema
     - port_contract
     parse_status: parsed
     contract_root: port_contract
@@ -4500,6 +5081,7 @@ contract_schema_discovery:
     path_family: port
     expected_id: code-operation-execution
     document_root_keys:
+    - contract_schema
     - port_contract
     parse_status: parsed
     contract_root: port_contract
@@ -4618,6 +5200,7 @@ contract_schema_discovery:
     path_family: port
     expected_id: database
     document_root_keys:
+    - contract_schema
     - port_contract
     parse_status: parsed
     contract_root: port_contract
@@ -4736,6 +5319,7 @@ contract_schema_discovery:
     path_family: port
     expected_id: model-inference
     document_root_keys:
+    - contract_schema
     - port_contract
     parse_status: parsed
     contract_root: port_contract
@@ -4854,6 +5438,7 @@ contract_schema_discovery:
     path_family: runtime
     expected_id: agents-md
     document_root_keys:
+    - contract_schema
     - runtime_contract
     parse_status: parsed
     contract_root: runtime_contract
@@ -4928,6 +5513,7 @@ contract_schema_discovery:
     path_family: runtime
     expected_id: core-source
     document_root_keys:
+    - contract_schema
     - runtime_contract
     parse_status: parsed
     contract_root: runtime_contract
@@ -4965,89 +5551,11 @@ contract_schema_discovery:
     extension_key_paths: []
     expected_contract_root: runtime_contract
     root_matches_path_family: true
-  - path: contracts/runtime/development-loop.contract.yaml
-    path_family: runtime
-    expected_id: development-loop
-    document_root_keys:
-    - runtime_contract
-    parse_status: parsed
-    contract_root: runtime_contract
-    identifier_field: id
-    contract_id: development-loop
-    contract_version: 1.0.0
-    declared_type: null
-    declared_kind: null
-    root_fields:
-    - adapter_requirements
-    - description
-    - id
-    - phases
-    - purpose
-    - quality_gates
-    - shortcuts
-    - transitions
-    - version
-    root_field_shapes:
-      adapter_requirements:
-        value_type: mapping
-        mapping_keys:
-        - approval_mechanism
-        - ci_integration
-        - deployment_strategy
-        - notification_channels
-        - rollback_mechanism
-      description:
-        value_type: string
-      id:
-        value_type: string
-      phases:
-        value_type: sequence
-        item_type_counts:
-          mapping: 7
-        mapping_item_count: 7
-        mapping_item_field_counts:
-          activities: 7
-          exit_gate: 7
-          id: 7
-          outputs: 7
-          purpose: 7
-          rules: 7
-      purpose:
-        value_type: string
-      quality_gates:
-        value_type: sequence
-        item_type_counts:
-          string: 7
-      shortcuts:
-        value_type: sequence
-        item_type_counts:
-          mapping: 2
-        mapping_item_count: 2
-        mapping_item_field_counts:
-          condition: 2
-          name: 2
-          skip_phases: 2
-      transitions:
-        value_type: sequence
-        item_type_counts:
-          mapping: 8
-        mapping_item_count: 8
-        mapping_item_field_counts:
-          condition: 8
-          from: 8
-          note: 2
-          to: 8
-      version:
-        value_type: string
-    extension_key_paths:
-    - adapter_requirements
-    - transitions
-    expected_contract_root: runtime_contract
-    root_matches_path_family: true
   - path: contracts/runtime/hook.contract.yaml
     path_family: runtime
     expected_id: hook
     document_root_keys:
+    - contract_schema
     - runtime_contract
     parse_status: parsed
     contract_root: runtime_contract
@@ -5116,6 +5624,7 @@ contract_schema_discovery:
     path_family: runtime
     expected_id: memory
     document_root_keys:
+    - contract_schema
     - runtime_contract
     parse_status: parsed
     contract_root: runtime_contract
@@ -5192,6 +5701,7 @@ contract_schema_discovery:
     path_family: runtime
     expected_id: sop
     document_root_keys:
+    - contract_schema
     - runtime_contract
     parse_status: parsed
     contract_root: runtime_contract
@@ -5269,6 +5779,7 @@ contract_schema_discovery:
     path_family: runtime
     expected_id: tool-registration
     document_root_keys:
+    - contract_schema
     - runtime_contract
     parse_status: parsed
     contract_root: runtime_contract
@@ -5345,6 +5856,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: adr
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -5406,6 +5918,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: ai-system-design
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -5468,6 +5981,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: api-contract
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -5530,6 +6044,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: design-patterns
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -5591,6 +6106,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: domain-driven-design
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -5652,6 +6168,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: event-driven-design
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -5714,6 +6231,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: micro-frontend
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -5776,6 +6294,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: ports-and-adapters
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -5838,6 +6357,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: service-design
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -5900,6 +6420,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: systems-thinking
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -5961,6 +6482,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: content-strategy
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -6014,6 +6536,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: copywriting
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -6067,6 +6590,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: cro
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -6120,6 +6644,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: context-engineering
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -6182,6 +6707,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: context-manager
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -6244,6 +6770,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: prompt-optimizer
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -6305,6 +6832,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: response-contract
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -6366,6 +6894,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: accessibility
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -6427,6 +6956,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: adaptive-component-design
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -6560,6 +7090,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: collection-discovery-design
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -6699,6 +7230,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: color-theory
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -6761,6 +7293,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: component-family-design
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -6875,6 +7408,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: composition
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -6928,6 +7462,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: dark-light-theming
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -6981,6 +7516,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: design-brand
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -7040,6 +7576,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: design-depth
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -7133,6 +7670,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: design-foundation
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -7186,6 +7724,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: design-genre
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -7265,6 +7804,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: design-interaction
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -7320,6 +7860,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: design-layout
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -7375,6 +7916,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: design-strategy
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -7431,6 +7973,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: design-system
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -7484,6 +8027,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: design-visual
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -7567,6 +8111,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: iconography
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -7629,6 +8174,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: information-architecture
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -7682,6 +8228,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: macrostructures
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -7735,6 +8282,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: master-design
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -7836,6 +8384,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: motion-design
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -7889,6 +8438,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: readability
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -7942,6 +8492,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: responsiveness
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -7995,6 +8546,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: spacing
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -8057,6 +8609,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: typography
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -8119,6 +8672,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: ux-psychology
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -8180,6 +8734,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: ux-ui-patterns
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -8233,6 +8788,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: visual-hierarchy
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -8286,6 +8842,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: data-modeling
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -8339,6 +8896,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: git-workflow
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -8404,6 +8962,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: implementation-context-discovery
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -8572,6 +9131,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: master-engineer
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -8632,6 +9192,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: plan
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -8692,6 +9253,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: refactoring
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -8753,6 +9315,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: spike
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -8813,6 +9376,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: technical-debt-governance
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -8866,6 +9430,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: test-driven-development
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -8927,6 +9492,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: language-standards
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -8989,6 +9555,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: rule-manager
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -9051,6 +9618,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: role-switcher
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -9112,6 +9680,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: workflow-router
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -9198,6 +9767,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: business-value-alignment
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -9260,6 +9830,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: decision-making
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -9313,6 +9884,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: delivery-work-breakdown
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -9434,6 +10006,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: experiment-design
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -9516,6 +10089,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: product-manager
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -9578,6 +10152,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: product-requirements
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -9656,6 +10231,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: user-research
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -9709,6 +10285,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: architecture-review
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -9771,6 +10348,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: brand-identity-review
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -9871,6 +10449,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: decision-provenance
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -9963,150 +10542,11 @@ contract_schema_discovery:
     extension_key_paths: []
     expected_contract_root: skill_contract
     root_matches_path_family: true
-  - path: contracts/skills/quality/design-refinement.contract.yaml
-    path_family: skill
-    expected_id: design-refinement
-    document_root_keys:
-    - skill_contract
-    parse_status: parsed
-    contract_root: skill_contract
-    identifier_field: id
-    contract_id: design-refinement
-    contract_version: 1.2.0
-    declared_type: workflow
-    declared_kind: null
-    root_fields:
-    - adapter_requirements
-    - capability
-    - category
-    - change_budget_contract
-    - completion_contract
-    - defect_diagnosis_contract
-    - id
-    - inputs
-    - learning_promotion_policy
-    - outputs
-    - purpose
-    - quality_gates
-    - refinement_lock_contract
-    - required_phases
-    - roles
-    - route_contract
-    - skill_load_order
-    - type
-    - verification_contract
-    - version
-    root_field_shapes:
-      adapter_requirements:
-        value_type: mapping
-        mapping_keys:
-        - artifact_access_method
-        - before_after_manifest_method
-        - change_budget_enforcement
-        - component_fitness_specialist
-        - eval_method
-        - full_redesign_fallback
-        - interaction_probe_method
-        - patch_method
-        - skill_evolution_contract
-        - source_repository_write_policy
-        - visual_inspection_method
-      capability:
-        value_type: string
-      category:
-        value_type: string
-      change_budget_contract:
-        value_type: mapping
-        mapping_keys:
-        - required_fields
-        - rules
-      completion_contract:
-        value_type: mapping
-        mapping_keys:
-        - accepted_when
-        - blocked_when
-      defect_diagnosis_contract:
-        value_type: mapping
-        mapping_keys:
-        - allowed
-        - rules
-      id:
-        value_type: string
-      inputs:
-        value_type: mapping
-        mapping_keys:
-        - optional
-        - required
-      learning_promotion_policy:
-        value_type: mapping
-        mapping_keys:
-        - allowed_verdicts
-        - always_run_after
-        - promotion_requires
-        - shared_skill_must_not_store
-      outputs:
-        value_type: mapping
-        mapping_keys:
-        - allowed
-      purpose:
-        value_type: string
-      quality_gates:
-        value_type: sequence
-        item_type_counts:
-          string: 17
-      refinement_lock_contract:
-        value_type: mapping
-        mapping_keys:
-        - required_fields
-        - rules
-      required_phases:
-        value_type: sequence
-        item_type_counts:
-          mapping: 7
-        mapping_item_count: 7
-        mapping_item_field_counts:
-          description: 7
-          gate: 7
-          id: 7
-          order: 7
-          skills: 7
-      roles:
-        value_type: sequence
-        item_type_counts:
-          string: 6
-      route_contract:
-        value_type: mapping
-        mapping_keys:
-        - evidence_only_when
-        - refinement_requires
-        - route_to_adaptive_component_decision_when
-        - route_to_local_implementation_fix_when
-        - route_to_redesign_when
-      skill_load_order:
-        value_type: sequence
-        item_type_counts:
-          mapping: 5
-        mapping_item_count: 5
-        mapping_item_field_counts:
-          load: 5
-          phase: 5
-      type:
-        value_type: string
-      verification_contract:
-        value_type: mapping
-        mapping_keys:
-        - requires
-        - status_rules
-      version:
-        value_type: string
-    extension_key_paths:
-    - adapter_requirements
-    expected_contract_root: skill_contract
-    root_matches_path_family: true
   - path: contracts/skills/quality/design-review.contract.yaml
     path_family: skill
     expected_id: design-review
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -10213,6 +10653,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: ethics-responsible-ai
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -10271,179 +10712,11 @@ contract_schema_discovery:
     - adapter_requirements
     expected_contract_root: skill_contract
     root_matches_path_family: true
-  - path: contracts/skills/quality/redesign-workflow.contract.yaml
-    path_family: skill
-    expected_id: redesign-workflow
-    document_root_keys:
-    - skill_contract
-    parse_status: parsed
-    contract_root: skill_contract
-    identifier_field: id
-    contract_id: redesign-workflow
-    contract_version: 2.2.0
-    declared_type: workflow
-    declared_kind: null
-    root_fields:
-    - approval_policy
-    - boundary
-    - capability
-    - category
-    - compatibility
-    - concurrent_write_contract
-    - defect_contract
-    - delegation_contract
-    - delivery_contract
-    - id
-    - inputs
-    - iteration_policy
-    - outputs
-    - phases
-    - purpose
-    - quality_gates
-    - review_contract
-    - role_contract
-    - scope_diff_contract
-    - transitions
-    - type
-    - verification_contract
-    - version
-    root_field_shapes:
-      approval_policy:
-        value_type: mapping
-        mapping_keys:
-        - always_requires_approval
-        - autonomous
-        - fully-gated
-        - patch-gated
-        - spec-gated
-      boundary:
-        value_type: mapping
-        mapping_keys:
-        - covers
-        - does_not_cover
-      capability:
-        value_type: string
-      category:
-        value_type: string
-      compatibility:
-        value_type: mapping
-        mapping_keys:
-        - additive_changes
-        - previous_version
-      concurrent_write_contract:
-        value_type: mapping
-        mapping_keys:
-        - contention_policy
-        - drift_behavior
-        - drift_classifications
-        - output
-        - pre_write_rule
-        - prohibitions
-        - required_for
-        - write_lease_fields
-      defect_contract:
-        value_type: mapping
-        mapping_keys:
-        - classes
-        - concurrency_required_fields
-        - design_finding_required_fields
-        - rules
-        - scope_contamination_required_fields
-      delegation_contract:
-        value_type: mapping
-        mapping_keys:
-        - ports
-        - rules
-      delivery_contract:
-        value_type: mapping
-        mapping_keys:
-        - decisions
-        - prohibitions
-      id:
-        value_type: string
-      inputs:
-        value_type: mapping
-        mapping_keys:
-        - definitions
-        - optional
-        - required
-        - validation_rules
-      iteration_policy:
-        value_type: mapping
-        mapping_keys:
-        - concurrent_reversal_limit
-        - count_increment_at
-        - default_max_iterations
-        - on_concurrent_reversal_limit
-        - on_design_exhausted
-        - same_region_patch_limit
-      outputs:
-        value_type: mapping
-        mapping_keys:
-        - conditional
-        - required
-      phases:
-        value_type: mapping
-        mapping_keys:
-        - definitions
-        - required
-      purpose:
-        value_type: string
-      quality_gates:
-        value_type: sequence
-        item_type_counts:
-          string: 25
-      review_contract:
-        value_type: mapping
-        mapping_keys:
-        - coverage_modes
-        - facade
-        - gate_statuses
-        - rules
-        - verdicts
-      role_contract:
-        value_type: mapping
-        mapping_keys:
-        - conditional_slots
-        - required_slots
-        - rules
-      scope_diff_contract:
-        value_type: mapping
-        mapping_keys:
-        - blockers
-        - classifications
-        - output
-        - required_entry_fields
-        - required_for
-        - rules
-      transitions:
-        value_type: sequence
-        item_type_counts:
-          mapping: 19
-        mapping_item_count: 19
-        mapping_item_field_counts:
-          from: 19
-          to: 19
-          when: 11
-      type:
-        value_type: string
-      verification_contract:
-        value_type: mapping
-        mapping_keys:
-        - rules
-        - strategies
-      version:
-        value_type: string
-    extension_key_paths:
-    - compatibility
-    - review_contract.facade
-    - transitions
-    expected_contract_root: skill_contract
-    root_matches_path_family: true
   - path: contracts/skills/quality/resilience-engineering.contract.yaml
     path_family: skill
     expected_id: resilience-engineering
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -10506,6 +10779,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: skill-eval
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -10564,121 +10838,11 @@ contract_schema_discovery:
     - adapter_requirements
     expected_contract_root: skill_contract
     root_matches_path_family: true
-  - path: contracts/skills/quality/skill-evolution.contract.yaml
-    path_family: skill
-    expected_id: skill-evolution
-    document_root_keys:
-    - skill_contract
-    parse_status: parsed
-    contract_root: skill_contract
-    identifier_field: id
-    contract_id: skill-evolution
-    contract_version: 1.0.0
-    declared_type: workflow
-    declared_kind: null
-    root_fields:
-    - adapter_requirements
-    - automatic_promotion_policy
-    - boundary
-    - capability
-    - category
-    - description
-    - generalization_requirements
-    - id
-    - inputs
-    - outputs
-    - quality_gates
-    - required_phases
-    - roles
-    - target_layers
-    - type
-    - version
-    root_field_shapes:
-      adapter_requirements:
-        value_type: mapping
-        mapping_keys:
-        - automatic_learning_review_is_required
-        - branch_and_commit_policy
-        - case_observation_method
-        - eval_runner
-        - patch_method
-        - provenance_storage
-        - source_repository_access
-        - versioning_policy
-      automatic_promotion_policy:
-        value_type: mapping
-        mapping_keys:
-        - default_action
-        - do_not_promote_when
-        - promote_when
-        - run_after
-        - write_behavior
-      boundary:
-        value_type: mapping
-        mapping_keys:
-        - covers
-        - does_not_cover
-      capability:
-        value_type: string
-      category:
-        value_type: string
-      description:
-        value_type: string
-      generalization_requirements:
-        value_type: sequence
-        item_type_counts:
-          string: 7
-      id:
-        value_type: string
-      inputs:
-        value_type: mapping
-        mapping_keys:
-        - optional
-        - required
-      outputs:
-        value_type: mapping
-        mapping_keys:
-        - allowed
-      quality_gates:
-        value_type: sequence
-        item_type_counts:
-          string: 13
-      required_phases:
-        value_type: sequence
-        item_type_counts:
-          mapping: 8
-        mapping_item_count: 8
-        mapping_item_field_counts:
-          gate: 8
-          id: 8
-          order: 8
-          purpose: 8
-      roles:
-        value_type: sequence
-        item_type_counts:
-          string: 4
-      target_layers:
-        value_type: sequence
-        item_type_counts:
-          mapping: 7
-        mapping_item_count: 7
-        mapping_item_field_counts:
-          destination: 7
-          id: 7
-          shared_skill_patch: 7
-          use_when: 7
-      type:
-        value_type: string
-      version:
-        value_type: string
-    extension_key_paths:
-    - adapter_requirements
-    expected_contract_root: skill_contract
-    root_matches_path_family: true
   - path: contracts/skills/quality/systematic-debugging.contract.yaml
     path_family: skill
     expected_id: systematic-debugging
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -10752,6 +10916,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: web-performance
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -10805,6 +10970,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: incident-response
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -10867,6 +11033,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: model-selection
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -10941,6 +11108,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: native-ai-engineer
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -11011,6 +11179,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: native-ai-runtime-agent
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -11072,6 +11241,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: native-ai-runtime-ops
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -11142,6 +11312,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: observability-design
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -11204,6 +11375,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: onboarding
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -11265,6 +11437,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: profile-bootstrap
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -11353,6 +11526,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: security-review
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -11416,6 +11590,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: threat-modeling
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -11477,6 +11652,7 @@ contract_schema_discovery:
     path_family: skill
     expected_id: diagram-architect
     document_root_keys:
+    - contract_schema
     - skill_contract
     parse_status: parsed
     contract_root: skill_contract
@@ -11545,6 +11721,7 @@ contract_schema_discovery:
     path_family: behavioral_test
     expected_id: architecture-review
     document_root_keys:
+    - contract_schema
     - skill_test
     parse_status: parsed
     contract_root: skill_test
@@ -11585,6 +11762,7 @@ contract_schema_discovery:
     path_family: behavioral_test
     expected_id: collection-discovery-design
     document_root_keys:
+    - contract_schema
     - skill_test
     parse_status: parsed
     contract_root: skill_test
@@ -11624,6 +11802,7 @@ contract_schema_discovery:
     path_family: behavioral_test
     expected_id: delivery-work-breakdown
     document_root_keys:
+    - contract_schema
     - skill_test
     parse_status: parsed
     contract_root: skill_test
@@ -11663,6 +11842,7 @@ contract_schema_discovery:
     path_family: behavioral_test
     expected_id: design-review
     document_root_keys:
+    - contract_schema
     - skill_test
     parse_status: parsed
     contract_root: skill_test
@@ -11702,6 +11882,7 @@ contract_schema_discovery:
     path_family: behavioral_test
     expected_id: implementation-context-discovery
     document_root_keys:
+    - contract_schema
     - skill_test
     parse_status: parsed
     contract_root: skill_test
@@ -11742,6 +11923,7 @@ contract_schema_discovery:
     path_family: behavioral_test
     expected_id: prompt-optimizer
     document_root_keys:
+    - contract_schema
     - skill_test
     parse_status: parsed
     contract_root: skill_test
@@ -11781,6 +11963,7 @@ contract_schema_discovery:
     path_family: behavioral_test
     expected_id: response-contract
     document_root_keys:
+    - contract_schema
     - skill_test
     parse_status: parsed
     contract_root: skill_test
@@ -11820,6 +12003,7 @@ contract_schema_discovery:
     path_family: behavioral_test
     expected_id: role-switcher
     document_root_keys:
+    - contract_schema
     - skill_test
     parse_status: parsed
     contract_root: skill_test
@@ -11859,6 +12043,7 @@ contract_schema_discovery:
     path_family: behavioral_test
     expected_id: skill-evolution
     document_root_keys:
+    - contract_schema
     - skill_test
     parse_status: parsed
     contract_root: skill_test
@@ -11898,6 +12083,7 @@ contract_schema_discovery:
     path_family: behavioral_test
     expected_id: systematic-debugging
     document_root_keys:
+    - contract_schema
     - skill_test
     parse_status: parsed
     contract_root: skill_test
@@ -11938,6 +12124,7 @@ contract_schema_discovery:
     path_family: workflow
     expected_id: bugfix
     document_root_keys:
+    - contract_schema
     - workflow_contract
     parse_status: parsed
     contract_root: workflow_contract
@@ -11950,12 +12137,13 @@ contract_schema_discovery:
     - adapter_requirements
     - category
     - id
+    - phases
     - purpose
     - quality_gates
-    - required_phases
     - skill_load_order
     - type
     - version
+    - workflow_kind
     root_field_shapes:
       adapter_requirements:
         value_type: mapping
@@ -11971,13 +12159,7 @@ contract_schema_discovery:
         value_type: string
       id:
         value_type: string
-      purpose:
-        value_type: string
-      quality_gates:
-        value_type: sequence
-        item_type_counts:
-          string: 6
-      required_phases:
+      phases:
         value_type: sequence
         item_type_counts:
           mapping: 6
@@ -11988,6 +12170,12 @@ contract_schema_discovery:
           id: 6
           order: 6
           skills: 6
+      purpose:
+        value_type: string
+      quality_gates:
+        value_type: sequence
+        item_type_counts:
+          string: 6
       skill_load_order:
         value_type: sequence
         item_type_counts:
@@ -12000,6 +12188,8 @@ contract_schema_discovery:
         value_type: string
       version:
         value_type: string
+      workflow_kind:
+        value_type: string
     extension_key_paths:
     - adapter_requirements
     expected_contract_root: workflow_contract
@@ -12008,6 +12198,7 @@ contract_schema_discovery:
     path_family: workflow
     expected_id: code-review
     document_root_keys:
+    - contract_schema
     - workflow_contract
     parse_status: parsed
     contract_root: workflow_contract
@@ -12022,13 +12213,14 @@ contract_schema_discovery:
     - decision_provenance_contract
     - design_review_contract
     - id
+    - phases
     - purpose
     - quality_gates
-    - required_phases
     - skill_load_order
     - type
     - verdict_contract
     - version
+    - workflow_kind
     root_field_shapes:
       adapter_requirements:
         value_type: mapping
@@ -12060,13 +12252,7 @@ contract_schema_discovery:
         - trigger_when
       id:
         value_type: string
-      purpose:
-        value_type: string
-      quality_gates:
-        value_type: sequence
-        item_type_counts:
-          string: 16
-      required_phases:
+      phases:
         value_type: sequence
         item_type_counts:
           mapping: 7
@@ -12078,6 +12264,12 @@ contract_schema_discovery:
           optional: 2
           order: 7
           skills: 7
+      purpose:
+        value_type: string
+      quality_gates:
+        value_type: sequence
+        item_type_counts:
+          string: 16
       skill_load_order:
         value_type: sequence
         item_type_counts:
@@ -12096,6 +12288,8 @@ contract_schema_discovery:
         - technical_review_verdicts
       version:
         value_type: string
+      workflow_kind:
+        value_type: string
     extension_key_paths:
     - adapter_requirements
     expected_contract_root: workflow_contract
@@ -12104,6 +12298,7 @@ contract_schema_discovery:
     path_family: workflow
     expected_id: deployment
     document_root_keys:
+    - contract_schema
     - workflow_contract
     parse_status: parsed
     contract_root: workflow_contract
@@ -12121,14 +12316,15 @@ contract_schema_discovery:
     - id
     - outcome_contract
     - outputs
+    - phases
     - purpose
     - quality_gates
-    - required_phases
     - skill_load_order
     - technical_readiness_contract
     - type
     - verification_contract
     - version
+    - workflow_kind
     root_field_shapes:
       adapter_requirements:
         value_type: mapping
@@ -12179,13 +12375,7 @@ contract_schema_discovery:
         value_type: mapping
         mapping_keys:
         - required
-      purpose:
-        value_type: string
-      quality_gates:
-        value_type: sequence
-        item_type_counts:
-          string: 15
-      required_phases:
+      phases:
         value_type: sequence
         item_type_counts:
           mapping: 6
@@ -12196,6 +12386,12 @@ contract_schema_discovery:
           id: 6
           order: 6
           skills: 6
+      purpose:
+        value_type: string
+      quality_gates:
+        value_type: sequence
+        item_type_counts:
+          string: 15
       skill_load_order:
         value_type: sequence
         item_type_counts:
@@ -12219,14 +12415,255 @@ contract_schema_discovery:
         - statuses
       version:
         value_type: string
+      workflow_kind:
+        value_type: string
     extension_key_paths:
     - adapter_requirements
+    expected_contract_root: workflow_contract
+    root_matches_path_family: true
+  - path: contracts/workflows/design-refinement.contract.yaml
+    path_family: workflow
+    expected_id: design-refinement
+    document_root_keys:
+    - contract_schema
+    - workflow_contract
+    parse_status: parsed
+    contract_root: workflow_contract
+    identifier_field: id
+    contract_id: design-refinement
+    contract_version: 1.2.0
+    declared_type: workflow
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - capability
+    - category
+    - change_budget_contract
+    - completion_contract
+    - defect_diagnosis_contract
+    - id
+    - inputs
+    - learning_promotion_policy
+    - outputs
+    - phases
+    - purpose
+    - quality_gates
+    - refinement_lock_contract
+    - roles
+    - route_contract
+    - skill_load_order
+    - type
+    - verification_contract
+    - version
+    - workflow_kind
+    root_field_shapes:
+      adapter_requirements:
+        value_type: mapping
+        mapping_keys:
+        - artifact_access_method
+        - before_after_manifest_method
+        - change_budget_enforcement
+        - component_fitness_specialist
+        - eval_method
+        - full_redesign_fallback
+        - interaction_probe_method
+        - patch_method
+        - skill_evolution_contract
+        - source_repository_write_policy
+        - visual_inspection_method
+      capability:
+        value_type: string
+      category:
+        value_type: string
+      change_budget_contract:
+        value_type: mapping
+        mapping_keys:
+        - required_fields
+        - rules
+      completion_contract:
+        value_type: mapping
+        mapping_keys:
+        - accepted_when
+        - blocked_when
+      defect_diagnosis_contract:
+        value_type: mapping
+        mapping_keys:
+        - allowed
+        - rules
+      id:
+        value_type: string
+      inputs:
+        value_type: mapping
+        mapping_keys:
+        - optional
+        - required
+      learning_promotion_policy:
+        value_type: mapping
+        mapping_keys:
+        - allowed_verdicts
+        - always_run_after
+        - promotion_requires
+        - shared_skill_must_not_store
+      outputs:
+        value_type: mapping
+        mapping_keys:
+        - allowed
+      phases:
+        value_type: sequence
+        item_type_counts:
+          mapping: 7
+        mapping_item_count: 7
+        mapping_item_field_counts:
+          description: 7
+          gate: 7
+          id: 7
+          order: 7
+          skills: 7
+      purpose:
+        value_type: string
+      quality_gates:
+        value_type: sequence
+        item_type_counts:
+          string: 17
+      refinement_lock_contract:
+        value_type: mapping
+        mapping_keys:
+        - required_fields
+        - rules
+      roles:
+        value_type: sequence
+        item_type_counts:
+          string: 6
+      route_contract:
+        value_type: mapping
+        mapping_keys:
+        - evidence_only_when
+        - refinement_requires
+        - route_to_adaptive_component_decision_when
+        - route_to_local_implementation_fix_when
+        - route_to_redesign_when
+      skill_load_order:
+        value_type: sequence
+        item_type_counts:
+          mapping: 5
+        mapping_item_count: 5
+        mapping_item_field_counts:
+          load: 5
+          phase: 5
+      type:
+        value_type: string
+      verification_contract:
+        value_type: mapping
+        mapping_keys:
+        - requires
+        - status_rules
+      version:
+        value_type: string
+      workflow_kind:
+        value_type: string
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: workflow_contract
+    root_matches_path_family: true
+  - path: contracts/workflows/development-loop.contract.yaml
+    path_family: workflow
+    expected_id: development-loop
+    document_root_keys:
+    - contract_schema
+    - workflow_contract
+    parse_status: parsed
+    contract_root: workflow_contract
+    identifier_field: id
+    contract_id: development-loop
+    contract_version: 1.0.0
+    declared_type: workflow
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - category
+    - description
+    - id
+    - phases
+    - purpose
+    - quality_gates
+    - shortcuts
+    - skill_load_order
+    - transitions
+    - type
+    - version
+    - workflow_kind
+    root_field_shapes:
+      adapter_requirements:
+        value_type: mapping
+        mapping_keys:
+        - approval_mechanism
+        - ci_integration
+        - deployment_strategy
+        - notification_channels
+        - rollback_mechanism
+      category:
+        value_type: string
+      description:
+        value_type: string
+      id:
+        value_type: string
+      phases:
+        value_type: sequence
+        item_type_counts:
+          mapping: 7
+        mapping_item_count: 7
+        mapping_item_field_counts:
+          activities: 7
+          exit_gate: 7
+          id: 7
+          order: 7
+          outputs: 7
+          purpose: 7
+          rules: 7
+      purpose:
+        value_type: string
+      quality_gates:
+        value_type: sequence
+        item_type_counts:
+          string: 7
+      shortcuts:
+        value_type: sequence
+        item_type_counts:
+          mapping: 2
+        mapping_item_count: 2
+        mapping_item_field_counts:
+          condition: 2
+          name: 2
+          skip_phases: 2
+      skill_load_order:
+        value_type: sequence
+        item_type_counts: {}
+      transitions:
+        value_type: sequence
+        item_type_counts:
+          mapping: 8
+        mapping_item_count: 8
+        mapping_item_field_counts:
+          condition: 8
+          from: 8
+          note: 2
+          to: 8
+      type:
+        value_type: string
+      version:
+        value_type: string
+      workflow_kind:
+        value_type: string
+    extension_key_paths:
+    - adapter_requirements
+    - transitions
     expected_contract_root: workflow_contract
     root_matches_path_family: true
   - path: contracts/workflows/new-feature.contract.yaml
     path_family: workflow
     expected_id: new-feature
     document_root_keys:
+    - contract_schema
     - workflow_contract
     parse_status: parsed
     contract_root: workflow_contract
@@ -12241,13 +12678,14 @@ contract_schema_discovery:
     - decision_provenance_contract
     - design_lifecycle_contract
     - id
+    - phases
     - purpose
     - quality_gates
-    - required_phases
     - review_contract
     - skill_load_order
     - type
     - version
+    - workflow_kind
     root_field_shapes:
       adapter_requirements:
         value_type: mapping
@@ -12279,13 +12717,7 @@ contract_schema_discovery:
         - pre_implementation_decision
       id:
         value_type: string
-      purpose:
-        value_type: string
-      quality_gates:
-        value_type: sequence
-        item_type_counts:
-          string: 14
-      required_phases:
+      phases:
         value_type: sequence
         item_type_counts:
           mapping: 6
@@ -12297,6 +12729,12 @@ contract_schema_discovery:
           optional: 1
           order: 6
           skills: 6
+      purpose:
+        value_type: string
+      quality_gates:
+        value_type: sequence
+        item_type_counts:
+          string: 14
       review_contract:
         value_type: mapping
         mapping_keys:
@@ -12315,6 +12753,8 @@ contract_schema_discovery:
         value_type: string
       version:
         value_type: string
+      workflow_kind:
+        value_type: string
     extension_key_paths:
     - adapter_requirements
     expected_contract_root: workflow_contract
@@ -12323,6 +12763,7 @@ contract_schema_discovery:
     path_family: workflow
     expected_id: product-development
     document_root_keys:
+    - contract_schema
     - workflow_contract
     parse_status: parsed
     contract_root: workflow_contract
@@ -12339,15 +12780,16 @@ contract_schema_discovery:
     - decision_provenance_contract
     - design_acceptance_contract
     - id
+    - phases
     - purpose
     - quality_gates
     - release_authorization
     - release_eligibility
-    - required_phases
     - skill_load_order
     - stop_points
     - type
     - version
+    - workflow_kind
     root_field_shapes:
       acceptance_matrix_contract:
         value_type: mapping
@@ -12396,6 +12838,17 @@ contract_schema_discovery:
         - verdict_mapping
       id:
         value_type: string
+      phases:
+        value_type: sequence
+        item_type_counts:
+          mapping: 10
+        mapping_item_count: 10
+        mapping_item_field_counts:
+          description: 10
+          gate: 10
+          id: 10
+          order: 10
+          skills: 10
       purpose:
         value_type: string
       quality_gates:
@@ -12415,25 +12868,14 @@ contract_schema_discovery:
         - NOT_READY
         - RELEASE_READY
         - rule
-      required_phases:
+      skill_load_order:
         value_type: sequence
         item_type_counts:
           mapping: 10
         mapping_item_count: 10
         mapping_item_field_counts:
-          description: 10
-          gate: 10
-          id: 10
-          order: 10
-          skills: 10
-      skill_load_order:
-        value_type: sequence
-        item_type_counts:
-          mapping: 11
-        mapping_item_count: 11
-        mapping_item_field_counts:
-          load: 11
-          phase: 11
+          load: 10
+          phase: 10
       stop_points:
         value_type: sequence
         item_type_counts:
@@ -12441,6 +12883,323 @@ contract_schema_discovery:
       type:
         value_type: string
       version:
+        value_type: string
+      workflow_kind:
+        value_type: string
+    extension_key_paths:
+    - adapter_requirements
+    expected_contract_root: workflow_contract
+    root_matches_path_family: true
+  - path: contracts/workflows/redesign-workflow.contract.yaml
+    path_family: workflow
+    expected_id: redesign-workflow
+    document_root_keys:
+    - contract_schema
+    - workflow_contract
+    parse_status: parsed
+    contract_root: workflow_contract
+    identifier_field: id
+    contract_id: redesign-workflow
+    contract_version: 2.2.0
+    declared_type: workflow
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - approval_policy
+    - boundary
+    - capability
+    - category
+    - compatibility
+    - concurrent_write_contract
+    - defect_contract
+    - delegation_contract
+    - delivery_contract
+    - id
+    - inputs
+    - iteration_policy
+    - outputs
+    - phases
+    - purpose
+    - quality_gates
+    - review_contract
+    - role_contract
+    - scope_diff_contract
+    - skill_load_order
+    - transitions
+    - type
+    - verification_contract
+    - version
+    - workflow_kind
+    root_field_shapes:
+      adapter_requirements:
+        value_type: mapping
+        mapping_keys:
+        - must_not_claim_pass_when_blocked_or_not_verified
+        - must_preserve_declared_lifecycle_and_phase_ids
+        - must_preserve_scope_diff_concurrency_and_verification_evidence
+        - must_preserve_single_design_owner_and_repository_write_owner
+        - must_route_review_through_design_review_facade
+        - must_support_expected_head_write_lease_and_drift_detection
+      approval_policy:
+        value_type: mapping
+        mapping_keys:
+        - always_requires_approval
+        - autonomous
+        - fully-gated
+        - patch-gated
+        - spec-gated
+      boundary:
+        value_type: mapping
+        mapping_keys:
+        - covers
+        - does_not_cover
+      capability:
+        value_type: string
+      category:
+        value_type: string
+      compatibility:
+        value_type: mapping
+        mapping_keys:
+        - additive_changes
+        - previous_version
+      concurrent_write_contract:
+        value_type: mapping
+        mapping_keys:
+        - contention_policy
+        - drift_behavior
+        - drift_classifications
+        - output
+        - pre_write_rule
+        - prohibitions
+        - required_for
+        - write_lease_fields
+      defect_contract:
+        value_type: mapping
+        mapping_keys:
+        - classes
+        - concurrency_required_fields
+        - design_finding_required_fields
+        - rules
+        - scope_contamination_required_fields
+      delegation_contract:
+        value_type: mapping
+        mapping_keys:
+        - ports
+        - rules
+      delivery_contract:
+        value_type: mapping
+        mapping_keys:
+        - decisions
+        - prohibitions
+      id:
+        value_type: string
+      inputs:
+        value_type: mapping
+        mapping_keys:
+        - definitions
+        - optional
+        - required
+        - validation_rules
+      iteration_policy:
+        value_type: mapping
+        mapping_keys:
+        - concurrent_reversal_limit
+        - count_increment_at
+        - default_max_iterations
+        - on_concurrent_reversal_limit
+        - on_design_exhausted
+        - same_region_patch_limit
+      outputs:
+        value_type: mapping
+        mapping_keys:
+        - conditional
+        - required
+      phases:
+        value_type: sequence
+        item_type_counts:
+          mapping: 14
+        mapping_item_count: 14
+        mapping_item_field_counts:
+          id: 14
+          order: 14
+          outputs: 14
+          purpose: 14
+      purpose:
+        value_type: string
+      quality_gates:
+        value_type: sequence
+        item_type_counts:
+          string: 25
+      review_contract:
+        value_type: mapping
+        mapping_keys:
+        - coverage_modes
+        - facade
+        - gate_statuses
+        - rules
+        - verdicts
+      role_contract:
+        value_type: mapping
+        mapping_keys:
+        - conditional_slots
+        - required_slots
+        - rules
+      scope_diff_contract:
+        value_type: mapping
+        mapping_keys:
+        - blockers
+        - classifications
+        - output
+        - required_entry_fields
+        - required_for
+        - rules
+      skill_load_order:
+        value_type: sequence
+        item_type_counts: {}
+      transitions:
+        value_type: sequence
+        item_type_counts:
+          mapping: 19
+        mapping_item_count: 19
+        mapping_item_field_counts:
+          from: 19
+          to: 19
+          when: 11
+      type:
+        value_type: string
+      verification_contract:
+        value_type: mapping
+        mapping_keys:
+        - rules
+        - strategies
+      version:
+        value_type: string
+      workflow_kind:
+        value_type: string
+    extension_key_paths:
+    - adapter_requirements
+    - compatibility
+    - review_contract.facade
+    - transitions
+    expected_contract_root: workflow_contract
+    root_matches_path_family: true
+  - path: contracts/workflows/skill-evolution.contract.yaml
+    path_family: workflow
+    expected_id: skill-evolution
+    document_root_keys:
+    - contract_schema
+    - workflow_contract
+    parse_status: parsed
+    contract_root: workflow_contract
+    identifier_field: id
+    contract_id: skill-evolution
+    contract_version: 1.0.0
+    declared_type: workflow
+    declared_kind: null
+    root_fields:
+    - adapter_requirements
+    - automatic_promotion_policy
+    - boundary
+    - capability
+    - category
+    - description
+    - generalization_requirements
+    - id
+    - inputs
+    - outputs
+    - phases
+    - purpose
+    - quality_gates
+    - roles
+    - skill_load_order
+    - target_layers
+    - type
+    - version
+    - workflow_kind
+    root_field_shapes:
+      adapter_requirements:
+        value_type: mapping
+        mapping_keys:
+        - automatic_learning_review_is_required
+        - branch_and_commit_policy
+        - case_observation_method
+        - eval_runner
+        - patch_method
+        - provenance_storage
+        - source_repository_access
+        - versioning_policy
+      automatic_promotion_policy:
+        value_type: mapping
+        mapping_keys:
+        - default_action
+        - do_not_promote_when
+        - promote_when
+        - run_after
+        - write_behavior
+      boundary:
+        value_type: mapping
+        mapping_keys:
+        - covers
+        - does_not_cover
+      capability:
+        value_type: string
+      category:
+        value_type: string
+      description:
+        value_type: string
+      generalization_requirements:
+        value_type: sequence
+        item_type_counts:
+          string: 7
+      id:
+        value_type: string
+      inputs:
+        value_type: mapping
+        mapping_keys:
+        - optional
+        - required
+      outputs:
+        value_type: mapping
+        mapping_keys:
+        - allowed
+      phases:
+        value_type: sequence
+        item_type_counts:
+          mapping: 8
+        mapping_item_count: 8
+        mapping_item_field_counts:
+          gate: 8
+          id: 8
+          order: 8
+          purpose: 8
+      purpose:
+        value_type: string
+      quality_gates:
+        value_type: sequence
+        item_type_counts:
+          string: 13
+      roles:
+        value_type: sequence
+        item_type_counts:
+          string: 4
+      skill_load_order:
+        value_type: sequence
+        item_type_counts: {}
+      target_layers:
+        value_type: sequence
+        item_type_counts:
+          mapping: 7
+        mapping_item_count: 7
+        mapping_item_field_counts:
+          destination: 7
+          id: 7
+          shared_skill_patch: 7
+          use_when: 7
+      type:
+        value_type: string
+      version:
+        value_type: string
+      workflow_kind:
         value_type: string
     extension_key_paths:
     - adapter_requirements
@@ -12450,6 +13209,7 @@ contract_schema_discovery:
     path_family: workflow
     expected_id: spec-driven
     document_root_keys:
+    - contract_schema
     - workflow_contract
     parse_status: parsed
     contract_root: workflow_contract
@@ -12462,12 +13222,13 @@ contract_schema_discovery:
     - adapter_requirements
     - category
     - id
+    - phases
     - purpose
     - quality_gates
-    - required_phases
     - skill_load_order
     - type
     - version
+    - workflow_kind
     root_field_shapes:
       adapter_requirements:
         value_type: mapping
@@ -12481,13 +13242,7 @@ contract_schema_discovery:
         value_type: string
       id:
         value_type: string
-      purpose:
-        value_type: string
-      quality_gates:
-        value_type: sequence
-        item_type_counts:
-          string: 6
-      required_phases:
+      phases:
         value_type: sequence
         item_type_counts:
           mapping: 5
@@ -12498,6 +13253,12 @@ contract_schema_discovery:
           id: 5
           order: 5
           skills: 5
+      purpose:
+        value_type: string
+      quality_gates:
+        value_type: sequence
+        item_type_counts:
+          string: 6
       skill_load_order:
         value_type: sequence
         item_type_counts:
@@ -12509,6 +13270,8 @@ contract_schema_discovery:
       type:
         value_type: string
       version:
+        value_type: string
+      workflow_kind:
         value_type: string
     extension_key_paths:
     - adapter_requirements
