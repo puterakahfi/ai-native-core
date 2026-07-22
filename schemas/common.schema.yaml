@@ -12,6 +12,9 @@ $defs:
   machine_id:
     type: string
     pattern: "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+  workflow_phase_id:
+    type: string
+    pattern: "^[a-z][a-z0-9]*(?:[-_][a-z0-9]+)*$"
   semantic_version:
     type: string
     pattern: "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?$"
@@ -125,7 +128,7 @@ $defs:
       - order
     properties:
       id:
-        $ref: "#/$defs/machine_id"
+        $ref: "#/$defs/workflow_phase_id"
       order:
         type: integer
         minimum: 1
@@ -152,9 +155,9 @@ $defs:
       - to
     properties:
       from:
-        $ref: "#/$defs/machine_id"
+        $ref: "#/$defs/workflow_phase_id"
       to:
-        $ref: "#/$defs/machine_id"
+        $ref: "#/$defs/workflow_phase_id"
       condition:
         $ref: "#/$defs/non_empty_string"
       when:
@@ -169,7 +172,7 @@ $defs:
       - load
     properties:
       phase:
-        $ref: "#/$defs/machine_id"
+        $ref: "#/$defs/workflow_phase_id"
       load:
         $ref: "#/$defs/unique_string_list"
   compatibility_alias:
