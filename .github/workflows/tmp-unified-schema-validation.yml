@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - 8-unify-contract-schemas-and-workflow-contracts
+  pull_request:
+    branches:
+      - main
 
 jobs:
   validate:
