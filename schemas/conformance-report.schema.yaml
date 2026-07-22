@@ -176,6 +176,7 @@ $defs:
     required:
       - adapter_id
       - adapter_kind
+      - adapter_patterns
       - adapter_path
       - declaration_path
       - contract
@@ -192,6 +193,13 @@ $defs:
         type: string
       adapter_kind:
         type: string
+        enum: [skill, workflow, meta-skill, unknown]
+      adapter_patterns:
+        type: array
+        uniqueItems: true
+        items:
+          type: string
+          enum: [facade, skill-adapter, runtime-adapter, port-adapter]
       adapter_path:
         type: string
       declaration_path:
