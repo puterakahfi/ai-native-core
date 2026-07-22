@@ -1,0 +1,34 @@
+contract_schema:
+  kind: adapter_conformance
+  version: 1.0.0
+  path: schemas/adapter-conformance.schema.yaml
+adapter_conformance:
+  adapter:
+    id: valid-boundary
+    kind: skill
+    entrypoint: skills/valid-boundary/SKILL.md
+  implements:
+    contract_id: boundary-sample
+    contract_kind: skill_contract
+    contract_path: contracts/skills/test/boundary-sample.contract.yaml
+    contract_version: ^1.0.0
+  capability: boundary_sample
+  interface:
+    inputs:
+      - contract_input
+    outputs:
+      - contract_output
+    gates:
+      - contract_gate_is_enforced
+  boundary:
+    covers:
+      - owned_capability
+      - owned_review
+    delegates:
+      - provider_configuration
+      - product_policy
+  dependencies: []
+  handoffs: []
+  unsupported_claims: []
+  adapter_requirements: []
+  evidence_refs: []
