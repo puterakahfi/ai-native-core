@@ -21,8 +21,9 @@ def load_yaml(path: Path) -> dict[str, Any]:
 
 
 def schema_store(schemas_root: Path = SCHEMAS_ROOT) -> dict[str, dict[str, Any]]:
+    effective_root = schemas_root if schemas_root.exists() else SCHEMAS_ROOT
     store: dict[str, dict[str, Any]] = {}
-    for path in sorted(schemas_root.glob("*.schema.yaml")):
+    for path in sorted(effective_root.glob("*.schema.yaml")):
         schema = load_yaml(path)
         Draft202012Validator.check_schema(schema)
         schema_id = schema.get("$id")
