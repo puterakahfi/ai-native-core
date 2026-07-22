@@ -1,0 +1,79 @@
+workflow_contract_migration:
+  version: "1.0.0"
+  canonical_root: workflow_contract
+  canonical_directory: contracts/workflows
+  classification_rule:
+    workflow_contract_when:
+      - owns_sequenced_lifecycle
+      - coordinates_phases_with_gates_transitions_handoffs_or_exit_conditions
+      - composes_multiple_capabilities_roles_or_owners_across_lifecycle
+    skill_contract_when:
+      - owns_reusable_expert_procedure
+      - phases_are_internal_method_steps
+      - no_separate_lifecycle_coordination_boundary_is_owned
+  migrations:
+    - id: design-refinement
+      decision: migrate
+      from_path: contracts/skills/quality/design-refinement.contract.yaml
+      from_root: skill_contract
+      to_path: contracts/workflows/design-refinement.contract.yaml
+      to_root: workflow_contract
+      contract_version: "1.2.0"
+      workflow_kind: quality_lifecycle
+      compatibility: preserve_id_and_version_with_path_alias
+      rationale: Owns an ordered correction lifecycle with refinement lock, change budget, verification, learning promotion, and delivery gates.
+    - id: redesign-workflow
+      decision: migrate
+      from_path: contracts/skills/quality/redesign-workflow.contract.yaml
+      from_root: skill_contract
+      to_path: contracts/workflows/redesign-workflow.contract.yaml
+      to_root: workflow_contract
+      contract_version: "2.2.0"
+      workflow_kind: quality_lifecycle
+      compatibility: preserve_id_and_version_with_path_alias
+      rationale: Owns phase definitions, explicit transitions, cross-role delegation, concurrency control, verification, review, fix, and delivery lifecycle.
+    - id: skill-evolution
+      decision: migrate
+      from_path: contracts/skills/quality/skill-evolution.contract.yaml
+      from_root: skill_contract
+      to_path: contracts/workflows/skill-evolution.contract.yaml
+      to_root: workflow_contract
+      contract_version: "1.0.0"
+      workflow_kind: learning_lifecycle
+      compatibility: preserve_id_and_version_with_path_alias
+      rationale: Owns ordered observation, classification, generalization, deduplication, patch, evaluation, promotion, and provenance lifecycle.
+    - id: development-loop
+      decision: migrate
+      from_path: contracts/runtime/development-loop.contract.yaml
+      from_root: runtime_contract
+      to_path: contracts/workflows/development-loop.contract.yaml
+      to_root: workflow_contract
+      contract_version: "1.0.0"
+      workflow_kind: execution_method
+      compatibility: preserve_id_and_version_with_path_alias
+      rationale: Owns a sequenced Explore-to-Deliver execution method with transitions and gates. Serialization changes; issue #26 retains semantic refinement ownership.
+  retained_skills:
+    - id: design-review
+      path: contracts/skills/quality/design-review.contract.yaml
+      decision: retain_as_skill
+      rationale: Phases are internal review-facade method steps; the contract owns one bounded expert capability rather than an independently coordinated lifecycle.
+    - id: systematic-debugging
+      path: contracts/skills/quality/systematic-debugging.contract.yaml
+      decision: retain_as_skill
+      rationale: Phases are an internal root-cause procedure with no separate workflow coordination, handoff, or lifecycle ownership.
+  existing_canonical_workflows:
+    - contracts/workflows/bugfix.contract.yaml
+    - contracts/workflows/code-review.contract.yaml
+    - contracts/workflows/deployment.contract.yaml
+    - contracts/workflows/new-feature.contract.yaml
+    - contracts/workflows/product-development.contract.yaml
+    - contracts/workflows/spec-driven.contract.yaml
+  prohibited_states:
+    - skill_contract_with_declared_type_workflow_after_migration
+    - runtime_contract_owning_ordered_phase_transition_lifecycle_without_explicit_exception
+    - duplicate_machine_authority_at_legacy_and_canonical_paths
+    - silent_path_breakage_without_compatibility_alias
+  evidence_boundary:
+    - migration_preserves_contract_identity_not_behavioral_proof
+    - schema_validity_does_not_prove_adapter_application
+    - path_alias_does_not_prove_downstream_consumer_migration
