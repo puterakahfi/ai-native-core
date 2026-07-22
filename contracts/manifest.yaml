@@ -3,7 +3,7 @@ contract_schema:
   version: 1.0.0
   path: schemas/contract-manifest.schema.yaml
 version: 2.0.0
-generated_at: '2026-07-22T04:26:05Z'
+generated_at: '2026-07-22T04:45:46Z'
 description: 'Auto-generated schema-aware contract manifest. Regenerate with: scripts/generate-manifest.sh'
 total_contracts: 129
 contracts:
@@ -787,14 +787,14 @@ contracts:
     schema_path: schemas/workflow-contract.schema.yaml
     path: contracts/workflows/product-development.contract.yaml
     version: 0.3.0
-    sha256: c500d7abb276678e
+    sha256: ca0781c8e6aae48f
   - id: redesign-workflow
     kind: workflow_contract
     schema_version: 1.0.0
     schema_path: schemas/workflow-contract.schema.yaml
     path: contracts/workflows/redesign-workflow.contract.yaml
     version: 2.2.0
-    sha256: b6ac171e448e3aec
+    sha256: 9f5a050c6d1992a7
   - id: skill-evolution
     kind: workflow_contract
     schema_version: 1.0.0

@@ -651,3 +651,10 @@ workflow_contract:
     - blocks_parent_pointer_chasing_of_unstable_child_head
   workflow_kind: quality_lifecycle
   skill_load_order: []
+  adapter_requirements:
+    must_preserve_declared_lifecycle_and_phase_ids: true
+    must_preserve_single_design_owner_and_repository_write_owner: true
+    must_support_expected_head_write_lease_and_drift_detection: true
+    must_preserve_scope_diff_concurrency_and_verification_evidence: true
+    must_route_review_through_design_review_facade: true
+    must_not_claim_pass_when_blocked_or_not_verified: true

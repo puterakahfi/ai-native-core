@@ -55,8 +55,6 @@ workflow_contract:
     - skill-eval
     - code-review-workflow
     - decision-provenance
-  - phase: acceptance_domain_review
-    load:
     - design-review
     - security-review
     - threat-modeling
