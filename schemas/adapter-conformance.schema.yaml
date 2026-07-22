@@ -77,7 +77,9 @@ properties:
           contract_version:
             $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/version_pin"
       capability:
-        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/machine_id"
+        anyOf:
+          - $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/machine_id"
+          - type: "null"
       interface:
         type: object
         additionalProperties: false
