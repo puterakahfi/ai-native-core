@@ -1,0 +1,13 @@
+test_caret_zero_minor_pin_matches_only_same_minor_line (test_validate_port_adapter_reference.PortAdapterReferenceTests.test_caret_zero_minor_pin_matches_only_same_minor_line) ... ok
+test_cli_fails_for_incompatible_reference (test_validate_port_adapter_reference.PortAdapterReferenceTests.test_cli_fails_for_incompatible_reference) ... ok
+test_cli_passes_for_valid_reference (test_validate_port_adapter_reference.PortAdapterReferenceTests.test_cli_passes_for_valid_reference) ... ok
+test_incompatible_version_pin_fails (test_validate_port_adapter_reference.PortAdapterReferenceTests.test_incompatible_version_pin_fails) ... ok
+test_path_outside_port_contract_tree_fails (test_validate_port_adapter_reference.PortAdapterReferenceTests.test_path_outside_port_contract_tree_fails) ... ok
+test_port_id_mismatch_fails (test_validate_port_adapter_reference.PortAdapterReferenceTests.test_port_id_mismatch_fails) ... ok
+test_tilde_pin_matches_same_major_minor_line (test_validate_port_adapter_reference.PortAdapterReferenceTests.test_tilde_pin_matches_same_major_minor_line) ... ok
+test_valid_reference_resolves_id_path_and_compatible_version (test_validate_port_adapter_reference.PortAdapterReferenceTests.test_valid_reference_resolves_id_path_and_compatible_version) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.173s
+
+OK

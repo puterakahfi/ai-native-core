@@ -1,0 +1,5 @@
+WARN — contracts/skills/design/design-interaction.contract.yaml: legacy type 'port' remains a compatibility source; first-class port is authoritative
+WARN — contracts/skills/design/design-layout.contract.yaml: legacy type 'port' remains a compatibility source; first-class port is authoritative
+WARN — contracts/skills/design/design-strategy.contract.yaml: legacy type 'port' remains a compatibility source; first-class port is authoritative
+WARN — contracts/skills/design/design-visual.contract.yaml: legacy type 'port' remains a compatibility source; first-class port is authoritative
+PASS — 131 contract artifacts satisfy declared schemas, family identity, workflow, compatibility, and manifest parity checks (4 migration warning(s)).

@@ -1,0 +1,13 @@
+test_conformance_parser_accepts_workflow_contract_family (test_contract_resolution.ContractResolutionTests.test_conformance_parser_accepts_workflow_contract_family) ... /home/runner/work/ai-native-core/ai-native-core/scripts/schema_validation.py:10: DeprecationWarning: jsonschema.RefResolver is deprecated as of v4.18.0, in favor of the https://github.com/python-jsonschema/referencing library, which provides more compliant referencing behavior as well as more flexible APIs for customization. A future release will remove RefResolver. Please file a feature request (on referencing) if you are missing an API for the kind of customization you need.
+  from jsonschema import Draft202012Validator, FormatChecker, RefResolver
+ok
+test_contract_document_loader_uses_declared_family_root (test_contract_resolution.ContractResolutionTests.test_contract_document_loader_uses_declared_family_root) ... ok
+test_direct_manifest_path_resolves (test_contract_resolution.ContractResolutionTests.test_direct_manifest_path_resolves) ... ok
+test_implements_cli_accepts_active_legacy_alias (test_contract_resolution.ContractResolutionTests.test_implements_cli_accepts_active_legacy_alias) ... ok
+test_legacy_workflow_paths_resolve_to_canonical_targets (test_contract_resolution.ContractResolutionTests.test_legacy_workflow_paths_resolve_to_canonical_targets) ... ok
+test_semver_pin_compatibility (test_contract_resolution.ContractResolutionTests.test_semver_pin_compatibility) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.556s
+
+OK

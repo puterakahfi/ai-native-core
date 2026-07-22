@@ -1,0 +1,1 @@
+PASS — 131 contract artifacts have declared schema identity, canonical filename ownership, unique family IDs, and clean migration aliases.

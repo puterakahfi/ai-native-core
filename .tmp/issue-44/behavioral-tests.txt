@@ -1,0 +1,1 @@
+Validated 12 skill eval contract(s) in /home/runner/work/ai-native-core/ai-native-core/contracts/tests

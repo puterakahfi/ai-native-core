@@ -1,22 +1,22 @@
 contract_schema_discovery:
   version: 0.2.0
   source_root: contracts
-  artifact_count: 129
+  artifact_count: 131
   path_family_counts:
-    behavioral_test: 10
+    behavioral_test: 12
     compatibility: 1
     port: 17
     runtime: 6
     skill: 85
     workflow: 10
   parse_status_counts:
-    parsed: 129
+    parsed: 131
   contract_root_counts:
     compatibility_manifest: 1
     port_contract: 17
     runtime_contract: 6
     skill_contract: 85
-    skill_test: 10
+    skill_test: 12
     workflow_contract: 10
   root_shapes:
     compatibility_manifest:
@@ -306,10 +306,10 @@ contract_schema_discovery:
           value_type_counts:
             sequence: 1
         adapter_requirements:
-          count: 54
-          coverage: 0.6353
+          count: 56
+          coverage: 0.6588
           value_type_counts:
-            mapping: 54
+            mapping: 56
         adapter_selection_rules:
           count: 1
           coverage: 0.0118
@@ -341,10 +341,10 @@ contract_schema_discovery:
           value_type_counts:
             mapping: 1
         boundary:
-          count: 11
-          coverage: 0.1294
+          count: 13
+          coverage: 0.1529
           value_type_counts:
-            mapping: 11
+            mapping: 13
         branch_topology_contract:
           count: 1
           coverage: 0.0118
@@ -385,6 +385,11 @@ contract_schema_discovery:
           coverage: 0.0118
           value_type_counts:
             mapping: 1
+        compatibility:
+          count: 2
+          coverage: 0.0235
+          value_type_counts:
+            mapping: 2
         component_contract:
           count: 1
           coverage: 0.0118
@@ -441,15 +446,20 @@ contract_schema_discovery:
           value_type_counts:
             mapping: 1
         description:
-          count: 16
-          coverage: 0.1882
+          count: 18
+          coverage: 0.2118
           value_type_counts:
-            string: 16
+            string: 18
         diagnosis_contract:
           count: 3
           coverage: 0.0353
           value_type_counts:
             mapping: 3
+        diagnostic_heuristics:
+          count: 2
+          coverage: 0.0235
+          value_type_counts:
+            mapping: 2
         diagram_model:
           count: 1
           coverage: 0.0118
@@ -532,6 +542,11 @@ contract_schema_discovery:
           value_type_counts:
             mapping: 1
         hierarchy_model:
+          count: 1
+          coverage: 0.0118
+          value_type_counts:
+            mapping: 1
+        hierarchy_roles:
           count: 1
           coverage: 0.0118
           value_type_counts:
@@ -793,28 +808,28 @@ contract_schema_discovery:
         skill: 72
       declared_kind_values: {}
     skill_test:
-      artifact_count: 10
+      artifact_count: 12
       field_coverage:
         cases:
-          count: 10
+          count: 12
           coverage: 1.0
           value_type_counts:
-            sequence: 10
+            sequence: 12
         description:
-          count: 10
+          count: 12
           coverage: 1.0
           value_type_counts:
-            string: 10
+            string: 12
         skill:
-          count: 10
+          count: 12
           coverage: 1.0
           value_type_counts:
-            string: 10
+            string: 12
         version:
-          count: 10
+          count: 12
           coverage: 1.0
           value_type_counts:
-            string: 10
+            string: 12
       declared_type_values: {}
       declared_kind_values: {}
     workflow_contract:
@@ -1114,7 +1129,6 @@ contract_schema_discovery:
       - contracts/skills/content/copywriting.contract.yaml
       - contracts/skills/content/cro.contract.yaml
       - contracts/skills/design/color-theory.contract.yaml
-      - contracts/skills/design/composition.contract.yaml
       - contracts/skills/design/dark-light-theming.contract.yaml
       - contracts/skills/design/design-brand.contract.yaml
       - contracts/skills/design/design-depth.contract.yaml
@@ -1134,7 +1148,6 @@ contract_schema_discovery:
       - contracts/skills/design/spacing.contract.yaml
       - contracts/skills/design/typography.contract.yaml
       - contracts/skills/design/ux-ui-patterns.contract.yaml
-      - contracts/skills/design/visual-hierarchy.contract.yaml
       - contracts/skills/engineering/data-modeling.contract.yaml
       - contracts/skills/engineering/technical-debt-governance.contract.yaml
       - contracts/skills/product/decision-making.contract.yaml
@@ -1194,9 +1207,9 @@ contract_schema_discovery:
       version: []
       aliases: []
   extension_key_path_counts:
-    adapter_requirements: 86
+    adapter_requirements: 88
     aliases: 4
-    compatibility: 18
+    compatibility: 20
     compatibility.aliases: 17
     memory_types[].lifecycle: 1
     review_contract.facade: 1
@@ -1228,7 +1241,7 @@ contract_schema_discovery:
       - phases
     runtime_lifecycle_candidates: []
   manifest_inventory:
-    entry_count: 129
+    entry_count: 131
     family_path_counts:
       compatibility: 1
       ports/capability-composition: 4
@@ -1247,29 +1260,29 @@ contract_schema_discovery:
       skills/runtime: 8
       skills/security: 2
       skills/visual-thinking: 1
-      tests: 10
+      tests: 12
       workflows: 10
     metadata_field_coverage:
       id:
-        count: 129
+        count: 131
         coverage: 1.0
       kind:
-        count: 129
+        count: 131
         coverage: 1.0
       path:
-        count: 129
+        count: 131
         coverage: 1.0
       schema_path:
-        count: 129
+        count: 131
         coverage: 1.0
       schema_version:
-        count: 129
+        count: 131
         coverage: 1.0
       sha256:
-        count: 129
+        count: 131
         coverage: 1.0
       version:
-        count: 129
+        count: 131
         coverage: 1.0
     missing_kind_paths: []
     missing_schema_version_paths: []
@@ -2025,8 +2038,8 @@ contract_schema_discovery:
       schema_version: 1.0.0
       schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/design/composition.contract.yaml
-      version: 1.0.0
-      sha256: 4c201c759437a343
+      version: 2.0.0
+      sha256: b2c78660adfd0347
     - family_path: skills/design
       metadata_fields:
       - id
@@ -2377,8 +2390,8 @@ contract_schema_discovery:
       schema_version: 1.0.0
       schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/design/visual-hierarchy.contract.yaml
-      version: 1.0.0
-      sha256: e7a725b26993e6bc
+      version: 2.0.0
+      sha256: 47f51adac2ff1032
     - family_path: skills/engineering
       metadata_fields:
       - id
@@ -3060,6 +3073,22 @@ contract_schema_discovery:
       - schema_version
       - sha256
       - version
+      id: composition
+      kind: behavioral_test_contract
+      schema_version: 1.0.0
+      schema_path: schemas/behavioral-test-contract.schema.yaml
+      path: contracts/tests/composition.test.yaml
+      version: 2.0.0
+      sha256: d5e344e3c5ae9f0f
+    - family_path: tests
+      metadata_fields:
+      - id
+      - kind
+      - path
+      - schema_path
+      - schema_version
+      - sha256
+      - version
       id: delivery-work-breakdown
       kind: behavioral_test_contract
       schema_version: 1.0.0
@@ -3179,6 +3208,22 @@ contract_schema_discovery:
       path: contracts/tests/systematic-debugging.test.yaml
       version: 0.1.0
       sha256: 6cfc28d8085105f2
+    - family_path: tests
+      metadata_fields:
+      - id
+      - kind
+      - path
+      - schema_path
+      - schema_version
+      - sha256
+      - version
+      id: visual-hierarchy
+      kind: behavioral_test_contract
+      schema_version: 1.0.0
+      schema_path: schemas/behavioral-test-contract.schema.yaml
+      path: contracts/tests/visual-hierarchy.test.yaml
+      version: 2.0.0
+      sha256: 0a6585b0475ea38c
     - family_path: workflows
       metadata_fields:
       - id
@@ -3359,6 +3404,12 @@ contract_schema_discovery:
         path: contracts/skills/design/collection-discovery-design.contract.yaml
       - family: behavioral_test
         path: contracts/tests/collection-discovery-design.test.yaml
+    - contract_id: composition
+      occurrences:
+      - family: skill
+        path: contracts/skills/design/composition.contract.yaml
+      - family: behavioral_test
+        path: contracts/tests/composition.test.yaml
     - contract_id: delivery-work-breakdown
       occurrences:
       - family: skill
@@ -3407,6 +3458,12 @@ contract_schema_discovery:
         path: contracts/skills/quality/systematic-debugging.contract.yaml
       - family: behavioral_test
         path: contracts/tests/systematic-debugging.test.yaml
+    - contract_id: visual-hierarchy
+      occurrences:
+      - family: skill
+        path: contracts/skills/design/visual-hierarchy.contract.yaml
+      - family: behavioral_test
+        path: contracts/tests/visual-hierarchy.test.yaml
   artifacts:
   - path: contracts/compatibility/contract-path-aliases.contract.yaml
     path_family: compatibility
@@ -7476,12 +7533,17 @@ contract_schema_discovery:
     contract_root: skill_contract
     identifier_field: id
     contract_id: composition
-    contract_version: 1.0.0
+    contract_version: 2.0.0
     declared_type: skill
     declared_kind: null
     root_fields:
+    - adapter_requirements
+    - boundary
     - capability
     - category
+    - compatibility
+    - description
+    - diagnostic_heuristics
     - id
     - inputs
     - outputs
@@ -7490,10 +7552,37 @@ contract_schema_discovery:
     - type
     - version
     root_field_shapes:
+      adapter_requirements:
+        value_type: mapping
+        mapping_keys:
+        - design_review_handoff
+        - existing_layout_system_resolution
+        - numeric_heuristics_policy
+        - rendered_evidence_capture
+        - responsive_context_evaluation
+      boundary:
+        value_type: mapping
+        mapping_keys:
+        - covers
+        - does_not_cover
       capability:
         value_type: string
       category:
         value_type: string
+      compatibility:
+        value_type: mapping
+        mapping_keys:
+        - classification
+        - migration_document
+        - previous_version
+        - rationale
+      description:
+        value_type: string
+      diagnostic_heuristics:
+        value_type: mapping
+        mapping_keys:
+        - allowed
+        - rules
       id:
         value_type: string
       inputs:
@@ -7505,10 +7594,11 @@ contract_schema_discovery:
         value_type: mapping
         mapping_keys:
         - allowed
+        - required
       quality_gates:
         value_type: sequence
         item_type_counts:
-          string: 4
+          string: 10
       roles:
         value_type: sequence
         item_type_counts:
@@ -7517,7 +7607,9 @@ contract_schema_discovery:
         value_type: string
       version:
         value_type: string
-    extension_key_paths: []
+    extension_key_paths:
+    - adapter_requirements
+    - compatibility
     expected_contract_root: skill_contract
     root_matches_path_family: true
   - path: contracts/skills/design/dark-light-theming.contract.yaml
@@ -8856,12 +8948,18 @@ contract_schema_discovery:
     contract_root: skill_contract
     identifier_field: id
     contract_id: visual-hierarchy
-    contract_version: 1.0.0
+    contract_version: 2.0.0
     declared_type: skill
     declared_kind: null
     root_fields:
+    - adapter_requirements
+    - boundary
     - capability
     - category
+    - compatibility
+    - description
+    - diagnostic_heuristics
+    - hierarchy_roles
     - id
     - inputs
     - outputs
@@ -8870,10 +8968,43 @@ contract_schema_discovery:
     - type
     - version
     root_field_shapes:
+      adapter_requirements:
+        value_type: mapping
+        mapping_keys:
+        - actual_content_evaluation
+        - design_review_handoff
+        - numeric_heuristics_policy
+        - rendered_context_evidence
+        - responsive_and_state_evaluation
+        - typography_and_accessibility_handoff
+      boundary:
+        value_type: mapping
+        mapping_keys:
+        - covers
+        - does_not_cover
       capability:
         value_type: string
       category:
         value_type: string
+      compatibility:
+        value_type: mapping
+        mapping_keys:
+        - classification
+        - migration_document
+        - previous_version
+        - rationale
+      description:
+        value_type: string
+      diagnostic_heuristics:
+        value_type: mapping
+        mapping_keys:
+        - allowed
+        - rules
+      hierarchy_roles:
+        value_type: mapping
+        mapping_keys:
+        - common
+        - rules
       id:
         value_type: string
       inputs:
@@ -8885,10 +9016,11 @@ contract_schema_discovery:
         value_type: mapping
         mapping_keys:
         - allowed
+        - required
       quality_gates:
         value_type: sequence
         item_type_counts:
-          string: 4
+          string: 10
       roles:
         value_type: sequence
         item_type_counts:
@@ -8897,7 +9029,9 @@ contract_schema_discovery:
         value_type: string
       version:
         value_type: string
-    extension_key_paths: []
+    extension_key_paths:
+    - adapter_requirements
+    - compatibility
     expected_contract_root: skill_contract
     root_matches_path_family: true
   - path: contracts/skills/engineering/data-modeling.contract.yaml
@@ -11860,6 +11994,46 @@ contract_schema_discovery:
     extension_key_paths: []
     expected_contract_root: skill_test
     root_matches_path_family: true
+  - path: contracts/tests/composition.test.yaml
+    path_family: behavioral_test
+    expected_id: composition
+    document_root_keys:
+    - contract_schema
+    - skill_test
+    parse_status: parsed
+    contract_root: skill_test
+    identifier_field: skill
+    contract_id: composition
+    contract_version: 2.0.0
+    declared_type: null
+    declared_kind: null
+    root_fields:
+    - cases
+    - description
+    - skill
+    - version
+    root_field_shapes:
+      cases:
+        value_type: sequence
+        item_type_counts:
+          mapping: 5
+        mapping_item_count: 5
+        mapping_item_field_counts:
+          description: 5
+          id: 5
+          must_contain: 5
+          must_not_contain: 5
+          quality_gates_tested: 5
+          trigger: 5
+      description:
+        value_type: string
+      skill:
+        value_type: string
+      version:
+        value_type: string
+    extension_key_paths: []
+    expected_contract_root: skill_test
+    root_matches_path_family: true
   - path: contracts/tests/delivery-work-breakdown.test.yaml
     path_family: behavioral_test
     expected_id: delivery-work-breakdown
@@ -12173,6 +12347,46 @@ contract_schema_discovery:
           quality_gates_tested: 4
           sequence_required: 1
           trigger: 4
+      description:
+        value_type: string
+      skill:
+        value_type: string
+      version:
+        value_type: string
+    extension_key_paths: []
+    expected_contract_root: skill_test
+    root_matches_path_family: true
+  - path: contracts/tests/visual-hierarchy.test.yaml
+    path_family: behavioral_test
+    expected_id: visual-hierarchy
+    document_root_keys:
+    - contract_schema
+    - skill_test
+    parse_status: parsed
+    contract_root: skill_test
+    identifier_field: skill
+    contract_id: visual-hierarchy
+    contract_version: 2.0.0
+    declared_type: null
+    declared_kind: null
+    root_fields:
+    - cases
+    - description
+    - skill
+    - version
+    root_field_shapes:
+      cases:
+        value_type: sequence
+        item_type_counts:
+          mapping: 5
+        mapping_item_count: 5
+        mapping_item_field_counts:
+          description: 5
+          id: 5
+          must_contain: 5
+          must_not_contain: 5
+          quality_gates_tested: 5
+          trigger: 5
       description:
         value_type: string
       skill:

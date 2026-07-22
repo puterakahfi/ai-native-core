@@ -1,0 +1,1 @@
+PASS — 17 port contract(s) satisfy schema, identity, kind, boundary, lifecycle, authorization, alias, and migration-reference checks.
