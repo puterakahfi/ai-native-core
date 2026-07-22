@@ -1,4 +1,4 @@
-# Native AI Framework Architecture v0.2
+# Native AI Engineering Architecture v0.2
 
 Status: Operational architecture view
 
@@ -6,13 +6,17 @@ Philosophy foundation: [`philosophy/README.md`](philosophy/README.md)
 
 Canonical domain model: [`domain-model/README.md`](domain-model/README.md)
 
+Native AI OS boundary: [`native-ai-os.md`](native-ai-os.md)
+
 ## Definition
 
-Native AI Framework v0.2 is a domain-driven, ports-and-adapters architecture view for building AI-native digital products.
+Native AI Engineering Architecture v0.2 is a domain-driven, ports-and-adapters architecture view for building AI-native digital products and operating systems.
 
 It separates stable, governed product agreements from replaceable implementation tools.
 
-This document explains an operational architecture model. It is not the philosophy kernel, does not redefine the canonical Native AI Engineering domain model, and is not a universal numbering authority for every repository artifact.
+This document explains an operational architecture model. It is not the philosophy kernel, does not redefine the canonical Native AI Engineering domain model, is not the complete Native AI OS product specification, and is not a universal numbering authority for every repository artifact.
+
+Historical references to **Native AI Framework v0.2** describe this same architecture lineage. `Framework` remains valid for technical architecture, SDK, library, and adapter concepts, but **Native AI OS** is the product-level identity for an implementation that satisfies the qualification boundary in [`native-ai-os.md`](native-ai-os.md).
 
 ## Foundation Relationship
 
@@ -30,6 +34,26 @@ feedback, learning, and governed evolution
 
 The architecture applies those boundaries to domain ownership, ports, adapters, agents, skills, knowledge, evaluation, and delivery.
 
+## Native AI OS Relationship
+
+Native AI OS is an executable product and control-plane implementation of Native AI Engineering. It coordinates the accepted domain model and lifecycle; it does not create a second domain model or acquire authority merely by coordinating execution.
+
+```text
+Native AI Engineering
+  discipline, canonical domain model, contracts, and architecture
+        ↓ implemented and coordinated by
+Native AI OS
+  control plane, persistent operating state, context assembly,
+  runtime integration, adapter coordination, governance integration,
+  learning, and observability
+        ↓ applied to and validated by
+product repositories
+```
+
+A runtime, framework, adapter workspace, task runner, workflow engine, or dashboard can be part of Native AI OS without independently qualifying as the complete operating system.
+
+See [`native-ai-os.md`](native-ai-os.md) for canonical terminology, repository responsibility, control-plane boundaries, compatibility decisions, and qualification criteria.
+
 ## Core Principle
 
 ```text
@@ -38,6 +62,7 @@ Ports define required capabilities and boundaries.
 Adapters implement those capabilities without owning domain meaning.
 Tools and providers remain replaceable.
 Claims, reviews, and approvals remain scoped to appropriate evidence and authority.
+Operating-system coordination does not create semantic ownership or approval authority.
 ```
 
 Stability does not mean immutability. Canonical agreements may evolve through explicit ownership, compatibility review, evidence, migration, and required authority.
@@ -95,7 +120,8 @@ This sequence is an operational dependency view, not a bounded-context map. It m
 the philosophy foundation stack;
 the [canonical domain model](domain-model/README.md);
 contract-family schemas owned by issue #8;
-repository-specific package or deployment layers.
+repository-specific package or deployment layers;
+Native AI OS implementation topology.
 ```
 
 ## 1. Intent Layer
@@ -122,7 +148,7 @@ Domain Events
 Business Rules
 ```
 
-The domain owns product meaning and business invariants. It must not be derived from one model provider, prompt shape, UI component, database table, or adapter implementation.
+The domain owns product meaning and business invariants. It must not be derived from one model provider, prompt shape, UI component, database table, adapter implementation, or operating-system surface.
 
 Canonical Native AI Engineering objects, contexts, lifecycle semantics, and ownership are defined by the [canonical domain model](domain-model/README.md).
 
@@ -145,7 +171,7 @@ Application behavior must preserve the distinction between capability, permissio
 
 ## 4. Contract Layer
 
-Defines stable agreements that agents, tools, workflows, ports, adapters, and implementations must follow.
+Defines stable agreements that agents, tools, workflows, ports, adapters, operating-system implementations, and product implementations must follow.
 
 Includes:
 
@@ -159,7 +185,7 @@ Workflow Contract
 Skill Contract
 ```
 
-Contract presence or structural validity does not prove executable behavior, runtime integration, or product acceptance.
+Contract presence or structural validity does not prove executable behavior, runtime integration, Native AI OS qualification, or product acceptance.
 
 ## 5. Port Layer
 
@@ -179,7 +205,7 @@ PublishingPort
 EvaluationPort
 ```
 
-A port capability does not automatically authorize every possible operation exposed by an adapter.
+A port capability does not automatically authorize every possible operation exposed by an adapter or control plane.
 
 The canonical port taxonomy and first-class port-contract format remain owned by issue `#7`.
 
@@ -200,11 +226,11 @@ runtime adapter
 product adapter
 ```
 
-Adapters may translate and implement a capability. They must not silently redefine domain meaning, canonical terms, contract ownership, approval authority, or product policy.
+Adapters may translate and implement a capability. They must not silently redefine domain meaning, canonical terms, contract ownership, approval authority, product policy, or Native AI OS qualification.
 
 ## 7. Agent Layer
 
-Defines AI roles that operate inside the framework.
+Defines AI roles that operate inside the architecture and its authorized runtime surfaces.
 
 Agents use contracts, rules, skills, ports, adapters, context, knowledge, and tools. Agents do not own domain decisions merely because they can execute work.
 
@@ -255,7 +281,7 @@ the governing contract and policy;
 the required authority.
 ```
 
-A build, test, screenshot, static declaration, evaluation result, or review verdict supports only claims appropriate to its evidence method and coverage.
+A build, test, screenshot, static declaration, evaluation result, review verdict, OS dashboard state, or control-plane record supports only claims appropriate to its evidence method and coverage.
 
 ## Core Flow
 
@@ -276,9 +302,11 @@ Intent
 
 This flow is a relationship map, not a claim that one result automatically authorizes the next transition. Concrete contracts and policies own the applicable gates.
 
+Native AI OS implementations may coordinate and expose this relationship through product-facing phases such as plan, design, build, test, review, release, operate, and learn. Those phases must map to the canonical relationship and preserve all required distinctions.
+
 ## Design Rule
 
-Never let adapter choice define the domain.
+Never let adapter, framework, runtime, or operating-system implementation choice define the domain.
 
 Correct:
 
@@ -289,6 +317,7 @@ Contract defines the stable agreement.
 Adapter implements the agreement.
 Policy and authority govern material execution.
 Evidence supports bounded claims.
+Control-plane coordination preserves upstream ownership.
 ```
 
 Wrong:
@@ -298,6 +327,8 @@ Tool defines product architecture.
 Tool access defines authority.
 Generated output defines approved product truth.
 Passing one check defines total completion.
+Runtime state defines canonical domain truth.
+Operating-system branding proves qualification.
 ```
 
 ## Illustrative Product Example
@@ -329,4 +360,4 @@ storage provider
 publishing integration
 ```
 
-A creative product is not merely a model wrapper. Its product meaning, decisions, validation criteria, and policies belong to its domain and product repository; replaceable adapters implement selected capabilities.
+A creative product is not merely a model wrapper. Its product meaning, decisions, validation criteria, and policies belong to its domain and product repository; replaceable adapters and Native AI OS coordination implement selected capabilities without acquiring that product meaning or authority.

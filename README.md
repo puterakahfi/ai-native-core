@@ -2,9 +2,9 @@
 
 Native AI Core is the public, runtime-agnostic contract layer for AI-native engineering.
 
-It defines the shared domain model, architecture boundaries, ports, lifecycle agreements, rules, templates, and quality contracts that executable skills, runtime adapters, and product adapters implement.
+It defines the shared domain model, architecture boundaries, ports, lifecycle agreements, rules, templates, and quality contracts that executable skills, runtime adapters, operating-system implementations, and product adapters implement.
 
-Core describes **what must remain stable**. Adapters decide **how it is implemented**.
+Core describes **what must remain stable**. Adapters and operating-system implementations decide **how it is implemented and coordinated**.
 
 ## Start here
 
@@ -12,11 +12,12 @@ Core describes **what must remain stable**. Adapters decide **how it is implemen
 |---|---|
 | Understanding the Native AI Engineering decision foundation | [Philosophy foundation](docs/philosophy/README.md) |
 | Understanding the canonical Native AI Engineering domain model | [Canonical domain model](docs/domain-model/README.md) |
-| Reading the framework architecture | [Architecture v0.2](docs/architecture-v0.2.md) |
+| Understanding the operational architecture | [Architecture v0.2](docs/architecture-v0.2.md) |
+| Understanding Native AI OS terminology and qualification | [Native AI OS boundary](docs/native-ai-os.md) |
 | Looking for a capability or lifecycle contract | [Contract catalog](docs/contract-catalog.md) |
 | Understanding contract kinds, schema versions, and workflow migration | [Contract schema architecture](docs/contract-schema-architecture.md) |
 | Implementing a skill adapter | [Adapter implementation path](#implement-a-contract) and [adapter conformance](docs/adapter-conformance.md) |
-| Building a runtime or product adapter | [Repository boundaries](#repository-boundaries) and [ports and adapters](docs/ports-and-adapters.md) |
+| Building a runtime, Native AI OS implementation, or product adapter | [Repository boundaries](#repository-boundaries), [Native AI OS boundary](docs/native-ai-os.md), and [ports and adapters](docs/ports-and-adapters.md) |
 | Checking terminology | [Glossary](docs/glossary.md) |
 | Contributing a contract, document, rule, schema, or template | [CONTRIBUTING.md](CONTRIBUTING.md) |
 | Inspecting the generated inventory | [contracts/manifest.yaml](contracts/manifest.yaml) |
@@ -29,9 +30,12 @@ ai-native-core
         ↓ implemented as executable reusable behavior
 ai-native-skills
   skills, workflows, reviewers, references, and behavioral evaluation
-        ↓ orchestrated or specialized by
-native-ai-fw and product repositories
-  runtime adapters, provider bindings, product policy, implementation, and validation
+        ↓ orchestrated and integrated by
+Native AI OS implementations, including the evolving ai-native-fw repository
+  control plane, persistent state, runtime integration, adapters, governance, and observability
+        ↓ applied to and validated by
+product repositories
+  product implementation, policy, delivery, and real-world validation
 ```
 
 The design rule is simple:
@@ -41,10 +45,11 @@ Domain defines capability.
 Port describes capability.
 Contract defines the stable agreement.
 Adapter implements the agreement.
+Operating-system and product implementations coordinate state and execution without owning upstream meaning.
 Provider and product choices remain replaceable.
 ```
 
-See the [philosophy foundation](docs/philosophy/README.md), [canonical domain model](docs/domain-model/README.md), [Architecture v0.2](docs/architecture-v0.2.md), [ports and adapters](docs/ports-and-adapters.md), and [port taxonomy](docs/port-taxonomy.md) for the complete framework model and authority boundaries.
+See the [philosophy foundation](docs/philosophy/README.md), [canonical domain model](docs/domain-model/README.md), [Architecture v0.2](docs/architecture-v0.2.md), [Native AI OS boundary](docs/native-ai-os.md), [ports and adapters](docs/ports-and-adapters.md), and [port taxonomy](docs/port-taxonomy.md) for the complete architecture model and authority boundaries.
 
 ## Repository boundaries
 
@@ -54,7 +59,8 @@ See the [philosophy foundation](docs/philosophy/README.md), [canonical domain mo
 - public skill, workflow, runtime, evaluation, and port contracts;
 - architecture boundaries and delegation rules;
 - reusable rules and generic templates;
-- public framework and port documentation;
+- public architecture and port documentation;
+- Native AI OS terminology and runtime-agnostic qualification boundaries;
 - generated contract identity and checksum metadata.
 
 ### Native AI Core does not own
@@ -67,9 +73,11 @@ runtime-installed profile state
 private screenshots and product assets
 application-specific business policy
 copies of installed runtime skills
+control-plane implementation or persistent operating state
+product-specific acceptance or production approval
 ```
 
-Those concerns belong in executable skill adapters, `native-ai-fw`, provider adapters, or product repositories.
+Those concerns belong in executable skill adapters, Native AI OS/runtime implementations, provider adapters, or product repositories.
 
 ## Implement a contract
 
@@ -263,11 +271,12 @@ These checks answer different questions. Manifest identity, compatible pins, int
 
 ## Canonical documentation
 
-### Foundation, framework, and domain
+### Foundation, architecture, and domain
 
 - [Native AI Engineering philosophy](docs/philosophy/README.md)
 - [Canonical Native AI Engineering domain model](docs/domain-model/README.md)
 - [Architecture v0.2](docs/architecture-v0.2.md)
+- [Native AI OS terminology and architecture boundary](docs/native-ai-os.md)
 - [Domain-driven modeling guide](docs/domain-driven-model.md)
 - [Engineering contract](docs/engineering-contract.md)
 - [Glossary](docs/glossary.md)
@@ -292,7 +301,7 @@ Provider, product, system, and UI port specifications remain under [`docs/`](doc
 
 ## Contributing
 
-Read [CONTRIBUTING.md](CONTRIBUTING.md) before changing contracts or public framework boundaries.
+Read [CONTRIBUTING.md](CONTRIBUTING.md) before changing contracts or public architecture boundaries.
 
 The guide covers:
 
@@ -309,5 +318,5 @@ The guide covers:
 ## Related repositories
 
 - [`ai-native-skills`](https://github.com/puterakahfi/ai-native-skills) — executable reusable skill and workflow adapters
-- [`native-ai-fw`](https://github.com/puterakahfi/native-ai-fw) — orchestration, control plane, discovery, and runtime/product adapters
+- [`ai-native-fw`](https://github.com/puterakahfi/ai-native-fw) — evolving Native AI OS control plane, orchestration, discovery, and runtime/product adapters
 - [`skills.sh`](https://skills.sh) — compatible skill discovery and installation ecosystem
