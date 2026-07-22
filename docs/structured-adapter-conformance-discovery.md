@@ -10,15 +10,15 @@ Replace prose-first interface inference with a structured, deterministic declara
 
 ## Current baseline
 
-The existing validator already provides useful behavior:
+The previous validator already provided useful behavior:
 
 - schema-aware canonical and legacy contract path resolution;
 - compatible version-pin resolution through the manifest and path aliases;
 - explicit boundary `covers` and `delegates` checks;
 - `ERROR`, `WARN`, and `NOT_CHECKABLE` boundary findings;
-- legacy fuzzy text diagnostics for inputs, outputs, and gates.
+- fuzzy textual diagnostics for inputs, outputs, and gates.
 
-The remaining problem is that gate/input/output coverage is inferred from copied vocabulary in prose. A skill can mention contract terms without declaring that it supports the interface or without actually performing the responsibility.
+The remaining problem was that interface coverage could be inferred from copied vocabulary in prose. A skill could mention contract terms without declaring that it supports the interface or without actually performing the responsibility.
 
 ## Source ownership
 
@@ -52,7 +52,7 @@ Preferred adapter declaration:
 skills/<adapter-id>/adapter.conformance.yaml
 ```
 
-The declaration is separate from `SKILL.md` because Agent Skills frontmatter currently uses namespaced scalar metadata and should remain a portable executable entry point rather than becoming a deeply nested conformance document.
+The declaration is separate from `SKILL.md` because Agent Skills frontmatter uses namespaced scalar metadata and should remain a portable executable entry point rather than becoming a deeply nested conformance document.
 
 Legacy frontmatter fields remain migration inputs:
 
@@ -61,9 +61,38 @@ ai-native-skills.implements
 ai-native-skills.contract-version
 ai-native-skills.boundary.covers
 ai-native-skills.boundary.delegates
+ai-native-skills.pattern
 ```
 
 They do not produce full v2 conformance by themselves.
+
+## Executable taxonomy decision
+
+`ai-native-skills` has three official executable types:
+
+```text
+skill
+workflow
+meta-skill
+```
+
+Adapter and composition semantics are patterns, not new types.
+
+Every contract-backed v2 declaration includes:
+
+```text
+skill-adapter
+```
+
+Additional accepted declaration patterns:
+
+```text
+facade
+runtime-adapter
+port-adapter
+```
+
+Legacy reports may preserve additional downstream values, such as `domain-reviewer`, without making those values accepted declaration patterns.
 
 ## Declaration model
 
@@ -77,6 +106,8 @@ adapter_conformance:
   adapter:
     id: example-adapter
     kind: skill
+    patterns:
+      - skill-adapter
     entrypoint: skills/example-adapter/SKILL.md
 
   implements:
@@ -105,26 +136,49 @@ adapter_conformance:
 
 ## Structural checks
 
-The validator must check deterministically:
+The validator checks deterministically:
 
-1. declaration schema and adapter path identity;
-2. canonical or aliased contract path resolution;
-3. contract ID, kind, and version-pin compatibility;
-4. exact capability identity;
-5. required and optional input declarations;
-6. required and allowed output declarations;
-7. quality or safety gate declarations;
-8. owned and delegated boundary declarations;
-9. dependencies and handoffs when represented by stable IDs;
-10. adapter requirement keys;
-11. unsupported or out-of-bound claims;
-12. evidence references without treating references as verified evidence.
+1. declaration schema and adapter entrypoint identity;
+2. executable kind and adapter patterns;
+3. canonical or aliased contract path resolution;
+4. contract ID, kind, and version-pin compatibility;
+5. exact capability identity;
+6. required and optional input declarations;
+7. required and allowed output declarations;
+8. quality or safety gate declarations;
+9. owned and delegated boundary declarations;
+10. dependencies and handoffs when represented by stable IDs;
+11. adapter requirement keys;
+12. unsupported or out-of-bound claims;
+13. evidence references without treating references as verified evidence.
 
 Unknown interface or boundary IDs are errors. Missing required coverage is partial. Explicit ownership of a delegated responsibility is an error.
 
+## Output semantics decision
+
+```text
+required output omitted
+→ PARTIAL
+
+allowed output omitted
+→ no coverage failure
+
+contract output explicitly marked unsupported
+→ PARTIAL limitation
+
+unknown output declared
+→ ERROR
+```
+
+The allowed-output list defines a permitted universe, not a requirement that every adapter support every possible result.
+
+## Adapter-specific extensions
+
+Dependencies, handoffs, or adapter requirements not represented by the reusable core contract may still be valid adapter-level constraints. They are preserved as migration diagnostics rather than automatically treated as core contract claims.
+
 ## Result dimensions
 
-Static conformance is not one boolean and is not runtime proof.
+Static conformance is not one Boolean and is not runtime proof.
 
 ```text
 structural_status
@@ -138,13 +192,16 @@ runtime_status
 
 product_status
 → NOT_CHECKABLE | EVIDENCE_REFERENCED
+
+approval_status
+→ NOT_EVALUATED
 ```
 
-An evidence reference proves only that a reference was declared and resolved when checkable. It does not prove the referenced evidence is sufficient, accepted, or applicable.
+An evidence reference proves only that a reference was declared. It does not prove that the referenced evidence is sufficient, accepted, applicable, or authority-bearing.
 
 ## Exit semantics
 
-Migration mode preserves current downstream compatibility:
+Migration mode preserves downstream compatibility:
 
 ```text
 0 → no ERROR findings
@@ -164,14 +221,16 @@ Strict mode exposes incomplete migration to CI:
 
 ## Report outputs
 
-The validator will write:
+The validator writes:
 
 ```text
 per-adapter JSON or YAML report
 repository summary JSON or YAML
 ```
 
-The report records contract identity, declaration identity, result dimensions, findings, evidence references, and migration diagnostics.
+The report records contract identity, declaration identity, executable kind, adapter patterns, result dimensions, findings, evidence references, and migration diagnostics.
+
+Report serialization intentionally preserves unknown legacy pattern strings so consumer migration evidence is not lost.
 
 ## Textual diagnostics
 
@@ -179,7 +238,20 @@ Textual gate/input/output matching remains available only as supplemental migrat
 
 ## Compatibility boundary
 
-Existing adapters without `adapter.conformance.yaml` are classified `NOT_CHECKABLE`, not silently conformant. Existing path/version and boundary metadata are preserved in the report as migration observations.
+Existing adapters without `adapter.conformance.yaml` are classified `NOT_CHECKABLE`, not silently conformant. Existing path/version, boundary, type, and pattern metadata are preserved in the report as migration observations.
+
+Real inventory against `ai-native-skills` found:
+
+```text
+91 contract-backed adapters
+0 CONFORMANT
+0 PARTIAL
+0 ERROR
+91 NOT_CHECKABLE
+91 BEHAVIOR_NOT_VERIFIED
+```
+
+This is an expected migration state, not a claim that the adapters fail behaviorally.
 
 ## Evidence boundary
 
