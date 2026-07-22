@@ -8,10 +8,14 @@ import unittest
 from pathlib import Path
 
 import yaml
-from jsonschema import Draft202012Validator
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPT = ROOT / "scripts" / "validate-port-contracts.py"
+SCRIPTS = ROOT / "scripts"
+sys.path.insert(0, str(SCRIPTS))
+
+from schema_validation import validator_for
+
+SCRIPT = SCRIPTS / "validate-port-contracts.py"
 SCHEMA = ROOT / "schemas" / "port-contract.schema.yaml"
 INVALID_FIXTURE = (
     ROOT
@@ -32,27 +36,18 @@ class PortContractValidationTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.schema = module.load_yaml(SCHEMA)
-        Draft202012Validator.check_schema(cls.schema)
-        cls.schema_validator = Draft202012Validator(cls.schema)
+        cls.schema_validator = validator_for(SCHEMA)
         cls.ports_root = ROOT / "contracts" / "ports"
-        cls.model_path = (
-            cls.ports_root / "integration" / "model-inference.port.yaml"
-        )
+        cls.model_path = cls.ports_root / "integration" / "model-inference.port.yaml"
         cls.execution_path = (
             cls.ports_root / "control" / "execution-run-management.port.yaml"
         )
-        cls.agent_runtime_path = (
-            cls.ports_root / "control" / "agent-runtime.port.yaml"
-        )
+        cls.agent_runtime_path = cls.ports_root / "control" / "agent-runtime.port.yaml"
         cls.workflow_coordination_path = (
             cls.ports_root / "control" / "workflow-coordination.port.yaml"
         )
-        cls.review_path = (
-            cls.ports_root / "control" / "review-management.port.yaml"
-        )
-        cls.approval_path = (
-            cls.ports_root / "control" / "approval-decision.port.yaml"
-        )
+        cls.review_path = cls.ports_root / "control" / "review-management.port.yaml"
+        cls.approval_path = cls.ports_root / "control" / "approval-decision.port.yaml"
         cls.authorization_path = (
             cls.ports_root / "control" / "authorization-assessment.port.yaml"
         )
@@ -64,13 +59,7 @@ class PortContractValidationTests(unittest.TestCase):
         kind_directory: str,
     ) -> tuple[Path, Path]:
         temp_root = Path(tempfile.mkdtemp())
-        path = (
-            temp_root
-            / "contracts"
-            / "ports"
-            / kind_directory
-            / source.name
-        )
+        path = temp_root / "contracts" / "ports" / kind_directory / source.name
         path.parent.mkdir(parents=True)
         payload = module.load_yaml(source)
         mutate(payload)
@@ -90,10 +79,7 @@ class PortContractValidationTests(unittest.TestCase):
         contract = module.load_yaml(path)["port_contract"]
         for request in contract["interactions"]["requests"]:
             if request["id"] == request_id:
-                return {
-                    field["id"]
-                    for field in request["required_fields"]
-                }
+                return {field["id"] for field in request["required_fields"]}
         raise AssertionError(f"request not found: {request_id}")
 
     def test_schema_uses_standard_root_keywords(self):

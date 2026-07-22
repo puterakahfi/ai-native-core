@@ -7,7 +7,10 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPT = ROOT / "scripts" / "validate-conformance.py"
+SCRIPTS = ROOT / "scripts"
+sys.path.insert(0, str(SCRIPTS))
+
+SCRIPT = SCRIPTS / "validate-conformance.py"
 FIXTURES = ROOT / "tests" / "fixtures" / "conformance-boundaries"
 
 spec = importlib.util.spec_from_file_location("validate_conformance", SCRIPT)

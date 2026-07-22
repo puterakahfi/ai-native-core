@@ -1,0 +1,39 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "https://native-ai.engineering/schemas/compatibility-manifest.schema.yaml"
+title: Native AI Engineering Compatibility Manifest
+type: object
+additionalProperties: false
+required:
+  - contract_schema
+  - compatibility_manifest
+properties:
+  contract_schema:
+    allOf:
+      - $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/contract_schema_identity"
+      - type: object
+        properties:
+          kind:
+            const: compatibility_manifest
+          version:
+            const: "1.0.0"
+          path:
+            const: schemas/compatibility-manifest.schema.yaml
+  compatibility_manifest:
+    type: object
+    additionalProperties: false
+    required:
+      - id
+      - version
+      - aliases
+    properties:
+      id:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/contract_id"
+      version:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/semantic_version"
+      aliases:
+        type: array
+        minItems: 1
+        items:
+          $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/compatibility_alias"
+      evidence_boundary:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/unique_string_list"

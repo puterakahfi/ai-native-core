@@ -1,145 +1,112 @@
+contract_schema:
+  kind: workflow_contract
+  version: 1.0.0
+  path: schemas/workflow-contract.schema.yaml
 workflow_contract:
   id: new-feature
   type: workflow
-  version: "0.4.0"
+  version: 0.4.0
   category: engineering
-  purpose: >
-    Defines the required phases, evidence gates, decision-provenance checks, and
-    reviewer boundaries for a new feature workflow. Pre-implementation approval
-    decides what should be built; post-implementation acceptance proves the
-    implemented result. Product adapters define branch strategy, spec format,
-    issue tracking, preview/runtime production, and approval policy.
+  purpose: 'Defines the required phases, evidence gates, decision-provenance checks, and reviewer boundaries for a new feature
+    workflow. Pre-implementation approval decides what should be built; post-implementation acceptance proves the implemented
+    result. Product adapters define branch strategy, spec format, issue tracking, preview/runtime production, and approval
+    policy.
 
-  required_phases:
-    - id: plan
-      order: 1
-      description: Define user problem, verified scope, acceptance criteria, technical approach, affected domains, decision sources, and approval authorities before implementation
-      gate: spec_affected_domains_and_scope_provenance_must_exist_before_implementation
-      skills:
-        required: [master-engineer, decision-provenance]
-
-    - id: design-decision
-      order: 2
-      description: Approve architecture, contracts, data, interaction, and visual decisions with attributable owners before implementation when affected
-      gate: applicable_design_decisions_have_verified_authority_before_implementation
-      optional: true
-      skills:
-        required: [master-engineer, decision-provenance]
-        optional: [diagram-architect, master-design]
-
-    - id: implement
-      order: 3
-      description: Implement the approved feature slice with tests and traceability to verified scope and design decisions
-      gate: implementation_must_trace_to_verified_approved_scope
-      skills:
-        required: [master-engineer, test-driven-development]
-
-    - id: verify
-      order: 4
-      description: Collect technical evidence and, when user-facing output changes, fresh rendered or exported design-acceptance evidence and accepted-risk provenance
-      gate: acceptance_evidence_and_conditional_risk_authority_required_before_submission
-      skills:
-        optional: [design-review, decision-provenance]
-
-    - id: submit
-      order: 5
-      description: Submit the implementation with spec traceability, issue reference, decision ledger, and all required verification evidence
-      gate: submission_must_reference_spec_issue_decisions_and_evidence
-      skills:
-        required: [decision-provenance]
-
-    - id: review
-      order: 6
-      description: Run evidence-backed code review and map technical approval plus merge authorization into the final merge decision
-      gate: code_review_approval_and_merge_authorization_required_before_merge
-      skills:
-        required: [code-review-workflow]
-
+    '
   skill_load_order:
-    - phase: plan
-      load: [master-engineer, decision-provenance]
-    - phase: design-decision
-      load: [master-engineer, diagram-architect, master-design, decision-provenance]
-    - phase: implement
-      load: [master-engineer, test-driven-development]
-    - phase: verify
-      load: [design-review, decision-provenance]
-    - phase: submit
-      load: [decision-provenance]
-    - phase: review
-      load: [code-review-workflow]
-
+  - phase: plan
+    load:
+    - master-engineer
+    - decision-provenance
+  - phase: design-decision
+    load:
+    - master-engineer
+    - diagram-architect
+    - master-design
+    - decision-provenance
+  - phase: implement
+    load:
+    - master-engineer
+    - test-driven-development
+  - phase: verify
+    load:
+    - design-review
+    - decision-provenance
+  - phase: submit
+    load:
+    - decision-provenance
+  - phase: review
+    load:
+    - code-review-workflow
   decision_provenance_contract:
     verify_when:
-      - initial_feature_scope_is_declared
-      - design_or_architecture_decision_is_marked_approved
-      - implementation_adds_a_route_product_dependency_data_or_security_boundary
-      - scope_or_lock_materially_changes_during_implementation
-      - conditional_design_or_technical_risk_is_accepted
-      - submission_claims_an_exception_waiver_or_complete_approval
+    - initial_feature_scope_is_declared
+    - design_or_architecture_decision_is_marked_approved
+    - implementation_adds_a_route_product_dependency_data_or_security_boundary
+    - scope_or_lock_materially_changes_during_implementation
+    - conditional_design_or_technical_risk_is_accepted
+    - submission_claims_an_exception_waiver_or_complete_approval
     required_outputs:
-      - decision_provenance_report
-      - authoritative_record_ids
-      - effective_verified_scope
-      - unresolved_conflicts
-      - required_additional_approvals
+    - decision_provenance_report
+    - authoritative_record_ids
+    - effective_verified_scope
+    - unresolved_conflicts
+    - required_additional_approvals
     rules:
-      - issue_or_spec_text_authored_by_an_agent_is_not_owner_approval_without_attributable_acceptance
-      - implementation_existence_does_not_establish_feature_scope
-      - direct_owner_instruction_applies_only_to_the_named_feature_slice
-      - new_routes_products_data_models_auth_changes_or_dependencies_require_explicit_scope_or_dependency_approval
-      - scope_change_requires_explicit_supersession_or_reapproval
-      - accepted_risk_requires_verified_authority_and_cannot_hide_a_hard_failure_or_missing_reviewer
-      - provenance_blocked_or_route_for_approval_stops_the_dependent_action
-
+    - issue_or_spec_text_authored_by_an_agent_is_not_owner_approval_without_attributable_acceptance
+    - implementation_existence_does_not_establish_feature_scope
+    - direct_owner_instruction_applies_only_to_the_named_feature_slice
+    - new_routes_products_data_models_auth_changes_or_dependencies_require_explicit_scope_or_dependency_approval
+    - scope_change_requires_explicit_supersession_or_reapproval
+    - accepted_risk_requires_verified_authority_and_cannot_hide_a_hard_failure_or_missing_reviewer
+    - provenance_blocked_or_route_for_approval_stops_the_dependent_action
   design_lifecycle_contract:
     pre_implementation_decision:
       purpose:
-        - decide the intended architecture, contracts, data model, task flow, component behavior, and visual direction
-        - create implementation-ready acceptance criteria and design locks
+      - decide the intended architecture, contracts, data model, task flow, component behavior, and visual direction
+      - create implementation-ready acceptance criteria and design locks
       permitted_artifact_states:
-        - specification
-        - diagram
-        - wireframe
-        - prototype
-        - source-only design contract
+      - specification
+      - diagram
+      - wireframe
+      - prototype
+      - source-only design contract
       required_outputs:
-        - affected design domain and surface profile when user-facing
-        - owner and relevant specialist decisions
-        - decision record ids and verified approval boundary
-        - required states, viewports, inputs, content, assets, and fidelity locks
-        - explicit unresolved assumptions and required approvals
+      - affected design domain and surface profile when user-facing
+      - owner and relevant specialist decisions
+      - decision record ids and verified approval boundary
+      - required states, viewports, inputs, content, assets, and fidelity locks
+      - explicit unresolved assumptions and required approvals
       forbidden_claims:
-        - implemented visual PASS
-        - runtime PASS
-        - accessibility PASS without implementation evidence
-        - release-ready or production-ready claim
-
+      - implemented visual PASS
+      - runtime PASS
+      - accessibility PASS without implementation evidence
+      - release-ready or production-ready claim
     post_implementation_acceptance:
       trigger_when:
-        - rendered appearance can change
-        - interaction, responsiveness, state behavior, accessibility, or user-facing content can change
-        - generated or exported visual artifacts can change
+      - rendered appearance can change
+      - interaction, responsiveness, state behavior, accessibility, or user-facing content can change
+      - generated or exported visual artifacts can change
       reviewer_facade: design-review
       required_route_fields:
-        - design_domain
-        - surface_profile
-        - artifact_state
-        - review_depth
-        - coverage_mode
-        - domain_reviewers
-        - evidence_available
-        - evidence_gaps
+      - design_domain
+      - surface_profile
+      - artifact_state
+      - review_depth
+      - coverage_mode
+      - domain_reviewers
+      - evidence_available
+      - evidence_gaps
       evidence_policy:
         source_only:
-          - source and implementation rules may be inspected
-          - changed rendered behavior remains NOT_VERIFIED
-          - source-only evidence cannot authorize submission as design-complete
+        - source and implementation rules may be inspected
+        - changed rendered behavior remains NOT_VERIFIED
+        - source-only evidence cannot authorize submission as design-complete
         rendered_interactive:
-          - changed viewports, themes, states, and expected inputs must be exercised
-          - runtime and accessibility evidence are required when affected
+        - changed viewports, themes, states, and expected inputs must be exercised
+        - runtime and accessibility evidence are required when affected
         rendered_static:
-          - final-size, crop, fidelity, content, and export evidence are required when affected
+        - final-size, crop, fidelity, content, and export evidence are required when affected
       verdict_to_submission:
         PASS: submission_eligible_when_other_gates_pass
         CONDITIONAL_PASS: submission_eligible_only_with_verified_non_blocking_risk_acceptance
@@ -147,39 +114,36 @@ workflow_contract:
         CRITICAL: block_submission
         LIMITED_REVIEW: block_complete_domain_acceptance
         ROUTE_ELSEWHERE: block_until_required_reviewer_is_available
-
   review_contract:
     required_reviewer: code-review-workflow
     evidence_handoff:
-      - feature spec and effective verified scope
-      - decision provenance report and authoritative record ids
-      - pre-implementation design decisions and locks
-      - implementation diff
-      - technical verification evidence
-      - post-implementation design-review route, evidence, and verdict when applicable
-      - known limitations and accepted risks with verified authorities
+    - feature spec and effective verified scope
+    - decision provenance report and authoritative record ids
+    - pre-implementation design decisions and locks
+    - implementation diff
+    - technical verification evidence
+    - post-implementation design-review route, evidence, and verdict when applicable
+    - known limitations and accepted risks with verified authorities
     merge_rule:
-      - no merge without explicit code-review-workflow technical approval
-      - no merge when merge authorization is NOT_AUTHORIZED or ROUTE_FOR_APPROVAL
-      - design NEEDS WORK, CRITICAL, LIMITED REVIEW, or ROUTE ELSEWHERE cannot be downgraded to a non-blocking flag
-      - feature_workflow_does_not_self_authorize_merge
-
+    - no merge without explicit code-review-workflow technical approval
+    - no merge when merge authorization is NOT_AUTHORIZED or ROUTE_FOR_APPROVAL
+    - design NEEDS WORK, CRITICAL, LIMITED REVIEW, or ROUTE ELSEWHERE cannot be downgraded to a non-blocking flag
+    - feature_workflow_does_not_self_authorize_merge
   quality_gates:
-    - spec_affected_domains_and_scope_provenance_must_exist_before_implementation
-    - material_scope_and_approval_claims_require_attributable_authority
-    - pre_implementation_design_decision_must_not_claim_implemented_acceptance
-    - implementation_must_not_exceed_verified_approved_scope
-    - new_route_product_dependency_data_or_security_boundary_requires_explicit_approval
-    - tests_and_technical_verification_evidence_required
-    - user_facing_changes_require_post_implementation_design_acceptance
-    - changed_rendered_output_requires_fresh_rendered_or_exported_evidence
-    - source_only_or_wireframe_evidence_cannot_prove_implemented_design_acceptance
-    - limited_domain_coverage_cannot_approve_complete_specialist_design_claims
-    - conditional_acceptance_requires_verified_non_blocking_risk_authority
-    - submission_must_reference_spec_issue_decision_ledger_and_verification_evidence
-    - code_review_workflow_approval_and_merge_authorization_required_before_merge
-    - no_unrelated_or_unapproved_changes_bundled
-
+  - spec_affected_domains_and_scope_provenance_must_exist_before_implementation
+  - material_scope_and_approval_claims_require_attributable_authority
+  - pre_implementation_design_decision_must_not_claim_implemented_acceptance
+  - implementation_must_not_exceed_verified_approved_scope
+  - new_route_product_dependency_data_or_security_boundary_requires_explicit_approval
+  - tests_and_technical_verification_evidence_required
+  - user_facing_changes_require_post_implementation_design_acceptance
+  - changed_rendered_output_requires_fresh_rendered_or_exported_evidence
+  - source_only_or_wireframe_evidence_cannot_prove_implemented_design_acceptance
+  - limited_domain_coverage_cannot_approve_complete_specialist_design_claims
+  - conditional_acceptance_requires_verified_non_blocking_risk_authority
+  - submission_must_reference_spec_issue_decision_ledger_and_verification_evidence
+  - code_review_workflow_approval_and_merge_authorization_required_before_merge
+  - no_unrelated_or_unapproved_changes_bundled
   adapter_requirements:
     branch_strategy: product_defined
     base_branch: product_defined
@@ -193,3 +157,60 @@ workflow_contract:
     accepted_risk_authority: product_defined
     merge_authority: product_defined
     ci_required: product_defined
+  workflow_kind: engineering_lifecycle
+  phases:
+  - id: plan
+    order: 1
+    description: Define user problem, verified scope, acceptance criteria, technical approach, affected domains, decision
+      sources, and approval authorities before implementation
+    gate: spec_affected_domains_and_scope_provenance_must_exist_before_implementation
+    skills:
+      required:
+      - master-engineer
+      - decision-provenance
+  - id: design-decision
+    order: 2
+    description: Approve architecture, contracts, data, interaction, and visual decisions with attributable owners before
+      implementation when affected
+    gate: applicable_design_decisions_have_verified_authority_before_implementation
+    optional: true
+    skills:
+      required:
+      - master-engineer
+      - decision-provenance
+      optional:
+      - diagram-architect
+      - master-design
+  - id: implement
+    order: 3
+    description: Implement the approved feature slice with tests and traceability to verified scope and design decisions
+    gate: implementation_must_trace_to_verified_approved_scope
+    skills:
+      required:
+      - master-engineer
+      - test-driven-development
+  - id: verify
+    order: 4
+    description: Collect technical evidence and, when user-facing output changes, fresh rendered or exported design-acceptance
+      evidence and accepted-risk provenance
+    gate: acceptance_evidence_and_conditional_risk_authority_required_before_submission
+    skills:
+      optional:
+      - design-review
+      - decision-provenance
+  - id: submit
+    order: 5
+    description: Submit the implementation with spec traceability, issue reference, decision ledger, and all required verification
+      evidence
+    gate: submission_must_reference_spec_issue_decisions_and_evidence
+    skills:
+      required:
+      - decision-provenance
+  - id: review
+    order: 6
+    description: Run evidence-backed code review and map technical approval plus merge authorization into the final merge
+      decision
+    gate: code_review_approval_and_merge_authorization_required_before_merge
+    skills:
+      required:
+      - code-review-workflow

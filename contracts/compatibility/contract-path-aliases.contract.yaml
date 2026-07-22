@@ -1,0 +1,40 @@
+contract_schema:
+  kind: compatibility_manifest
+  version: 1.0.0
+  path: schemas/compatibility-manifest.schema.yaml
+compatibility_manifest:
+  id: contract-path-aliases
+  version: 1.0.0
+  aliases:
+  - from_path: contracts/skills/quality/design-refinement.contract.yaml
+    to_path: contracts/workflows/design-refinement.contract.yaml
+    contract_id: design-refinement
+    contract_kind: workflow_contract
+    version_constraint: ^1.2.0
+    status: active
+    rationale: 'Canonical workflow root and location migration under issue #8.'
+  - from_path: contracts/skills/quality/redesign-workflow.contract.yaml
+    to_path: contracts/workflows/redesign-workflow.contract.yaml
+    contract_id: redesign-workflow
+    contract_kind: workflow_contract
+    version_constraint: ^2.2.0
+    status: active
+    rationale: 'Canonical workflow root and location migration under issue #8.'
+  - from_path: contracts/skills/quality/skill-evolution.contract.yaml
+    to_path: contracts/workflows/skill-evolution.contract.yaml
+    contract_id: skill-evolution
+    contract_kind: workflow_contract
+    version_constraint: ^1.0.0
+    status: active
+    rationale: 'Canonical workflow root and location migration under issue #8.'
+  - from_path: contracts/runtime/development-loop.contract.yaml
+    to_path: contracts/workflows/development-loop.contract.yaml
+    contract_id: development-loop
+    contract_kind: workflow_contract
+    version_constraint: ^1.0.0
+    status: active
+    rationale: 'Canonical workflow root and location migration under issue #8.'
+  evidence_boundary:
+  - path_alias_preserves_resolution_not_behavioral_conformance
+  - canonical_target_remains_the_only_machine_authority
+  - downstream_consumers_still_require_explicit_migration

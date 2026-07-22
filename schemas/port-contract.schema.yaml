@@ -1,65 +1,77 @@
-$schema: "https://json-schema.org/draft/2020-12/schema"
+$schema: https://json-schema.org/draft/2020-12/schema
 title: Native AI Engineering Port Contract
 type: object
 additionalProperties: false
 required:
-  - port_contract
+- contract_schema
+- port_contract
 properties:
+  contract_schema:
+    allOf:
+    - $ref: https://native-ai.engineering/schemas/common.schema.yaml#/$defs/contract_schema_identity
+    - type: object
+      properties:
+        kind:
+          const: port_contract
+        version:
+          const: 1.0.0
+        path:
+          const: schemas/port-contract.schema.yaml
   port_contract:
     type: object
     additionalProperties: false
     required:
-      - id
-      - kind
-      - version
-      - capability
-      - direction
-      - semantic_owner_context
-      - binding_owner_context
-      - consumer_contexts
-      - purpose
-      - boundary
-      - interactions
-      - failures
-      - state_transitions
-      - authorization
-      - idempotency
-      - observability
-      - adapter_requirements
-      - compatibility
-      - quality_gates
+    - id
+    - kind
+    - version
+    - capability
+    - direction
+    - semantic_owner_context
+    - binding_owner_context
+    - consumer_contexts
+    - purpose
+    - boundary
+    - interactions
+    - failures
+    - state_transitions
+    - authorization
+    - idempotency
+    - observability
+    - adapter_requirements
+    - compatibility
+    - quality_gates
     properties:
       id:
         type: string
-        pattern: "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        pattern: ^[a-z0-9]+(?:-[a-z0-9]+)*$
       kind:
         type: string
         enum:
-          - integration_port
-          - control_port
-          - product_surface_port
-          - capability_composition_port
+        - integration_port
+        - control_port
+        - product_surface_port
+        - capability_composition_port
       version:
         type: string
-        pattern: "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?$"
+        pattern: ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?$
       capability:
         type: string
-        pattern: "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+        pattern: ^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$
       direction:
         type: string
         enum:
-          - inbound
-          - outbound
-          - bidirectional
+        - inbound
+        - outbound
+        - bidirectional
       semantic_owner_context:
-        $ref: "#/$defs/context_id"
+        $ref: '#/$defs/context_id'
       binding_owner_context:
         const: integration_and_binding
       consumer_contexts:
         type: array
         uniqueItems: true
         items:
-          $ref: "#/$defs/context_id"
+          $ref: '#/$defs/context_id'
       purpose:
         type: string
         minLength: 20
@@ -67,87 +79,87 @@ properties:
         type: object
         additionalProperties: false
         required:
-          - owns
-          - delegates
-          - does_not_own
+        - owns
+        - delegates
+        - does_not_own
         properties:
           owns:
-            $ref: "#/$defs/machine_string_list_nonempty"
+            $ref: '#/$defs/machine_string_list_nonempty'
           delegates:
-            $ref: "#/$defs/machine_string_list"
+            $ref: '#/$defs/machine_string_list'
           does_not_own:
-            $ref: "#/$defs/machine_string_list_nonempty"
+            $ref: '#/$defs/machine_string_list_nonempty'
       interactions:
         type: object
         additionalProperties: false
         required:
-          - requests
-          - responses
-          - events
-          - streams
+        - requests
+        - responses
+        - events
+        - streams
         properties:
           requests:
             type: array
             minItems: 1
             items:
-              $ref: "#/$defs/request"
+              $ref: '#/$defs/request'
           responses:
             type: array
             minItems: 1
             items:
-              $ref: "#/$defs/response"
+              $ref: '#/$defs/response'
           events:
             type: array
             items:
-              $ref: "#/$defs/event"
+              $ref: '#/$defs/event'
           streams:
             type: array
             items:
-              $ref: "#/$defs/stream"
+              $ref: '#/$defs/stream'
       failures:
         type: object
         additionalProperties: false
         required:
-          - errors
-          - partial_result_policy
-          - unknown_or_not_checkable_policy
+        - errors
+        - partial_result_policy
+        - unknown_or_not_checkable_policy
         properties:
           errors:
             type: array
             minItems: 1
             items:
-              $ref: "#/$defs/error"
+              $ref: '#/$defs/error'
           partial_result_policy:
             type: string
             enum:
-              - disallowed
-              - explicit
-              - operation_defined
+            - disallowed
+            - explicit
+            - operation_defined
           unknown_or_not_checkable_policy:
             type: string
             minLength: 10
       state_transitions:
         type: array
         items:
-          $ref: "#/$defs/state_transition"
+          $ref: '#/$defs/state_transition'
       authorization:
         type: object
         additionalProperties: false
         required:
-          - mode
-          - required_for
-          - permission_is_not_authority
-          - review_is_not_approval
-          - authority_reference_required
+        - mode
+        - required_for
+        - permission_is_not_authority
+        - review_is_not_approval
+        - authority_reference_required
         properties:
           mode:
             type: string
             enum:
-              - none
-              - policy_dependent
-              - required
+            - none
+            - policy_dependent
+            - required
           required_for:
-            $ref: "#/$defs/machine_string_list"
+            $ref: '#/$defs/machine_string_list'
           permission_is_not_authority:
             const: true
           review_is_not_approval:
@@ -158,16 +170,16 @@ properties:
         type: object
         additionalProperties: false
         required:
-          - mode
-          - key_scope
+        - mode
+        - key_scope
         properties:
           mode:
             type: string
             enum:
-              - not_applicable
-              - request_key
-              - resource_key
-              - operation_defined
+            - not_applicable
+            - request_key
+            - resource_key
+            - operation_defined
           key_scope:
             type: string
             minLength: 4
@@ -175,30 +187,30 @@ properties:
         type: object
         additionalProperties: false
         required:
-          - required_events
-          - correlation_fields
-          - sensitive_fields
+        - required_events
+        - correlation_fields
+        - sensitive_fields
         properties:
           required_events:
-            $ref: "#/$defs/machine_string_list_nonempty"
+            $ref: '#/$defs/machine_string_list_nonempty'
           correlation_fields:
-            $ref: "#/$defs/machine_string_list_nonempty"
+            $ref: '#/$defs/machine_string_list_nonempty'
           sensitive_fields:
-            $ref: "#/$defs/machine_string_list"
+            $ref: '#/$defs/machine_string_list'
       adapter_requirements:
         type: object
         additionalProperties: false
         required:
-          - contract_reference
-          - requirements
+        - contract_reference
+        - requirements
         properties:
           contract_reference:
             type: object
             additionalProperties: false
             required:
-              - require_id
-              - require_path
-              - require_version
+            - require_id
+            - require_path
+            - require_version
             properties:
               require_id:
                 const: true
@@ -207,27 +219,27 @@ properties:
               require_version:
                 const: true
           requirements:
-            $ref: "#/$defs/machine_string_list_nonempty"
+            $ref: '#/$defs/machine_string_list_nonempty'
       compatibility:
         type: object
         additionalProperties: false
         required:
-          - policy
-          - breaking_changes
-          - aliases
-          - supersedes
-          - legacy_contract_refs
+        - policy
+        - breaking_changes
+        - aliases
+        - supersedes
+        - legacy_contract_refs
         properties:
           policy:
             const: semver
           breaking_changes:
-            $ref: "#/$defs/machine_string_list_nonempty"
+            $ref: '#/$defs/machine_string_list_nonempty'
           aliases:
             type: array
             uniqueItems: true
             items:
               type: string
-              pattern: "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              pattern: ^[a-z0-9]+(?:-[a-z0-9]+)*$
           supersedes:
             type: array
             uniqueItems: true
@@ -239,46 +251,46 @@ properties:
             uniqueItems: true
             items:
               type: string
-              pattern: "^contracts/.+\\.(?:contract|port)\\.yaml$"
+              pattern: ^contracts/.+\.(?:contract|port)\.yaml$
       quality_gates:
-        $ref: "#/$defs/machine_string_list_nonempty"
+        $ref: '#/$defs/machine_string_list_nonempty'
 $defs:
   context_id:
     type: string
     enum:
-      - intent_and_specification
-      - capability_and_agreement
-      - method_and_workflow
-      - integration_and_binding
-      - runtime_and_execution
-      - context_knowledge_and_memory
-      - evidence_evaluation_and_review
-      - governance_risk_and_authority
-      - product_delivery_and_registry
-      - learning_and_evolution
+    - intent_and_specification
+    - capability_and_agreement
+    - method_and_workflow
+    - integration_and_binding
+    - runtime_and_execution
+    - context_knowledge_and_memory
+    - evidence_evaluation_and_review
+    - governance_risk_and_authority
+    - product_delivery_and_registry
+    - learning_and_evolution
   machine_string:
     type: string
-    pattern: "^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"
+    pattern: ^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$
   machine_string_list:
     type: array
     uniqueItems: true
     items:
-      $ref: "#/$defs/machine_string"
+      $ref: '#/$defs/machine_string'
   machine_string_list_nonempty:
     type: array
     minItems: 1
     uniqueItems: true
     items:
-      $ref: "#/$defs/machine_string"
+      $ref: '#/$defs/machine_string'
   field:
     type: object
     additionalProperties: false
     required:
-      - id
-      - description
+    - id
+    - description
     properties:
       id:
-        $ref: "#/$defs/machine_string"
+        $ref: '#/$defs/machine_string'
       description:
         type: string
         minLength: 5
@@ -286,13 +298,13 @@ $defs:
     type: object
     additionalProperties: false
     required:
-      - id
-      - description
-      - required_fields
-      - optional_fields
+    - id
+    - description
+    - required_fields
+    - optional_fields
     properties:
       id:
-        $ref: "#/$defs/machine_string"
+        $ref: '#/$defs/machine_string'
       description:
         type: string
         minLength: 10
@@ -300,22 +312,22 @@ $defs:
         type: array
         uniqueItems: true
         items:
-          $ref: "#/$defs/field"
+          $ref: '#/$defs/field'
       optional_fields:
         type: array
         uniqueItems: true
         items:
-          $ref: "#/$defs/field"
+          $ref: '#/$defs/field'
   response:
     type: object
     additionalProperties: false
     required:
-      - id
-      - description
-      - fields
+    - id
+    - description
+    - fields
     properties:
       id:
-        $ref: "#/$defs/machine_string"
+        $ref: '#/$defs/machine_string'
       description:
         type: string
         minLength: 10
@@ -324,16 +336,16 @@ $defs:
         minItems: 1
         uniqueItems: true
         items:
-          $ref: "#/$defs/field"
+          $ref: '#/$defs/field'
   event:
     type: object
     additionalProperties: false
     required:
-      - id
-      - description
+    - id
+    - description
     properties:
       id:
-        $ref: "#/$defs/machine_string"
+        $ref: '#/$defs/machine_string'
       description:
         type: string
         minLength: 10
@@ -341,11 +353,11 @@ $defs:
     type: object
     additionalProperties: false
     required:
-      - id
-      - description
+    - id
+    - description
     properties:
       id:
-        $ref: "#/$defs/machine_string"
+        $ref: '#/$defs/machine_string'
       description:
         type: string
         minLength: 10
@@ -353,13 +365,13 @@ $defs:
     type: object
     additionalProperties: false
     required:
-      - code
-      - meaning
-      - retryable
-      - partial_result_allowed
+    - code
+    - meaning
+    - retryable
+    - partial_result_allowed
     properties:
       code:
-        $ref: "#/$defs/machine_string"
+        $ref: '#/$defs/machine_string'
       meaning:
         type: string
         minLength: 10
@@ -371,31 +383,32 @@ $defs:
     type: object
     additionalProperties: false
     required:
-      - status_family
-      - from
-      - to
-      - condition
+    - status_family
+    - from
+    - to
+    - condition
     properties:
       status_family:
         type: string
         enum:
-          - epistemic_disposition
-          - specification_status
-          - contract_status
-          - binding_status
-          - capacity_disposition
-          - execution_status
-          - gate_outcome
-          - review_disposition
-          - approval_status
-          - completion_disposition
-          - delivery_status
-          - product_acceptance_status
-          - evolution_status
+        - epistemic_disposition
+        - specification_status
+        - contract_status
+        - binding_status
+        - capacity_disposition
+        - execution_status
+        - gate_outcome
+        - review_disposition
+        - approval_status
+        - completion_disposition
+        - delivery_status
+        - product_acceptance_status
+        - evolution_status
       from:
-        $ref: "#/$defs/machine_string"
+        $ref: '#/$defs/machine_string'
       to:
-        $ref: "#/$defs/machine_string"
+        $ref: '#/$defs/machine_string'
       condition:
         type: string
         minLength: 10
+$id: https://native-ai.engineering/schemas/port-contract.schema.yaml

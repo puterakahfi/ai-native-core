@@ -1,74 +1,88 @@
+contract_schema:
+  kind: workflow_contract
+  version: 1.0.0
+  path: schemas/workflow-contract.schema.yaml
 workflow_contract:
   id: spec-driven
   type: workflow
-  version: "0.1.0"
+  version: 0.1.0
   category: product-management
-  purpose: >
-    Defines the required phases for spec-driven development — turning intent into
-    a precise, agent-executable specification before any code is written.
-    Eliminates vibe coding at the input layer. Product adapters define spec format,
-    storage, and task tracker integration.
+  purpose: 'Defines the required phases for spec-driven development — turning intent into a precise, agent-executable specification
+    before any code is written. Eliminates vibe coding at the input layer. Product adapters define spec format, storage, and
+    task tracker integration.
 
-  required_phases:
-    - id: constitution
-      order: 1
-      description: Define product values, architecture principles, and non-negotiable constraints
-      gate: constitution_must_exist_before_spec
-      skills:
-        required: [native-ai-engineer, master-engineer]
-
-    - id: specify
-      order: 2
-      description: Write precise feature specification with acceptance criteria and explicit scope
-      gate: spec_must_have_testable_acceptance_criteria
-      skills:
-        required: [product-manager]
-
-    - id: plan
-      order: 3
-      description: Break spec into ordered, bite-sized, independently verifiable tasks
-      gate: every_task_must_trace_to_acceptance_criteria
-      skills:
-        required: [plan]
-
-    - id: tasks
-      order: 4
-      description: Assign tasks to agents or humans with full context — rules, skills, constraints
-      gate: tasks_must_have_context_pack_before_agent_handoff
-      skills:
-        required: [context-manager, rule-manager]
-
-    - id: implement
-      order: 5
-      description: Execute tasks against spec — agent or human, with gates enforced
-      gate: implementation_must_not_exceed_spec_scope
-      skills:
-        required: [master-engineer]
-        optional: [test-driven-development, spike]
-
+    '
   skill_load_order:
-    - phase: constitution
-      load: [native-ai-engineer, master-engineer]
-    - phase: specify
-      load: [product-manager]
-    - phase: plan
-      load: [plan]
-    - phase: tasks
-      load: [context-manager, rule-manager]
-    - phase: implement
-      load: [master-engineer, test-driven-development]
-
+  - phase: constitution
+    load:
+    - native-ai-engineer
+    - master-engineer
+  - phase: specify
+    load:
+    - product-manager
+  - phase: plan
+    load:
+    - plan
+  - phase: tasks
+    load:
+    - context-manager
+    - rule-manager
+  - phase: implement
+    load:
+    - master-engineer
+    - test-driven-development
   quality_gates:
-    - no_implementation_without_spec
-    - spec_must_have_testable_acceptance_criteria
-    - every_task_must_trace_to_spec
-    - context_pack_required_before_agent_handoff
-    - implementation_must_not_exceed_spec_scope
-    - vague_prompts_are_not_specs
-
+  - no_implementation_without_spec
+  - spec_must_have_testable_acceptance_criteria
+  - every_task_must_trace_to_spec
+  - context_pack_required_before_agent_handoff
+  - implementation_must_not_exceed_spec_scope
+  - vague_prompts_are_not_specs
   adapter_requirements:
     spec_format: product_defined
     spec_storage: product_defined
     task_tracker: product_defined
     constitution_format: product_defined
     agent_handoff_mechanism: product_defined
+  workflow_kind: engineering_lifecycle
+  phases:
+  - id: constitution
+    order: 1
+    description: Define product values, architecture principles, and non-negotiable constraints
+    gate: constitution_must_exist_before_spec
+    skills:
+      required:
+      - native-ai-engineer
+      - master-engineer
+  - id: specify
+    order: 2
+    description: Write precise feature specification with acceptance criteria and explicit scope
+    gate: spec_must_have_testable_acceptance_criteria
+    skills:
+      required:
+      - product-manager
+  - id: plan
+    order: 3
+    description: Break spec into ordered, bite-sized, independently verifiable tasks
+    gate: every_task_must_trace_to_acceptance_criteria
+    skills:
+      required:
+      - plan
+  - id: tasks
+    order: 4
+    description: Assign tasks to agents or humans with full context — rules, skills, constraints
+    gate: tasks_must_have_context_pack_before_agent_handoff
+    skills:
+      required:
+      - context-manager
+      - rule-manager
+  - id: implement
+    order: 5
+    description: Execute tasks against spec — agent or human, with gates enforced
+    gate: implementation_must_not_exceed_spec_scope
+    skills:
+      required:
+      - master-engineer
+      optional:
+      - test-driven-development
+      - spike

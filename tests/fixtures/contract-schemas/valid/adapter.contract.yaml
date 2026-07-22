@@ -1,0 +1,9 @@
+contract_schema:
+  kind: adapter_manifest
+  version: "1.0.0"
+  path: schemas/adapter-manifest.schema.yaml
+port_adapter_reference:
+  adapter_id: fixture-adapter
+  port_id: fixture-port
+  port_path: contracts/ports/integration/fixture-port.port.yaml
+  port_version: ^0.1.0

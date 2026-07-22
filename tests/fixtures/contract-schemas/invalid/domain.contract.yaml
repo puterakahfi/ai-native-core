@@ -1,0 +1,14 @@
+contract_schema:
+  kind: domain_contract
+  version: "1.0.0"
+  path: schemas/domain-contract.schema.yaml
+domain_contract:
+  id: fixture-domain-invalid
+  version: "1.0.0"
+  bounded_context: capability_and_agreement
+  purpose: This fixture intentionally omits delegated and excluded ownership.
+  boundary:
+    owns:
+      - fixture_capability_meaning
+  invariants:
+    - fixture_capability_meaning_remains_provider_independent

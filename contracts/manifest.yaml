@@ -1,514 +1,935 @@
-version: "1.0.0"
-generated_at: "2026-07-20T16:06:47Z"
-description: "Auto-generated contract manifest. Regenerate with: scripts/generate-manifest.sh"
-total_contracts: 128
+contract_schema:
+  kind: contract_manifest
+  version: 1.0.0
+  path: schemas/contract-manifest.schema.yaml
+version: 2.0.0
+generated_at: '2026-07-22T04:45:46Z'
+description: 'Auto-generated schema-aware contract manifest. Regenerate with: scripts/generate-manifest.sh'
+total_contracts: 129
 contracts:
   skills:
     architecture:
-      - id: adr
-        path: contracts/skills/architecture/adr.contract.yaml
-        version: "0.1.0"
-        sha256: aa83ad460c55418c
-      - id: ai-system-design
-        path: contracts/skills/architecture/ai-system-design.contract.yaml
-        version: "0.1.0"
-        sha256: 6809a4219bc6f138
-      - id: api-contract
-        path: contracts/skills/architecture/api-contract.contract.yaml
-        version: "0.1.0"
-        sha256: defe7f33d13d7c65
-      - id: design-patterns
-        path: contracts/skills/architecture/design-patterns.contract.yaml
-        version: "0.1.0"
-        sha256: 588ecf745aae5d9f
-      - id: domain-driven-design
-        path: contracts/skills/architecture/domain-driven-design.contract.yaml
-        version: "0.1.0"
-        sha256: 34240016bc39231c
-      - id: event-driven-design
-        path: contracts/skills/architecture/event-driven-design.contract.yaml
-        version: "0.1.0"
-        sha256: bb307f80c98d1025
-      - id: micro-frontend
-        path: contracts/skills/architecture/micro-frontend.contract.yaml
-        version: "0.1.0"
-        sha256: 44a689f2fa36ba98
-      - id: ports-and-adapters
-        path: contracts/skills/architecture/ports-and-adapters.contract.yaml
-        version: "0.1.0"
-        sha256: c13102d7546c4525
-      - id: service-design
-        path: contracts/skills/architecture/service-design.contract.yaml
-        version: "0.1.0"
-        sha256: 7f6346dd2f339704
-      - id: systems-thinking
-        path: contracts/skills/architecture/systems-thinking.contract.yaml
-        version: "0.1.0"
-        sha256: 4f2c7a7ebf088aa1
+    - id: adr
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/architecture/adr.contract.yaml
+      version: 0.1.0
+      sha256: 82792c924b67f20a
+    - id: ai-system-design
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/architecture/ai-system-design.contract.yaml
+      version: 0.1.0
+      sha256: 468be9b66f0c1a5b
+    - id: api-contract
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/architecture/api-contract.contract.yaml
+      version: 0.1.0
+      sha256: ef500bd540a13a52
+    - id: design-patterns
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/architecture/design-patterns.contract.yaml
+      version: 0.1.0
+      sha256: 462b9c6490e700c8
+    - id: domain-driven-design
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/architecture/domain-driven-design.contract.yaml
+      version: 0.1.0
+      sha256: 583d6650c0eb3e1a
+    - id: event-driven-design
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/architecture/event-driven-design.contract.yaml
+      version: 0.1.0
+      sha256: dc9b0e0f6a905959
+    - id: micro-frontend
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/architecture/micro-frontend.contract.yaml
+      version: 0.1.0
+      sha256: d6ac666d6471c08b
+    - id: ports-and-adapters
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/architecture/ports-and-adapters.contract.yaml
+      version: 0.1.0
+      sha256: 1aee334a025356a5
+    - id: service-design
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/architecture/service-design.contract.yaml
+      version: 0.1.0
+      sha256: 28216867d2bab75f
+    - id: systems-thinking
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/architecture/systems-thinking.contract.yaml
+      version: 0.1.0
+      sha256: 8672485a4003e66e
     content:
-      - id: content-strategy
-        path: contracts/skills/content/content-strategy.contract.yaml
-        version: "1.0.0"
-        sha256: 182921169d3921e1
-      - id: copywriting
-        path: contracts/skills/content/copywriting.contract.yaml
-        version: "1.0.0"
-        sha256: 5b0f48d026d8374b
-      - id: cro
-        path: contracts/skills/content/cro.contract.yaml
-        version: "1.0.0"
-        sha256: d876aacd4ac53be9
+    - id: content-strategy
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/content/content-strategy.contract.yaml
+      version: 1.0.0
+      sha256: bdf0695e299aa5f9
+    - id: copywriting
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/content/copywriting.contract.yaml
+      version: 1.0.0
+      sha256: 9299686bc5ae9909
+    - id: cro
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/content/cro.contract.yaml
+      version: 1.0.0
+      sha256: 7bdf0cf23927bf61
     context:
-      - id: context-engineering
-        path: contracts/skills/context/context-engineering.contract.yaml
-        version: "0.1.0"
-        sha256: 34daded3b56e105d
-      - id: context-manager
-        path: contracts/skills/context/context-manager.contract.yaml
-        version: "0.1.0"
-        sha256: 30e5209b4c3dc170
-      - id: prompt-optimizer
-        path: contracts/skills/context/prompt-optimizer.contract.yaml
-        version: "0.1.0"
-        sha256: 03ca4b96f08d119e
-      - id: response-contract
-        path: contracts/skills/context/response-contract.contract.yaml
-        version: "0.1.0"
-        sha256: 635b308915c34581
+    - id: context-engineering
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/context/context-engineering.contract.yaml
+      version: 0.1.0
+      sha256: cdfa969a599ebdb5
+    - id: context-manager
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/context/context-manager.contract.yaml
+      version: 0.1.0
+      sha256: b69b873c70ae056c
+    - id: prompt-optimizer
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/context/prompt-optimizer.contract.yaml
+      version: 0.1.0
+      sha256: 1cae2621cbf53561
+    - id: response-contract
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/context/response-contract.contract.yaml
+      version: 0.1.0
+      sha256: a0396584a1e9e6a9
     design:
-      - id: accessibility
-        path: contracts/skills/design/accessibility.contract.yaml
-        version: "0.1.0"
-        sha256: 30e4235087db0f98
-      - id: adaptive-component-design
-        path: contracts/skills/design/adaptive-component-design.contract.yaml
-        version: "1.1.0"
-        sha256: 1ce6838618a0e370
-      - id: collection-discovery-design
-        path: contracts/skills/design/collection-discovery-design.contract.yaml
-        version: "1.0.0"
-        sha256: 0666b2e1565f0222
-      - id: color-theory
-        path: contracts/skills/design/color-theory.contract.yaml
-        version: "1.0.0"
-        sha256: edf1f61dcbc0ccd0
-      - id: component-family-design
-        path: contracts/skills/design/component-family-design.contract.yaml
-        version: "1.0.0"
-        sha256: c8cb2e979d3f1828
-      - id: composition
-        path: contracts/skills/design/composition.contract.yaml
-        version: "1.0.0"
-        sha256: 35001185a50a61de
-      - id: dark-light-theming
-        path: contracts/skills/design/dark-light-theming.contract.yaml
-        version: "1.0.0"
-        sha256: 7664f35f61f4a8d8
-      - id: design-brand
-        path: contracts/skills/design/design-brand.contract.yaml
-        version: "1.0.0"
-        sha256: 121030b8887edea1
-      - id: design-depth
-        path: contracts/skills/design/design-depth.contract.yaml
-        version: "2.1.0"
-        sha256: a01e1dde59231eff
-      - id: design-foundation
-        path: contracts/skills/design/design-foundation.contract.yaml
-        version: "1.0.0"
-        sha256: 0a8cf5fe4988f439
-      - id: design-genre
-        path: contracts/skills/design/design-genre.contract.yaml
-        version: "1.1.0"
-        sha256: d73fe29c21235f0a
-      - id: design-interaction
-        path: contracts/skills/design/design-interaction.contract.yaml
-        version: "1.0.0"
-        sha256: 3e475671782654db
-      - id: design-layout
-        path: contracts/skills/design/design-layout.contract.yaml
-        version: "2.0.1"
-        sha256: 27b01c7878b0f9f1
-      - id: design-strategy
-        path: contracts/skills/design/design-strategy.contract.yaml
-        version: "1.1.0"
-        sha256: 6c33144e41d5a88c
-      - id: design-system
-        path: contracts/skills/design/design-system.contract.yaml
-        version: "1.0.0"
-        sha256: 16940add74710b51
-      - id: design-visual
-        path: contracts/skills/design/design-visual.contract.yaml
-        version: "1.1.0"
-        sha256: 9febc31e92d64275
-      - id: iconography
-        path: contracts/skills/design/iconography.contract.yaml
-        version: "1.0.0"
-        sha256: 7c479047c00360dd
-      - id: information-architecture
-        path: contracts/skills/design/information-architecture.contract.yaml
-        version: "1.0.0"
-        sha256: c8df9aab850240aa
-      - id: macrostructures
-        path: contracts/skills/design/macrostructures.contract.yaml
-        version: "1.0.0"
-        sha256: a29f568650d8705f
-      - id: master-design
-        path: contracts/skills/design/master-design.contract.yaml
-        version: "0.2.0"
-        sha256: 20301b034cd72c65
-      - id: motion-design
-        path: contracts/skills/design/motion-design.contract.yaml
-        version: "1.0.0"
-        sha256: b6f3ccea3038e3be
-      - id: readability
-        path: contracts/skills/design/readability.contract.yaml
-        version: "1.0.0"
-        sha256: ca85bb9baaac93c9
-      - id: responsiveness
-        path: contracts/skills/design/responsiveness.contract.yaml
-        version: "1.0.0"
-        sha256: 25c4117a779bf475
-      - id: spacing
-        path: contracts/skills/design/spacing.contract.yaml
-        version: "1.0.0"
-        sha256: 2a531399366a2a5b
-      - id: typography
-        path: contracts/skills/design/typography.contract.yaml
-        version: "1.0.0"
-        sha256: 97ee42a254869d3d
-      - id: ux-psychology
-        path: contracts/skills/design/ux-psychology.contract.yaml
-        version: "0.1.0"
-        sha256: 3a83b34c2944567d
-      - id: ux-ui-patterns
-        path: contracts/skills/design/ux-ui-patterns.contract.yaml
-        version: "1.0.0"
-        sha256: a9597b3298f2b243
-      - id: visual-hierarchy
-        path: contracts/skills/design/visual-hierarchy.contract.yaml
-        version: "1.0.0"
-        sha256: 07edcbaf7790f1b4
+    - id: accessibility
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/design/accessibility.contract.yaml
+      version: 0.1.0
+      sha256: 153fa8cabebba9a4
+    - id: adaptive-component-design
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/design/adaptive-component-design.contract.yaml
+      version: 1.1.0
+      sha256: 9712a739155d4538
+    - id: collection-discovery-design
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/design/collection-discovery-design.contract.yaml
+      version: 1.0.0
+      sha256: 5f74049f2994696a
+    - id: color-theory
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/design/color-theory.contract.yaml
+      version: 1.0.0
+      sha256: f9dc819af0f5a044
+    - id: component-family-design
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/design/component-family-design.contract.yaml
+      version: 1.0.0
+      sha256: c6d8c536a6d4a89e
+    - id: composition
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/design/composition.contract.yaml
+      version: 1.0.0
+      sha256: 4c201c759437a343
+    - id: dark-light-theming
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/design/dark-light-theming.contract.yaml
+      version: 1.0.0
+      sha256: ce4459be0d4e910c
+    - id: design-brand
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/design/design-brand.contract.yaml
+      version: 1.0.0
+      sha256: 21b84b099039d6b5
+    - id: design-depth
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/design/design-depth.contract.yaml
+      version: 2.1.0
+      sha256: 3e7e9b2e77d272cb
+    - id: design-foundation
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/design/design-foundation.contract.yaml
+      version: 1.0.0
+      sha256: 4016c968b0581849
+    - id: design-genre
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/design/design-genre.contract.yaml
+      version: 1.1.0
+      sha256: fa5c3071702adf32
+    - id: design-interaction
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/design/design-interaction.contract.yaml
+      version: 1.0.0
+      sha256: 335c496268827ff1
+    - id: design-layout
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/design/design-layout.contract.yaml
+      version: 2.0.1
+      sha256: 1bdb32af4fdcf004
+    - id: design-strategy
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/design/design-strategy.contract.yaml
+      version: 1.1.0
+      sha256: d14f692e6345f027
+    - id: design-system
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/design/design-system.contract.yaml
+      version: 1.0.0
+      sha256: 8ccd45fbd0b36749
+    - id: design-visual
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/design/design-visual.contract.yaml
+      version: 1.1.0
+      sha256: 716fe79b6c134235
+    - id: iconography
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/design/iconography.contract.yaml
+      version: 1.0.0
+      sha256: c6f5bf56e88c84a0
+    - id: information-architecture
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/design/information-architecture.contract.yaml
+      version: 1.0.0
+      sha256: 8d0dbdb764c4267e
+    - id: macrostructures
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/design/macrostructures.contract.yaml
+      version: 1.0.0
+      sha256: 86858ef782bd7879
+    - id: master-design
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/design/master-design.contract.yaml
+      version: 0.2.0
+      sha256: ce6cda957f258c96
+    - id: motion-design
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/design/motion-design.contract.yaml
+      version: 1.0.0
+      sha256: 23f57b5beb4a90a7
+    - id: readability
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/design/readability.contract.yaml
+      version: 1.0.0
+      sha256: a5587a3bdc2e3125
+    - id: responsiveness
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/design/responsiveness.contract.yaml
+      version: 1.0.0
+      sha256: cffe60394403bbb8
+    - id: spacing
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/design/spacing.contract.yaml
+      version: 1.0.0
+      sha256: 50940268cd32fa31
+    - id: typography
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/design/typography.contract.yaml
+      version: 1.0.0
+      sha256: ecd0ff1835a97920
+    - id: ux-psychology
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/design/ux-psychology.contract.yaml
+      version: 0.1.0
+      sha256: 93d22afff6e7f2e9
+    - id: ux-ui-patterns
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/design/ux-ui-patterns.contract.yaml
+      version: 1.0.0
+      sha256: 61ec5d463d0deb11
+    - id: visual-hierarchy
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/design/visual-hierarchy.contract.yaml
+      version: 1.0.0
+      sha256: e7a725b26993e6bc
     engineering:
-      - id: data-modeling
-        path: contracts/skills/engineering/data-modeling.contract.yaml
-        version: "1.0.0"
-        sha256: 5996b3b346880e3b
-      - id: git-workflow
-        path: contracts/skills/engineering/git-workflow.contract.yaml
-        version: "0.1.0"
-        sha256: 79259535170b5086
-      - id: implementation-context-discovery
-        path: contracts/skills/engineering/implementation-context-discovery.contract.yaml
-        version: "1.1.0"
-        sha256: 71200a1217d33f22
-      - id: master-engineer
-        path: contracts/skills/engineering/master-engineer.contract.yaml
-        version: "0.1.0"
-        sha256: d4f17ba0b6375de5
-      - id: plan
-        path: contracts/skills/engineering/plan.contract.yaml
-        version: "0.1.0"
-        sha256: 3f614bcda30da872
-      - id: refactoring
-        path: contracts/skills/engineering/refactoring.contract.yaml
-        version: "0.1.0"
-        sha256: 9e0af0d731c96fef
-      - id: spike
-        path: contracts/skills/engineering/spike.contract.yaml
-        version: "0.1.0"
-        sha256: a0148df0f2158d05
-      - id: technical-debt-governance
-        path: contracts/skills/engineering/technical-debt-governance.contract.yaml
-        version: "1.0.0"
-        sha256: f287a24e23791f66
-      - id: test-driven-development
-        path: contracts/skills/engineering/test-driven-development.contract.yaml
-        version: "0.1.0"
-        sha256: c30dc8f51b30261b
+    - id: data-modeling
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/engineering/data-modeling.contract.yaml
+      version: 1.0.0
+      sha256: 7b6b307dddedcea7
+    - id: git-workflow
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/engineering/git-workflow.contract.yaml
+      version: 0.1.0
+      sha256: 232a812a3bd2685f
+    - id: implementation-context-discovery
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/engineering/implementation-context-discovery.contract.yaml
+      version: 1.1.0
+      sha256: e7d3eeedf99c0400
+    - id: master-engineer
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/engineering/master-engineer.contract.yaml
+      version: 0.1.0
+      sha256: 48b7f8a1b3f25683
+    - id: plan
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/engineering/plan.contract.yaml
+      version: 0.1.0
+      sha256: 5211a100814ddf93
+    - id: refactoring
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/engineering/refactoring.contract.yaml
+      version: 0.1.0
+      sha256: ae9ab3c049ae87a8
+    - id: spike
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/engineering/spike.contract.yaml
+      version: 0.1.0
+      sha256: 3e7081b91bbe2dda
+    - id: technical-debt-governance
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/engineering/technical-debt-governance.contract.yaml
+      version: 1.0.0
+      sha256: 0c85bd447b6b54ba
+    - id: test-driven-development
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/engineering/test-driven-development.contract.yaml
+      version: 0.1.0
+      sha256: 635b47d758cbdbcc
     governance:
-      - id: language-standards
-        path: contracts/skills/governance/language-standards.contract.yaml
-        version: "0.1.0"
-        sha256: a3510a723844ebcd
-      - id: rule-manager
-        path: contracts/skills/governance/rule-manager.contract.yaml
-        version: "0.1.0"
-        sha256: 094ebc7710fa665f
+    - id: language-standards
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/governance/language-standards.contract.yaml
+      version: 0.1.0
+      sha256: ae275d5f1a46bf04
+    - id: rule-manager
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/governance/rule-manager.contract.yaml
+      version: 0.1.0
+      sha256: 33938296fd5fac8f
     meta:
-      - id: role-switcher
-        path: contracts/skills/meta/role-switcher.contract.yaml
-        version: "0.1.0"
-        sha256: b4f9163d6afecd27
-      - id: workflow-router
-        path: contracts/skills/meta/workflow-router.contract.yaml
-        version: "0.2.1"
-        sha256: 3b254a53795c7034
+    - id: role-switcher
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/meta/role-switcher.contract.yaml
+      version: 0.1.0
+      sha256: 98070db532d3fc60
+    - id: workflow-router
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/meta/workflow-router.contract.yaml
+      version: 0.2.1
+      sha256: f6666cd8bab44001
     product:
-      - id: business-value-alignment
-        path: contracts/skills/product/business-value-alignment.contract.yaml
-        version: "1.0.0"
-        sha256: 18c1adb41c1d549d
-      - id: decision-making
-        path: contracts/skills/product/decision-making.contract.yaml
-        version: "1.0.0"
-        sha256: 4d94147cf37061ad
-      - id: delivery-work-breakdown
-        path: contracts/skills/product/delivery-work-breakdown.contract.yaml
-        version: "1.0.0"
-        sha256: 3a6751fdf3a61a51
-      - id: experiment-design
-        path: contracts/skills/product/experiment-design.contract.yaml
-        version: "1.0.0"
-        sha256: f2d38544f4f0a270
-      - id: product-manager
-        path: contracts/skills/product/product-manager.contract.yaml
-        version: "0.1.0"
-        sha256: 3fb2255262e477e3
-      - id: product-requirements
-        path: contracts/skills/product/product-requirements.contract.yaml
-        version: "0.2.0"
-        sha256: 83d4d8bc01ffab01
-      - id: user-research
-        path: contracts/skills/product/user-research.contract.yaml
-        version: "1.0.0"
-        sha256: 43e219a11bf1bb7f
+    - id: business-value-alignment
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/product/business-value-alignment.contract.yaml
+      version: 1.0.0
+      sha256: fb5c1c629210b1cd
+    - id: decision-making
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/product/decision-making.contract.yaml
+      version: 1.0.0
+      sha256: c839d2b7413d737c
+    - id: delivery-work-breakdown
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/product/delivery-work-breakdown.contract.yaml
+      version: 1.0.0
+      sha256: 74497c19e6d447e8
+    - id: experiment-design
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/product/experiment-design.contract.yaml
+      version: 1.0.0
+      sha256: e6339870a0d07324
+    - id: product-manager
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/product/product-manager.contract.yaml
+      version: 0.1.0
+      sha256: 9584e4773945c697
+    - id: product-requirements
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/product/product-requirements.contract.yaml
+      version: 0.2.0
+      sha256: b9e3454223247898
+    - id: user-research
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/product/user-research.contract.yaml
+      version: 1.0.0
+      sha256: b7e3deba11977113
     quality:
-      - id: architecture-review
-        path: contracts/skills/quality/architecture-review.contract.yaml
-        version: "0.1.0"
-        sha256: 4d5ebe30dd17f8ab
-      - id: brand-identity-review
-        path: contracts/skills/quality/brand-identity-review.contract.yaml
-        version: "0.1.0"
-        sha256: 0642b84ed49e7d06
-      - id: decision-provenance
-        path: contracts/skills/quality/decision-provenance.contract.yaml
-        version: "1.0.0"
-        sha256: 0c45b4258ca0ac3d
-      - id: design-refinement
-        path: contracts/skills/quality/design-refinement.contract.yaml
-        version: "1.2.0"
-        sha256: cab9a3b1dd826566
-      - id: design-review
-        path: contracts/skills/quality/design-review.contract.yaml
-        version: "0.2.0"
-        sha256: 3a58862c2a7a3a83
-      - id: ethics-responsible-ai
-        path: contracts/skills/quality/ethics-responsible-ai.contract.yaml
-        version: "0.1.0"
-        sha256: 7df8b8b20709c4ac
-      - id: redesign-workflow
-        path: contracts/skills/quality/redesign-workflow.contract.yaml
-        version: "2.2.0"
-        sha256: 8dc020620b214e49
-      - id: resilience-engineering
-        path: contracts/skills/quality/resilience-engineering.contract.yaml
-        version: "0.1.0"
-        sha256: 91803fb97d5b8925
-      - id: skill-eval
-        path: contracts/skills/quality/skill-eval.contract.yaml
-        version: "0.1.0"
-        sha256: 5066982a1e2daa9e
-      - id: skill-evolution
-        path: contracts/skills/quality/skill-evolution.contract.yaml
-        version: "1.0.0"
-        sha256: e3845ef4ee54bd64
-      - id: systematic-debugging
-        path: contracts/skills/quality/systematic-debugging.contract.yaml
-        version: "0.1.0"
-        sha256: 7075c7f6b16a5dc2
-      - id: web-performance
-        path: contracts/skills/quality/web-performance.contract.yaml
-        version: "1.0.0"
-        sha256: d6714f6aef7973a3
+    - id: architecture-review
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/quality/architecture-review.contract.yaml
+      version: 0.1.0
+      sha256: 237b402391c648d8
+    - id: brand-identity-review
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/quality/brand-identity-review.contract.yaml
+      version: 0.1.0
+      sha256: 7c40c5cd0d579083
+    - id: decision-provenance
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/quality/decision-provenance.contract.yaml
+      version: 1.0.0
+      sha256: ebc516e08f9aaca0
+    - id: design-review
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/quality/design-review.contract.yaml
+      version: 0.2.0
+      sha256: 74837a0300a429e2
+    - id: ethics-responsible-ai
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/quality/ethics-responsible-ai.contract.yaml
+      version: 0.1.0
+      sha256: 2883cc6552e8e857
+    - id: resilience-engineering
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/quality/resilience-engineering.contract.yaml
+      version: 0.1.0
+      sha256: fc76c0a3938e6d71
+    - id: skill-eval
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/quality/skill-eval.contract.yaml
+      version: 0.1.0
+      sha256: 1f296c246c0d81aa
+    - id: systematic-debugging
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/quality/systematic-debugging.contract.yaml
+      version: 0.1.0
+      sha256: 9dfd706866275295
+    - id: web-performance
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/quality/web-performance.contract.yaml
+      version: 1.0.0
+      sha256: b94235dcced72e4f
     runtime:
-      - id: incident-response
-        path: contracts/skills/runtime/incident-response.contract.yaml
-        version: "0.1.0"
-        sha256: 4890e645901ffaff
-      - id: model-selection
-        path: contracts/skills/runtime/model-selection.contract.yaml
-        version: "0.1.0"
-        sha256: 6f14dc7eadb81dff
-      - id: native-ai-engineer
-        path: contracts/skills/runtime/native-ai-engineer.contract.yaml
-        version: "0.1.0"
-        sha256: 76d4efc4571583ce
-      - id: native-ai-runtime-agent
-        path: contracts/skills/runtime/native-ai-runtime-agent.contract.yaml
-        version: "0.1.0"
-        sha256: b15c61e360ba480d
-      - id: native-ai-runtime-ops
-        path: contracts/skills/runtime/native-ai-runtime-ops.contract.yaml
-        version: "0.1.0"
-        sha256: a41e2df8f5edae5a
-      - id: observability-design
-        path: contracts/skills/runtime/observability-design.contract.yaml
-        version: "0.1.0"
-        sha256: 33b4d5cdcd3f5dbe
-      - id: onboarding
-        path: contracts/skills/runtime/onboarding.contract.yaml
-        version: "0.1.0"
-        sha256: 4f726c72b56e18f4
-      - id: profile-bootstrap
-        path: contracts/skills/runtime/profile-bootstrap.contract.yaml
-        version: "0.1.0"
-        sha256: 734de81ec1287008
+    - id: incident-response
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/runtime/incident-response.contract.yaml
+      version: 0.1.0
+      sha256: b2f15d6b365cd846
+    - id: model-selection
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/runtime/model-selection.contract.yaml
+      version: 0.1.0
+      sha256: da702dd39e360c10
+    - id: native-ai-engineer
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/runtime/native-ai-engineer.contract.yaml
+      version: 0.1.0
+      sha256: f015cb488cc355cc
+    - id: native-ai-runtime-agent
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/runtime/native-ai-runtime-agent.contract.yaml
+      version: 0.1.0
+      sha256: 1d60f0c6b9672a74
+    - id: native-ai-runtime-ops
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/runtime/native-ai-runtime-ops.contract.yaml
+      version: 0.1.0
+      sha256: 723cea5ac4412da9
+    - id: observability-design
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/runtime/observability-design.contract.yaml
+      version: 0.1.0
+      sha256: 6a56f440d8d565bd
+    - id: onboarding
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/runtime/onboarding.contract.yaml
+      version: 0.1.0
+      sha256: 78077c7dc0f1cf66
+    - id: profile-bootstrap
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/runtime/profile-bootstrap.contract.yaml
+      version: 0.1.0
+      sha256: 6e53d8009a7e8739
     security:
-      - id: security-review
-        path: contracts/skills/security/security-review.contract.yaml
-        version: "0.1.0"
-        sha256: eca1e0d3583bf6f7
-      - id: threat-modeling
-        path: contracts/skills/security/threat-modeling.contract.yaml
-        version: "0.1.0"
-        sha256: 0034147663d0feab
+    - id: security-review
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/security/security-review.contract.yaml
+      version: 0.1.0
+      sha256: cf0d82a8c580c938
+    - id: threat-modeling
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/security/threat-modeling.contract.yaml
+      version: 0.1.0
+      sha256: 59e732bb4f885393
     visual-thinking:
-      - id: diagram-architect
-        path: contracts/skills/visual-thinking/diagram-architect.contract.yaml
-        version: "0.1.0"
-        sha256: f20b9ea0499e133e
+    - id: diagram-architect
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/visual-thinking/diagram-architect.contract.yaml
+      version: 0.1.0
+      sha256: 53ded905e6499195
   ports:
     capability-composition:
-      - id: design-strategy-composition
-        path: contracts/ports/capability-composition/design-strategy-composition.port.yaml
-        version: "0.1.0"
-        sha256: f6c2580a8416ace6
-      - id: interaction-composition
-        path: contracts/ports/capability-composition/interaction-composition.port.yaml
-        version: "0.1.0"
-        sha256: c8b51e9d08d22317
-      - id: layout-composition
-        path: contracts/ports/capability-composition/layout-composition.port.yaml
-        version: "0.1.0"
-        sha256: 2acd65211e71b32d
-      - id: visual-direction-composition
-        path: contracts/ports/capability-composition/visual-direction-composition.port.yaml
-        version: "0.1.0"
-        sha256: fdf9a512f15081f7
+    - id: design-strategy-composition
+      kind: port_contract
+      schema_version: 1.0.0
+      schema_path: schemas/port-contract.schema.yaml
+      path: contracts/ports/capability-composition/design-strategy-composition.port.yaml
+      version: 0.1.0
+      sha256: 57f2dcdcc127628d
+    - id: interaction-composition
+      kind: port_contract
+      schema_version: 1.0.0
+      schema_path: schemas/port-contract.schema.yaml
+      path: contracts/ports/capability-composition/interaction-composition.port.yaml
+      version: 0.1.0
+      sha256: f44588dd1385554d
+    - id: layout-composition
+      kind: port_contract
+      schema_version: 1.0.0
+      schema_path: schemas/port-contract.schema.yaml
+      path: contracts/ports/capability-composition/layout-composition.port.yaml
+      version: 0.1.0
+      sha256: 191bf65d44c511d8
+    - id: visual-direction-composition
+      kind: port_contract
+      schema_version: 1.0.0
+      schema_path: schemas/port-contract.schema.yaml
+      path: contracts/ports/capability-composition/visual-direction-composition.port.yaml
+      version: 0.1.0
+      sha256: 6fd89c48ccbce61c
     control:
-      - id: agent-runtime
-        path: contracts/ports/control/agent-runtime.port.yaml
-        version: "0.1.0"
-        sha256: 42d23b7033f3f541
-      - id: approval-decision
-        path: contracts/ports/control/approval-decision.port.yaml
-        version: "0.1.0"
-        sha256: eae0db9d44d4f0e9
-      - id: authorization-assessment
-        path: contracts/ports/control/authorization-assessment.port.yaml
-        version: "0.1.0"
-        sha256: eb81e1362c5c38d3
-      - id: context-resolution
-        path: contracts/ports/control/context-resolution.port.yaml
-        version: "0.1.0"
-        sha256: 2255dad0fb5a3add
-      - id: execution-run-management
-        path: contracts/ports/control/execution-run-management.port.yaml
-        version: "0.1.0"
-        sha256: 927ed3dbeced6081
-      - id: review-management
-        path: contracts/ports/control/review-management.port.yaml
-        version: "0.1.0"
-        sha256: ebaaa581264c35fb
-      - id: rule-evaluation
-        path: contracts/ports/control/rule-evaluation.port.yaml
-        version: "0.1.0"
-        sha256: 9bcff66c3ebb1e6f
-      - id: rule-resolution
-        path: contracts/ports/control/rule-resolution.port.yaml
-        version: "0.1.0"
-        sha256: f4d0f2d964d72963
-      - id: skill-resolution
-        path: contracts/ports/control/skill-resolution.port.yaml
-        version: "0.1.0"
-        sha256: d129f770e7e32e5d
-      - id: workflow-coordination
-        path: contracts/ports/control/workflow-coordination.port.yaml
-        version: "0.1.0"
-        sha256: 7c589d3331a07160
+    - id: agent-runtime
+      kind: port_contract
+      schema_version: 1.0.0
+      schema_path: schemas/port-contract.schema.yaml
+      path: contracts/ports/control/agent-runtime.port.yaml
+      version: 0.1.0
+      sha256: 1b62d1edd7d6e8cc
+    - id: approval-decision
+      kind: port_contract
+      schema_version: 1.0.0
+      schema_path: schemas/port-contract.schema.yaml
+      path: contracts/ports/control/approval-decision.port.yaml
+      version: 0.1.0
+      sha256: b772125857b9f9a3
+    - id: authorization-assessment
+      kind: port_contract
+      schema_version: 1.0.0
+      schema_path: schemas/port-contract.schema.yaml
+      path: contracts/ports/control/authorization-assessment.port.yaml
+      version: 0.1.0
+      sha256: feb69df10112eb94
+    - id: context-resolution
+      kind: port_contract
+      schema_version: 1.0.0
+      schema_path: schemas/port-contract.schema.yaml
+      path: contracts/ports/control/context-resolution.port.yaml
+      version: 0.1.0
+      sha256: 8a8b16d74e980a30
+    - id: execution-run-management
+      kind: port_contract
+      schema_version: 1.0.0
+      schema_path: schemas/port-contract.schema.yaml
+      path: contracts/ports/control/execution-run-management.port.yaml
+      version: 0.1.0
+      sha256: ba0604f85f9109b9
+    - id: review-management
+      kind: port_contract
+      schema_version: 1.0.0
+      schema_path: schemas/port-contract.schema.yaml
+      path: contracts/ports/control/review-management.port.yaml
+      version: 0.1.0
+      sha256: 2e0c918588570d1a
+    - id: rule-evaluation
+      kind: port_contract
+      schema_version: 1.0.0
+      schema_path: schemas/port-contract.schema.yaml
+      path: contracts/ports/control/rule-evaluation.port.yaml
+      version: 0.1.0
+      sha256: fe8faeb4c41394fc
+    - id: rule-resolution
+      kind: port_contract
+      schema_version: 1.0.0
+      schema_path: schemas/port-contract.schema.yaml
+      path: contracts/ports/control/rule-resolution.port.yaml
+      version: 0.1.0
+      sha256: 6c2dae769cf95ff2
+    - id: skill-resolution
+      kind: port_contract
+      schema_version: 1.0.0
+      schema_path: schemas/port-contract.schema.yaml
+      path: contracts/ports/control/skill-resolution.port.yaml
+      version: 0.1.0
+      sha256: 31dc939c513d5723
+    - id: workflow-coordination
+      kind: port_contract
+      schema_version: 1.0.0
+      schema_path: schemas/port-contract.schema.yaml
+      path: contracts/ports/control/workflow-coordination.port.yaml
+      version: 0.1.0
+      sha256: 4c4fe2e8768f404e
     integration:
-      - id: code-operation-execution
-        path: contracts/ports/integration/code-operation-execution.port.yaml
-        version: "0.1.0"
-        sha256: 0efd693c111d9a67
-      - id: database
-        path: contracts/ports/integration/database.port.yaml
-        version: "0.1.0"
-        sha256: 85e7882e2963cc30
-      - id: model-inference
-        path: contracts/ports/integration/model-inference.port.yaml
-        version: "0.1.0"
-        sha256: 658e4c2134ce4c75
+    - id: code-operation-execution
+      kind: port_contract
+      schema_version: 1.0.0
+      schema_path: schemas/port-contract.schema.yaml
+      path: contracts/ports/integration/code-operation-execution.port.yaml
+      version: 0.1.0
+      sha256: 8b119c6da4b0057f
+    - id: database
+      kind: port_contract
+      schema_version: 1.0.0
+      schema_path: schemas/port-contract.schema.yaml
+      path: contracts/ports/integration/database.port.yaml
+      version: 0.1.0
+      sha256: 2698c51243122c41
+    - id: model-inference
+      kind: port_contract
+      schema_version: 1.0.0
+      schema_path: schemas/port-contract.schema.yaml
+      path: contracts/ports/integration/model-inference.port.yaml
+      version: 0.1.0
+      sha256: cdb3a90bf0562009
   workflows:
-    - id: bugfix
-      path: contracts/workflows/bugfix.contract.yaml
-      sha256: 32973e22cff60007
-    - id: code-review
-      path: contracts/workflows/code-review.contract.yaml
-      sha256: 1ae47123b2903d9d
-    - id: deployment
-      path: contracts/workflows/deployment.contract.yaml
-      sha256: 7e27823420e2dadd
-    - id: new-feature
-      path: contracts/workflows/new-feature.contract.yaml
-      sha256: 756d8a87d77da097
-    - id: product-development
-      path: contracts/workflows/product-development.contract.yaml
-      sha256: 2d48360f572b0209
-    - id: spec-driven
-      path: contracts/workflows/spec-driven.contract.yaml
-      sha256: 79eec0967fa75ad0
+  - id: bugfix
+    kind: workflow_contract
+    schema_version: 1.0.0
+    schema_path: schemas/workflow-contract.schema.yaml
+    path: contracts/workflows/bugfix.contract.yaml
+    version: 0.3.0
+    sha256: 7170202fc3d4fe4e
+  - id: code-review
+    kind: workflow_contract
+    schema_version: 1.0.0
+    schema_path: schemas/workflow-contract.schema.yaml
+    path: contracts/workflows/code-review.contract.yaml
+    version: 0.3.0
+    sha256: 9726a72d4a4790fb
+  - id: deployment
+    kind: workflow_contract
+    schema_version: 1.0.0
+    schema_path: schemas/workflow-contract.schema.yaml
+    path: contracts/workflows/deployment.contract.yaml
+    version: 0.2.0
+    sha256: 24ec047b3b2f3526
+  - id: design-refinement
+    kind: workflow_contract
+    schema_version: 1.0.0
+    schema_path: schemas/workflow-contract.schema.yaml
+    path: contracts/workflows/design-refinement.contract.yaml
+    version: 1.2.0
+    sha256: ce7b28433d0c145f
+  - id: development-loop
+    kind: workflow_contract
+    schema_version: 1.0.0
+    schema_path: schemas/workflow-contract.schema.yaml
+    path: contracts/workflows/development-loop.contract.yaml
+    version: 1.0.0
+    sha256: b663f9671dfb9043
+  - id: new-feature
+    kind: workflow_contract
+    schema_version: 1.0.0
+    schema_path: schemas/workflow-contract.schema.yaml
+    path: contracts/workflows/new-feature.contract.yaml
+    version: 0.4.0
+    sha256: 80308d777e211114
+  - id: product-development
+    kind: workflow_contract
+    schema_version: 1.0.0
+    schema_path: schemas/workflow-contract.schema.yaml
+    path: contracts/workflows/product-development.contract.yaml
+    version: 0.3.0
+    sha256: ca0781c8e6aae48f
+  - id: redesign-workflow
+    kind: workflow_contract
+    schema_version: 1.0.0
+    schema_path: schemas/workflow-contract.schema.yaml
+    path: contracts/workflows/redesign-workflow.contract.yaml
+    version: 2.2.0
+    sha256: 9f5a050c6d1992a7
+  - id: skill-evolution
+    kind: workflow_contract
+    schema_version: 1.0.0
+    schema_path: schemas/workflow-contract.schema.yaml
+    path: contracts/workflows/skill-evolution.contract.yaml
+    version: 1.0.0
+    sha256: aa4b42c9f7d727a0
+  - id: spec-driven
+    kind: workflow_contract
+    schema_version: 1.0.0
+    schema_path: schemas/workflow-contract.schema.yaml
+    path: contracts/workflows/spec-driven.contract.yaml
+    version: 0.1.0
+    sha256: 80518c367d002130
   tests:
-    - id: architecture-review
-      path: contracts/tests/architecture-review.test.yaml
-      sha256: 7f5724d56e047306
-    - id: collection-discovery-design
-      path: contracts/tests/collection-discovery-design.test.yaml
-      sha256: bd2e956891836544
-    - id: delivery-work-breakdown
-      path: contracts/tests/delivery-work-breakdown.test.yaml
-      sha256: 2d6e68deba5070eb
-    - id: design-review
-      path: contracts/tests/design-review.test.yaml
-      sha256: 0dd53425ba783d61
-    - id: implementation-context-discovery
-      path: contracts/tests/implementation-context-discovery.test.yaml
-      sha256: c7960f0e5a48c712
-    - id: prompt-optimizer
-      path: contracts/tests/prompt-optimizer.test.yaml
-      sha256: a120ba66597f2d03
-    - id: response-contract
-      path: contracts/tests/response-contract.test.yaml
-      sha256: a0f04cd8de5bec72
-    - id: role-switcher
-      path: contracts/tests/role-switcher.test.yaml
-      sha256: 3a8d9ff9a20b276f
-    - id: skill-evolution
-      path: contracts/tests/skill-evolution.test.yaml
-      sha256: 8ccf1ec5b4c92ff0
-    - id: systematic-debugging
-      path: contracts/tests/systematic-debugging.test.yaml
-      sha256: a5f6b0cf8f521c40
+  - id: architecture-review
+    kind: behavioral_test_contract
+    schema_version: 1.0.0
+    schema_path: schemas/behavioral-test-contract.schema.yaml
+    path: contracts/tests/architecture-review.test.yaml
+    version: 0.1.0
+    sha256: ead10ed58cc67d25
+  - id: collection-discovery-design
+    kind: behavioral_test_contract
+    schema_version: 1.0.0
+    schema_path: schemas/behavioral-test-contract.schema.yaml
+    path: contracts/tests/collection-discovery-design.test.yaml
+    version: 1.0.0
+    sha256: a6259b584521b083
+  - id: delivery-work-breakdown
+    kind: behavioral_test_contract
+    schema_version: 1.0.0
+    schema_path: schemas/behavioral-test-contract.schema.yaml
+    path: contracts/tests/delivery-work-breakdown.test.yaml
+    version: 1.0.0
+    sha256: 4b27f8eaeff45401
+  - id: design-review
+    kind: behavioral_test_contract
+    schema_version: 1.0.0
+    schema_path: schemas/behavioral-test-contract.schema.yaml
+    path: contracts/tests/design-review.test.yaml
+    version: 0.2.0
+    sha256: 78c71ef846e14378
+  - id: implementation-context-discovery
+    kind: behavioral_test_contract
+    schema_version: 1.0.0
+    schema_path: schemas/behavioral-test-contract.schema.yaml
+    path: contracts/tests/implementation-context-discovery.test.yaml
+    version: 1.1.0
+    sha256: c08ea7c42289676d
+  - id: prompt-optimizer
+    kind: behavioral_test_contract
+    schema_version: 1.0.0
+    schema_path: schemas/behavioral-test-contract.schema.yaml
+    path: contracts/tests/prompt-optimizer.test.yaml
+    version: 0.1.0
+    sha256: 71849741dc444db0
+  - id: response-contract
+    kind: behavioral_test_contract
+    schema_version: 1.0.0
+    schema_path: schemas/behavioral-test-contract.schema.yaml
+    path: contracts/tests/response-contract.test.yaml
+    version: 0.1.0
+    sha256: 3698bd8954fdfe67
+  - id: role-switcher
+    kind: behavioral_test_contract
+    schema_version: 1.0.0
+    schema_path: schemas/behavioral-test-contract.schema.yaml
+    path: contracts/tests/role-switcher.test.yaml
+    version: 0.1.0
+    sha256: 8addc977627a7ac8
+  - id: skill-evolution
+    kind: behavioral_test_contract
+    schema_version: 1.0.0
+    schema_path: schemas/behavioral-test-contract.schema.yaml
+    path: contracts/tests/skill-evolution.test.yaml
+    version: 1.0.0
+    sha256: 5524fa8025599be6
+  - id: systematic-debugging
+    kind: behavioral_test_contract
+    schema_version: 1.0.0
+    schema_path: schemas/behavioral-test-contract.schema.yaml
+    path: contracts/tests/systematic-debugging.test.yaml
+    version: 0.1.0
+    sha256: 6cfc28d8085105f2
   runtime:
-    - id: agents-md
-      path: contracts/runtime/agents-md.contract.yaml
-      sha256: 9dcd55c5db03fc30
-    - id: core-source
-      path: contracts/runtime/core-source.contract.yaml
-      sha256: 0590b76b0bb390e8
-    - id: development-loop
-      path: contracts/runtime/development-loop.contract.yaml
-      sha256: a65ab20af42c7803
-    - id: hook
-      path: contracts/runtime/hook.contract.yaml
-      sha256: f2f8d758c352a29e
-    - id: memory
-      path: contracts/runtime/memory.contract.yaml
-      sha256: 47bd03d6e2361f6b
-    - id: sop
-      path: contracts/runtime/sop.contract.yaml
-      sha256: 82783cafe567eaeb
-    - id: tool-registration
-      path: contracts/runtime/tool-registration.contract.yaml
-      sha256: eab231cf46c1a595
+  - id: agents-md
+    kind: runtime_contract
+    schema_version: 1.0.0
+    schema_path: schemas/runtime-contract.schema.yaml
+    path: contracts/runtime/agents-md.contract.yaml
+    version: 1.0.0
+    sha256: 38f045ec49680167
+  - id: core-source
+    kind: runtime_contract
+    schema_version: 1.0.0
+    schema_path: schemas/runtime-contract.schema.yaml
+    path: contracts/runtime/core-source.contract.yaml
+    version: 0.1.0
+    sha256: e1a8008e54a7884e
+  - id: hook
+    kind: runtime_contract
+    schema_version: 1.0.0
+    schema_path: schemas/runtime-contract.schema.yaml
+    path: contracts/runtime/hook.contract.yaml
+    version: 1.0.0
+    sha256: 03b84a8597ffed4b
+  - id: memory
+    kind: runtime_contract
+    schema_version: 1.0.0
+    schema_path: schemas/runtime-contract.schema.yaml
+    path: contracts/runtime/memory.contract.yaml
+    version: 1.0.0
+    sha256: 5285c6c9b85cff86
+  - id: sop
+    kind: runtime_contract
+    schema_version: 1.0.0
+    schema_path: schemas/runtime-contract.schema.yaml
+    path: contracts/runtime/sop.contract.yaml
+    version: 1.0.0
+    sha256: 78feb2afb732eeab
+  - id: tool-registration
+    kind: runtime_contract
+    schema_version: 1.0.0
+    schema_path: schemas/runtime-contract.schema.yaml
+    path: contracts/runtime/tool-registration.contract.yaml
+    version: 1.0.0
+    sha256: 03520809ca17b7ba
+  compatibility:
+  - id: contract-path-aliases
+    kind: compatibility_manifest
+    schema_version: 1.0.0
+    schema_path: schemas/compatibility-manifest.schema.yaml
+    path: contracts/compatibility/contract-path-aliases.contract.yaml
+    version: 1.0.0
+    sha256: 70b9012210ffeefa
+  adapters: []
+  domains: []

@@ -1,0 +1,48 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "https://native-ai.engineering/schemas/runtime-contract.schema.yaml"
+title: Native AI Engineering Runtime Contract
+type: object
+additionalProperties: false
+required:
+  - contract_schema
+  - runtime_contract
+properties:
+  contract_schema:
+    allOf:
+      - $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/contract_schema_identity"
+      - type: object
+        properties:
+          kind:
+            const: runtime_contract
+          version:
+            const: "1.0.0"
+          path:
+            const: schemas/runtime-contract.schema.yaml
+  runtime_contract:
+    type: object
+    additionalProperties: true
+    required:
+      - id
+      - version
+      - purpose
+    properties:
+      id:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/contract_id"
+      version:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/semantic_version"
+      purpose:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/non_empty_string"
+      description:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/non_empty_string"
+      boundary:
+        type: object
+      quality_gates:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/quality_gates"
+      adapter_requirements:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/adapter_requirements"
+      phases: false
+      required_phases: false
+      transitions: false
+      state_transitions: false
+      extensions:
+        type: object

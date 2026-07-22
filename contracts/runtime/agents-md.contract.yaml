@@ -1,3 +1,7 @@
+contract_schema:
+  kind: runtime_contract
+  version: 1.0.0
+  path: schemas/runtime-contract.schema.yaml
 runtime_contract:
   id: agents-md
   version: "1.0.0"

@@ -1,0 +1,100 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "https://native-ai.engineering/schemas/workflow-contract.schema.yaml"
+title: Native AI Engineering Workflow Contract
+type: object
+additionalProperties: false
+required:
+  - contract_schema
+  - workflow_contract
+properties:
+  contract_schema:
+    allOf:
+      - $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/contract_schema_identity"
+      - type: object
+        properties:
+          kind:
+            const: workflow_contract
+          version:
+            const: "1.0.0"
+          path:
+            const: schemas/workflow-contract.schema.yaml
+  workflow_contract:
+    type: object
+    additionalProperties: true
+    required:
+      - id
+      - type
+      - version
+      - category
+      - workflow_kind
+      - purpose
+      - phases
+      - skill_load_order
+      - quality_gates
+      - adapter_requirements
+    properties:
+      id:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/contract_id"
+      type:
+        const: workflow
+      version:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/semantic_version"
+      category:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/contract_id"
+      workflow_kind:
+        type: string
+        enum:
+          - engineering_lifecycle
+          - quality_lifecycle
+          - learning_lifecycle
+          - review_lifecycle
+          - deployment_lifecycle
+          - product_lifecycle
+          - execution_method
+          - operational_lifecycle
+      capability:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/machine_id"
+      purpose:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/non_empty_string"
+      description:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/non_empty_string"
+      roles:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/roles"
+      boundary:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/skill_boundary"
+      inputs:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/inputs"
+      outputs:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/outputs"
+      phases:
+        type: array
+        minItems: 1
+        items:
+          $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/workflow_phase"
+      transitions:
+        type: array
+        items:
+          $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/workflow_transition"
+      handoffs:
+        type: array
+        items:
+          type: object
+          additionalProperties: true
+          required: [id]
+          properties:
+            id:
+              $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/contract_id"
+      exit_conditions:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/unique_string_list"
+      skill_load_order:
+        type: array
+        items:
+          $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/skill_load_entry"
+      quality_gates:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/quality_gates"
+      adapter_requirements:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/adapter_requirements"
+      compatibility:
+        type: object
+      extensions:
+        type: object

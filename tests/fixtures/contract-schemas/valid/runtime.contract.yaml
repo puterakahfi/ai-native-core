@@ -1,0 +1,12 @@
+contract_schema:
+  kind: runtime_contract
+  version: "1.0.0"
+  path: schemas/runtime-contract.schema.yaml
+runtime_contract:
+  id: fixture-runtime
+  version: "1.0.0"
+  purpose: Define one runtime-facing fixture agreement without owning a workflow lifecycle.
+  quality_gates:
+    - runtime_state_is_attributable
+  adapter_requirements:
+    must_preserve_runtime_boundary: true

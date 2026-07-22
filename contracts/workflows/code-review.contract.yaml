@@ -1,132 +1,92 @@
+contract_schema:
+  kind: workflow_contract
+  version: 1.0.0
+  path: schemas/workflow-contract.schema.yaml
 workflow_contract:
   id: code-review
   type: workflow
-  version: "0.3.0"
+  version: 0.3.0
   category: quality-control
-  purpose: >
-    Defines required phases, evidence gates, reviewer boundaries, decision-provenance
-    checks, and merge-authorization separation for reviewing any code submission.
-    Product adapters define approval policy, blocking criteria, preview/runtime
+  purpose: 'Defines required phases, evidence gates, reviewer boundaries, decision-provenance checks, and merge-authorization
+    separation for reviewing any code submission. Product adapters define approval policy, blocking criteria, preview/runtime
     production, accepted-risk authorities, and issue-tracker integration.
 
-  required_phases:
-    - id: load-context
-      order: 1
-      description: Load the submission, specification, decision sources, engineering rules, product design locks, approval policy, and available verification evidence
-      gate: review_context_evidence_and_decision_sources_declared
-      skills:
-        optional: [decision-provenance]
-
-    - id: change-classification
-      order: 2
-      description: Classify architecture, logic, security, data, user-facing design, and material authority claims before selecting reviewers
-      gate: changed_domains_and_material_decision_claims_classified_before_review
-      skills:
-        optional: [decision-provenance]
-
-    - id: architecture-check
-      order: 3
-      description: Check code against engineering contracts, boundaries, dependencies, migrations, and ADR policy
-      gate: engineering_contract_compliance_verified
-      skills:
-        required: [architecture-review]
-
-    - id: design-check
-      order: 4
-      description: For user-facing visual or interaction changes, route through the design-review facade with fresh evidence appropriate to the artifact state
-      gate: facade_design_acceptance_resolved
-      optional: true
-      skills:
-        optional: [design-review]
-
-    - id: logic-check
-      order: 5
-      description: Review business logic, edge cases, error handling, state transitions, and relevant test coverage
-      gate: logic_and_test_coverage_verified
-      skills:
-        optional: [systematic-debugging, master-engineer]
-
-    - id: security-check
-      order: 6
-      description: Run threat and security review when trust boundaries, authentication, authorization, secrets, or sensitive data are affected
-      gate: applicable_security_risk_resolved
-      optional: true
-      skills:
-        optional: [security-review, threat-modeling]
-
-    - id: verdict
-      order: 7
-      description: Map domain evidence into a technical review verdict, then independently verify accepted-risk and merge authorization provenance
-      gate: technical_verdict_and_merge_authorization_must_be_explicit
-      skills:
-        required: [decision-provenance]
-
+    '
   skill_load_order:
-    - phase: load-context
-      load: [decision-provenance]
-    - phase: architecture-check
-      load: [architecture-review]
-    - phase: design-check
-      load: [design-review]
-    - phase: logic-check
-      load: [systematic-debugging, master-engineer]
-    - phase: security-check
-      load: [security-review, threat-modeling]
-    - phase: verdict
-      load: [decision-provenance]
-
+  - phase: load-context
+    load:
+    - decision-provenance
+  - phase: architecture-check
+    load:
+    - architecture-review
+  - phase: design-check
+    load:
+    - design-review
+  - phase: logic-check
+    load:
+    - systematic-debugging
+    - master-engineer
+  - phase: security-check
+    load:
+    - security-review
+    - threat-modeling
+  - phase: verdict
+    load:
+    - decision-provenance
   decision_provenance_contract:
     check_when:
-      - submission_or_pr_body_claims_scope_approval
-      - submission_claims_required_dependency_or_exception
-      - reviewer_or_author_claims_a_risk_is_accepted
-      - submission_claims_a_lock_policy_or_required_review_is_waived
-      - technical_approval_is_being_mapped_to_merge_authorization
-      - destructive_migration_or_high_impact_change_requires_owner_approval
+    - submission_or_pr_body_claims_scope_approval
+    - submission_claims_required_dependency_or_exception
+    - reviewer_or_author_claims_a_risk_is_accepted
+    - submission_claims_a_lock_policy_or_required_review_is_waived
+    - technical_approval_is_being_mapped_to_merge_authorization
+    - destructive_migration_or_high_impact_change_requires_owner_approval
     required_claim_fields:
-      - claim
-      - decision_type
-      - applies_to
-      - proposed_action
-      - source_ref
-      - observed_authority
-      - required_authority
+    - claim
+    - decision_type
+    - applies_to
+    - proposed_action
+    - source_ref
+    - observed_authority
+    - required_authority
     rules:
-      - author_or_agent_authored_pr_text_is_not_owner_approval
-      - implementation_existence_or_commit_recency_does_not_prove_scope_or_authority
-      - technical_reviewer_verdict_does_not_self_grant_product_security_or_release_authority
-      - accepted_risk_requires_verified_authority_scope_mitigation_and_expiry_when_policy_requires_it
-      - missing_or_conflicted_provenance_blocks_the_dependent_merge_or_exception_claim
-      - product_policy_may_require_additional_approvers_even_when_technical_review_passes
+    - author_or_agent_authored_pr_text_is_not_owner_approval
+    - implementation_existence_or_commit_recency_does_not_prove_scope_or_authority
+    - technical_reviewer_verdict_does_not_self_grant_product_security_or_release_authority
+    - accepted_risk_requires_verified_authority_scope_mitigation_and_expiry_when_policy_requires_it
+    - missing_or_conflicted_provenance_blocks_the_dependent_merge_or_exception_claim
+    - product_policy_may_require_additional_approvers_even_when_technical_review_passes
     output:
       artifact: decision_provenance_report
-      verdicts: [PASS, PROVENANCE_BLOCKED, ROUTE_FOR_APPROVAL]
-
+      verdicts:
+      - PASS
+      - PROVENANCE_BLOCKED
+      - ROUTE_FOR_APPROVAL
   design_review_contract:
     trigger_when:
-      - rendered appearance can change
-      - interaction or responsive behavior can change
-      - user-facing states, content fidelity, accessibility, or visual assets can change
-      - generated or exported visual artifacts are changed by code
+    - rendered appearance can change
+    - interaction or responsive behavior can change
+    - user-facing states, content fidelity, accessibility, or visual assets can change
+    - generated or exported visual artifacts are changed by code
     required_route_fields:
-      - design_domain
-      - surface_profile
-      - artifact_state
-      - review_depth
-      - coverage_mode
-      - domain_reviewers
-      - evidence_available
-      - evidence_gaps
+    - design_domain
+    - surface_profile
+    - artifact_state
+    - review_depth
+    - coverage_mode
+    - domain_reviewers
+    - evidence_available
+    - evidence_gaps
     evidence_policy:
       source_only:
-        - source and token compliance may be inspected
-        - visual, interaction, runtime, and export claims remain NOT_VERIFIED
-        - source-only evidence cannot approve a changed rendered result
+      - source and token compliance may be inspected
+      - visual, interaction, runtime, and export claims remain NOT_VERIFIED
+      - source-only evidence cannot approve a changed rendered result
       rendered_interactive:
-        - required changed viewports, themes, states, and inputs must be exercised
-        - runtime and accessibility evidence are required when affected
+      - required changed viewports, themes, states, and inputs must be exercised
+      - runtime and accessibility evidence are required when affected
       rendered_static:
-        - final size, crop, fidelity, content, and export evidence are required when affected
+      - final size, crop, fidelity, content, and export evidence are required when affected
     merge_mapping:
       PASS: technical_design_requirement_may_pass
       CONDITIONAL_PASS: requires_separately_verified_non_blocking_risk_acceptance
@@ -134,7 +94,6 @@ workflow_contract:
       CRITICAL: block
       LIMITED_REVIEW: block_complete_domain_approval
       ROUTE_ELSEWHERE: block_until_required_reviewer_is_available
-
   verdict_contract:
     technical_review_verdicts:
       APPROVED:
@@ -146,42 +105,40 @@ workflow_contract:
     merge_authorization:
       AUTHORIZED:
         requires:
-          - technical_review_verdict_is_APPROVED
-          - decision_provenance_verdict_is_PASS
-          - every_accepted_risk_has_verified_authority
-          - all_product_policy_approvals_are_satisfied
+        - technical_review_verdict_is_APPROVED
+        - decision_provenance_verdict_is_PASS
+        - every_accepted_risk_has_verified_authority
+        - all_product_policy_approvals_are_satisfied
       NOT_AUTHORIZED:
         when:
-          - technical_review_is_REQUEST_CHANGES_or_BLOCKED
-          - provenance_is_PROVENANCE_BLOCKED
-          - required_owner_or_policy_approval_is_missing
+        - technical_review_is_REQUEST_CHANGES_or_BLOCKED
+        - provenance_is_PROVENANCE_BLOCKED
+        - required_owner_or_policy_approval_is_missing
       ROUTE_FOR_APPROVAL:
         when:
-          - technical_review_is_APPROVED_but_an_additional_required_authority_has_not_decided
+        - technical_review_is_APPROVED_but_an_additional_required_authority_has_not_decided
     rules:
-      - approved_to_merge_yes_requires_both_technical_approval_and_merge_authorization
-      - code_review_approval_must_not_be_presented_as_release_or_product_scope_approval
-      - conditional_domain_verdict_requires_verified_non_blocking_risk_acceptance
-      - missing_provenance_is_not_an_accepted_risk
-
+    - approved_to_merge_yes_requires_both_technical_approval_and_merge_authorization
+    - code_review_approval_must_not_be_presented_as_release_or_product_scope_approval
+    - conditional_domain_verdict_requires_verified_non_blocking_risk_acceptance
+    - missing_provenance_is_not_an_accepted_risk
   quality_gates:
-    - review_context_available_evidence_and_decision_sources_must_be_declared
-    - changed_domains_must_be_classified_before_reviewer_selection
-    - material_scope_risk_exception_and_merge_claims_require_decision_provenance
-    - author_or_agent_authored_pr_text_is_not_owner_approval
-    - no_approval_without_architecture_check
-    - design_check_required_when_user_facing_visual_or_interaction_output_changes
-    - changed_rendered_output_requires_fresh_rendered_or_exported_evidence
-    - screenshot_does_not_prove_runtime_keyboard_or_hidden_states
-    - source_only_design_review_cannot_approve_visual_or_interaction_acceptance
-    - limited_domain_coverage_cannot_approve_complete_specialist_design_claims
-    - applicable_security_review_cannot_be_skipped
-    - verdict_must_cite_specific_evidence_and_violations
-    - compiled_generated_or_green_ci_does_not_imply_technical_approval
-    - technical_approval_does_not_self_authorize_merge
-    - accepted_risk_requires_verified_authority
-    - no_merge_without_explicit_technical_verdict_and_merge_authorization
-
+  - review_context_available_evidence_and_decision_sources_must_be_declared
+  - changed_domains_must_be_classified_before_reviewer_selection
+  - material_scope_risk_exception_and_merge_claims_require_decision_provenance
+  - author_or_agent_authored_pr_text_is_not_owner_approval
+  - no_approval_without_architecture_check
+  - design_check_required_when_user_facing_visual_or_interaction_output_changes
+  - changed_rendered_output_requires_fresh_rendered_or_exported_evidence
+  - screenshot_does_not_prove_runtime_keyboard_or_hidden_states
+  - source_only_design_review_cannot_approve_visual_or_interaction_acceptance
+  - limited_domain_coverage_cannot_approve_complete_specialist_design_claims
+  - applicable_security_review_cannot_be_skipped
+  - verdict_must_cite_specific_evidence_and_violations
+  - compiled_generated_or_green_ci_does_not_imply_technical_approval
+  - technical_approval_does_not_self_authorize_merge
+  - accepted_risk_requires_verified_authority
+  - no_merge_without_explicit_technical_verdict_and_merge_authorization
   adapter_requirements:
     approval_policy: product_defined
     blocking_violation_criteria: product_defined
@@ -192,3 +149,63 @@ workflow_contract:
     merge_authority: product_defined
     issue_tracker: product_defined
     ci_gate_required: product_defined
+  workflow_kind: review_lifecycle
+  phases:
+  - id: load-context
+    order: 1
+    description: Load the submission, specification, decision sources, engineering rules, product design locks, approval policy,
+      and available verification evidence
+    gate: review_context_evidence_and_decision_sources_declared
+    skills:
+      optional:
+      - decision-provenance
+  - id: change-classification
+    order: 2
+    description: Classify architecture, logic, security, data, user-facing design, and material authority claims before selecting
+      reviewers
+    gate: changed_domains_and_material_decision_claims_classified_before_review
+    skills:
+      optional:
+      - decision-provenance
+  - id: architecture-check
+    order: 3
+    description: Check code against engineering contracts, boundaries, dependencies, migrations, and ADR policy
+    gate: engineering_contract_compliance_verified
+    skills:
+      required:
+      - architecture-review
+  - id: design-check
+    order: 4
+    description: For user-facing visual or interaction changes, route through the design-review facade with fresh evidence
+      appropriate to the artifact state
+    gate: facade_design_acceptance_resolved
+    optional: true
+    skills:
+      optional:
+      - design-review
+  - id: logic-check
+    order: 5
+    description: Review business logic, edge cases, error handling, state transitions, and relevant test coverage
+    gate: logic_and_test_coverage_verified
+    skills:
+      optional:
+      - systematic-debugging
+      - master-engineer
+  - id: security-check
+    order: 6
+    description: Run threat and security review when trust boundaries, authentication, authorization, secrets, or sensitive
+      data are affected
+    gate: applicable_security_risk_resolved
+    optional: true
+    skills:
+      optional:
+      - security-review
+      - threat-modeling
+  - id: verdict
+    order: 7
+    description: Map domain evidence into a technical review verdict, then independently verify accepted-risk and merge authorization
+      provenance
+    gate: technical_verdict_and_merge_authorization_must_be_explicit
+    skills:
+      required:
+      - decision-provenance

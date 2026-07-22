@@ -1,0 +1,25 @@
+contract_schema:
+  kind: contract_manifest
+  version: "1.0.0"
+  path: schemas/contract-manifest.schema.yaml
+version: "2.0.0"
+generated_at: "2026-07-22T00:00:00Z"
+description: Fixture manifest for adapter conformance validation.
+total_contracts: 1
+contracts:
+  skills:
+    test:
+      - id: boundary-sample
+        kind: skill_contract
+        schema_version: "1.0.0"
+        schema_path: schemas/skill-contract.schema.yaml
+        path: contracts/skills/test/boundary-sample.contract.yaml
+        version: "1.0.0"
+        sha256: 0000000000000000
+  ports: {}
+  workflows: []
+  tests: []
+  runtime: []
+  compatibility: []
+  adapters: []
+  domains: []

@@ -1,0 +1,23 @@
+contract_schema:
+  kind: skill_contract
+  version: "1.0.0"
+  path: schemas/skill-contract.schema.yaml
+skill_contract:
+  id: fixture-skill
+  category: quality
+  type: skill
+  version: "1.0.0"
+  capability: validate_fixture_skill
+  roles:
+    - fixture_reviewer
+  inputs:
+    required:
+      - subject
+    optional: []
+  outputs:
+    allowed:
+      - fixture_result
+  quality_gates:
+    - fixture_result_is_attributable
+  adapter_requirements:
+    must_preserve_fixture_semantics: true

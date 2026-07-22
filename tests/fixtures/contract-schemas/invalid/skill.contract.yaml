@@ -1,0 +1,10 @@
+contract_schema:
+  kind: skill_contract
+  version: "1.0.0"
+  path: schemas/skill-contract.schema.yaml
+skill_contract:
+  id: fixture-skill-invalid
+  category: quality
+  type: skill
+  version: latest
+  capability: validate_fixture_skill

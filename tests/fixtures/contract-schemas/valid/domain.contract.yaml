@@ -1,0 +1,18 @@
+contract_schema:
+  kind: domain_contract
+  version: "1.0.0"
+  path: schemas/domain-contract.schema.yaml
+domain_contract:
+  id: fixture-domain
+  version: "1.0.0"
+  bounded_context: capability_and_agreement
+  purpose: Define one fixture domain boundary with explicit ownership and invariants.
+  boundary:
+    owns:
+      - fixture_capability_meaning
+    delegates:
+      - fixture_adapter_implementation
+    does_not_own:
+      - product_acceptance
+  invariants:
+    - fixture_capability_meaning_remains_provider_independent

@@ -1,0 +1,14 @@
+contract_schema:
+  kind: port_contract
+  version: "1.0.0"
+  path: schemas/port-contract.schema.yaml
+port_contract:
+  id: fixture-port-invalid
+  kind: integration_port
+  version: "0.1.0"
+  capability: execute_fixture_operation
+  direction: outbound
+  semantic_owner_context: integration_and_binding
+  binding_owner_context: integration_and_binding
+  consumer_contexts: []
+  purpose: This fixture intentionally omits its ownership boundary.

@@ -1,0 +1,103 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "https://native-ai.engineering/schemas/contract-manifest.schema.yaml"
+title: Native AI Engineering Contract Manifest
+type: object
+additionalProperties: false
+required:
+  - contract_schema
+  - version
+  - generated_at
+  - description
+  - total_contracts
+  - contracts
+properties:
+  contract_schema:
+    allOf:
+      - $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/contract_schema_identity"
+      - type: object
+        properties:
+          kind:
+            const: contract_manifest
+          version:
+            const: "1.0.0"
+          path:
+            const: schemas/contract-manifest.schema.yaml
+  version:
+    const: "2.0.0"
+  generated_at:
+    type: string
+    format: date-time
+  description:
+    $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/non_empty_string"
+  total_contracts:
+    type: integer
+    minimum: 0
+  contracts:
+    type: object
+    additionalProperties: false
+    required: [skills, ports, workflows, tests, runtime, compatibility]
+    properties:
+      skills:
+        type: object
+        additionalProperties:
+          type: array
+          items:
+            $ref: "#/$defs/entry"
+      ports:
+        type: object
+        additionalProperties:
+          type: array
+          items:
+            $ref: "#/$defs/entry"
+      workflows:
+        type: array
+        items:
+          $ref: "#/$defs/entry"
+      tests:
+        type: array
+        items:
+          $ref: "#/$defs/entry"
+      runtime:
+        type: array
+        items:
+          $ref: "#/$defs/entry"
+      compatibility:
+        type: array
+        items:
+          $ref: "#/$defs/entry"
+      adapters:
+        type: array
+        items:
+          $ref: "#/$defs/entry"
+      domains:
+        type: array
+        items:
+          $ref: "#/$defs/entry"
+$defs:
+  entry:
+    type: object
+    additionalProperties: false
+    required:
+      - id
+      - kind
+      - schema_version
+      - schema_path
+      - path
+      - version
+      - sha256
+    properties:
+      id:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/contract_id"
+      kind:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/schema_kind"
+      schema_version:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/semantic_version"
+      schema_path:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/schema_path"
+      path:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/contract_path"
+      version:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/semantic_version"
+      sha256:
+        type: string
+        pattern: "^[0-9a-f]{16}$"
