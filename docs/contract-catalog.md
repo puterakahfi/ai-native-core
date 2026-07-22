@@ -14,6 +14,13 @@ Workflow migration decisions:
 docs/workflow-contract-migration.yaml
 ```
 
+Design contract v2 decisions:
+
+```text
+docs/design-contract-v2-migration.yaml
+docs/design-contract-v2-acceptance-review.md
+```
+
 ## Canonical inventory
 
 [`contracts/manifest.yaml`](../contracts/manifest.yaml) is the authoritative generated registry. Every entry records:
