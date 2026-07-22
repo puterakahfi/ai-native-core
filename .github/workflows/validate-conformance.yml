@@ -3,16 +3,24 @@ name: Validate Conformance Tooling
 on:
   pull_request:
     paths:
+      - "scripts/contract_resolution.py"
       - "scripts/validate-conformance.py"
+      - "scripts/validate-implements.py"
+      - "scripts/validate-implements.sh"
       - "tests/test_validate_conformance.py"
+      - "tests/test_contract_resolution.py"
       - "tests/fixtures/conformance-boundaries/**"
       - ".github/workflows/validate-conformance.yml"
   push:
     branches:
       - main
     paths:
+      - "scripts/contract_resolution.py"
       - "scripts/validate-conformance.py"
+      - "scripts/validate-implements.py"
+      - "scripts/validate-implements.sh"
       - "tests/test_validate_conformance.py"
+      - "tests/test_contract_resolution.py"
       - "tests/fixtures/conformance-boundaries/**"
       - ".github/workflows/validate-conformance.yml"
   workflow_dispatch:
@@ -37,11 +45,16 @@ jobs:
       - name: Install validation dependencies
         run: python -m pip install --disable-pip-version-check PyYAML
 
-      - name: Compile validator and tests
+      - name: Compile resolver, validators, and tests
         run: |
           python -m py_compile \
+            scripts/contract_resolution.py \
             scripts/validate-conformance.py \
-            tests/test_validate_conformance.py
+            scripts/validate-implements.py \
+            tests/test_validate_conformance.py \
+            tests/test_contract_resolution.py
 
-      - name: Run validator regression tests
-        run: python -m unittest discover -s tests -v
+      - name: Run conformance regression tests
+        run: |
+          python -m unittest discover -s tests -p 'test_validate_conformance.py' -v
+          python -m unittest discover -s tests -p 'test_contract_resolution.py' -v
