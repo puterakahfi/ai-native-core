@@ -1,0 +1,17 @@
+contract_schema:
+  kind: contract_manifest
+  version: "1.0.0"
+  path: schemas/contract-manifest.schema.yaml
+version: "2.0.0"
+generated_at: "2026-07-22T00:00:00Z"
+description: Valid empty manifest fixture for schema validation.
+total_contracts: 0
+contracts:
+  skills: {}
+  ports: {}
+  workflows: []
+  tests: []
+  runtime: []
+  compatibility: []
+  adapters: []
+  domains: []
