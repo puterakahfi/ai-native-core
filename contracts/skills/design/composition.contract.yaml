@@ -6,28 +6,109 @@ skill_contract:
   id: composition
   category: design
   type: skill
-  version: "1.0.0"
-  capability: above_fold_composition_and_visual_anchoring
+  version: "2.0.0"
+  capability: context_aware_visual_composition_and_flow_reasoning
+
+  description: >
+    Defines transferable composition reasoning across marketing, product,
+    editorial, static-visual, presentation, and other visual surfaces. It maps
+    content priority, focal sequence, visual weight, balance, anchoring,
+    empty-space roles, and responsive intent without treating optical-center,
+    hero, reading-pattern, grid, or spacing formulas as universal pass rules.
+
   roles:
     - layout_composer
     - visual_designer
-    - ux_reviewer
+    - design_reviewer
+
   inputs:
     required:
-      - layout_pattern
-      - viewport_dimensions
+      - target_surface
+      - surface_profile
+      - primary_task_or_message
+      - content_inventory
     optional:
-      - hero_content_inventory
-      - macrostructure_ref
+      - viewing_contexts
+      - hierarchy_role_map
+      - selected_design_direction
+      - existing_grid_and_spacing_system
+      - required_assets
+      - responsive_contexts
+      - interaction_and_state_context
+
   outputs:
+    required:
+      - composition_context
+      - focal_sequence
+      - weight_distribution
+      - balance_strategy
+      - anchor_map
+      - empty_space_role_map
+      - responsive_composition_rules
+      - evidence_requirements
     allowed:
-      - focal_point_report
-      - dead_space_verdict
-      - eye_flow_map
-      - anchoring_audit
-      - composition_gate_scores
+      - optical_corrections
+      - intentional_tensions
+      - failure_risks
+      - design_review_handoff
+
+  diagnostic_heuristics:
+    allowed:
+      - optical_center
+      - geometric_center
+      - f_pattern
+      - z_pattern
+      - rule_of_thirds
+      - modular_spacing_units
+      - grid_alignment
+      - above_fold_scan
+    rules:
+      - heuristics_may_support_diagnosis_when_surface_content_and_viewing_context_make_them_relevant
+      - no_single_heuristic_can_establish_balance_dominance_or_flow
+      - numeric_positions_ratios_and_spacing_units_do_not_define_universal_pass_thresholds
+      - deviation_from_a_heuristic_is_not_a_failure_without_observed_task_message_or_reading_harm
+
   quality_gates:
-    - focal_point_must_be_at_or_above_optical_center
-    - no_unframed_dead_space_above_hero
-    - every_element_anchored_to_grid_or_sibling
-    - spacing_multiples_of_8px_base_unit
+    - primary_task_message_and_content_roles_are_explicit
+    - focal_sequence_matches_surface_viewing_context_and_task
+    - visual_weight_distribution_supports_content_priority
+    - balance_strategy_is_intentional_and_explainable
+    - empty_space_has_grouping_pacing_framing_narrative_or_utility_role
+    - structural_relational_or_optical_anchors_are_explicit
+    - responsive_contexts_preserve_composition_intent_not_coordinates
+    - numeric_positions_ratios_and_spacing_units_are_diagnostic_not_universal
+    - rendered_evidence_supports_composition_claims
+    - design_review_retains_gate_identity_scoring_and_verdict_authority
+
+  boundary:
+    covers:
+      - focal_sequence_and_visual_flow
+      - visual_weight_distribution
+      - symmetrical_asymmetrical_open_and_dense_balance
+      - structural_relational_and_optical_anchoring
+      - empty_space_role_classification
+      - responsive_composition_intent
+      - composition_failure_risk_identification
+    does_not_cover:
+      - page_macrostructure_selection
+      - component_pattern_selection
+      - typography_system_design
+      - accessibility_compliance_verdict
+      - canonical_design_gate_identity_scoring_or_verdict
+      - product_acceptance_approval_or_authorization
+
+  adapter_requirements:
+    rendered_evidence_capture: required
+    responsive_context_evaluation: required_when_responsive_surface
+    existing_layout_system_resolution: required
+    design_review_handoff: required_for_gate_verdict
+    numeric_heuristics_policy: diagnostic_only
+
+  compatibility:
+    classification: breaking
+    previous_version: "1.0.0"
+    rationale: >
+      Version 1 encoded hero-specific optical-center, dead-space, anchoring, and
+      8px-spacing heuristics as universal gates. Version 2 replaces those rules
+      with transferable role, context, intent, and evidence requirements.
+    migration_document: docs/design-contract-v2-migration.yaml
