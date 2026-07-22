@@ -82,7 +82,7 @@ skill_contract:
       - spatial_isolation_delta
       - section_weight_decay
     rules:
-      - heuristics_may_expose_ambiguity_or accidental_competition
+      - heuristics_may_expose_ambiguity_or_accidental_competition
       - no_fixed_ratio_or_level_count_defines_universal_hierarchy_quality
       - html_heading_order_does_not_by_itself_determine_visual_dominance
       - state_task_and_narrative_context_can_justify_local_or_temporary_dominance
