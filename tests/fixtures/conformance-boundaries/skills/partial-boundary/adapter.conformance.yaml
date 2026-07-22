@@ -6,6 +6,8 @@ adapter_conformance:
   adapter:
     id: partial-boundary
     kind: skill
+    patterns:
+      - skill-adapter
     entrypoint: skills/partial-boundary/SKILL.md
   implements:
     contract_id: boundary-sample
