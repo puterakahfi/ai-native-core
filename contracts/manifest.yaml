@@ -3,9 +3,9 @@ contract_schema:
   version: 1.0.0
   path: schemas/contract-manifest.schema.yaml
 version: 2.0.0
-generated_at: '2026-07-22T04:45:46Z'
+generated_at: '2026-07-22T11:16:25Z'
 description: 'Auto-generated schema-aware contract manifest. Regenerate with: scripts/generate-manifest.sh'
-total_contracts: 129
+total_contracts: 135
 contracts:
   skills:
     architecture:
@@ -250,6 +250,13 @@ contracts:
       path: contracts/skills/design/iconography.contract.yaml
       version: 1.0.0
       sha256: c6f5bf56e88c84a0
+    - id: image-prompt-engineering
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/design/image-prompt-engineering.contract.yaml
+      version: 1.0.0
+      sha256: 2a33875343f8c0e1
     - id: information-architecture
       kind: skill_contract
       schema_version: 1.0.0
@@ -493,6 +500,13 @@ contracts:
       path: contracts/skills/quality/decision-provenance.contract.yaml
       version: 1.0.0
       sha256: ebc516e08f9aaca0
+    - id: design-audit
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/quality/design-audit.contract.yaml
+      version: 1.0.0
+      sha256: 77cfdb07cdc4d0f8
     - id: design-review
       kind: skill_contract
       schema_version: 1.0.0
@@ -802,6 +816,13 @@ contracts:
     path: contracts/workflows/skill-evolution.contract.yaml
     version: 1.0.0
     sha256: aa4b42c9f7d727a0
+  - id: skill-maintenance
+    kind: workflow_contract
+    schema_version: 1.0.0
+    schema_path: schemas/workflow-contract.schema.yaml
+    path: contracts/workflows/skill-maintenance.contract.yaml
+    version: 1.0.0
+    sha256: 42f34a579a73ce90
   - id: spec-driven
     kind: workflow_contract
     schema_version: 1.0.0
@@ -831,6 +852,13 @@ contracts:
     path: contracts/tests/delivery-work-breakdown.test.yaml
     version: 1.0.0
     sha256: 4b27f8eaeff45401
+  - id: design-audit
+    kind: behavioral_test_contract
+    schema_version: 1.0.0
+    schema_path: schemas/behavioral-test-contract.schema.yaml
+    path: contracts/tests/design-audit.test.yaml
+    version: 1.0.0
+    sha256: b5dbf254cf8d3599
   - id: design-review
     kind: behavioral_test_contract
     schema_version: 1.0.0
@@ -838,6 +866,13 @@ contracts:
     path: contracts/tests/design-review.test.yaml
     version: 0.2.0
     sha256: 78c71ef846e14378
+  - id: image-prompt-engineering
+    kind: behavioral_test_contract
+    schema_version: 1.0.0
+    schema_path: schemas/behavioral-test-contract.schema.yaml
+    path: contracts/tests/image-prompt-engineering.test.yaml
+    version: 1.0.0
+    sha256: ae7bc3da6f6e9f9a
   - id: implementation-context-discovery
     kind: behavioral_test_contract
     schema_version: 1.0.0
@@ -873,6 +908,13 @@ contracts:
     path: contracts/tests/skill-evolution.test.yaml
     version: 1.0.0
     sha256: 5524fa8025599be6
+  - id: skill-maintenance
+    kind: behavioral_test_contract
+    schema_version: 1.0.0
+    schema_path: schemas/behavioral-test-contract.schema.yaml
+    path: contracts/tests/skill-maintenance.test.yaml
+    version: 1.0.0
+    sha256: cf6eb40861a5f971
   - id: systematic-debugging
     kind: behavioral_test_contract
     schema_version: 1.0.0
