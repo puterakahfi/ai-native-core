@@ -13,7 +13,21 @@ def parse_contract(path: Path) -> Optional[dict[str, Any]]:
     """Compatibility facade for consumers that inspect a contract family."""
     try:
         kind, body, _document = load_contract_document(path)
-        return interface(kind, body)
+        parsed = interface(kind, body)
+        parsed["quality_gates"] = parsed["gates"]
+        parsed["inputs"] = {
+            "required": parsed["required_inputs"],
+            "optional": parsed["optional_inputs"],
+        }
+        parsed["outputs"] = {
+            "required": parsed["required_outputs"],
+            "allowed": parsed["allowed_outputs"],
+        }
+        parsed["boundary"] = {
+            "covers": parsed["covers"],
+            "does_not_cover": parsed["delegates"],
+        }
+        return parsed
     except Exception:
         return None
 
