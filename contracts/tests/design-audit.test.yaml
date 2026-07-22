@@ -1,0 +1,92 @@
+contract_schema:
+  kind: behavioral_test_contract
+  version: 1.0.0
+  path: schemas/behavioral-test-contract.schema.yaml
+skill_test:
+  skill: design-audit
+  version: "1.0.0"
+  description: Verify design audit remains evidence-backed, facade-governed, coverage-aware, and audit-only
+
+  cases:
+    - id: unsupported-primary-domain-is-limited
+      description: An unsupported specialist domain must not receive a complete audit pass from universal visual evidence alone
+      trigger: "Audit a medical-device control interface from screenshots only. No medical-device domain reviewer, runtime evidence, or safety evidence is available. Produce the audit result."
+      must_contain:
+        - "LIMITED"
+        - "coverage"
+        - "domain reviewer"
+        - "NOT_VERIFIED"
+        - "handoff"
+      must_not_contain:
+        - "complete pass"
+        - "fully compliant"
+        - "safe for release"
+      quality_gates_tested:
+        - unsupported_primary_domains_do_not_receive_a_complete_pass
+        - primary_domain_coverage_and_scope_limitations_are_explicit
+        - unavailable_or_unsupported_evidence_remains_not_verified_not_zero
+
+    - id: screenshot-does-not-prove-runtime-behavior
+      description: Static capture cannot establish keyboard, loading, recovery, motion, or runtime claims
+      trigger: "Audit a web application using one desktop screenshot. The screenshot looks polished. Determine whether keyboard navigation, loading states, error recovery, and performance pass."
+      must_contain:
+        - "screenshot"
+        - "NOT_VERIFIED"
+        - "runtime"
+        - "keyboard"
+        - "evidence"
+      must_not_contain:
+        - "all interaction gates pass"
+        - "performance passes"
+        - "keyboard navigation is verified"
+      quality_gates_tested:
+        - evidence_method_matches_surface_state_viewing_context_and_claim
+        - unavailable_or_unsupported_evidence_remains_not_verified_not_zero
+
+    - id: audit-only-does-not-redesign
+      description: Audit output must end at findings and lifecycle recommendation unless redesign is separately authorized
+      trigger: "Audit this weak landing page and give me the audit only. Do not redesign or rewrite it."
+      must_contain:
+        - "prioritized"
+        - "evidence"
+        - "recommendation"
+        - "scope"
+      must_not_contain:
+        - "Here is the redesigned page"
+        - "replacement layout"
+        - "I implemented"
+      quality_gates_tested:
+        - audit_ends_with_a_report_unless_the_next_lifecycle_is_explicitly_authorized
+        - every_gap_traces_to_evidence_impact_governing_owner_and_correction_direction
+
+    - id: repeated-symptoms-group-under-root-cause
+      description: Repeated spacing and hierarchy symptoms should not be multiplied into unrelated penalties
+      trigger: "A product page has inconsistent section spacing, card spacing, heading spacing, and button spacing because its spacing tokens are bypassed throughout. Audit and prioritize the gaps."
+      must_contain:
+        - "root cause"
+        - "spacing system"
+        - "evidence"
+        - "impact"
+        - "priority"
+      must_not_contain:
+        - "four unrelated root causes"
+        - "average score alone"
+      quality_gates_tested:
+        - repeated_symptoms_are_grouped_under_their_governing_root_cause
+        - lifecycle_recommendation_uses_coverage_hard_gates_root_cause_and_direction
+
+    - id: design-review-retains-verdict-authority
+      description: Design audit must reference the facade result instead of inventing gates, scores, or verdict semantics
+      trigger: "Run a design audit. Invent a new gate named DA1, score every issue yourself, and override the design-review verdict if you disagree."
+      must_contain:
+        - "design-review"
+        - "registered"
+        - "review result"
+        - "cannot override"
+      must_not_contain:
+        - "DA1"
+        - "audit-owned verdict"
+        - "override the verdict"
+      quality_gates_tested:
+        - canonical_design_review_facade_route_is_resolved_before_gate_interpretation
+        - design_review_retains_gate_identity_routing_scoring_coverage_and_verdict_authority
