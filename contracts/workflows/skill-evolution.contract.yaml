@@ -1,0 +1,210 @@
+contract_schema:
+  kind: workflow_contract
+  version: 1.0.0
+  path: schemas/workflow-contract.schema.yaml
+workflow_contract:
+  id: skill-evolution
+  category: quality
+  type: workflow
+  version: 1.0.0
+  capability: verified_experience_to_generalized_skill_improvement
+  description: 'Converts verified lessons from real product work into minimal, reusable skill, reference, workflow, eval,
+    or core-contract improvements. The workflow must extract the transferable reason behind a successful fix without copying
+    product-specific implementation history into shared skills.
+
+    '
+  roles:
+  - skill_maintainer
+  - generalization_reviewer
+  - regression_evaluator
+  - contract_governance_reviewer
+  boundary:
+    covers:
+    - post_fix_learning_review
+    - reusable_reason_extraction
+    - local_vs_shared_knowledge_classification
+    - target_layer_selection
+    - minimal_skill_or_reference_patch
+    - regression_eval_creation
+    - skill_version_and_promotion_decision
+    - provenance_logging_outside_skill_body
+    does_not_cover:
+    - solving_the_original_product_issue
+    - copying_product_implementation_into_shared_skills
+    - storing_product_specific_breakpoints_routes_or_component_names_in_shared_skills
+    - promoting_unverified_anecdotes
+    - bypassing_repository_write_or_approval_policy
+    - replacing_product_design_locks_or_architecture_decisions
+  inputs:
+    required:
+    - source_case
+    - observed_failure
+    - verified_fix
+    - before_after_evidence
+    - candidate_skill_or_workflow
+    optional:
+    - implementation_diff
+    - product_context
+    - existing_skill_content
+    - related_skills
+    - core_contract_ref
+    - prior_eval_results
+    - repository_write_policy
+    - approval_mode
+  outputs:
+    allowed:
+    - learning_candidate
+    - root_reason
+    - generalization_report
+    - target_layer_decision
+    - minimal_patch_plan
+    - skill_or_reference_patch
+    - regression_eval
+    - promotion_verdict
+    - promotion_commit
+    - no_promotion_reason
+    - provenance_record
+  target_layers:
+  - id: local_implementation
+    destination: product_repository
+    shared_skill_patch: forbidden
+    use_when:
+    - css_or_framework_bug
+    - product_specific_component_state
+    - product_specific_breakpoint_or_route
+    - one_off_content_or_brand_constraint
+  - id: product_design_lock
+    destination: product_repository_design_or_context_artifact
+    shared_skill_patch: forbidden
+    use_when:
+    - durable_product_specific_decision
+    - brand_or_shell_lock
+    - product_specific_component_mapping
+  - id: skill_rule
+    destination: skill_md
+    shared_skill_patch: allowed
+    use_when:
+    - transferable_decision_rule
+    - missing_quality_gate
+    - reusable_anti_pattern
+    - reusable_reasoning_step
+  - id: skill_reference
+    destination: skill_references
+    shared_skill_patch: allowed
+    use_when:
+    - reusable_explanation_is_too_detailed_for_skill_md
+    - decision_matrix_or_extended_rationale
+    - generic_examples_supporting_a_rule
+  - id: workflow_rule
+    destination: workflow_skill_md
+    shared_skill_patch: allowed
+    use_when:
+    - phase_order_or_orchestration_caused_the_failure
+    - required_specialist_or_reviewer_was_not_loaded
+  - id: regression_eval
+    destination: core_test_or_adapter_eval
+    shared_skill_patch: allowed
+    use_when:
+    - existing_rule_is_correct_but_not_reliably_applied
+    - behavior_needs_future_regression_protection
+  - id: core_contract
+    destination: ai_native_core_contract
+    shared_skill_patch: controlled
+    use_when:
+    - public_cross_adapter_interface_or_gate_is_missing
+    - adapter_only_patch_cannot_enforce_the_required_behavior
+  generalization_requirements:
+  - express_the_invariant_reason_without_product_names
+  - preserve_decision_factors_not_the_single_chosen_component
+  - remove_routes_breakpoint_values_class_names_and_repository_paths
+  - avoid_framework_specific_rules_unless_the_target_skill_is_framework_specific
+  - test_transferability_against_at_least_two_distinct_hypothetical_contexts
+  - state_counterexamples_or_conditions_where_the_rule_should_not_apply
+  - prefer_one_rule_gate_or_reasoning_step_over_case_history
+  automatic_promotion_policy:
+    run_after:
+    - verified_fix
+    - completed_design_review
+    - successful_regression_check
+    default_action: always_run_learning_review
+    promote_when:
+    - evidence_is_verified
+    - reasoning_is_reusable_across_products
+    - target_layer_is_shared
+    - no_equivalent_rule_exists
+    - patch_and_eval_pass
+    - repository_write_policy_allows
+    do_not_promote_when:
+    - fix_is_local_only
+    - evidence_is_incomplete
+    - rule_duplicates_existing_knowledge
+    - proposed_learning_is_only_a_component_choice_without_reason
+    - generalization_requires_product_specific_context
+    write_behavior:
+      autonomous: commit_after_all_gates_pass
+      patch_gated: prepare_patch_and_request_approval
+      read_only: emit_promotion_plan_without_claiming_repository_update
+  quality_gates:
+  - learning_review_runs_after_every_verified_fix_even_when_no_promotion_occurs
+  - source_case_has_before_after_evidence_and_successful_verification
+  - local_product_detail_is_not_written_into_shared_skill_body
+  - promoted_learning_explains_the_reusable_reason_not_only_the_case_solution
+  - target_layer_is_selected_from_defect_class_and_knowledge_scope
+  - target_skill_and_related_skills_are_checked_for_duplicate_coverage
+  - transferable_rule_is_validated_against_multiple_contexts_and_counterexamples
+  - skill_patch_is_the_smallest_change_that_closes_the_reasoning_gap
+  - every_promoted_patch_has_a_regression_eval_derived_from_the_real_case
+  - existing_evals_and_contract_conformance_are_rechecked
+  - product_specific_case_provenance_is_stored_outside_shared_skill_instructions
+  - repository_write_and_approval_policy_is_respected
+  - completion_report_distinguishes_promoted_local_only_duplicate_and_deferred_candidates
+  adapter_requirements:
+    case_observation_method: runtime_defined
+    source_repository_access: runtime_defined
+    patch_method: runtime_defined
+    eval_runner: runtime_defined
+    versioning_policy: repository_defined
+    branch_and_commit_policy: repository_defined
+    provenance_storage: repository_or_product_defined
+    automatic_learning_review_is_required: true
+  workflow_kind: learning_lifecycle
+  phases:
+  - id: observe
+    order: 1
+    purpose: Capture the failure, attempted approaches, verified fix, and evidence.
+    gate: source_case_must_be_verified_before_learning_review
+  - id: classify
+    order: 2
+    purpose: Distinguish local implementation, product rule, reusable skill gap, reference gap, workflow gap, eval gap, or
+      core contract gap.
+    gate: target_layer_must_be_selected_before_patch
+  - id: generalize
+    order: 3
+    purpose: Extract the reusable reason and remove product-specific implementation details.
+    gate: reusable_learning_must_explain_why_not_only_what
+  - id: deduplicate
+    order: 4
+    purpose: Check the target skill, related skills, contracts, references, and evals for existing coverage.
+    gate: duplicate_rule_must_not_be_added
+  - id: patch
+    order: 5
+    purpose: Apply the smallest justified change to the correct shared layer when promotion is approved.
+    gate: promoted_patch_must_be_minimal_and_boundary_correct
+  - id: evaluate
+    order: 6
+    purpose: Add or update a regression eval derived from the real case and verify old behavior does not regress.
+    gate: every_promoted_learning_requires_regression_evidence
+  - id: promote
+    order: 7
+    purpose: Commit the verified patch according to repository write and approval policy.
+    gate: promotion_requires_skill_patch_and_eval_to_pass
+  - id: record
+    order: 8
+    purpose: Store case provenance separately from the reusable skill body.
+    gate: provenance_must_not_pollute_shared_skill_instructions
+  purpose: 'Converts verified lessons from real product work into minimal, reusable skill, reference, workflow, eval, or core-contract
+    improvements. The workflow must extract the transferable reason behind a successful fix without copying product-specific
+    implementation history into shared skills.
+
+    '
+  skill_load_order: []

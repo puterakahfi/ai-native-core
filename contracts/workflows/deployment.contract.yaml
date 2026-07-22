@@ -1,235 +1,196 @@
+contract_schema:
+  kind: workflow_contract
+  version: 1.0.0
+  path: schemas/workflow-contract.schema.yaml
 workflow_contract:
   id: deployment
   type: workflow
-  version: "0.2.0"
+  version: 0.2.0
   category: operations
-  purpose: >
-    Defines the required phases, technical-readiness gates, decision-provenance
-    checks, execution records, health verification, and confirm-or-rollback
-    boundaries for deploying an identified release candidate. Product adapters
-    define target environments, deployment providers, approval policy, rollback
-    mechanisms, health checks, observability sources, and emergency procedures.
+  purpose: 'Defines the required phases, technical-readiness gates, decision-provenance checks, execution records, health
+    verification, and confirm-or-rollback boundaries for deploying an identified release candidate. Product adapters define
+    target environments, deployment providers, approval policy, rollback mechanisms, health checks, observability sources,
+    and emergency procedures.
 
-  required_phases:
-    - id: pre-deploy-check
-      order: 1
-      description: Identify the exact release candidate and verify technical readiness, required reviews, tests, security, rollback readiness, and operational evidence
-      gate: technical_readiness_must_be_ready_before_authorization
-      skills:
-        required: [security-review, decision-provenance]
-        optional: [architecture-review, code-review-workflow, resilience-engineering]
-
-    - id: context-load
-      order: 2
-      description: Resolve target environment, immutable artifact identity, deployment mechanism, configuration policy, observability, rollback target, owners, and change window
-      gate: deployment_context_must_be_complete_and_candidate_identity_must_be_immutable
-      skills:
-        required: [context-manager]
-        optional: [observability-design, resilience-engineering]
-
-    - id: authorize-deploy
-      order: 3
-      description: Verify that an attributable authorized decision covers the exact candidate, environment, scope, time boundary, deployment action, and accepted operational risks
-      gate: deployment_authorization_required_before_side_effect
-      skills:
-        required: [decision-provenance]
-
-    - id: deploy
-      order: 4
-      description: Execute the product-defined deployment mechanism only for the authorized candidate and environment, then capture an execution record
-      gate: executed_candidate_and_environment_must_match_authorization
-      skills:
-        optional: [master-engineer]
-
-    - id: verify-deploy
-      order: 5
-      description: Verify the deployed candidate using direct environment health, smoke, error, key-flow, and observability evidence
-      gate: deployed_candidate_health_must_be_verified
-      skills:
-        required: [observability-design]
-        optional: [resilience-engineering]
-
-    - id: rollback-or-confirm
-      order: 6
-      description: Confirm a healthy deployment or execute/route rollback according to verified health evidence, rollback policy, and decision authority
-      gate: explicit_confirm_or_rollback_outcome_required
-      skills:
-        required: [decision-provenance]
-        optional: [resilience-engineering, incident-response]
-
+    '
   skill_load_order:
-    - phase: pre-deploy-check
-      load: [security-review, architecture-review, code-review-workflow, decision-provenance]
-    - phase: context-load
-      load: [context-manager, observability-design, resilience-engineering]
-    - phase: authorize-deploy
-      load: [decision-provenance]
-    - phase: deploy
-      load: [master-engineer]
-    - phase: verify-deploy
-      load: [observability-design, resilience-engineering]
-    - phase: rollback-or-confirm
-      load: [decision-provenance, resilience-engineering, incident-response]
-
+  - phase: pre-deploy-check
+    load:
+    - security-review
+    - architecture-review
+    - code-review-workflow
+    - decision-provenance
+  - phase: context-load
+    load:
+    - context-manager
+    - observability-design
+    - resilience-engineering
+  - phase: authorize-deploy
+    load:
+    - decision-provenance
+  - phase: deploy
+    load:
+    - master-engineer
+  - phase: verify-deploy
+    load:
+    - observability-design
+    - resilience-engineering
+  - phase: rollback-or-confirm
+    load:
+    - decision-provenance
+    - resilience-engineering
+    - incident-response
   candidate_contract:
     required_fields:
-      - candidate_id
-      - source_ref
-      - immutable_artifact_identity
-      - intended_environment
-      - approved_scope
-      - acceptance_or_release_readiness_ref
-      - code_review_verdict_ref
-      - security_review_ref
-      - rollback_target
+    - candidate_id
+    - source_ref
+    - immutable_artifact_identity
+    - intended_environment
+    - approved_scope
+    - acceptance_or_release_readiness_ref
+    - code_review_verdict_ref
+    - security_review_ref
+    - rollback_target
     rules:
-      - mutable_branch_name_or_latest_tag_alone_is_not_an_immutable_candidate_identity
-      - readiness_evidence_must_refer_to_the_same_candidate_that_will_be_deployed
-      - candidate_change_after_readiness_or_authorization_requires_reverification_and_reauthorization
-      - environment_change_requires_context_refresh_and_authorization_for_the_new_environment
-
+    - mutable_branch_name_or_latest_tag_alone_is_not_an_immutable_candidate_identity
+    - readiness_evidence_must_refer_to_the_same_candidate_that_will_be_deployed
+    - candidate_change_after_readiness_or_authorization_requires_reverification_and_reauthorization
+    - environment_change_requires_context_refresh_and_authorization_for_the_new_environment
   technical_readiness_contract:
     statuses:
       READY:
         requires:
-          - exact_candidate_identity_is_known
-          - required_tests_and_ci_are_verified
-          - required_code_review_is_approved
-          - security_and_architecture_findings_are_resolved_when_applicable
-          - release_or_acceptance_readiness_requirement_is_satisfied_when_applicable
-          - configuration_and_secret_policy_is_satisfied
-          - rollback_target_and_mechanism_are_available
-          - health_and_smoke_verification_plan_is_defined
+        - exact_candidate_identity_is_known
+        - required_tests_and_ci_are_verified
+        - required_code_review_is_approved
+        - security_and_architecture_findings_are_resolved_when_applicable
+        - release_or_acceptance_readiness_requirement_is_satisfied_when_applicable
+        - configuration_and_secret_policy_is_satisfied
+        - rollback_target_and_mechanism_are_available
+        - health_and_smoke_verification_plan_is_defined
       NOT_READY:
         when:
-          - candidate_identity_is_missing_or_mutable
-          - required_evidence_or_reviewer_verdict_is_missing
-          - applicable_blocking_finding_remains
-          - rollback_is_missing_or_not_actionable
-          - deployment_context_is_incomplete
+        - candidate_identity_is_missing_or_mutable
+        - required_evidence_or_reviewer_verdict_is_missing
+        - applicable_blocking_finding_remains
+        - rollback_is_missing_or_not_actionable
+        - deployment_context_is_incomplete
     rule: technical_readiness_does_not_authorize_deployment
-
   deployment_authorization_contract:
     capability: decision-provenance
     decision_type: approval
     required_claim_scope:
-      - exact_candidate_identity
-      - exact_target_environment
-      - intended_deployment_action
-      - approved_change_scope
-      - applicable_change_window_or_time_boundary
-      - accepted_operational_risks_when_any
-      - authorized_operator_or_automation
+    - exact_candidate_identity
+    - exact_target_environment
+    - intended_deployment_action
+    - approved_change_scope
+    - applicable_change_window_or_time_boundary
+    - accepted_operational_risks_when_any
+    - authorized_operator_or_automation
     statuses:
       AUTHORIZED:
         requires:
-          - attributable_authorized_source
-          - statement_covers_exact_candidate_environment_action_and_scope
-          - no_unresolved_authoritative_conflict
-          - no_additional_required_approval_remains
+        - attributable_authorized_source
+        - statement_covers_exact_candidate_environment_action_and_scope
+        - no_unresolved_authoritative_conflict
+        - no_additional_required_approval_remains
       NOT_AUTHORIZED:
         when:
-          - source_is_missing_non_authoritative_or_does_not_cover_the_action
-          - candidate_or_environment_differs_from_the_authorized_record
+        - source_is_missing_non_authoritative_or_does_not_cover_the_action
+        - candidate_or_environment_differs_from_the_authorized_record
       ROUTE_FOR_APPROVAL:
         when:
-          - technical_readiness_is_READY_but_another_required_authority_or_policy_decision_remains
+        - technical_readiness_is_READY_but_another_required_authority_or_policy_decision_remains
     rules:
-      - green_ci_or_READY_status_is_not_deployment_authorization
-      - agent_authored_summary_commit_message_or_pr_body_is_not_authorization_without_attributable_owner_acceptance
-      - staging_is_not_universally_exempt_from_approval_policy
-      - production_or_other_protected_environment_side_effect_must_not_run_without_required_authorization
-      - authorization_must_be_rechecked_immediately_before_the_side_effect
-
+    - green_ci_or_READY_status_is_not_deployment_authorization
+    - agent_authored_summary_commit_message_or_pr_body_is_not_authorization_without_attributable_owner_acceptance
+    - staging_is_not_universally_exempt_from_approval_policy
+    - production_or_other_protected_environment_side_effect_must_not_run_without_required_authorization
+    - authorization_must_be_rechecked_immediately_before_the_side_effect
   execution_contract:
     required_fields:
-      - deployment_id
-      - candidate_id
-      - deployed_artifact_identity
-      - target_environment
-      - deployment_provider
-      - operator_or_automation
-      - authorization_record_id
-      - started_at
-      - execution_status
+    - deployment_id
+    - candidate_id
+    - deployed_artifact_identity
+    - target_environment
+    - deployment_provider
+    - operator_or_automation
+    - authorization_record_id
+    - started_at
+    - execution_status
     statuses:
       EXECUTED: deployment_command_completed_and_deployment_id_was_captured
       FAILED: deployment_command_or_provider_failed
       NOT_RUN: authorization_or_readiness_prevented_execution
     hard_rule: deployed_artifact_identity_and_environment_must_match_the_authorization_record
-
   verification_contract:
     required_evidence_when_applicable:
-      - deployed_artifact_or_version_identity
-      - environment_health_check
-      - smoke_test_results
-      - key_user_or_system_flow_results
-      - error_rate_and_log_observation
-      - service_dependency_health
-      - migration_or_data_health
-      - performance_or_slo_observation
+    - deployed_artifact_or_version_identity
+    - environment_health_check
+    - smoke_test_results
+    - key_user_or_system_flow_results
+    - error_rate_and_log_observation
+    - service_dependency_health
+    - migration_or_data_health
+    - performance_or_slo_observation
     statuses:
       HEALTHY: direct_environment_evidence_passes_for_the_declared_verification_window
       DEGRADED: direct_evidence_shows_a_material_health_or_behavior_regression
       NOT_VERIFIED: required_environment_evidence_is_missing_or_inconclusive
     rules:
-      - local_ci_or_pre_deploy_evidence_does_not_prove_deployed_environment_health
-      - provider_success_status_alone_does_not_prove_application_health
-      - verification_must_refer_to_the_actual_deployment_id_and_candidate
-
+    - local_ci_or_pre_deploy_evidence_does_not_prove_deployed_environment_health
+    - provider_success_status_alone_does_not_prove_application_health
+    - verification_must_refer_to_the_actual_deployment_id_and_candidate
   outcome_contract:
     statuses:
       CONFIRMED:
         requires:
-          - verification_status_is_HEALTHY
-          - confirmation_action_is_permitted_by_product_policy
-          - attributable_confirmation_record_when_required
+        - verification_status_is_HEALTHY
+        - confirmation_action_is_permitted_by_product_policy
+        - attributable_confirmation_record_when_required
       ROLLED_BACK:
         requires:
-          - rollback_was_executed
-          - rollback_deployment_or_target_was_captured
-          - post_rollback_health_was_verified_or_explicitly_marked_NOT_VERIFIED
+        - rollback_was_executed
+        - rollback_deployment_or_target_was_captured
+        - post_rollback_health_was_verified_or_explicitly_marked_NOT_VERIFIED
       ROLLBACK_REQUIRED:
         when:
-          - verification_status_is_DEGRADED
-          - policy_or_pre_authorized_emergency_procedure_requires_rollback
+        - verification_status_is_DEGRADED
+        - policy_or_pre_authorized_emergency_procedure_requires_rollback
       OUTCOME_BLOCKED:
         when:
-          - verification_is_NOT_VERIFIED
-          - required_confirmation_or_rollback_authority_is_missing
-          - rollback_cannot_be_safely_executed_or_evaluated
+        - verification_is_NOT_VERIFIED
+        - required_confirmation_or_rollback_authority_is_missing
+        - rollback_cannot_be_safely_executed_or_evaluated
     rules:
-      - no_silent_success_when_health_is_missing
-      - a_pre_authorized_emergency_rollback_policy_may_authorize_immediate_rollback
-      - absence_of_confirmation_is_not_confirmation
-      - rollback_or_confirmation_claim_must_reference_the_actual_deployment
-
+    - no_silent_success_when_health_is_missing
+    - a_pre_authorized_emergency_rollback_policy_may_authorize_immediate_rollback
+    - absence_of_confirmation_is_not_confirmation
+    - rollback_or_confirmation_claim_must_reference_the_actual_deployment
   outputs:
     required:
-      - technical_readiness_report
-      - deployment_context
-      - deployment_authorization_record
-      - deployment_execution_record
-      - deployment_verification_report
-      - deployment_outcome_record
-
+    - technical_readiness_report
+    - deployment_context
+    - deployment_authorization_record
+    - deployment_execution_record
+    - deployment_verification_report
+    - deployment_outcome_record
   quality_gates:
-    - exact_release_candidate_identity_required
-    - technical_readiness_must_be_ready_before_authorization
-    - technical_readiness_does_not_authorize_deployment
-    - deployment_context_must_be_complete
-    - rollback_plan_and_target_must_exist_before_side_effect
-    - no_secrets_in_deployment_config
-    - attributable_deployment_authorization_required_when_policy_applies
-    - authorization_must_cover_exact_candidate_environment_action_and_scope
-    - executed_candidate_and_environment_must_match_authorization
-    - candidate_or_environment_change_requires_reverification_and_reauthorization
-    - deployed_environment_health_requires_direct_evidence
-    - provider_success_or_green_ci_does_not_prove_health
-    - explicit_confirm_or_rollback_outcome_required
-    - missing_confirmation_is_not_success
-    - emergency_rollback_must_follow_pre_authorized_policy_or_route_to_required_authority
-
+  - exact_release_candidate_identity_required
+  - technical_readiness_must_be_ready_before_authorization
+  - technical_readiness_does_not_authorize_deployment
+  - deployment_context_must_be_complete
+  - rollback_plan_and_target_must_exist_before_side_effect
+  - no_secrets_in_deployment_config
+  - attributable_deployment_authorization_required_when_policy_applies
+  - authorization_must_cover_exact_candidate_environment_action_and_scope
+  - executed_candidate_and_environment_must_match_authorization
+  - candidate_or_environment_change_requires_reverification_and_reauthorization
+  - deployed_environment_health_requires_direct_evidence
+  - provider_success_or_green_ci_does_not_prove_health
+  - explicit_confirm_or_rollback_outcome_required
+  - missing_confirmation_is_not_success
+  - emergency_rollback_must_follow_pre_authorized_policy_or_route_to_required_authority
   adapter_requirements:
     target_environment: product_defined
     deployment_provider: product_defined
@@ -245,3 +206,66 @@ workflow_contract:
     verification_window: product_defined
     secret_management: product_defined
     change_window_policy: product_defined
+  workflow_kind: deployment_lifecycle
+  phases:
+  - id: pre-deploy-check
+    order: 1
+    description: Identify the exact release candidate and verify technical readiness, required reviews, tests, security, rollback
+      readiness, and operational evidence
+    gate: technical_readiness_must_be_ready_before_authorization
+    skills:
+      required:
+      - security-review
+      - decision-provenance
+      optional:
+      - architecture-review
+      - code-review-workflow
+      - resilience-engineering
+  - id: context-load
+    order: 2
+    description: Resolve target environment, immutable artifact identity, deployment mechanism, configuration policy, observability,
+      rollback target, owners, and change window
+    gate: deployment_context_must_be_complete_and_candidate_identity_must_be_immutable
+    skills:
+      required:
+      - context-manager
+      optional:
+      - observability-design
+      - resilience-engineering
+  - id: authorize-deploy
+    order: 3
+    description: Verify that an attributable authorized decision covers the exact candidate, environment, scope, time boundary,
+      deployment action, and accepted operational risks
+    gate: deployment_authorization_required_before_side_effect
+    skills:
+      required:
+      - decision-provenance
+  - id: deploy
+    order: 4
+    description: Execute the product-defined deployment mechanism only for the authorized candidate and environment, then
+      capture an execution record
+    gate: executed_candidate_and_environment_must_match_authorization
+    skills:
+      optional:
+      - master-engineer
+  - id: verify-deploy
+    order: 5
+    description: Verify the deployed candidate using direct environment health, smoke, error, key-flow, and observability
+      evidence
+    gate: deployed_candidate_health_must_be_verified
+    skills:
+      required:
+      - observability-design
+      optional:
+      - resilience-engineering
+  - id: rollback-or-confirm
+    order: 6
+    description: Confirm a healthy deployment or execute/route rollback according to verified health evidence, rollback policy,
+      and decision authority
+    gate: explicit_confirm_or_rollback_outcome_required
+    skills:
+      required:
+      - decision-provenance
+      optional:
+      - resilience-engineering
+      - incident-response

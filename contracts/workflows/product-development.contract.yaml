@@ -1,162 +1,135 @@
+contract_schema:
+  kind: workflow_contract
+  version: 1.0.0
+  path: schemas/workflow-contract.schema.yaml
 workflow_contract:
   id: product-development
   type: workflow
-  version: "0.3.0"
+  version: 0.3.0
   category: product-management
-  purpose: >
-    Defines the end-to-end AI-native workflow for developing a digital product
-    from initial idea through discovery, PRD, MVP planning, technical spec,
-    implementation, evidence-backed acceptance, verified decision authority,
-    release, deployment, launch, and post-launch learning. Runtime adapters
-    provide concrete storage, task tracking, preview, deployment, analytics,
+  purpose: 'Defines the end-to-end AI-native workflow for developing a digital product from initial idea through discovery,
+    PRD, MVP planning, technical spec, implementation, evidence-backed acceptance, verified decision authority, release, deployment,
+    launch, and post-launch learning. Runtime adapters provide concrete storage, task tracking, preview, deployment, analytics,
     and approval mechanisms.
 
-  required_phases:
-    - id: discovery
-      order: 1
-      description: Understand users, jobs, pains, alternatives, product opportunities, business value, experiment needs, and decision owners
-      gate: opportunity_business_value_and_decision_owners_must_be_explicit_before_prd
-      skills:
-        required: [user-research, business-value-alignment, experiment-design, product-manager]
-        optional: [model-selection, decision-making, decision-provenance]
-
-    - id: requirements
-      order: 2
-      description: Author a PRD with value, goals, non-goals, metrics, verified scope, requirements, acceptance criteria, launch criteria, and approval sources
-      gate: prd_readiness_and_scope_provenance_required_before_mvp_or_spec
-      skills:
-        required: [product-requirements, decision-provenance]
-        optional: [business-value-alignment, product-manager]
-
-    - id: mvp_slice
-      order: 3
-      description: Select and approve the smallest release slice or experiment that validates the product opportunity and success metric
-      gate: mvp_scope_and_approval_provenance_must_be_explicit_before_technical_spec
-      skills:
-        required: [business-value-alignment, experiment-design, product-manager, decision-making, decision-provenance]
-        optional: [spike]
-
-    - id: technical_spec
-      order: 4
-      description: Translate the verified PRD and MVP slice into technical specification, architecture constraints, tasks, evidence plans, and explicit dependency approvals
-      gate: technical_spec_must_trace_to_verified_prd_and_mvp_scope
-      skills:
-        required: [spec-workflow, native-ai-engineer, master-engineer]
-        optional: [api-contract, domain-driven-design, data-modeling, diagram-architect, decision-provenance]
-
-    - id: implementation
-      order: 5
-      description: Implement the MVP through new-feature-workflow with tests, design-decision boundaries, verification evidence, decision provenance, and scope control
-      gate: implementation_must_trace_to_verified_acceptance_criteria
-      skills:
-        required: [new-feature-workflow, test-driven-development, master-engineer]
-        optional: [systematic-debugging, refactoring]
-
-    - id: acceptance_verification
-      order: 6
-      description: Reconcile every PRD acceptance criterion with direct evidence, affected-domain reviewers, decision authority, risk provenance, coverage, and explicit verdicts before release
-      gate: acceptance_matrix_and_release_decision_provenance_must_be_complete_before_release
-      skills:
-        required: [skill-eval, code-review-workflow, decision-provenance]
-        optional: [design-review, security-review, threat-modeling, web-performance, accessibility]
-
-    - id: release
-      order: 7
-      description: Prepare release artifacts only after acceptance verification declares the MVP release-eligible and the required release authority is verified
-      gate: release_requires_release_ready_acceptance_authorization_and_rollback_artifacts
-      skills:
-        required: [git-workflow, decision-provenance]
-        optional: [deployment-workflow]
-
-    - id: deploy
-      order: 8
-      description: Deploy through the product-defined mechanism after deployment authorization and verify health before launch
-      gate: deployment_authority_and_health_must_be_verified
-      skills:
-        required: [deployment-workflow, observability-design]
-        optional: [resilience-engineering, incident-response, decision-provenance]
-
-    - id: launch
-      order: 9
-      description: Launch to users with verified launch scope, messaging, support, analytics, monitoring, and a feedback channel
-      gate: launch_authority_monitoring_and_feedback_loop_required
-      skills:
-        required: [business-value-alignment, product-manager, content-strategy]
-        optional: [copywriting, cro, observability-design, decision-provenance]
-
-    - id: learn
-      order: 10
-      description: Review metrics, feedback, incidents, and decide with attributable ownership whether to iterate, pivot, narrow, or stop
-      gate: post_launch_learning_decision_must_feed_next_prd_or_backlog
-      skills:
-        required: [business-value-alignment, product-manager, observability-design]
-        optional: [user-research, incident-response, decision-making, decision-provenance]
-
+    '
   skill_load_order:
-    - phase: discovery
-      load: [model-selection, user-research, business-value-alignment, experiment-design, product-manager, decision-making]
-    - phase: requirements
-      load: [product-requirements, business-value-alignment, product-manager, decision-provenance]
-    - phase: mvp_slice
-      load: [business-value-alignment, experiment-design, product-manager, decision-making, spike, decision-provenance]
-    - phase: technical_spec
-      load: [spec-workflow, native-ai-engineer, master-engineer, api-contract, data-modeling, decision-provenance]
-    - phase: implementation
-      load: [new-feature-workflow, test-driven-development, master-engineer, systematic-debugging]
-    - phase: acceptance_verification
-      load: [skill-eval, code-review-workflow, decision-provenance]
-    - phase: acceptance_domain_review
-      load: [design-review, security-review, threat-modeling, web-performance, accessibility]
-    - phase: release
-      load: [git-workflow, deployment-workflow, decision-provenance]
-    - phase: deploy
-      load: [deployment-workflow, observability-design, resilience-engineering, decision-provenance]
-    - phase: launch
-      load: [business-value-alignment, product-manager, content-strategy, copywriting, cro, observability-design, decision-provenance]
-    - phase: learn
-      load: [business-value-alignment, product-manager, observability-design, user-research, decision-making, decision-provenance]
-
+  - phase: discovery
+    load:
+    - model-selection
+    - user-research
+    - business-value-alignment
+    - experiment-design
+    - product-manager
+    - decision-making
+  - phase: requirements
+    load:
+    - product-requirements
+    - business-value-alignment
+    - product-manager
+    - decision-provenance
+  - phase: mvp_slice
+    load:
+    - business-value-alignment
+    - experiment-design
+    - product-manager
+    - decision-making
+    - spike
+    - decision-provenance
+  - phase: technical_spec
+    load:
+    - spec-workflow
+    - native-ai-engineer
+    - master-engineer
+    - api-contract
+    - data-modeling
+    - decision-provenance
+  - phase: implementation
+    load:
+    - new-feature-workflow
+    - test-driven-development
+    - master-engineer
+    - systematic-debugging
+  - phase: acceptance_verification
+    load:
+    - skill-eval
+    - code-review-workflow
+    - decision-provenance
+  - phase: acceptance_domain_review
+    load:
+    - design-review
+    - security-review
+    - threat-modeling
+    - web-performance
+    - accessibility
+  - phase: release
+    load:
+    - git-workflow
+    - deployment-workflow
+    - decision-provenance
+  - phase: deploy
+    load:
+    - deployment-workflow
+    - observability-design
+    - resilience-engineering
+    - decision-provenance
+  - phase: launch
+    load:
+    - business-value-alignment
+    - product-manager
+    - content-strategy
+    - copywriting
+    - cro
+    - observability-design
+    - decision-provenance
+  - phase: learn
+    load:
+    - business-value-alignment
+    - product-manager
+    - observability-design
+    - user-research
+    - decision-making
+    - decision-provenance
   decision_provenance_contract:
     verify_when:
-      - prd_is_marked_approved_or_ready
-      - mvp_scope_is_selected_changed_or_reduced
-      - technical_spec_introduces_a_dependency_exception_or_boundary_change
-      - an_acceptance_criterion_is_removed_or_reclassified_not_applicable
-      - a_product_or_domain_risk_is_accepted
-      - release_ready_is_mapped_to_release_authorization
-      - deployment_or_launch_is_authorized
-      - post_launch_decision_changes_product_direction_or_backlog_priority
+    - prd_is_marked_approved_or_ready
+    - mvp_scope_is_selected_changed_or_reduced
+    - technical_spec_introduces_a_dependency_exception_or_boundary_change
+    - an_acceptance_criterion_is_removed_or_reclassified_not_applicable
+    - a_product_or_domain_risk_is_accepted
+    - release_ready_is_mapped_to_release_authorization
+    - deployment_or_launch_is_authorized
+    - post_launch_decision_changes_product_direction_or_backlog_priority
     required_outputs:
-      - decision_provenance_report
-      - authoritative_record_ids
-      - effective_prd_version
-      - effective_mvp_scope
-      - verified_risk_acceptances
-      - release_deployment_and_launch_authorization_status
+    - decision_provenance_report
+    - authoritative_record_ids
+    - effective_prd_version
+    - effective_mvp_scope
+    - verified_risk_acceptances
+    - release_deployment_and_launch_authorization_status
     rules:
-      - agent_authored_prd_issue_release_note_or_status_text_is_not_owner_approval_without_attributable_acceptance
-      - implementation_or_merged_feature_state_does_not_prove_product_scope_or_release_authority
-      - scope_removal_or_not_applicable_reclassification_requires_verified_product_authority
-      - direct_owner_instruction_applies_only_to_the_named_product_release_or_scope
-      - accepted_risk_requires_verified_authority_scope_mitigation_and_expiry_when_policy_requires_it
-      - technical_or_product_acceptance_verdict_does_not_self_authorize_release_deployment_or_launch
-      - missing_or_conflicted_provenance_blocks_the_dependent_action
-      - policy_required_security_legal_operational_or_repository_approval_must_be_preserved
-
+    - agent_authored_prd_issue_release_note_or_status_text_is_not_owner_approval_without_attributable_acceptance
+    - implementation_or_merged_feature_state_does_not_prove_product_scope_or_release_authority
+    - scope_removal_or_not_applicable_reclassification_requires_verified_product_authority
+    - direct_owner_instruction_applies_only_to_the_named_product_release_or_scope
+    - accepted_risk_requires_verified_authority_scope_mitigation_and_expiry_when_policy_requires_it
+    - technical_or_product_acceptance_verdict_does_not_self_authorize_release_deployment_or_launch
+    - missing_or_conflicted_provenance_blocks_the_dependent_action
+    - policy_required_security_legal_operational_or_repository_approval_must_be_preserved
   acceptance_matrix_contract:
     required_fields:
-      - criterion_id
-      - criterion
-      - affected_domains
-      - evidence_required
-      - evidence_available
-      - evidence_gaps
-      - governing_reviewers
-      - reviewer_verdicts
-      - decision_record_ids
-      - status
-      - release_blocking
-      - accepted_risk
+    - criterion_id
+    - criterion
+    - affected_domains
+    - evidence_required
+    - evidence_available
+    - evidence_gaps
+    - governing_reviewers
+    - reviewer_verdicts
+    - decision_record_ids
+    - status
+    - release_blocking
+    - accepted_risk
     statuses:
       PASS: criterion_is_directly_verified
       CONDITIONAL: verified_scope_passes_and_only_a_verified_non_blocking_risk_remains
@@ -164,28 +137,27 @@ workflow_contract:
       NOT_VERIFIED: required_evidence_reviewer_coverage_or_decision_provenance_is_missing
       NOT_APPLICABLE: criterion_or_domain_does_not_apply_to_the_verified_mvp_slice
     rules:
-      - every_in_scope_prd_acceptance_criterion_must_have_one_matrix_row
-      - evidence_must_be_direct_and_appropriate_to_the_criterion
-      - not_verified_is_a_release_blocker_unless_the_criterion_is_formally_removed_from_scope_by_verified_authority
-      - accepted_risk_cannot_override_a_failed_hard_gate_or_missing_primary_domain_reviewer
-      - accepted_risk_requires_verified_authority_and_policy_compliance
-      - not_applicable_reclassification_requires_verified_scope_authority
-      - duplicate_evidence_may_support_multiple_rows_but_each_row_keeps_its_own_status
-
+    - every_in_scope_prd_acceptance_criterion_must_have_one_matrix_row
+    - evidence_must_be_direct_and_appropriate_to_the_criterion
+    - not_verified_is_a_release_blocker_unless_the_criterion_is_formally_removed_from_scope_by_verified_authority
+    - accepted_risk_cannot_override_a_failed_hard_gate_or_missing_primary_domain_reviewer
+    - accepted_risk_requires_verified_authority_and_policy_compliance
+    - not_applicable_reclassification_requires_verified_scope_authority
+    - duplicate_evidence_may_support_multiple_rows_but_each_row_keeps_its_own_status
   design_acceptance_contract:
     trigger_when:
-      - user_facing_appearance_interaction_state_content_or_accessibility_changes
-      - responsive_or_adaptive_behavior_changes
-      - generated_or_exported_visual_artifacts_are_part_of_the_mvp
+    - user_facing_appearance_interaction_state_content_or_accessibility_changes
+    - responsive_or_adaptive_behavior_changes
+    - generated_or_exported_visual_artifacts_are_part_of_the_mvp
     required_route_fields:
-      - design_domain
-      - surface_profile
-      - artifact_state
-      - review_depth
-      - coverage_mode
-      - domain_reviewers
-      - evidence_available
-      - evidence_gaps
+    - design_domain
+    - surface_profile
+    - artifact_state
+    - review_depth
+    - coverage_mode
+    - domain_reviewers
+    - evidence_available
+    - evidence_gaps
     verdict_mapping:
       PASS: criterion_may_pass_when_other_evidence_also_passes
       CONDITIONAL_PASS: criterion_may_be_conditional_only_with_verified_non_blocking_risk_authority
@@ -193,89 +165,83 @@ workflow_contract:
       CRITICAL: acceptance_and_release_are_blocked
       LIMITED_REVIEW: complete_primary_domain_acceptance_is_blocked
       ROUTE_ELSEWHERE: acceptance_is_blocked_until_the_required_reviewer_is_available
-
   code_review_contract:
     required_input:
-      - verified_prd_and_mvp_scope
-      - decision_provenance_report
-      - technical_spec
-      - implementation_diff
-      - test_and_runtime_evidence
-      - applicable_design_security_performance_and_accessibility_evidence
-      - known_limitations_and_verified_accepted_risks
+    - verified_prd_and_mvp_scope
+    - decision_provenance_report
+    - technical_spec
+    - implementation_diff
+    - test_and_runtime_evidence
+    - applicable_design_security_performance_and_accessibility_evidence
+    - known_limitations_and_verified_accepted_risks
     verdict_mapping:
       APPROVED: implementation_review_requirement_passes
       REQUEST_CHANGES: affected_acceptance_rows_remain_fail_or_not_verified
       BLOCKED: hard_failure_reviewer_gap_or_required_evidence_prevents_review
     rule: technical_code_review_approval_does_not_self_authorize_product_release
-
   release_eligibility:
     RELEASE_READY:
-      - every_in_scope_acceptance_criterion_is_PASS_or_permitted_CONDITIONAL
-      - no_release_blocking_FAIL_or_NOT_VERIFIED_row_remains
-      - code_review_workflow_verdict_is_APPROVED
-      - all_applicable_hard_gates_pass
-      - primary_domain_coverage_is_complete_for_required_design_claims
-      - security_performance_accessibility_and_operational_requirements_have_direct_evidence_when_applicable
-      - accepted_risks_are_verified_explicit_non_blocking_owned_and_time_bounded
-      - prd_mvp_and_scope_decision_provenance_is_PASS
+    - every_in_scope_acceptance_criterion_is_PASS_or_permitted_CONDITIONAL
+    - no_release_blocking_FAIL_or_NOT_VERIFIED_row_remains
+    - code_review_workflow_verdict_is_APPROVED
+    - all_applicable_hard_gates_pass
+    - primary_domain_coverage_is_complete_for_required_design_claims
+    - security_performance_accessibility_and_operational_requirements_have_direct_evidence_when_applicable
+    - accepted_risks_are_verified_explicit_non_blocking_owned_and_time_bounded
+    - prd_mvp_and_scope_decision_provenance_is_PASS
     NOT_READY:
-      - any_in_scope_criterion_is_FAIL_or_release_blocking_NOT_VERIFIED
-      - code_review_workflow_is_REQUEST_CHANGES_or_BLOCKED
-      - design_review_is_NEEDS_WORK_CRITICAL_LIMITED_REVIEW_or_ROUTE_ELSEWHERE_for_required_scope
-      - an_applicable_hard_gate_fails
-      - required_reviewer_evidence_or_decision_provenance_is_missing
-      - an_accepted_risk_lacks_verified_authority
+    - any_in_scope_criterion_is_FAIL_or_release_blocking_NOT_VERIFIED
+    - code_review_workflow_is_REQUEST_CHANGES_or_BLOCKED
+    - design_review_is_NEEDS_WORK_CRITICAL_LIMITED_REVIEW_or_ROUTE_ELSEWHERE_for_required_scope
+    - an_applicable_hard_gate_fails
+    - required_reviewer_evidence_or_decision_provenance_is_missing
+    - an_accepted_risk_lacks_verified_authority
     rule: release_artifacts_do_not_convert_NOT_READY_into_RELEASE_READY
-
   release_authorization:
     AUTHORIZED:
       requires:
-        - release_eligibility_is_RELEASE_READY
-        - decision_provenance_verdict_is_PASS
-        - required_product_repository_security_legal_and_operational_approvals_are_satisfied
+      - release_eligibility_is_RELEASE_READY
+      - decision_provenance_verdict_is_PASS
+      - required_product_repository_security_legal_and_operational_approvals_are_satisfied
     NOT_AUTHORIZED:
       when:
-        - release_eligibility_is_NOT_READY
-        - provenance_is_PROVENANCE_BLOCKED
-        - a_required_authority_has_rejected_or_not_decided
+      - release_eligibility_is_NOT_READY
+      - provenance_is_PROVENANCE_BLOCKED
+      - a_required_authority_has_rejected_or_not_decided
     ROUTE_FOR_APPROVAL:
       when:
-        - release_eligibility_is_RELEASE_READY_but_an_additional_required_authority_remains
+      - release_eligibility_is_RELEASE_READY_but_an_additional_required_authority_remains
     rule: release_ready_is_a_quality_state_not_automatic_permission_to_release
-
   quality_gates:
-    - no_technical_spec_before_prd_readiness
-    - opportunity_and_business_value_must_be_explicit_before_prd
-    - prd_scope_and_readiness_claims_require_verified_authority
-    - prd_must_have_user_value_business_value_goals_non_goals_metrics_scope_and_acceptance_criteria
-    - experiment_first_verdict_must_produce_experiment_design_before_prd_or_build
-    - mvp_scope_must_be_explicit_smaller_than_full_product_value_aligned_and_authorized
-    - technical_spec_must_trace_to_verified_prd_requirements
-    - every_task_must_trace_to_acceptance_criteria
-    - implementation_must_use_new_feature_workflow_boundaries
-    - every_in_scope_acceptance_criterion_must_have_direct_evidence_and_a_matrix_status
-    - changed_user_facing_output_requires_facade_backed_design_acceptance
-    - code_review_workflow_approval_is_required_before_release_eligibility
-    - accepted_risk_and_scope_removal_require_verified_authority
-    - no_release_when_required_evidence_primary_domain_coverage_or_provenance_is_missing
-    - release_ready_does_not_self_authorize_release
-    - release_must_have_notes_version_or_tag_rollback_plan_and_authorization
-    - deployment_authority_and_health_must_be_verified_before_launch
-    - launch_must_define_support_analytics_feedback_loop_and_authorization
-    - post_launch_learning_must_feed_next_prd_or_backlog_with_explicit_owner_decision
-
+  - no_technical_spec_before_prd_readiness
+  - opportunity_and_business_value_must_be_explicit_before_prd
+  - prd_scope_and_readiness_claims_require_verified_authority
+  - prd_must_have_user_value_business_value_goals_non_goals_metrics_scope_and_acceptance_criteria
+  - experiment_first_verdict_must_produce_experiment_design_before_prd_or_build
+  - mvp_scope_must_be_explicit_smaller_than_full_product_value_aligned_and_authorized
+  - technical_spec_must_trace_to_verified_prd_requirements
+  - every_task_must_trace_to_acceptance_criteria
+  - implementation_must_use_new_feature_workflow_boundaries
+  - every_in_scope_acceptance_criterion_must_have_direct_evidence_and_a_matrix_status
+  - changed_user_facing_output_requires_facade_backed_design_acceptance
+  - code_review_workflow_approval_is_required_before_release_eligibility
+  - accepted_risk_and_scope_removal_require_verified_authority
+  - no_release_when_required_evidence_primary_domain_coverage_or_provenance_is_missing
+  - release_ready_does_not_self_authorize_release
+  - release_must_have_notes_version_or_tag_rollback_plan_and_authorization
+  - deployment_authority_and_health_must_be_verified_before_launch
+  - launch_must_define_support_analytics_feedback_loop_and_authorization
+  - post_launch_learning_must_feed_next_prd_or_backlog_with_explicit_owner_decision
   stop_points:
-    - after_discovery_recommendation
-    - after_experiment_design
-    - after_prd_draft
-    - after_mvp_plan
-    - after_technical_spec
-    - before_release
-    - before_deploy
-    - before_launch
-    - after_post_launch_review
-
+  - after_discovery_recommendation
+  - after_experiment_design
+  - after_prd_draft
+  - after_mvp_plan
+  - after_technical_spec
+  - before_release
+  - before_deploy
+  - before_launch
+  - after_post_launch_review
   adapter_requirements:
     product_artifact_storage: product_defined
     prd_format: product_defined
@@ -293,3 +259,143 @@ workflow_contract:
     release_authority: product_defined
     deployment_authority: product_defined
     launch_authority: product_defined
+  workflow_kind: product_lifecycle
+  phases:
+  - id: discovery
+    order: 1
+    description: Understand users, jobs, pains, alternatives, product opportunities, business value, experiment needs, and
+      decision owners
+    gate: opportunity_business_value_and_decision_owners_must_be_explicit_before_prd
+    skills:
+      required:
+      - user-research
+      - business-value-alignment
+      - experiment-design
+      - product-manager
+      optional:
+      - model-selection
+      - decision-making
+      - decision-provenance
+  - id: requirements
+    order: 2
+    description: Author a PRD with value, goals, non-goals, metrics, verified scope, requirements, acceptance criteria, launch
+      criteria, and approval sources
+    gate: prd_readiness_and_scope_provenance_required_before_mvp_or_spec
+    skills:
+      required:
+      - product-requirements
+      - decision-provenance
+      optional:
+      - business-value-alignment
+      - product-manager
+  - id: mvp_slice
+    order: 3
+    description: Select and approve the smallest release slice or experiment that validates the product opportunity and success
+      metric
+    gate: mvp_scope_and_approval_provenance_must_be_explicit_before_technical_spec
+    skills:
+      required:
+      - business-value-alignment
+      - experiment-design
+      - product-manager
+      - decision-making
+      - decision-provenance
+      optional:
+      - spike
+  - id: technical_spec
+    order: 4
+    description: Translate the verified PRD and MVP slice into technical specification, architecture constraints, tasks, evidence
+      plans, and explicit dependency approvals
+    gate: technical_spec_must_trace_to_verified_prd_and_mvp_scope
+    skills:
+      required:
+      - spec-workflow
+      - native-ai-engineer
+      - master-engineer
+      optional:
+      - api-contract
+      - domain-driven-design
+      - data-modeling
+      - diagram-architect
+      - decision-provenance
+  - id: implementation
+    order: 5
+    description: Implement the MVP through new-feature-workflow with tests, design-decision boundaries, verification evidence,
+      decision provenance, and scope control
+    gate: implementation_must_trace_to_verified_acceptance_criteria
+    skills:
+      required:
+      - new-feature-workflow
+      - test-driven-development
+      - master-engineer
+      optional:
+      - systematic-debugging
+      - refactoring
+  - id: acceptance_verification
+    order: 6
+    description: Reconcile every PRD acceptance criterion with direct evidence, affected-domain reviewers, decision authority,
+      risk provenance, coverage, and explicit verdicts before release
+    gate: acceptance_matrix_and_release_decision_provenance_must_be_complete_before_release
+    skills:
+      required:
+      - skill-eval
+      - code-review-workflow
+      - decision-provenance
+      optional:
+      - design-review
+      - security-review
+      - threat-modeling
+      - web-performance
+      - accessibility
+  - id: release
+    order: 7
+    description: Prepare release artifacts only after acceptance verification declares the MVP release-eligible and the required
+      release authority is verified
+    gate: release_requires_release_ready_acceptance_authorization_and_rollback_artifacts
+    skills:
+      required:
+      - git-workflow
+      - decision-provenance
+      optional:
+      - deployment-workflow
+  - id: deploy
+    order: 8
+    description: Deploy through the product-defined mechanism after deployment authorization and verify health before launch
+    gate: deployment_authority_and_health_must_be_verified
+    skills:
+      required:
+      - deployment-workflow
+      - observability-design
+      optional:
+      - resilience-engineering
+      - incident-response
+      - decision-provenance
+  - id: launch
+    order: 9
+    description: Launch to users with verified launch scope, messaging, support, analytics, monitoring, and a feedback channel
+    gate: launch_authority_monitoring_and_feedback_loop_required
+    skills:
+      required:
+      - business-value-alignment
+      - product-manager
+      - content-strategy
+      optional:
+      - copywriting
+      - cro
+      - observability-design
+      - decision-provenance
+  - id: learn
+    order: 10
+    description: Review metrics, feedback, incidents, and decide with attributable ownership whether to iterate, pivot, narrow,
+      or stop
+    gate: post_launch_learning_decision_must_feed_next_prd_or_backlog
+    skills:
+      required:
+      - business-value-alignment
+      - product-manager
+      - observability-design
+      optional:
+      - user-research
+      - incident-response
+      - decision-making
+      - decision-provenance
