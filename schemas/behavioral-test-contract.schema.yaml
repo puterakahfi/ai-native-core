@@ -1,0 +1,82 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "https://native-ai.engineering/schemas/behavioral-test-contract.schema.yaml"
+title: Native AI Engineering Behavioral Test Contract
+type: object
+additionalProperties: false
+required:
+  - contract_schema
+  - skill_test
+properties:
+  contract_schema:
+    allOf:
+      - $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/contract_schema_identity"
+      - type: object
+        properties:
+          kind:
+            const: behavioral_test_contract
+          version:
+            const: "1.0.0"
+          path:
+            const: schemas/behavioral-test-contract.schema.yaml
+  skill_test:
+    type: object
+    additionalProperties: false
+    required:
+      - skill
+      - version
+      - description
+      - cases
+    properties:
+      skill:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/contract_id"
+      version:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/semantic_version"
+      description:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/non_empty_string"
+      cases:
+        type: array
+        minItems: 1
+        items:
+          $ref: "#/$defs/case"
+$defs:
+  sequence_assertion:
+    type: object
+    additionalProperties: false
+    required:
+      - pattern
+      - must_come_before
+    properties:
+      pattern:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/non_empty_string"
+      must_come_before:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/non_empty_string"
+  case:
+    type: object
+    additionalProperties: true
+    required:
+      - id
+      - trigger
+    properties:
+      id:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/contract_id"
+      description:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/non_empty_string"
+      trigger:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/non_empty_string"
+      must_contain:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/unique_string_list"
+      must_not_contain:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/unique_string_list"
+      must_contain_one_of:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/unique_string_list"
+      sequence_required:
+        type: array
+        items:
+          $ref: "#/$defs/sequence_assertion"
+      quality_gates_tested:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/unique_string_list"
+    anyOf:
+      - required: [must_contain]
+      - required: [must_not_contain]
+      - required: [must_contain_one_of]
+      - required: [sequence_required]
