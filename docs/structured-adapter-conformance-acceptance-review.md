@@ -1,6 +1,6 @@
 # Structured Adapter Conformance V2 — Acceptance Review
 
-Status: candidate acceptance evidence for issue `#9`
+Status: acceptance evidence for issue `#9`
 
 Pull request: `#42`
 
@@ -20,7 +20,7 @@ docs/structured-adapter-conformance-discovery.md
 
 Issue `#9` requires structured, deterministic adapter conformance to replace prose-first interface inference while preserving behavioral evaluation and stronger evidence layers as separate concerns.
 
-Candidate verdict:
+Verdict:
 
 ```text
 structured declaration: IMPLEMENTED
@@ -66,6 +66,7 @@ scripts/validate-conformance.py
 
 ```text
 .github/workflows/validate-conformance.yml
+.github/workflows/contract-integrity.yml
 ```
 
 ## 3. Acceptance matrix
@@ -297,21 +298,33 @@ branch synchronized with main
 
 Bulk declaration generation is intentionally rejected because copying contract lists cannot establish executable ownership.
 
-## 13. Exact-head validation
+## 13. Validation evidence
 
-Final exact-head commit and workflow run IDs are recorded in PR `#42` after this acceptance artifact passes both permanent gates.
+Validated implementation candidate:
 
-Required final state:
+```text
+head: c2c42bb691091599d4ec3a0ffbe4f5c56386bef9
+
+Validate Conformance Tooling
+run 29900625304 — PASS
+
+Contract Integrity
+run 29900625335 — PASS
+```
+
+Both workflows include the conformance authority documents and acceptance artifact in their trigger paths. The exact final review-head evidence is maintained in PR `#42` checks and the issue acceptance record so this document does not require self-referential run-ID commits.
+
+Required final PR state:
 
 ```text
 Contract Integrity            PASS
 Validate Conformance Tooling  PASS
 branch behind main            0
 PR mergeable                  yes
-PR draft                      false only after final evidence
+PR ready for review           yes
 ```
 
-## 14. Candidate acceptance verdict
+## 14. Acceptance verdict
 
 ```text
 canonical declaration: PASS
@@ -322,6 +335,7 @@ legacy migration safety: PASS
 evidence-layer separation: PASS
 consumer bulk mutation avoided: PASS
 real repository inventory: PASS
-final exact-head CI: PENDING
-ready for merge: NO — owner review required
+repository-wide integrity: PASS
+ready for review: YES
+ready for merge: OWNER DECISION
 ```
