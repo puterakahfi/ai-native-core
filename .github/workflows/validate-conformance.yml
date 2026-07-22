@@ -12,6 +12,7 @@ on:
       - "schemas/common.schema.yaml"
       - "scripts/contract_resolution.py"
       - "scripts/conformance_validation.py"
+      - "scripts/conformance_semantics.py"
       - "scripts/conformance_taxonomy.py"
       - "scripts/validate-conformance.py"
       - "scripts/validate-implements.py"
@@ -33,6 +34,7 @@ on:
       - "schemas/common.schema.yaml"
       - "scripts/contract_resolution.py"
       - "scripts/conformance_validation.py"
+      - "scripts/conformance_semantics.py"
       - "scripts/conformance_taxonomy.py"
       - "scripts/validate-conformance.py"
       - "scripts/validate-implements.py"
@@ -75,6 +77,7 @@ jobs:
             scripts/contract_resolution.py \
             scripts/schema_validation.py \
             scripts/conformance_validation.py \
+            scripts/conformance_semantics.py \
             scripts/conformance_taxonomy.py \
             scripts/validate-conformance.py \
             scripts/validate-implements.py \
