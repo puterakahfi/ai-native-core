@@ -1,0 +1,226 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "https://native-ai.engineering/schemas/conformance-report.schema.yaml"
+title: Native AI Engineering Adapter Conformance Report
+type: object
+additionalProperties: false
+required:
+  - contract_schema
+  - conformance_report
+properties:
+  contract_schema:
+    allOf:
+      - $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/contract_schema_identity"
+      - type: object
+        properties:
+          kind:
+            const: conformance_report
+          version:
+            const: "1.0.0"
+          path:
+            const: schemas/conformance-report.schema.yaml
+  conformance_report:
+    type: object
+    additionalProperties: false
+    required:
+      - version
+      - generated_at
+      - mode
+      - core_root
+      - adapters_root
+      - summary
+      - results
+      - evidence_boundary
+    properties:
+      version:
+        const: "1.0.0"
+      generated_at:
+        type: string
+        format: date-time
+      mode:
+        type: string
+        enum: [migration, strict]
+      core_root:
+        type: string
+        minLength: 1
+      adapters_root:
+        type: string
+        minLength: 1
+      summary:
+        type: object
+        additionalProperties: false
+        required:
+          - discovered
+          - checked
+          - conformant
+          - partial
+          - errors
+          - not_checkable
+          - behavior_not_verified
+        properties:
+          discovered:
+            type: integer
+            minimum: 0
+          checked:
+            type: integer
+            minimum: 0
+          conformant:
+            type: integer
+            minimum: 0
+          partial:
+            type: integer
+            minimum: 0
+          errors:
+            type: integer
+            minimum: 0
+          not_checkable:
+            type: integer
+            minimum: 0
+          behavior_not_verified:
+            type: integer
+            minimum: 0
+      results:
+        type: array
+        items:
+          $ref: "#/$defs/adapter_result"
+      evidence_boundary:
+        type: array
+        minItems: 1
+        uniqueItems: true
+        items:
+          type: string
+          minLength: 1
+$defs:
+  finding:
+    type: object
+    additionalProperties: false
+    required:
+      - code
+      - severity
+      - result_class
+      - dimension
+      - message
+      - expected
+      - actual
+      - evidence_refs
+    properties:
+      code:
+        type: string
+        pattern: "^[A-Z][A-Z0-9_]*$"
+      severity:
+        type: string
+        enum: [ERROR, WARN, INFO]
+      result_class:
+        type: string
+        enum: [ERROR, PARTIAL, NOT_CHECKABLE, BEHAVIOR_NOT_VERIFIED]
+      dimension:
+        type: string
+        enum:
+          - schema
+          - adapter_identity
+          - contract_identity
+          - capability
+          - inputs
+          - outputs
+          - gates
+          - boundary
+          - dependencies
+          - handoffs
+          - unsupported_claims
+          - adapter_requirements
+          - evidence
+          - migration
+      message:
+        type: string
+        minLength: 1
+      expected:
+        type: array
+        items:
+          type: string
+      actual:
+        type: array
+        items:
+          type: string
+      evidence_refs:
+        type: array
+        items:
+          type: string
+  contract_resolution:
+    type: object
+    additionalProperties: false
+    required:
+      - declared_path
+      - canonical_path
+      - contract_id
+      - contract_kind
+      - contract_version
+      - version_pin
+      - alias_used
+    properties:
+      declared_path:
+        type: string
+      canonical_path:
+        type: string
+      contract_id:
+        type: string
+      contract_kind:
+        type: string
+      contract_version:
+        type: string
+      version_pin:
+        type: string
+      alias_used:
+        type: boolean
+  adapter_result:
+    type: object
+    additionalProperties: false
+    required:
+      - adapter_id
+      - adapter_kind
+      - adapter_path
+      - declaration_path
+      - contract
+      - structural_status
+      - behavioral_status
+      - runtime_status
+      - product_status
+      - approval_status
+      - findings
+      - migration_diagnostics
+      - evidence_refs
+    properties:
+      adapter_id:
+        type: string
+      adapter_kind:
+        type: string
+      adapter_path:
+        type: string
+      declaration_path:
+        type: [string, "null"]
+      contract:
+        anyOf:
+          - $ref: "#/$defs/contract_resolution"
+          - type: "null"
+      structural_status:
+        type: string
+        enum: [CONFORMANT, PARTIAL, ERROR, NOT_CHECKABLE]
+      behavioral_status:
+        type: string
+        enum: [BEHAVIOR_NOT_VERIFIED, EVIDENCE_REFERENCED]
+      runtime_status:
+        type: string
+        enum: [NOT_CHECKABLE, EVIDENCE_REFERENCED]
+      product_status:
+        type: string
+        enum: [NOT_CHECKABLE, EVIDENCE_REFERENCED]
+      approval_status:
+        const: NOT_EVALUATED
+      findings:
+        type: array
+        items:
+          $ref: "#/$defs/finding"
+      migration_diagnostics:
+        type: array
+        items:
+          $ref: "#/$defs/finding"
+      evidence_refs:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/evidence_references"
