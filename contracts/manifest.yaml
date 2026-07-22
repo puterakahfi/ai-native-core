@@ -599,7 +599,7 @@ contracts:
       schema_path: schemas/skill-contract.schema.yaml
       path: contracts/skills/security/security-engineer.contract.yaml
       version: 0.1.0
-      sha256: fcc926f0db734f90
+      sha256: 0734cb9dbf9f5a70
     - id: security-review
       kind: skill_contract
       schema_version: 1.0.0
