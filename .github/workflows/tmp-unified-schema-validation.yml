@@ -10,8 +10,6 @@ on:
 
 permissions:
   contents: read
-  pull-requests: write
-  issues: write
 
 jobs:
   validate:
@@ -26,28 +24,30 @@ jobs:
             scripts/schema_validation.py \
             scripts/generate-manifest.py \
             scripts/validate-contract-schemas.py \
-            scripts/validate-port-contracts.py
+            scripts/validate-port-contracts.py \
+            tests/test_validate_contract_schemas.py
       - name: Validate unified contract schemas
+        id: unified
+        continue-on-error: true
         shell: bash
-        env:
-          GH_TOKEN: ${{ github.token }}
         run: |
           set -o pipefail
-          if ! python3 scripts/validate-contract-schemas.py > /tmp/schema-validation.log 2>&1; then
-            tail -n 100 /tmp/schema-validation.log
-            if [ "${{ github.event_name }}" = "pull_request" ]; then
-              {
-                echo '## Temporary unified schema diagnostics'
-                echo
-                echo '```text'
-                tail -n 80 /tmp/schema-validation.log
-                echo '```'
-              } > /tmp/schema-comment.md
-              gh pr comment "${{ github.event.pull_request.number }}" --body-file /tmp/schema-comment.md
-            fi
-            exit 1
-          fi
-          cat /tmp/schema-validation.log
+          python3 scripts/validate-contract-schemas.py > /tmp/schema-validation.log 2>&1
+          status=$?
+          tail -n 100 /tmp/schema-validation.log
+          exit "$status"
+      - name: Upload unified validation diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: schema-validation-${{ github.run_id }}
+          path: /tmp/schema-validation.log
+          if-no-files-found: error
+      - name: Enforce unified validation result
+        if: steps.unified.outcome == 'failure'
+        run: exit 1
+      - name: Run unified contract regression tests
+        run: python3 -m unittest discover -s tests -p 'test_validate_contract_schemas.py' -v
       - name: Validate port semantic regressions
         run: python3 scripts/validate-port-contracts.py
       - name: Validate behavioral test contracts
