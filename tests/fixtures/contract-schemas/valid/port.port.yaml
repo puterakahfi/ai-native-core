@@ -1,0 +1,79 @@
+contract_schema:
+  kind: port_contract
+  version: "1.0.0"
+  path: schemas/port-contract.schema.yaml
+port_contract:
+  id: fixture-port
+  kind: integration_port
+  version: "0.1.0"
+  capability: execute_fixture_operation
+  direction: outbound
+  semantic_owner_context: integration_and_binding
+  binding_owner_context: integration_and_binding
+  consumer_contexts:
+    - runtime_and_execution
+  purpose: Execute one bounded fixture operation through a replaceable integration adapter.
+  boundary:
+    owns:
+      - fixture_operation_request
+    delegates: []
+    does_not_own:
+      - authority
+  interactions:
+    requests:
+      - id: execute_fixture
+        description: Execute one bounded fixture operation.
+        required_fields:
+          - id: request_id
+            description: Stable request correlation identifier.
+        optional_fields: []
+    responses:
+      - id: fixture_result
+        description: Return one bounded fixture operation result.
+        fields:
+          - id: request_id
+            description: Stable request correlation identifier.
+    events:
+      - id: fixture_operation_completed
+        description: One fixture operation completed with an attributable result.
+    streams: []
+  failures:
+    errors:
+      - code: fixture_operation_failed
+        meaning: The bounded fixture operation failed with an attributable error.
+        retryable: false
+        partial_result_allowed: false
+    partial_result_policy: explicit
+    unknown_or_not_checkable_policy: Preserve unavailable fixture state explicitly rather than claiming success.
+  state_transitions: []
+  authorization:
+    mode: none
+    required_for: []
+    permission_is_not_authority: true
+    review_is_not_approval: true
+    authority_reference_required: false
+  idempotency:
+    mode: request_key
+    key_scope: request_id
+  observability:
+    required_events:
+      - fixture_operation_completed
+    correlation_fields:
+      - request_id
+    sensitive_fields: []
+  adapter_requirements:
+    contract_reference:
+      require_id: true
+      require_path: true
+      require_version: true
+    requirements:
+      - preserve_fixture_operation_semantics
+  compatibility:
+    policy: semver
+    breaking_changes:
+      - change_fixture_operation_meaning
+    aliases: []
+    supersedes: []
+    legacy_contract_refs: []
+  quality_gates:
+    - fixture_boundary_is_explicit
