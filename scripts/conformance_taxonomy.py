@@ -61,6 +61,14 @@ def enhance_structured(
         result = base(core, adapters, skill_path, declaration_path)
         result.setdefault("adapter_patterns", [])
 
+        schema_failed = any(
+            finding.get("code")
+            in {"DECLARATION_YAML_INVALID", "DECLARATION_SCHEMA_INVALID"}
+            for finding in result.get("findings", [])
+        )
+        if schema_failed:
+            return result
+
         try:
             declaration = engine.load_yaml(declaration_path)["adapter_conformance"]
             adapter = declaration["adapter"]
