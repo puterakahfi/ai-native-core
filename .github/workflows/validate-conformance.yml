@@ -12,6 +12,7 @@ on:
       - "schemas/common.schema.yaml"
       - "scripts/contract_resolution.py"
       - "scripts/conformance_validation.py"
+      - "scripts/conformance_taxonomy.py"
       - "scripts/validate-conformance.py"
       - "scripts/validate-implements.py"
       - "scripts/validate-implements.sh"
@@ -32,6 +33,7 @@ on:
       - "schemas/common.schema.yaml"
       - "scripts/contract_resolution.py"
       - "scripts/conformance_validation.py"
+      - "scripts/conformance_taxonomy.py"
       - "scripts/validate-conformance.py"
       - "scripts/validate-implements.py"
       - "scripts/validate-implements.sh"
@@ -73,6 +75,7 @@ jobs:
             scripts/contract_resolution.py \
             scripts/schema_validation.py \
             scripts/conformance_validation.py \
+            scripts/conformance_taxonomy.py \
             scripts/validate-conformance.py \
             scripts/validate-implements.py \
             tests/test_validate_conformance.py \
@@ -89,7 +92,7 @@ jobs:
             python -m unittest discover -s tests -p 'test_contract_resolution.py' -v
           } > /tmp/conformance-regressions.log 2>&1
           status=$?
-          tail -n 160 /tmp/conformance-regressions.log
+          tail -n 200 /tmp/conformance-regressions.log
           exit "$status"
 
       - name: Generate repository migration inventory
