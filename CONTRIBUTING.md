@@ -2,13 +2,13 @@
 
 Thank you for improving the public contract layer of Native AI Engineering.
 
-Native AI Core owns runtime-agnostic domain language, architecture boundaries, ports, contracts, rules, templates, and quality standards. Contributions should make those agreements clearer, more reusable, and more verifiable without importing private product context or provider-specific implementation.
+Native AI Core owns runtime-agnostic domain language, architecture boundaries, ports, contracts, rules, templates, schemas, conformance semantics, and quality standards. Contributions should make those agreements clearer, more reusable, and more verifiable without importing private product context or provider-specific implementation.
 
 ## Before changing the core
 
 1. Identify the issue, objective, and acceptance criteria.
 2. Confirm that the change is universal enough to belong in `ai-native-core`.
-3. Inspect existing contracts, docs, and consumers before creating a new concept.
+3. Inspect existing contracts, schemas, docs, validators, and consumers before creating a new concept.
 4. Determine compatibility impact and affected adapters.
 5. Preserve useful existing behavior unless the accepted change explicitly supersedes it.
 6. Define the validation evidence required before claiming completion.
@@ -16,17 +16,17 @@ Native AI Core owns runtime-agnostic domain language, architecture boundaries, p
 Repository responsibility:
 
 ```text
-ai-native-core    canonical domain, contracts, ports, boundaries, terminology, and quality standards
-ai-native-skills  executable reusable skills, workflows, references, and behavioral evaluation
-native-ai-fw      orchestration, discovery, control-plane behavior, and runtime adapters
-product repos     product-specific implementation, policy, data, and real-world validation
+ai-native-core    canonical domain, contracts, ports, boundaries, terminology, schemas, and quality standards
+ai-native-skills  executable reusable skills, workflows, declarations, references, and behavioral evaluation
+native-ai-fw      orchestration, discovery, control-plane behavior, runtime adapters, and runtime evidence
+product repos     product-specific implementation, policy, data, acceptance, and real-world validation
 ```
 
 Change the correct layer:
 
-- update `ai-native-core` when a universal contract, principle, port, boundary, term, or quality standard changes;
-- update `ai-native-skills` when executable agent behavior changes;
-- update `native-ai-fw` when orchestration or control-plane behavior changes;
+- update `ai-native-core` when a universal contract, principle, port, boundary, term, schema, validator rule, or quality standard changes;
+- update `ai-native-skills` when executable behavior or adapter declarations change;
+- update `native-ai-fw` when orchestration, binding, control-plane, or runtime behavior changes;
 - update product repositories for product implementation and validation.
 
 ## Contribution paths
@@ -45,7 +45,7 @@ A skill contract should define:
 - category, type, capability, and description;
 - roles that consume the contract;
 - required and optional inputs;
-- allowed outputs;
+- required or allowed outputs;
 - quality gates;
 - explicit `covers` and `does_not_cover` boundaries;
 - adapter requirements when product or runtime decisions must remain external.
@@ -84,9 +84,9 @@ Use behavioral cases to protect reusable learning and prevent known regressions.
 
 ### Add or refine framework documentation
 
-Use `docs/` for public architecture, port specifications, glossary terms, domain models, and integration guidance.
+Use `docs/` for public architecture, port specifications, glossary terms, domain models, integration guidance, migration records, and acceptance evidence.
 
-Documentation may explain rationale and examples, but it must not silently redefine a machine-readable contract. Update the contract and documentation together when the actual interface changes.
+Documentation may explain rationale and examples, but it must not silently redefine a machine-readable contract or schema. Update the governing artifact and documentation together when the actual interface changes.
 
 ### Add or refine rules
 
@@ -94,23 +94,23 @@ Use `rules/` for reusable mandatory constraints. A rule should be broadly applic
 
 ### Add or refine templates
 
-Use `templates/` for generic artifact starting points such as ADRs, blueprints, specifications, or review records.
+Use `templates/` for generic artifact starting points such as ADRs, blueprints, specifications, declarations, or review records.
 
 Templates must remain product-neutral. Product-specific defaults, branding, environments, and private workflow policy belong in product adapters.
 
 ### Add or evolve a schema
 
-`schemas/` is the canonical registry for contract-family schemas and shared serialization primitives.
+`schemas/` is the canonical registry for contract-family schemas, conformance schemas, report schemas, and shared serialization primitives.
 
 When introducing or changing a schema:
 
-- declare whether the change affects schema version, contract version, or both;
+- declare whether the change affects schema version, contract version, declaration version, report version, or more than one;
 - preserve family-owned domain meaning and avoid semantic normalization by field name alone;
 - connect it to active artifacts or an explicit fixture-backed future boundary;
 - add positive and negative fixtures;
 - add repository and semantic regression tests;
 - define compatibility and migration behavior;
-- regenerate the manifest and schema discovery report;
+- regenerate governed generated artifacts when applicable;
 - document what structural validation proves and what remains unverified.
 
 Do not add an unused schema as aspirational documentation or weaken a family schema merely to make incompatible artifacts pass.
@@ -146,38 +146,96 @@ skill_contract:
     does_not_cover: []
 ```
 
-Use snake_case for machine-readable capabilities and gates. Use kebab-case for contract IDs and filenames. Keep IDs, filenames, manifest entries, and adapter references aligned.
+Use snake_case for machine-readable capabilities and gates. Use kebab-case for contract IDs and filenames. Keep IDs, filenames, manifest entries, aliases, and adapter references aligned.
 
-## Adapter boundary declarations
+## Structured adapter declarations
 
-A contract-backed executable skill declares which contract-owned responsibilities it covers and which contract exclusions it preserves as delegated:
+Executable methodology remains in:
+
+```text
+skills/<adapter-id>/SKILL.md
+```
+
+A contract-backed adapter declares static conformance beside it:
+
+```text
+skills/<adapter-id>/adapter.conformance.yaml
+```
+
+Canonical declaration:
 
 ```yaml
-metadata:
-  ai-native-skills.implements: ai-native-core/contracts/skills/<category>/<contract>.contract.yaml
-  ai-native-skills.contract-version: "^1.0.0"
-  ai-native-skills.boundary.covers: '["<contract-covers-item>"]'
-  ai-native-skills.boundary.delegates: '["<contract-does-not-cover-item>"]'
+contract_schema:
+  kind: adapter_conformance
+  version: 1.0.0
+  path: schemas/adapter-conformance.schema.yaml
+
+adapter_conformance:
+  adapter:
+    id: example-adapter
+    kind: skill
+    patterns:
+      - skill-adapter
+    entrypoint: skills/example-adapter/SKILL.md
+
+  implements:
+    contract_id: example-capability
+    contract_kind: skill_contract
+    contract_path: contracts/skills/engineering/example-capability.contract.yaml
+    contract_version: "^1.0.0"
+
+  capability: example_capability
+
+  interface:
+    inputs: []
+    outputs: []
+    gates: []
+
+  boundary:
+    covers: []
+    delegates: []
+
+  dependencies: []
+  handoffs: []
+  unsupported_claims: []
+  adapter_requirements: []
+  evidence_refs: []
 ```
+
+Official executable kinds:
+
+```text
+skill
+workflow
+meta-skill
+```
+
+Every contract-backed declaration includes the `skill-adapter` pattern. Additional accepted declaration patterns are `facade`, `runtime-adapter`, and `port-adapter`. Patterns do not replace the executable kind.
 
 Rules:
 
-- use exact values from the implemented contract;
-- do not list a `does_not_cover` item under `covers`;
-- do not delegate an item the contract assigns to the adapter;
-- declare all applicable owned and delegated items when claiming complete boundary conformance;
-- do not bulk-copy declarations without inspecting actual adapter responsibility;
+- use exact contract IDs for interfaces, gates, boundaries, dependencies, handoffs, and adapter requirement keys;
+- declare every required input, required output, and contract gate;
+- treat optional inputs and allowed outputs as permitted universes rather than mandatory complete coverage;
+- do not list a delegated responsibility under `covers`;
+- do not delegate an item the contract assigns to the adapter unless the declaration intentionally records a `PARTIAL` limitation;
+- record unsupported contract responsibilities honestly;
+- preserve adapter-specific dependencies and handoffs as adapter evidence rather than pretending they are core-owned;
+- do not bulk-copy declarations without inspecting actual executable responsibility;
 - treat declaration validation as one evidence layer, not proof of executable behavior.
 
-Result meanings:
+Structural result meanings:
 
 ```text
-ERROR          explicit contradiction or out-of-bound claim
-WARN           partial, malformed, unknown, or reversed declaration
-NOT_CHECKABLE  structured declaration is absent or cannot be evaluated
+CONFORMANT     required checkable structure matches the resolved contract
+PARTIAL        declaration exists but required coverage or support is incomplete
+ERROR          malformed, contradictory, incompatible, unresolved, unknown, or out-of-bound declaration
+NOT_CHECKABLE  structured declaration is absent or required static evidence cannot be evaluated
 ```
 
-See [`docs/adapter-conformance.md`](docs/adapter-conformance.md) for the canonical metadata and result contract.
+Legacy frontmatter such as `ai-native-skills.implements`, contract-version pins, and dotted boundary metadata remains migration evidence only. It does not establish v2 `CONFORMANT` status.
+
+See [`docs/adapter-conformance.md`](docs/adapter-conformance.md) for canonical declaration, report, result, exit-code, and evidence semantics.
 
 ## Versioning and compatibility
 
@@ -196,13 +254,13 @@ For contracts at `1.x` or later, use a minor bump only for backward-compatible a
 Use a major bump when existing adapters may need changes, including:
 
 - adding or changing required inputs;
-- adding required quality gates;
+- adding required outputs or quality gates;
 - renaming or removing inputs, outputs, IDs, or gates;
 - changing output meaning;
 - changing contract ownership or delegation boundaries;
 - moving a contract path used by adapters.
 
-For `0.x` contracts, a minor bump may represent a breaking pre-stable change. The current validator treats `^0.y.z` as compatible only within the same `0.y` line.
+For `0.x` contracts, a minor bump may represent a breaking pre-stable change. The current resolver treats `^0.y.z` as compatible only within the same `0.y` line.
 
 Adapter pins currently support:
 
@@ -213,7 +271,7 @@ Adapter pins currently support:
 exact   exact version only
 ```
 
-See [`scripts/validate-implements.sh`](scripts/validate-implements.sh) for the implemented pin semantics.
+See [`scripts/validate-implements.sh`](scripts/validate-implements.sh) and [`scripts/contract_resolution.py`](scripts/contract_resolution.py) for implemented pin and alias semantics.
 
 Do not claim compatibility from version numbers alone. Validate dependent adapters and disclose migrations that remain outstanding.
 
@@ -221,7 +279,7 @@ Do not claim compatibility from version numbers alone. Validate dependent adapte
 
 [`contracts/manifest.yaml`](contracts/manifest.yaml) is generated and must not be edited manually.
 
-Regenerate it after any contract content, path, filename, addition, deletion, or version change:
+Regenerate it after any governed contract content, path, filename, addition, deletion, or version change:
 
 ```bash
 ./scripts/generate-manifest.sh
@@ -237,7 +295,7 @@ Then inspect and commit the resulting manifest changes. Verify:
 - removed or moved entries;
 - unexpected unrelated drift.
 
-Documentation-only changes do not require manifest regeneration.
+Documentation-only and adapter-conformance tooling changes do not alter the core contract manifest unless a governed contract artifact also changes.
 
 ## Validation
 
@@ -263,8 +321,12 @@ python3 scripts/run-eval.py --all --validate-tests
 ```bash
 python3 -m py_compile \
   scripts/run-eval.py \
+  scripts/conformance_validation.py \
+  scripts/conformance_semantics.py \
+  scripts/conformance_taxonomy.py \
   scripts/validate-conformance.py \
-  tests/test_validate_conformance.py
+  tests/test_validate_conformance.py \
+  tests/test_conformance_semantics.py
 ```
 
 ### Run validator unit and CLI regression tests
@@ -273,7 +335,7 @@ python3 -m py_compile \
 python3 -m unittest discover -s tests -v
 ```
 
-The boundary fixtures cover valid delegation, missing declarations, partial declarations, unknown claims, explicit delegated-responsibility overclaim, CLI exit behavior, and preservation of gate/input/output checks.
+Conformance fixtures cover complete, partial, missing, malformed, explicit overclaim, unknown interface IDs, version and identity mismatch, required versus allowed outputs, dependencies, handoffs, adapter requirements, executable kinds, adapter patterns, evidence-layer separation, machine reports, and exit codes.
 
 ### Validate adapter paths and pinned versions
 
@@ -285,19 +347,21 @@ From an adapter repository containing `SKILL.md` implementations:
 
 ### Validate adapter conformance
 
-From an adapter repository:
+From `ai-native-core` or another location with both repositories available:
 
 ```bash
-python3 ../ai-native-core/scripts/validate-conformance.py \
+python3 scripts/validate-conformance.py \
   ../ai-native-core \
-  .
+  ../ai-native-skills \
+  --mode migration \
+  --output-dir conformance-reports
 ```
 
-Path/version validation and conformance validation are different checks.
+Use `--mode strict` only when the checked migration slice is expected to contain no `PARTIAL` or `NOT_CHECKABLE` result.
 
-The conformance validator checks textual coverage of quality gates, allowed outputs, and required inputs, then validates structured boundary declarations without fuzzy prose matching.
+Path/version resolution and structured conformance are different checks. Textual matching is supplemental migration diagnostics only and cannot promote a missing declaration to `CONFORMANT`.
 
-An explicit out-of-bound claim is an `ERROR`. Missing structured declarations are `NOT_CHECKABLE` and remain visible in the summary. A zero exit code means no critical declaration error; it does not prove runtime or product behavior.
+A zero migration-mode exit code means there is no explicit structural `ERROR`; it does not prove behavior, runtime execution, product acceptance, review, or approval.
 
 ### Validate documentation-only changes
 
@@ -308,7 +372,7 @@ For documentation-only changes, inspect:
 - commands against current scripts;
 - terminology against the glossary and architecture docs;
 - source-of-truth boundaries;
-- claims about current inventory against `contracts/manifest.yaml`.
+- claims about current inventory against generated or validated sources.
 
 ## Documentation responsibilities
 
@@ -317,12 +381,12 @@ Update public documentation when a change affects:
 - architecture layers or repository boundaries;
 - contract identity, location, or versioning rules;
 - port taxonomy;
-- adapter metadata or validation commands;
+- adapter declarations, report shapes, result semantics, or validation commands;
 - templates, rules, schemas, or workflows;
 - glossary terms;
 - the visitor or contributor path.
 
-Use [`docs/contract-catalog.md`](docs/contract-catalog.md) to explain inventory navigation. Use [`docs/adapter-conformance.md`](docs/adapter-conformance.md) for adapter declaration and validation semantics. Keep the generated manifest authoritative instead of maintaining duplicate exhaustive tables.
+Use [`docs/contract-catalog.md`](docs/contract-catalog.md) to explain inventory navigation. Use [`docs/adapter-conformance.md`](docs/adapter-conformance.md) for adapter declaration and validation semantics. Keep generated manifests and machine reports authoritative instead of maintaining duplicate exhaustive tables.
 
 ## Pull request checklist
 
@@ -330,17 +394,18 @@ Before requesting review:
 
 - [ ] The issue objective and acceptance criteria are satisfied.
 - [ ] The change belongs in the public core rather than a skill, framework, or product adapter.
-- [ ] Existing contracts and consumers were inspected.
+- [ ] Existing contracts, schemas, validators, and consumers were inspected.
 - [ ] Contract kind, schema version/path, ID, canonical path, contract version, boundaries, and terminology are consistent.
 - [ ] Compatibility impact is classified honestly.
 - [ ] Affected adapters and migration needs are disclosed.
-- [ ] The manifest and schema discovery report were regenerated for contract changes.
+- [ ] The manifest and schema discovery report were regenerated when governed contracts changed.
 - [ ] Behavioral test contracts validate when affected.
 - [ ] Validator unit and CLI regression tests pass when tooling changes.
-- [ ] Adapter path/version and conformance checks were run when adapter repositories were available.
-- [ ] Structured boundary declarations were reviewed against actual adapter responsibility.
+- [ ] Adapter path/version and structured conformance checks were run when adapter repositories were available.
+- [ ] Adapter kinds, patterns, interface IDs, and boundaries were reviewed against actual executable responsibility.
+- [ ] Machine reports validate against their schema.
 - [ ] Documentation and relative links were reviewed.
-- [ ] Known gaps remain labeled `PARTIAL`, `NOT_VERIFIED`, or `NOT_APPLICABLE`.
+- [ ] Known gaps remain labeled `PARTIAL`, `NOT_CHECKABLE`, `BEHAVIOR_NOT_VERIFIED`, or `NOT_APPLICABLE` at the correct evidence layer.
 - [ ] No credentials, private product context, customer data, or runtime-specific installed state were committed.
 
 Use focused commits and a PR description that explains the contract change, compatibility impact, validation evidence, affected consumers, and known limitations.
