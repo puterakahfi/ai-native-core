@@ -8,6 +8,11 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
 jobs:
   validate:
     runs-on: ubuntu-latest
@@ -24,10 +29,22 @@ jobs:
             scripts/validate-port-contracts.py
       - name: Validate unified contract schemas
         shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -o pipefail
           if ! python3 scripts/validate-contract-schemas.py > /tmp/schema-validation.log 2>&1; then
-            tail -n 120 /tmp/schema-validation.log
+            tail -n 100 /tmp/schema-validation.log
+            if [ "${{ github.event_name }}" = "pull_request" ]; then
+              {
+                echo '## Temporary unified schema diagnostics'
+                echo
+                echo '```text'
+                tail -n 80 /tmp/schema-validation.log
+                echo '```'
+              } > /tmp/schema-comment.md
+              gh pr comment "${{ github.event.pull_request.number }}" --body-file /tmp/schema-comment.md
+            fi
             exit 1
           fi
           cat /tmp/schema-validation.log
