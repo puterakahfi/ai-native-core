@@ -5,10 +5,12 @@ from pathlib import Path
 from typing import Any, Optional
 
 import conformance_validation as engine
-from conformance_taxonomy import enhance_legacy, enhance_structured
+from conformance_semantics import enhance_structured as enhance_semantics
+from conformance_taxonomy import enhance_legacy, enhance_structured as enhance_taxonomy
 from contract_resolution import load_contract_document
 
-engine.validate_structured = enhance_structured(engine, engine.validate_structured)
+engine.validate_structured = enhance_semantics(engine, engine.validate_structured)
+engine.validate_structured = enhance_taxonomy(engine, engine.validate_structured)
 engine.validate_legacy = enhance_legacy(engine, engine.validate_legacy)
 
 from conformance_validation import *  # noqa: E402,F401,F403
