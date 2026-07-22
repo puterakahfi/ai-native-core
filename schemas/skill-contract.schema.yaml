@@ -1,0 +1,64 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "https://native-ai.engineering/schemas/skill-contract.schema.yaml"
+title: Native AI Engineering Skill Contract
+type: object
+additionalProperties: false
+required:
+  - contract_schema
+  - skill_contract
+properties:
+  contract_schema:
+    allOf:
+      - $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/contract_schema_identity"
+      - type: object
+        properties:
+          kind:
+            const: skill_contract
+          version:
+            const: "1.0.0"
+          path:
+            const: schemas/skill-contract.schema.yaml
+  skill_contract:
+    type: object
+    additionalProperties: true
+    required:
+      - id
+      - category
+      - type
+      - version
+      - capability
+    properties:
+      id:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/contract_id"
+      category:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/contract_id"
+      type:
+        type: string
+        enum: [skill, contract, meta-skill, port]
+      version:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/semantic_version"
+      capability:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/machine_id"
+      purpose:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/non_empty_string"
+      description:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/non_empty_string"
+      roles:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/roles"
+      inputs:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/inputs"
+      outputs:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/outputs"
+      boundary:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/skill_boundary"
+      quality_gates:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/quality_gates"
+      safety_gates:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/quality_gates"
+      adapter_requirements:
+        $ref: "https://native-ai.engineering/schemas/common.schema.yaml#/$defs/adapter_requirements"
+      extensions:
+        type: object
+    anyOf:
+      - required: [quality_gates]
+      - required: [safety_gates]
