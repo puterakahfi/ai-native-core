@@ -37,7 +37,6 @@ def enhance_structured(
 
         declared_outputs = declaration["interface"]["outputs"]
         required_outputs = contract["required_outputs"]
-        allowed_outputs = engine.unique(required_outputs + contract["allowed_outputs"])
 
         findings = [
             finding
@@ -60,23 +59,8 @@ def enhance_structured(
                 )
             )
 
-        allowed_only = set(engine.maps(allowed_outputs)) - set(required_map)
-        filtered: list[dict[str, Any]] = []
-        for finding in findings:
-            if finding.get("code") != "REQUIRED_CLAIM_UNSUPPORTED":
-                filtered.append(finding)
-                continue
-            actual = {
-                engine.norm(value)
-                for value in finding.get("actual", [])
-                if engine.norm(value)
-            }
-            if actual and actual.issubset(allowed_only):
-                continue
-            filtered.append(finding)
-
-        result["findings"] = filtered
-        result["structural_status"] = engine.status(filtered)
+        result["findings"] = findings
+        result["structural_status"] = engine.status(findings)
         return result
 
     return validate
