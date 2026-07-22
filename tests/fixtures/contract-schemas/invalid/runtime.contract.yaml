@@ -1,0 +1,12 @@
+contract_schema:
+  kind: runtime_contract
+  version: "1.0.0"
+  path: schemas/runtime-contract.schema.yaml
+runtime_contract:
+  id: fixture-runtime-invalid
+  version: "1.0.0"
+  purpose: This fixture illegally owns a workflow phase lifecycle.
+  phases:
+    - id: execute
+      order: 1
+      purpose: Execute work.
