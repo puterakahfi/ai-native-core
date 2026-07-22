@@ -1,0 +1,36 @@
+name: Temporary schema discovery classification fix
+
+on:
+  push:
+    branches:
+      - 8-unify-contract-schemas-and-workflow-contracts
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install generation dependencies
+        run: python3 -m pip install --disable-pip-version-check pyyaml
+      - name: Patch and regenerate discovery
+        run: |
+          python3 scripts/patch-schema-discovery-classification.py
+          ./scripts/generate-manifest.sh
+          python3 scripts/inventory-contract-schemas.py
+          python3 scripts/inventory-contract-schemas.py --check
+      - name: Remove one-time artifacts and commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm scripts/patch-schema-discovery-classification.py
+          rm .github/workflows/tmp-fix-schema-discovery-classification.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'fix(discovery): classify compatibility manifests'
+          git push
