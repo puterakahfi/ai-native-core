@@ -18,12 +18,18 @@ $defs:
   semantic_version:
     type: string
     pattern: "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?$"
+  version_pin:
+    type: string
+    pattern: "^(?:\\^|~)?[0-9]+\\.[0-9]+(?:\\.[0-9]+)?(?:-[0-9A-Za-z.-]+)?$"
   schema_path:
     type: string
     pattern: "^schemas/[a-z0-9]+(?:-[a-z0-9]+)*\\.schema\\.yaml$"
   contract_path:
     type: string
     pattern: "^contracts/.+\\.(?:contract|port|test)\\.yaml$"
+  adapter_entrypoint:
+    type: string
+    pattern: "^skills/[a-z0-9]+(?:-[a-z0-9]+)*/SKILL\\.md$"
   schema_kind:
     type: string
     enum:
@@ -36,6 +42,8 @@ $defs:
       - compatibility_manifest
       - domain_contract
       - contract_manifest
+      - adapter_conformance
+      - conformance_report
   contract_schema_identity:
     type: object
     additionalProperties: false
@@ -112,6 +120,45 @@ $defs:
   adapter_requirements:
     type: object
     minProperties: 1
+  evidence_layer:
+    type: string
+    enum:
+      - structural
+      - behavioral
+      - runtime
+      - product
+      - review
+      - approval
+  evidence_reference:
+    type: object
+    additionalProperties: false
+    required:
+      - id
+      - layer
+    properties:
+      id:
+        $ref: "#/$defs/contract_id"
+      layer:
+        $ref: "#/$defs/evidence_layer"
+      path:
+        $ref: "#/$defs/non_empty_string"
+      uri:
+        type: string
+        format: uri-reference
+      claim:
+        $ref: "#/$defs/non_empty_string"
+      description:
+        $ref: "#/$defs/non_empty_string"
+    anyOf:
+      - required: [path]
+      - required: [uri]
+      - required: [claim]
+      - required: [description]
+  evidence_references:
+    type: array
+    uniqueItems: true
+    items:
+      $ref: "#/$defs/evidence_reference"
   phase_skills:
     type: object
     additionalProperties: false
@@ -195,8 +242,7 @@ $defs:
       contract_kind:
         $ref: "#/$defs/schema_kind"
       version_constraint:
-        type: string
-        pattern: "^(?:\\^|~)?[0-9]+\\.[0-9]+(?:\\.[0-9]+)?(?:-[0-9A-Za-z.-]+)?$"
+        $ref: "#/$defs/version_pin"
       status:
         type: string
         enum: [active, deprecated, retired]
