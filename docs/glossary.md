@@ -8,13 +8,17 @@ Philosophy entry point: [`philosophy/README.md`](philosophy/README.md)
 
 Canonical domain model: [`domain-model/README.md`](domain-model/README.md)
 
-This glossary helps readers discover terms used across `ai-native-core` contracts, documentation, ports, adapters, and evaluation material.
+Native AI OS terminology boundary: [`native-ai-os.md`](native-ai-os.md)
+
+This glossary helps readers discover terms used across `ai-native-core` contracts, documentation, ports, adapters, evaluation material, and operating-system integrations.
 
 It is not a competing atomic definition authority.
 
 For philosophy-level terms such as `state`, `model`, `assumption`, `claim`, `evidence`, `authority`, `verification`, `validation`, `feedback`, `capacity`, `coherence`, `embodiment`, and `core evolution`, the minimum candidate meaning is owned by [`philosophy/term-authority.md`](philosophy/term-authority.md).
 
 For complete Native AI Engineering domain objects, aggregates, bounded contexts, and lifecycle semantics, use the [canonical domain model](domain-model/README.md).
+
+For the distinction among Native AI Engineering, Native AI Core, Native AI OS, framework, runtime, control plane, and Product Brain, use the [Native AI OS boundary](native-ai-os.md).
 
 ---
 
@@ -24,7 +28,7 @@ For complete Native AI Engineering domain objects, aggregates, bounded contexts,
 An engineering approach in which agents perform meaningful lifecycle work under explicit intent, contracts, boundaries, evidence, review, and authority. Humans and organizations retain the decision rights required by the governing scope and risk.
 
 **Adapter**  
-A replaceable implementation or translation that binds a runtime, provider, product, or executable behavior to a core-owned port or contract. An adapter implements or specializes an agreement; it must not silently redefine upstream domain meaning or canonical terms.
+A replaceable implementation or translation that binds a runtime, provider, product, framework, or executable behavior to a core-owned port or contract. An adapter implements or specializes an agreement; it must not silently redefine upstream domain meaning or canonical terms.
 
 **Agent**  
 An AI actor assigned bounded responsibilities and capabilities. An agent may reason, use tools, produce artifacts, and execute authorized work. Agent capability or confidence is not authority or approval.
@@ -63,6 +67,9 @@ A stable machine-readable agreement defining what must remain true about a capab
 
 **Contract Version**  
 A semantic or pre-stable version associated with a contract so consumers can declare compatibility and detect breaking changes. Version labels do not prove implementation quality or maturity by themselves.
+
+**Control Plane**  
+A coordination boundary that resolves and governs product-level work across contexts without becoming every semantic owner, external execution provider, product-acceptance owner, or authority source. A control plane may coordinate context, planning, capability resolution, execution requests, evidence, gates, reviews, approvals, learning proposals, and observability. Coordination capability is not automatic permission, authority, approval, execution, or product acceptance. See [Native AI OS](native-ai-os.md).
 
 **Core**  
 The `ai-native-core` repository and its accepted runtime-agnostic domain language, ports, contracts, architecture boundaries, rules, templates, and quality standards.
@@ -111,6 +118,9 @@ A proposition treated as established within a stated scope because available att
 
 **Feedback**  
 Attributable information produced by execution, observation, evaluation, review, use, measurement, or consequence that can support revision of a model, decision, behavior, implementation, or affected layer. Feedback is not automatically correct, authoritative, or final truth.
+
+**Framework**  
+A reusable architecture, SDK, library, or implementation structure that supplies conventions and extension points. `Framework` remains valid when an actual technical framework is meant. It is not the canonical product-level name for Native AI OS, and framework presence alone does not prove operating-system qualification.
 
 ---
 
@@ -171,6 +181,19 @@ A bounded representation used for interpretation, prediction, planning, communic
 
 ---
 
+## N
+
+**Native AI Core**  
+The public, runtime-agnostic source of truth for Native AI Engineering domain language, contracts, ports, architecture boundaries, rules, templates, and quality standards. Core defines stable meaning and agreements; it does not implement the complete operating system.
+
+**Native AI Engineering**  
+The discipline, principles, canonical domain model, contracts, lifecycle agreements, authority boundaries, and working model for building AI-native systems.
+
+**Native AI OS**  
+An executable product and control-plane system that applies Native AI Engineering across product lifecycles by coordinating product context, persistent lifecycle state, capabilities, workflows, agents, runtimes, adapters, authorized execution, artifacts, evidence, review, governance, feedback, learning, and observability. It consumes and specializes core meaning without silently redefining canonical domain objects, authority, or approval. See [`native-ai-os.md`](native-ai-os.md).
+
+---
+
 ## O
 
 **Observation**  
@@ -192,6 +215,9 @@ An abstract capability and boundary through which an application, product, contr
 **Principle**  
 A preferred decision orientation used when multiple valid options remain. A principle guides but does not silently block action.
 
+**Product Brain**  
+Informal product language for a combined product-context, registry, decision, knowledge, memory, planning, and coordination experience. It is not a canonical aggregate, bounded context, contract family, or authority source in Native AI Core.
+
 **Product Instance**  
 A product-specific source-of-truth boundary containing product intent, policy, configuration, implementation, and validation that must not be generalized into universal core by default.
 
@@ -206,7 +232,7 @@ An examination of an artifact, decision, implementation, behavior, or evidence s
 A reusable mandatory constraint stating what must or must not happen in a declared scope. Rules may operationalize philosophy guardrails, contracts, architecture boundaries, security requirements, or repository policy.
 
 **Runtime**  
-An execution surface in which agents, skills, tools, hooks, context, and adapters operate. Runtime behavior remains distinct from static declarations and product acceptance.
+An execution surface in which agents, skills, tools, hooks, context, and adapters operate. Runtime behavior remains distinct from static declarations, Native AI OS qualification, and product acceptance. A runtime may be one component of Native AI OS without being the complete operating system.
 
 **Runtime Contract**  
 An implementation-agnostic agreement governing runtime-facing capabilities or lifecycle behavior under `contracts/runtime/`.
@@ -276,6 +302,7 @@ When definitions appear to conflict, use this order:
 accepted atomic canonical term
 → accepted canonical domain model
 → accepted contract or port specialization
+→ accepted Native AI OS architecture boundary
 → specialized rule, skill, workflow, or adapter meaning
 → runtime or product implementation
 → examples and historical documentation
