@@ -199,7 +199,7 @@ $defs:
         uniqueItems: true
         items:
           type: string
-          enum: [facade, skill-adapter, runtime-adapter, port-adapter]
+          minLength: 1
       adapter_path:
         type: string
       declaration_path:
