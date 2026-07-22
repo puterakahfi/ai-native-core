@@ -1,0 +1,32 @@
+name: Temporary unified schema validation
+
+on:
+  push:
+    branches:
+      - 8-unify-contract-schemas-and-workflow-contracts
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install validation dependencies
+        run: python3 -m pip install --disable-pip-version-check pyyaml jsonschema
+      - name: Compile schema tooling
+        run: |
+          python3 -m py_compile \
+            scripts/schema_validation.py \
+            scripts/generate-manifest.py \
+            scripts/validate-contract-schemas.py \
+            scripts/validate-port-contracts.py
+      - name: Validate unified contract schemas
+        run: python3 scripts/validate-contract-schemas.py
+      - name: Validate port semantic regressions
+        run: python3 scripts/validate-port-contracts.py
+      - name: Validate behavioral test contracts
+        run: python3 scripts/run-eval.py --all --validate-tests
+      - name: Verify manifest determinism
+        run: |
+          cp contracts/manifest.yaml /tmp/manifest.yaml
+          ./scripts/generate-manifest.sh
+          diff -u /tmp/manifest.yaml contracts/manifest.yaml
