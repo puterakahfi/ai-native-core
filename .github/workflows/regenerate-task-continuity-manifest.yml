@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - 48-task-continuity-contract
+  pull_request:
+    branches:
+      - main
 
 permissions:
   contents: write
