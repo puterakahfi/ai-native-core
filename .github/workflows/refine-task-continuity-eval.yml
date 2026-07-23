@@ -1,0 +1,55 @@
+name: Refine task continuity behavioral sequence
+
+on:
+  push:
+    branches:
+      - 48-task-continuity-contract
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  refine:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: 48-task-continuity-contract
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: python -m pip install --disable-pip-version-check PyYAML jsonschema
+
+      - name: Refine sequence assertion and regenerate artifacts
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path("contracts/tests/task-continuity.test.yaml")
+          text = path.read_text()
+          old = '        - pattern: "authoritative sources|resolve current"\n'
+          new = '        - pattern: "authoritative sources"\n'
+          if old not in text:
+              raise SystemExit("Expected task continuity sequence pattern not found")
+          path.write_text(text.replace(old, new, 1))
+          PY
+          ./scripts/generate-manifest.sh
+          python3 scripts/inventory-contract-schemas.py
+
+      - name: Commit refinement and remove one-time workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/refine-task-continuity-eval.yml
+          git add contracts/tests/task-continuity.test.yaml contracts/manifest.yaml docs/contract-schema-discovery.yaml
+          git commit -m "test(context): refine task continuity sequence assertion (#48)"
+          git push origin HEAD:48-task-continuity-contract
