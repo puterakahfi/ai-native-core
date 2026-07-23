@@ -69,6 +69,12 @@ accepted
 
 A successful build does not imply review or approval. A merged pull request does not imply release or product acceptance. Closure does not create authority that is absent from the linked records.
 
+## Evaluation Semantics
+
+Behavioral sequence assertions use concrete phrases in execution order. Alternative phrases may be expressed only in evaluator fields that explicitly support alternatives; a sequence’s leading pattern is not treated as a regular expression.
+
+Structural contract validation, synthetic passing outputs, and fresh-runtime behavioral application remain separate evidence layers.
+
 ## Implementations
 
 - Executable reusable behavior belongs in `ai-native-skills`.
