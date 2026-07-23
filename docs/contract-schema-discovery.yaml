@@ -3266,7 +3266,7 @@ contract_schema_discovery:
       schema_path: schemas/behavioral-test-contract.schema.yaml
       path: contracts/tests/task-continuity.test.yaml
       version: 0.1.0
-      sha256: e2b839f388fb59cf
+      sha256: f7fdd05dfada3a18
     - family_path: workflows
       metadata_fields:
       - id
