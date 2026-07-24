@@ -1,0 +1,68 @@
+contract_schema:
+  kind: skill_contract
+  version: 1.0.0
+  path: schemas/skill-contract.schema.yaml
+skill_contract:
+  id: clean-code
+  category: engineering
+  type: skill
+  version: "0.1.0"
+  capability: assess_and_improve_internal_code_expression_quality
+  description: >
+    Assess evidence-backed readability and maintainability of implementation code,
+    name concrete findings, protect intended behavior, and recommend or apply the
+    smallest safe local correction without replacing refactoring, architecture
+    ownership, independent review, or product acceptance.
+  roles:
+    - senior_software_engineer
+    - code_quality_reviewer
+    - refactoring_strategist
+  inputs:
+    required:
+      - code_or_diff
+      - intended_behavior
+      - repository_conventions
+    optional:
+      - tests_and_validation_evidence
+      - architecture_contract_ref
+      - change_scope
+      - operational_context
+  outputs:
+    allowed:
+      - code_quality_assessment
+      - named_finding_list
+      - smallest_safe_correction_plan
+      - corrected_code_or_patch
+      - behavior_preservation_evidence
+      - refactoring_handoff
+      - architecture_handoff
+  quality_gates:
+    - findings_must_reference_observable_code_evidence
+    - behavior_must_be_preserved_unless_change_is_explicitly_authorized
+    - repository_conventions_must_be_respected
+    - smallest_safe_correction_must_be_preferred
+    - arbitrary_numeric_size_thresholds_are_forbidden
+    - formatter_linter_compiler_or_green_tests_alone_do_not_prove_code_quality
+    - naming_flow_errors_comments_duplication_and_structure_must_be_evaluated_contextually
+    - behavior_change_refactoring_and_architecture_change_must_be_separated
+    - unsupported_claims_and_evidence_gaps_must_be_explicit
+  boundary:
+    covers:
+      - internal_code_expression_quality_assessment
+      - readability_and_maintainability_findings
+      - smallest_safe_local_correction_guidance
+      - behavior_preservation_lock
+      - explicit_specialist_handoff
+    does_not_cover:
+      - product_behavior_change_authorization
+      - behavior_preserving_structural_refactoring_execution
+      - architecture_style_selection
+      - independent_architecture_acceptance
+      - test_strategy_ownership
+      - product_acceptance
+      - merge_authorization
+  adapter_requirements:
+    language_and_framework_rules: product_defined
+    repository_style_rules: product_defined
+    validation_commands: product_defined
+    finding_severity_policy: product_defined
