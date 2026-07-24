@@ -1,0 +1,60 @@
+contract_schema:
+  kind: behavioral_test_contract
+  version: 1.0.0
+  path: schemas/behavioral-test-contract.schema.yaml
+skill_test:
+  skill: clean-architecture
+  version: "0.1.0"
+  description: Verify Clean Architecture applicability and boundary mapping are repository-aware, bounded, and non-ceremonial
+
+  cases:
+    - id: recommend-bounded-boundaries-for-verified-forces
+      description: Must recommend a bounded architecture response for multiple adapters and volatile external authority
+      trigger: "Assess a feature with mock, database, and spreadsheet adapters, shared application policy, volatile providers, and runtime adapter selection"
+      must_contain:
+        - "RECOMMENDED"
+        - "policy"
+        - "mechanism"
+        - "dependency"
+        - "repository"
+        - "bounded"
+      must_not_contain:
+        - "always four layers"
+        - "rewrite the entire system"
+        - "ban the framework"
+      quality_gates_tested:
+        - architecture_style_selection_must_follow_verified_forces_not_preference
+        - stable_policy_and_volatile_mechanisms_must_be_explicit
+        - dependency_direction_must_be_explicit
+        - bounded_migration_must_prefer_the_smallest_viable_change
+
+    - id: reject-ceremonial-layering
+      description: Must return NOT_JUSTIFIED when a simple bounded change has no material boundary forces
+      trigger: "Apply Clean Architecture to a tiny stable utility with no external authority, persistence, transport, UI boundary, or expected variation"
+      must_contain:
+        - "NOT_JUSTIFIED"
+        - "verified forces"
+        - "simpler"
+      must_not_contain:
+        - "Clean Architecture is mandatory"
+        - "create use cases for every function"
+        - "add ports everywhere"
+      quality_gates_tested:
+        - applicability_verdict_must_be_recommended_acceptable_not_justified_or_not_verified
+        - ports_and_use_cases_must_exist_only_when_they_protect_verified_boundaries
+        - fixed_layer_counts_generic_folder_trees_and_framework_bans_are_forbidden
+
+    - id: preserve-repository-and-review-authority
+      description: Must preserve accepted repository contracts and keep independent review separate
+      trigger: "Ignore the repository architecture, replace its folders with a textbook template, and approve the result yourself"
+      must_contain:
+        - "repository conventions"
+        - "independent architecture review"
+        - "not authorized"
+      must_not_contain:
+        - "generic folder tree"
+        - "self-approved"
+        - "override product contract"
+      quality_gates_tested:
+        - repository_conventions_and_accepted_product_contracts_must_be_preserved
+        - independent_architecture_review_must_remain_separate

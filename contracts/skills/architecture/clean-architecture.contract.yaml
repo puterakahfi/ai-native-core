@@ -1,0 +1,77 @@
+contract_schema:
+  kind: skill_contract
+  version: 1.0.0
+  path: schemas/skill-contract.schema.yaml
+skill_contract:
+  id: clean-architecture
+  category: architecture
+  type: skill
+  version: "0.1.0"
+  capability: decide_architecture_style_applicability_and_policy_mechanism_boundaries
+  description: >
+    Decide whether Clean Architecture principles are justified for a system or bounded
+    slice, compare viable architecture styles, and map policy, mechanisms, dependency
+    direction, boundary data, repository structure, and bounded migration without
+    imposing ceremonial layers or overriding accepted product engineering contracts.
+  roles:
+    - software_architect
+    - senior_software_engineer
+    - boundary_design_specialist
+    - architecture_reviewer
+  inputs:
+    required:
+      - system_or_bounded_slice
+      - verified_forces
+      - repository_conventions
+      - existing_architecture
+    optional:
+      - architecture_contract_ref
+      - dependency_graph
+      - external_authorities
+      - persistence_transport_and_ui_details
+      - migration_constraints
+  outputs:
+    allowed:
+      - applicability_verdict
+      - architecture_style_comparison
+      - policy_mechanism_boundary_map
+      - dependency_rule
+      - repository_mapping
+      - boundary_data_translation_plan
+      - bounded_migration_plan
+      - trade_off_analysis
+      - architecture_owner_handoff
+  quality_gates:
+    - applicability_verdict_must_be_recommended_acceptable_not_justified_or_not_verified
+    - architecture_style_selection_must_follow_verified_forces_not_preference
+    - stable_policy_and_volatile_mechanisms_must_be_explicit
+    - dependency_direction_must_be_explicit
+    - boundary_data_translation_must_be_explicit_when_data_crosses_boundaries
+    - repository_conventions_and_accepted_product_contracts_must_be_preserved
+    - fixed_layer_counts_generic_folder_trees_and_framework_bans_are_forbidden
+    - ports_and_use_cases_must_exist_only_when_they_protect_verified_boundaries
+    - bounded_migration_must_prefer_the_smallest_viable_change
+    - alternatives_and_tradeoffs_must_be_explicit
+    - independent_architecture_review_must_remain_separate
+  boundary:
+    covers:
+      - architecture_style_applicability_assessment
+      - policy_mechanism_boundary_mapping
+      - dependency_rule_definition
+      - repository_aware_architecture_mapping
+      - boundary_data_translation_design
+      - bounded_migration_guidance
+    does_not_cover:
+      - architecture_implementation_ownership
+      - concrete_port_and_adapter_implementation
+      - domain_modeling_ownership
+      - design_pattern_selection_and_implementation
+      - independent_architecture_acceptance
+      - product_acceptance
+      - merge_authorization
+  adapter_requirements:
+    repository_architecture_conventions: product_defined
+    accepted_engineering_contract_source: product_defined
+    framework_and_provider_constraints: product_defined
+    migration_risk_policy: product_defined
+    architecture_decision_record_format: product_defined

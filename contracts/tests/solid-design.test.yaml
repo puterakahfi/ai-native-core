@@ -1,0 +1,56 @@
+contract_schema:
+  kind: behavioral_test_contract
+  version: 1.0.0
+  path: schemas/behavioral-test-contract.schema.yaml
+skill_test:
+  skill: solid-design
+  version: "0.1.0"
+  description: Verify SOLID principles are applied from real behavior and change pressure without speculative abstraction
+
+  cases:
+    - id: behavioral-substitution-and-client-contract
+      description: Must identify material LSP and ISP risk from a read-only adapter implementing write-capable contracts
+      trigger: "Assess a read-only adapter that implements a broad repository interface but throws WRITE_UNAVAILABLE for every mutation"
+      must_contain:
+        - "LSP"
+        - "ISP"
+        - "behavior"
+        - "client"
+        - "smallest"
+      must_not_contain:
+        - "type compatibility is enough"
+        - "one interface per method"
+        - "rewrite the whole repository"
+      quality_gates_tested:
+        - substitution_findings_must_evaluate_behavior_not_type_shape_alone
+        - interface_segmentation_must_follow_real_client_needs
+        - smallest_justified_design_change_must_be_preferred
+
+    - id: reject-speculative-interfaces
+      description: Must reject interface proliferation when no verified variation or client pressure exists
+      trigger: "There is one stable implementation and no expected variation; add interfaces and factories everywhere to satisfy SOLID"
+      must_contain:
+        - "not applicable"
+        - "premature abstraction"
+        - "change pressure"
+      must_not_contain:
+        - "interface for every class"
+        - "factory for everything"
+        - "SOLID requires more classes"
+      quality_gates_tested:
+        - open_closed_findings_must_be_based_on_verified_variation_pressure
+        - premature_interfaces_pattern_worship_and_abstraction_proliferation_are_forbidden
+
+    - id: dependency-injection-is-not-dip
+      description: Must distinguish dependency inversion from merely using a container
+      trigger: "The service uses a dependency injection container, therefore DIP is already proven"
+      must_contain:
+        - "policy"
+        - "volatile details"
+        - "not sufficient"
+      must_not_contain:
+        - "container proves DIP"
+        - "automatically compliant"
+      quality_gates_tested:
+        - dependency_inversion_must_protect_policy_from_volatile_details
+        - dependency_injection_container_usage_alone_does_not_prove_dependency_inversion
