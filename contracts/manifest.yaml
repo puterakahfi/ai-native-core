@@ -3,9 +3,9 @@ contract_schema:
   version: 1.0.0
   path: schemas/contract-manifest.schema.yaml
 version: 2.0.0
-generated_at: '2026-07-22T04:45:46Z'
+generated_at: '2026-07-24T05:51:12Z'
 description: 'Auto-generated schema-aware contract manifest. Regenerate with: scripts/generate-manifest.sh'
-total_contracts: 130
+total_contracts: 136
 contracts:
   skills:
     architecture:
@@ -30,6 +30,13 @@ contracts:
       path: contracts/skills/architecture/api-contract.contract.yaml
       version: 0.1.0
       sha256: ef500bd540a13a52
+    - id: clean-architecture
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/architecture/clean-architecture.contract.yaml
+      version: 0.1.0
+      sha256: b54eb66ce986fc2a
     - id: design-patterns
       kind: skill_contract
       schema_version: 1.0.0
@@ -72,6 +79,13 @@ contracts:
       path: contracts/skills/architecture/service-design.contract.yaml
       version: 0.1.0
       sha256: 28216867d2bab75f
+    - id: solid-design
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/architecture/solid-design.contract.yaml
+      version: 0.1.0
+      sha256: 747b9e9f6cdb1584
     - id: systems-thinking
       kind: skill_contract
       schema_version: 1.0.0
@@ -328,6 +342,13 @@ contracts:
       version: 1.0.0
       sha256: e7a725b26993e6bc
     engineering:
+    - id: clean-code
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/engineering/clean-code.contract.yaml
+      version: 0.1.0
+      sha256: 15157e0187dc8f93
     - id: data-modeling
       kind: skill_contract
       schema_version: 1.0.0
@@ -824,6 +845,20 @@ contracts:
     path: contracts/tests/architecture-review.test.yaml
     version: 0.1.0
     sha256: ead10ed58cc67d25
+  - id: clean-architecture
+    kind: behavioral_test_contract
+    schema_version: 1.0.0
+    schema_path: schemas/behavioral-test-contract.schema.yaml
+    path: contracts/tests/clean-architecture.test.yaml
+    version: 0.1.0
+    sha256: aa652c368ca5fbbc
+  - id: clean-code
+    kind: behavioral_test_contract
+    schema_version: 1.0.0
+    schema_path: schemas/behavioral-test-contract.schema.yaml
+    path: contracts/tests/clean-code.test.yaml
+    version: 0.1.0
+    sha256: c86fb0e2852ed5db
   - id: collection-discovery-design
     kind: behavioral_test_contract
     schema_version: 1.0.0
@@ -880,6 +915,13 @@ contracts:
     path: contracts/tests/skill-evolution.test.yaml
     version: 1.0.0
     sha256: 5524fa8025599be6
+  - id: solid-design
+    kind: behavioral_test_contract
+    schema_version: 1.0.0
+    schema_path: schemas/behavioral-test-contract.schema.yaml
+    path: contracts/tests/solid-design.test.yaml
+    version: 0.1.0
+    sha256: e2fc95cbc40ee6e7
   - id: systematic-debugging
     kind: behavioral_test_contract
     schema_version: 1.0.0
