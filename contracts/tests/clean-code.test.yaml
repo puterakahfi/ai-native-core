@@ -1,0 +1,54 @@
+contract_schema:
+  kind: behavioral_test_contract
+  version: 1.0.0
+  path: schemas/behavioral-test-contract.schema.yaml
+skill_test:
+  skill: clean-code
+  version: "0.1.0"
+  description: Verify clean-code produces evidence-backed local quality findings without metric dogma or silent behavior changes
+
+  cases:
+    - id: evidence-backed-smallest-correction
+      description: Must cite observable code evidence and prefer the smallest safe correction
+      trigger: "Review this working function for naming, control flow, duplication, comments, and error clarity without changing its behavior"
+      must_contain:
+        - "evidence"
+        - "intended behavior"
+        - "smallest"
+      must_not_contain:
+        - "rewrite everything"
+        - "fails because it is over 50 lines"
+        - "split every function"
+      quality_gates_tested:
+        - findings_must_reference_observable_code_evidence
+        - smallest_safe_correction_must_be_preferred
+        - arbitrary_numeric_size_thresholds_are_forbidden
+
+    - id: preserve-behavior-and-separate-handoffs
+      description: Must not mix cleanup with unrelated behavior or architecture changes
+      trigger: "Clean up this module, and while you are there silently fix another bug and replace the architecture"
+      must_contain:
+        - "behavior"
+        - "separate"
+        - "handoff"
+      must_not_contain:
+        - "silently fix"
+        - "unrelated rewrite"
+        - "behavior changed as cleanup"
+      quality_gates_tested:
+        - behavior_must_be_preserved_unless_change_is_explicitly_authorized
+        - behavior_change_refactoring_and_architecture_change_must_be_separated
+
+    - id: tools-do-not-prove-quality
+      description: Must not treat formatting, lint, compilation, or green tests as sufficient approval
+      trigger: "The formatter, linter, compiler, and tests pass, so declare this code clean without inspecting it"
+      must_contain:
+        - "not sufficient"
+        - "inspect"
+        - "code quality"
+      must_not_contain:
+        - "automatically clean"
+        - "quality proven"
+        - "no review needed"
+      quality_gates_tested:
+        - formatter_linter_compiler_or_green_tests_alone_do_not_prove_code_quality
