@@ -66,6 +66,7 @@ on:
       - scripts/run-eval.py
       - tests/test_conformance_*.py
       - tests/test_validate_conformance.py
+      - tests/test_validate_contract_schemas.py
       - tests/test_contract_resolution.py
       - tests/test_validate_port_contracts.py
       - tests/test_validate_port_adapter_reference.py
