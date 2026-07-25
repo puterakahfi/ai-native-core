@@ -1,0 +1,59 @@
+name: Sync Generated Contract Metadata
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "feat/**"
+      - "fix/**"
+      - "test/**"
+      - "chore/**"
+      - "epic/**"
+    paths:
+      - "contracts/**"
+      - "schemas/**"
+      - "scripts/generate-manifest.py"
+      - "scripts/generate-manifest.sh"
+      - "scripts/inventory-contract-schemas.py"
+      - ".github/workflows/sync-generated-contract-metadata.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-generated-contract-metadata-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install generator dependencies
+        run: python3 -m pip install --disable-pip-version-check pyyaml
+
+      - name: Regenerate contract manifest
+        run: ./scripts/generate-manifest.sh
+
+      - name: Regenerate schema discovery report
+        run: python3 scripts/inventory-contract-schemas.py
+
+      - name: Commit generated contract metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add contracts/manifest.yaml docs/contract-schema-discovery.yaml
+          if git diff --cached --quiet; then
+            echo "Generated contract metadata is already current."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore(governance): sync contract metadata"
+          git push origin "HEAD:${GITHUB_REF_NAME}"

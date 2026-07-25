@@ -113,6 +113,9 @@ jobs:
       - name: Regenerate schema-aware contract manifest
         run: ./scripts/generate-manifest.sh
 
+      - name: Regenerate schema discovery report
+        run: python3 scripts/inventory-contract-schemas.py
+
       - name: Validate unified contract schemas and manifest parity
         run: python3 scripts/validate-contract-schemas.py
 
@@ -144,9 +147,6 @@ jobs:
 
       - name: Run adapter port reference regressions
         run: python3 -m unittest discover -s tests -p 'test_validate_port_adapter_reference.py' -v
-
-      - name: Verify schema discovery report is current
-        run: python3 scripts/inventory-contract-schemas.py --check
 
       - name: Verify generated artifacts are current on pull requests
         if: github.event_name == 'pull_request'
