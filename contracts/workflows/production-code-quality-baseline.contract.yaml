@@ -456,6 +456,10 @@ workflow_contract:
     - production_code_applicability_must_be_classified_before_execution
     - baseline_must_attach_as_overlay_without_replacing_primary_lifecycle
     - baseline_plan_and_applicability_map_must_exist_before_implementation
+    - implementation_must_follow_test_and_quality_plan
+    - mandatory_claims_must_have_claim_appropriate_evidence
+    - independent_architecture_and_code_review_required_before_merge_readiness
+    - final_quality_state_must_preserve_blocking_gaps_and_authority_boundaries
     - tdd_red_green_refactor_required_or_authorized_exception_with_evidence
     - clean_code_assessment_required_for_materially_changed_implementation
     - module_ownership_and_failure_paths_must_be_assessed
