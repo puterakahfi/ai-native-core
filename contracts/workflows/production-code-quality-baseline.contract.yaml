@@ -141,7 +141,7 @@ workflow_contract:
         skill: threat-modeling
         trigger: material_attack_surface_or_security_boundary_change
       performance:
-        skill: performance-optimization
+        specialist: product_defined
         trigger: material_latency_throughput_memory_cost_or_scale_risk
       resilience:
         skill: resilience-engineering
@@ -253,7 +253,7 @@ workflow_contract:
     - concern: threat_modeling
       skill: threat-modeling
     - concern: performance
-      skill: performance-optimization
+      specialist: product_defined
     - concern: resilience
       skill: resilience-engineering
     - concern: observability
@@ -324,7 +324,6 @@ workflow_contract:
           - ports-and-adapters
           - security-review
           - threat-modeling
-          - performance-optimization
           - resilience-engineering
           - observability-design
           - data-modeling
