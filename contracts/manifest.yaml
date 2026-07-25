@@ -3,9 +3,9 @@ contract_schema:
   version: 1.0.0
   path: schemas/contract-manifest.schema.yaml
 version: 2.0.0
-generated_at: '2026-07-24T05:51:12Z'
+generated_at: '2026-07-25T05:05:40Z'
 description: 'Auto-generated schema-aware contract manifest. Regenerate with: scripts/generate-manifest.sh'
-total_contracts: 136
+total_contracts: 138
 contracts:
   skills:
     architecture:
@@ -144,6 +144,13 @@ contracts:
       path: contracts/skills/context/response-contract.contract.yaml
       version: 0.1.0
       sha256: a0396584a1e9e6a9
+    - id: task-continuity
+      kind: skill_contract
+      schema_version: 1.0.0
+      schema_path: schemas/skill-contract.schema.yaml
+      path: contracts/skills/context/task-continuity.contract.yaml
+      version: 0.1.0
+      sha256: ba5ba1970f9cd0b7
     design:
     - id: accessibility
       kind: skill_contract
@@ -929,6 +936,13 @@ contracts:
     path: contracts/tests/systematic-debugging.test.yaml
     version: 0.1.0
     sha256: 6cfc28d8085105f2
+  - id: task-continuity
+    kind: behavioral_test_contract
+    schema_version: 1.0.0
+    schema_path: schemas/behavioral-test-contract.schema.yaml
+    path: contracts/tests/task-continuity.test.yaml
+    version: 0.1.0
+    sha256: f7fdd05dfada3a18
   runtime:
   - id: agents-md
     kind: runtime_contract
