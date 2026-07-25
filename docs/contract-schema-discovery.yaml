@@ -3549,7 +3549,7 @@ contract_schema_discovery:
       schema_path: schemas/workflow-contract.schema.yaml
       path: contracts/workflows/production-code-quality-baseline.contract.yaml
       version: 0.1.0
-      sha256: c60f59557c9ee5dc
+      sha256: e74704b7b9027cf7
     - family_path: workflows
       metadata_fields:
       - id
@@ -13949,7 +13949,8 @@ contract_schema_discovery:
         mapping_item_count: 12
         mapping_item_field_counts:
           concern: 12
-          skill: 12
+          skill: 11
+          specialist: 1
       description:
         value_type: string
       evidence_policy:
