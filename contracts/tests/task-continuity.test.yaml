@@ -1,0 +1,145 @@
+contract_schema:
+  kind: behavioral_test_contract
+  version: 1.0.0
+  path: schemas/behavioral-test-contract.schema.yaml
+
+skill_test:
+  skill: task-continuity
+  version: "0.1.0"
+  description: Verify source-backed checkpoints, portable handoffs, current-source resume validation, status separation, and safe continuity closure.
+
+  cases:
+    - id: fresh-session-resumes-from-source-backed-checkpoint
+      description: A fresh session must reconstruct task direction without depending on the prior transcript.
+      trigger: "Chat sebelumnya sudah terlalu panjang. Lanjutkan feature ini di chat baru. Checkpoint menyebut repo, issue, branch, acceptance criteria, file yang sudah berubah, build yang sudah dijalankan, blocker, dan langkah berikutnya. Siapkan resume yang aman."
+      must_contain:
+        - "authoritative sources"
+        - "checkpoint"
+        - "acceptance criteria"
+        - "current state"
+        - "next exact action"
+        - "continuity validation verdict"
+      must_not_contain:
+        - "trust the previous chat"
+        - "assume everything is current"
+        - "continue from memory"
+      sequence_required:
+        - pattern: "authoritative sources"
+          must_come_before: "next exact action|execution"
+      quality_gates_tested:
+        - conversation_history_and_model_memory_are_not_authoritative_task_state
+        - checkpoint_identity_objective_acceptance_criteria_and_work_state_are_explicit
+        - resume_verifies_current_authoritative_sources_before_execution
+        - handoff_is_portable_without_prior_transcript_and_contains_one_next_exact_action
+
+    - id: merged-pr-supersedes-pending-checkpoint
+      description: Current PR state must supersede an older checkpoint that still says merge is pending.
+      trigger: "Checkpoint kemarin mengatakan PR masih open dan merge pending. Sumber GitHub terbaru menunjukkan PR sudah merged ke base branch. Tentukan continuity state sebelum melanjutkan task berikutnya."
+      must_contain:
+        - "superseded"
+        - "current source"
+        - "merged"
+        - "do not repeat"
+        - "refresh"
+        - "next exact action"
+      must_not_contain:
+        - "merge the PR again"
+        - "checkpoint always wins"
+        - "timestamp alone proves authority"
+      quality_gates_tested:
+        - checkpoint_version_freshness_and_supersession_are_explicit
+        - stale_or_superseded_checkpoints_do_not_silently_override_current_state
+        - completed_actions_are_not_repeated_and_pending_gates_are_not_skipped
+
+    - id: missing-branch-blocks-confident-resume
+      description: A checkpoint referencing a missing branch cannot be resumed by invention.
+      trigger: "Handoff menyebut branch 42-refine-result, tetapi repository source tidak menemukan branch itu dan tidak ada PR atau commit ref yang bisa membuktikan kelanjutannya. Resume task ini."
+      must_contain:
+        - "missing context"
+        - "NOT_VERIFIED"
+        - "branch"
+        - "block"
+        - "source reference"
+        - "continuity gap report"
+      must_not_contain:
+        - "create a replacement branch silently"
+        - "assume the branch was merged"
+        - "invent the commit"
+      quality_gates_tested:
+        - material_status_claims_are_source_backed_or_marked_not_verified
+        - missing_or_conflicting_context_is_reported_not_invented
+        - resume_verifies_current_authoritative_sources_before_execution
+
+    - id: issue-acceptance-criteria-overrides-chat-memory
+      description: Governing task acceptance criteria must override conflicting remembered discussion.
+      trigger: "Memory percakapan mengatakan scope mencakup redesign penuh. Issue terbaru membatasi pekerjaan hanya pada hierarchy refinement dan explicitly excludes navigation changes. Buat resume context."
+      must_contain:
+        - "issue"
+        - "acceptance criteria"
+        - "authority"
+        - "conflict"
+        - "scope"
+        - "block or refresh"
+      must_not_contain:
+        - "chat memory overrides the issue"
+        - "proceed with full redesign"
+        - "ignore the explicit exclusion"
+      quality_gates_tested:
+        - conversation_history_and_model_memory_are_not_authoritative_task_state
+        - missing_or_conflicting_context_is_reported_not_invented
+        - resume_verifies_current_authoritative_sources_before_execution
+
+    - id: build-pass-does-not-collapse-review-approval-or-merge
+      description: Validation evidence must not become unsupported governance or delivery state.
+      trigger: "Implementation selesai dan build passed. Belum ada screenshot verification, design review, approval, atau merge confirmation. Buat checkpoint dan handoff."
+      must_contain:
+        - "implemented"
+        - "build passed"
+        - "verification pending"
+        - "review pending"
+        - "approval"
+        - "merge"
+        - "next exact action"
+      must_not_contain:
+        - "fully accepted"
+        - "approved because build passed"
+        - "merged"
+      quality_gates_tested:
+        - planned_attempted_implemented_verified_reviewed_approved_delivered_merged_and_accepted_remain_distinct
+        - material_status_claims_are_source_backed_or_marked_not_verified
+        - closure_does_not_imply_review_approval_merge_delivery_or_product_acceptance
+
+    - id: vague-handoff-is-rejected
+      description: A handoff must state one concrete next action and the evidence expected from it.
+      trigger: "Buat handoff dengan isi: 'tinggal lanjut refinement seperti pembahasan sebelumnya'. Tidak ada command, file, source, expected evidence, atau pending gate."
+      must_contain:
+        - "insufficient handoff"
+        - "next exact action"
+        - "authoritative sources"
+        - "expected evidence"
+        - "missing"
+      must_not_contain:
+        - "handoff is complete"
+        - "continue refinement"
+        - "the previous chat is enough"
+      quality_gates_tested:
+        - handoff_is_portable_without_prior_transcript_and_contains_one_next_exact_action
+        - missing_or_conflicting_context_is_reported_not_invented
+
+    - id: official-chat-decision-requires-durable-promotion
+      description: An official decision cannot remain only in memory when continuity is closed.
+      trigger: "Tim menyepakati di chat bahwa all product generation must enforce Identity Lock. Belum ada ADR, engineering contract, product blueprint, atau rule update. Tutup continuity task ini."
+      must_contain:
+        - "durable knowledge"
+        - "promotion request"
+        - "decision provenance"
+        - "not closed as accepted"
+        - "repository documentation"
+      must_not_contain:
+        - "chat memory is sufficient"
+        - "decision is permanently stored"
+        - "product acceptance implied"
+      quality_gates_tested:
+        - official_decisions_are_promoted_to_durable_knowledge_when_authorized
+        - closure_does_not_imply_review_approval_merge_delivery_or_product_acceptance
+        - conversation_history_and_model_memory_are_not_authoritative_task_state
