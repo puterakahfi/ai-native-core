@@ -1,0 +1,491 @@
+contract_schema:
+  kind: workflow_contract
+  version: "1.0.0"
+  path: schemas/workflow-contract.schema.yaml
+
+workflow_contract:
+  id: production-code-quality-baseline
+  type: workflow
+  version: "0.1.0"
+  category: engineering
+  workflow_kind: quality_lifecycle
+  capability: enforce_production_code_engineering_quality_baseline
+  purpose: >
+    Define the runtime-agnostic quality lifecycle that every substantive production-code
+    change must attach as an overlay to its primary engineering lifecycle. The baseline
+    classifies applicability, composes existing engineering capabilities, requires
+    claim-appropriate evidence, preserves independent review, and blocks unsupported
+    completion or merge-readiness claims without replacing product policy or capability
+    ownership.
+  description: >
+    This contract does not introduce an umbrella engineering skill. It coordinates
+    existing capability contracts and makes their applicability, execution evidence,
+    gate results, reviewer boundaries, and handoff semantics consistent across feature,
+    bugfix, refactor, behavior-change, migration, and repository-submitted generated-code
+    workflows.
+
+  roles:
+    - master_engineer
+    - tdd_practitioner
+    - code_quality_reviewer
+    - architecture_reviewer
+    - code_reviewer
+
+  boundary:
+    covers:
+      - production_code_change_applicability_classification
+      - quality_baseline_overlay_composition
+      - always_required_and_conditional_concern_classification
+      - phase_specific_capability_resolution_obligations
+      - claim_appropriate_evidence_requirements
+      - engineering_gate_and_blocking_semantics
+      - independent_review_and_authority_handoff
+    does_not_cover:
+      - individual_skill_methodology_or_implementation
+      - runtime_or_control_plane_orchestration
+      - repository_specific_commands_thresholds_or_framework_rules
+      - product_specific_exception_or_merge_authority
+      - delivery_or_product_acceptance
+      - provider_specific_execution
+
+  inputs:
+    required:
+      - requested_outcome_and_effective_verified_scope
+      - primary_lifecycle_workflow_ref
+      - repository_implementation_context
+      - production_behavior_impact
+      - acceptance_criteria
+    optional:
+      - existing_test_and_regression_evidence
+      - architecture_and_domain_context
+      - repository_quality_policy
+      - product_risk_policy
+      - decision_provenance_report
+      - authorized_exception_request
+
+  outputs:
+    required:
+      - production_code_applicability
+      - engineering_quality_applicability_map
+      - engineering_quality_baseline_report
+      - capability_resolution_and_execution_refs
+      - claim_and_evidence_refs
+      - gate_results
+      - reviewer_results
+      - blocking_gaps
+      - transition_eligibility
+    allowed:
+      - authorized_exception_record
+      - accepted_non_blocking_risk_ref
+      - specialist_handoffs
+      - repository_verification_evidence
+      - product_policy_handoff
+
+  applicability:
+    classification:
+      - PRODUCTION_CODE_CHANGE
+      - NON_PRODUCTION_CHANGE
+      - DISPOSABLE_EXPERIMENT
+      - NOT_VERIFIED
+    production_code_change_examples:
+      - new_feature
+      - bug_fix
+      - behavior_change
+      - behavior_preserving_refactor
+      - structural_or_data_migration
+      - production_code_generation_followed_by_repository_submission
+    exclusion_examples:
+      - pure_documentation
+      - analysis_without_implementation
+      - static_configuration_with_no_production_behavior
+      - explicitly_classified_disposable_experiment
+    rules:
+      - classification_must_use_requested_outcome_and_repository_impact_not_artifact_name_alone
+      - not_verified_classification_blocks_implementation_completion_claims
+      - disposable_experiment_requires_explicit_bounded_classification
+      - non_production_change_cannot_be_used_to_hide_material_production_impact
+
+  concern_model:
+    always_required:
+      - scope_and_acceptance_traceability
+      - repository_implementation_context
+      - behavior_test_strategy
+      - test_driven_development_or_authorized_exception
+      - affected_regression_coverage
+      - clean_code_quality
+      - module_and_ownership_boundaries
+      - error_and_failure_path_behavior
+      - product_defined_technical_verification
+      - independent_architecture_review
+      - code_review_before_merge_authorization
+    conditional_assessment_required:
+      solid_design:
+        skill: solid-design
+        trigger: verified_responsibility_extension_substitution_client_interface_or_dependency_force
+      domain_driven_design:
+        skill: domain-driven-design
+        trigger: material_domain_complexity_bounded_context_or_invariant_modeling
+      design_patterns:
+        skill: design-patterns
+        trigger: recurring_design_forces_with_justified_tradeoffs
+      clean_architecture:
+        skill: clean-architecture
+        trigger: material_policy_mechanism_dependency_or_boundary_pressure
+      ports_and_adapters:
+        skill: ports-and-adapters
+        trigger: replaceable_external_boundary_or_dependency_inversion_need
+      security:
+        skill: security-review
+        trigger: auth_data_trust_boundary_secret_or_abuse_risk
+      threat_modeling:
+        skill: threat-modeling
+        trigger: material_attack_surface_or_security_boundary_change
+      performance:
+        specialist: product_defined
+        trigger: material_latency_throughput_memory_cost_or_scale_risk
+      resilience:
+        skill: resilience-engineering
+        trigger: material_failure_retry_timeout_recovery_or_degradation_risk
+      observability:
+        skill: observability-design
+        trigger: material_operational_visibility_or_diagnosis_need
+      data_migration:
+        skill: data-modeling
+        trigger: material_data_shape_integrity_compatibility_or_migration_risk
+      design_accessibility:
+        skill: design-review
+        trigger: material_user_facing_behavior_or_rendered_output_change
+    allowed_assessment_statuses:
+      - APPLICABLE
+      - PARTIAL
+      - NOT_APPLICABLE
+      - NOT_JUSTIFIED
+      - NOT_VERIFIED
+      - BLOCKED
+    rules:
+      - every_conditional_concern_must_be_classified_before_final_quality_state
+      - specialist_load_requires_applicable_or_partial_with_material_scope
+      - not_applicable_and_not_justified_require_inspectable_rationale
+      - silence_or_omission_is_not_verified_not_pass
+      - no_force_or_domain_complexity_means_do_not_manufacture_architecture
+
+  tdd_policy:
+    default_rule: red_green_refactor_required_for_production_behavior_change
+    valid_exception_status: AUTHORIZED_EXCEPTION
+    exception_requirements:
+      - attributable_authority
+      - bounded_scope
+      - explicit_reason
+      - alternative_verification
+      - residual_risk_and_non_pass_semantics_when_evidence_is_insufficient
+    evidence_requirements:
+      - failing_behavior_or_regression_reproduction_before_implementation
+      - red_result
+      - green_result_after_minimal_implementation
+      - refactor_result_with_tests_remaining_green
+    prohibited_shortcuts:
+      - test_file_presence_as_red_evidence
+      - post_hoc_test_creation_claimed_as_test_first
+      - agent_self_authorized_exception
+      - skipped_or_disabled_tests_in_final_output
+
+  evidence_policy:
+    rules:
+      - available_or_resolved_capability_does_not_prove_execution
+      - executed_capability_does_not_prove_success_without_output_and_evidence
+      - every_pass_like_claim_requires_claim_appropriate_evidence
+      - command_exit_status_can_support_test_lint_type_or_build_claims_only
+      - green_ci_alone_cannot_prove_clean_code_solid_ddd_pattern_or_architecture_acceptance
+      - artifact_is_not_evidence_by_default
+      - evidence_gaps_must_remain_visible
+    required_layers:
+      - structural
+      - behavioral
+      - review
+    conditional_layers:
+      - runtime
+      - product
+      - approval
+
+  status_model:
+    assessment:
+      - APPLICABLE
+      - PARTIAL
+      - NOT_APPLICABLE
+      - NOT_JUSTIFIED
+      - NOT_VERIFIED
+      - BLOCKED
+    gate:
+      - PASS
+      - PASS_WITH_FLAGS
+      - NEEDS_WORK
+      - BLOCKED
+      - NOT_APPLICABLE
+      - NOT_JUSTIFIED
+      - NOT_VERIFIED
+      - AUTHORIZED_EXCEPTION
+    final_quality_state:
+      - PASS
+      - PASS_WITH_FLAGS
+      - NEEDS_WORK
+      - BLOCKED
+      - NOT_VERIFIED
+    blocking_rules:
+      - mandatory_gate_needs_work_blocked_or_not_verified_blocks_completion
+      - unauthorized_tdd_exception_blocks_completion
+      - missing_independent_architecture_review_blocks_complete_architecture_acceptance
+      - missing_code_review_blocks_merge_readiness
+      - technical_pass_does_not_create_approval_merge_authorization_delivery_or_product_acceptance
+
+  conditional_skill_resolution:
+    - concern: solid_design
+      skill: solid-design
+    - concern: domain_driven_design
+      skill: domain-driven-design
+    - concern: design_patterns
+      skill: design-patterns
+    - concern: clean_architecture
+      skill: clean-architecture
+    - concern: ports_and_adapters
+      skill: ports-and-adapters
+    - concern: security
+      skill: security-review
+    - concern: threat_modeling
+      skill: threat-modeling
+    - concern: performance
+      specialist: product_defined
+    - concern: resilience
+      skill: resilience-engineering
+    - concern: observability
+      skill: observability-design
+    - concern: data_migration
+      skill: data-modeling
+    - concern: design_accessibility
+      skill: design-review
+
+  skill_load_order:
+    - phase: classify
+      load:
+        - decision-provenance
+        - implementation-context-discovery
+    - phase: plan
+      load:
+        - master-engineer
+        - test-driven-development
+    - phase: execute
+      load:
+        - master-engineer
+        - test-driven-development
+        - clean-code
+    - phase: verify
+      load:
+        - clean-code
+    - phase: review
+      load:
+        - architecture-review
+        - code-review-workflow
+    - phase: handoff
+      load:
+        - decision-provenance
+
+  phases:
+    - id: classify
+      order: 1
+      description: >
+        Determine whether the requested outcome materially creates or changes production
+        behavior and record the effective verified scope, repository impact, and explicit
+        exclusions before implementation.
+      gate: production_code_applicability_must_be_classified_before_execution
+      skills:
+        required:
+          - decision-provenance
+          - implementation-context-discovery
+      outputs:
+        - production_code_applicability
+        - effective_verified_scope
+        - repository_impact_summary
+
+    - id: plan
+      order: 2
+      description: >
+        Attach the baseline to one primary lifecycle, define the behavior-test strategy,
+        classify every conditional concern, resolve required specialists, and declare the
+        evidence and reviewer plan.
+      gate: baseline_plan_and_applicability_map_must_exist_before_implementation
+      skills:
+        required:
+          - master-engineer
+          - test-driven-development
+        optional:
+          - solid-design
+          - domain-driven-design
+          - design-patterns
+          - clean-architecture
+          - ports-and-adapters
+          - security-review
+          - threat-modeling
+          - resilience-engineering
+          - observability-design
+          - data-modeling
+          - design-review
+      outputs:
+        - engineering_quality_applicability_map
+        - behavior_test_strategy
+        - capability_resolution_refs
+        - evidence_and_reviewer_plan
+
+    - id: execute
+      order: 3
+      description: >
+        Implement only the verified production-code slice using RED-GREEN-REFACTOR or an
+        attributable authorized exception, while preserving repository conventions,
+        clean-code quality, module ownership, and failure-path behavior.
+      gate: implementation_must_follow_test_and_quality_plan
+      skills:
+        required:
+          - master-engineer
+          - test-driven-development
+          - clean-code
+      outputs:
+        - capability_execution_refs
+        - implementation_artifact_refs
+        - tdd_or_exception_evidence
+        - clean_code_assessment
+
+    - id: verify
+      order: 4
+      description: >
+        Collect claim-appropriate behavioral, structural, command, migration, runtime, and
+        product evidence; evaluate required gates; and expose unsupported claims or gaps.
+      gate: mandatory_claims_must_have_claim_appropriate_evidence
+      skills:
+        required:
+          - clean-code
+      outputs:
+        - claim_and_evidence_refs
+        - repository_verification_evidence
+        - gate_results
+        - blocking_gaps
+
+    - id: review
+      order: 5
+      description: >
+        Perform independent architecture acceptance and evidence-backed code review,
+        keeping technical verdicts separate from approval and merge authorization.
+      gate: independent_architecture_and_code_review_required_before_merge_readiness
+      skills:
+        required:
+          - architecture-review
+          - code-review-workflow
+      outputs:
+        - architecture_review_result
+        - code_review_result
+        - unresolved_review_findings
+        - required_additional_authorities
+
+    - id: handoff
+      order: 6
+      description: >
+        Produce the normalized baseline report and transition eligibility without
+        self-authorizing merge, delivery, release, or product acceptance.
+      gate: final_quality_state_must_preserve_blocking_gaps_and_authority_boundaries
+      skills:
+        required:
+          - decision-provenance
+      outputs:
+        - engineering_quality_baseline_report
+        - final_quality_state
+        - transition_eligibility
+        - product_policy_handoff
+
+  transitions:
+    - from: classify
+      to: plan
+      condition: production_code_change_confirmed
+    - from: classify
+      to: handoff
+      condition: non_production_or_disposable_classification_verified
+    - from: plan
+      to: execute
+      condition: baseline_plan_complete_and_no_blocking_scope_gap
+    - from: execute
+      to: verify
+      condition: implementation_slice_complete
+    - from: verify
+      to: execute
+      condition: verification_failed_or_evidence_gap_requires_correction
+      note: return_to_implementation_without_hiding_failed_or_missing_evidence
+    - from: verify
+      to: review
+      condition: mandatory_verification_gates_are_eligible_for_review
+    - from: review
+      to: execute
+      condition: architecture_or_code_review_requests_changes
+    - from: review
+      to: handoff
+      condition: technical_review_complete
+    - from: handoff
+      to: plan
+      condition: scope_or_authority_change_requires_reclassification
+
+  handoffs:
+    - id: executable-workflow-adapter
+      target: ai-native-skills
+      purpose: implement routing, applicability, capability loading, evidence production, and behavioral evaluation
+    - id: runtime-enforcement-adapter
+      target: native-ai-os
+      purpose: persist execution, claims, evidence, gates, reviews, and transition eligibility
+    - id: product-policy-adapter
+      target: product-repository
+      purpose: define commands, thresholds, risk policy, exception authority, merge authority, and product acceptance
+
+  exit_conditions:
+    - production_code_applicability_is_explicit
+    - baseline_is_attached_as_overlay_to_one_primary_lifecycle_when_applicable
+    - always_required_concerns_are_evaluated
+    - every_conditional_concern_has_an_evidence_backed_status
+    - tdd_evidence_or_authorized_exception_is_present
+    - required_capability_execution_has_observable_output_evidence
+    - mandatory_gate_results_are_not_needs_work_blocked_or_not_verified
+    - independent_architecture_and_code_review_results_are_present
+    - blocking_gaps_and_remaining_authorities_are_explicit
+    - final_state_does_not_self_authorize_merge_delivery_or_product_acceptance
+
+  quality_gates:
+    - production_code_applicability_must_be_classified_before_execution
+    - baseline_must_attach_as_overlay_without_replacing_primary_lifecycle
+    - baseline_plan_and_applicability_map_must_exist_before_implementation
+    - implementation_must_follow_test_and_quality_plan
+    - mandatory_claims_must_have_claim_appropriate_evidence
+    - independent_architecture_and_code_review_required_before_merge_readiness
+    - final_quality_state_must_preserve_blocking_gaps_and_authority_boundaries
+    - tdd_red_green_refactor_required_or_authorized_exception_with_evidence
+    - clean_code_assessment_required_for_materially_changed_implementation
+    - module_ownership_and_failure_paths_must_be_assessed
+    - conditional_concerns_must_be_classified_before_specialist_loading
+    - not_applicable_and_not_justified_require_evidence
+    - silence_or_omission_is_not_verified_not_pass
+    - declared_or_resolved_capability_does_not_prove_execution
+    - pass_like_claims_require_claim_appropriate_evidence
+    - green_ci_alone_does_not_prove_design_or_architecture_quality
+    - no_domain_force_or_change_pressure_means_do_not_manufacture_architecture
+    - independent_architecture_review_must_remain_separate
+    - code_review_required_before_merge_authorization
+    - blocking_gaps_prevent_completion_or_merge_readiness_claims
+    - technical_quality_does_not_self_authorize_merge_delivery_or_product_acceptance
+    - product_commands_thresholds_exception_authority_and_merge_policy_remain_adapter_owned
+
+  adapter_requirements:
+    primary_lifecycle_routing: adapter_defined
+    repository_context_source: product_defined
+    test_framework_and_test_types: product_defined
+    regression_strategy: product_defined
+    technical_verification_commands: product_defined
+    module_and_ownership_policy: product_defined
+    error_and_failure_policy: product_defined
+    risk_based_specialist_policy: product_defined
+    accepted_exception_authority: product_defined
+    independent_reviewer_policy: product_defined
+    merge_authority: product_defined
+    runtime_evidence_and_gate_persistence: runtime_defined
+    product_acceptance: product_defined
