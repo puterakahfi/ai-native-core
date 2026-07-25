@@ -1,0 +1,270 @@
+contract_schema:
+  kind: skill_contract
+  version: "1.0.0"
+  path: schemas/skill-contract.schema.yaml
+
+skill_contract:
+  id: task-continuity
+  category: context
+  type: skill
+  version: "0.1.0"
+  capability: source_backed_task_checkpoint_handoff_and_resume
+  capability_aliases:
+    - resumable_task_context
+    - cross_session_task_handoff
+    - task_checkpoint_and_resume
+
+  description: >
+    Preserves the verified direction and operating state of a task across chat
+    sessions, agents, runtimes, and machines. The capability creates portable
+    checkpoints and handoffs, verifies them against current sources of truth
+    before resume, detects stale or conflicting state, and closes continuity
+    without converting memory, execution, review, delivery, or approval signals
+    into unsupported completion or product-acceptance claims.
+
+  roles:
+    - continuity_coordinator
+    - context_resolver
+    - execution_preparation_specialist
+    - handoff_author
+    - resume_verifier
+
+  inputs:
+    required:
+      - task_or_workflow_ref
+      - product_ref
+      - source_of_truth_refs
+    optional:
+      - repository_ref
+      - app_ref
+      - current_session_state
+      - existing_checkpoint
+      - current_context_pack
+      - issue_or_task_tracker_ref
+      - branch_ref
+      - pull_request_ref
+      - execution_refs
+      - artifact_refs
+      - evidence_refs
+      - gate_result_refs
+      - review_result_refs
+      - approval_refs
+      - delivery_refs
+      - decision_refs
+      - rules_ref
+      - skills_ref
+      - engineering_contract_ref
+      - staleness_policy
+      - closure_authority_ref
+
+  outputs:
+    allowed:
+      - task_continuity_checkpoint
+      - session_handoff
+      - resume_context
+      - continuity_gap_report
+      - stale_checkpoint_flag
+      - continuity_conflict_report
+      - continuity_validation_verdict
+      - closure_record
+      - durable_knowledge_promotion_request
+
+  checkpoint_contract:
+    required_sections:
+      - identity
+      - objective
+      - acceptance_criteria
+      - work_state
+      - decisions
+      - implementation_and_artifacts
+      - validation
+      - blockers_and_risks
+      - next_exact_action
+      - provenance
+      - freshness_and_version
+    identity_fields:
+      - product_ref
+      - task_or_workflow_ref
+      - repository_ref_when_applicable
+      - issue_or_task_tracker_ref_when_applicable
+      - branch_ref_when_applicable
+      - pull_request_ref_when_applicable
+    work_state_partitions:
+      - planned
+      - attempted
+      - implemented
+      - verified
+      - pending
+      - blocked
+      - abandoned
+    rules:
+      - every_material_status_claim_has_a_source_reference_or_not_verified_status
+      - completed_work_is_recorded_at_the_strongest_evidence_supported_state_only
+      - next_exact_action_names_one_concrete_action_and_its_required_sources
+      - checkpoint_version_and_observed_time_are_explicit
+      - superseded_checkpoint_identity_is_preserved
+
+  status_semantics:
+    distinct_states:
+      - planned
+      - attempted
+      - implemented
+      - verified
+      - gate_passed
+      - reviewed
+      - approved
+      - delivered
+      - merged
+      - accepted
+    rules:
+      - implementation_does_not_imply_verification
+      - verification_does_not_imply_review_or_approval
+      - review_does_not_imply_approval
+      - delivery_or_merge_does_not_imply_product_acceptance
+      - a_terminal_execution_status_does_not_close_governance_or_acceptance_state
+
+  handoff_contract:
+    required_sections:
+      - checkpoint_ref
+      - authoritative_sources_to_load
+      - verified_current_state
+      - unresolved_gaps_and_warnings
+      - next_exact_action
+      - expected_evidence_from_the_next_action
+    rules:
+      - handoff_must_be_usable_without_the_prior_chat_transcript
+      - handoff_must_not_copy_unverified_memory_as_fact
+      - handoff_must_disclose_missing_access_or_unavailable_sources
+      - vague_instructions_such_as_continue_the_work_are_not_sufficient
+
+  resume_contract:
+    ordered_checks:
+      - load_latest_candidate_checkpoint
+      - resolve_current_authoritative_sources
+      - compare_identity_version_and_status_claims
+      - classify_missing_stale_superseded_and_conflicting_state
+      - refresh_context_pack_and_next_action
+      - issue_continuity_validation_verdict
+      - hand_off_to_execution_only_when_required_context_is_sufficient
+    verdicts:
+      - valid
+      - valid_with_warnings
+      - stale_refresh_required
+      - conflict_resolution_required
+      - missing_context
+      - blocked
+    rules:
+      - current_sources_of_truth_override_older_checkpoint_claims
+      - unresolved_identity_or_acceptance_criteria_conflicts_block_execution
+      - unavailable_required_sources_remain_not_verified
+      - resume_does_not_repeat_actions_already_verified_complete
+      - resume_does_not_skip_pending_validation_review_or_approval
+
+  freshness_and_supersession_contract:
+    required_metadata:
+      - checkpoint_id
+      - checkpoint_version
+      - observed_at
+      - source_versions_or_revisions
+      - staleness_policy_ref_or_rule
+      - supersedes_ref_when_applicable
+    stale_conditions:
+      - source_revision_changed
+      - issue_acceptance_criteria_changed
+      - branch_or_pull_request_state_changed
+      - referenced_artifact_or_validation_was_superseded
+      - required_source_cannot_be_resolved
+    rules:
+      - stale_state_is_refreshed_or_blocked_before_resume
+      - supersession_is_explicit_and_prior_history_is_not_rewritten
+      - newest_timestamp_alone_does_not_prove_highest_authority
+
+  provenance_contract:
+    required_for_material_claims:
+      - source_ref
+      - source_role_or_authority
+      - observed_at
+      - verification_method
+      - confidence_or_not_verified_status
+    source_priority_rule: product_defined_but_explicit
+    rules:
+      - memory_and_chat_history_are_retrieval_aids_not_authoritative_sources
+      - checkpoint_claims_do_not_override_repository_or_governing_task_sources
+      - conflicting_sources_require_authority_resolution_or_explicit_blocking
+
+  closure_contract:
+    required_checks:
+      - terminal_task_state_is_explicit
+      - remaining_work_and_known_failures_are_disclosed
+      - review_approval_delivery_merge_and_acceptance_states_are_not_inferred
+      - official_decisions_are_linked_to_durable_knowledge_or_a_promotion_request
+      - final_checkpoint_and_supersession_state_are_recorded
+    allowed_closure_states:
+      - completed_with_evidence
+      - stopped_with_remaining_work
+      - cancelled
+      - superseded
+      - blocked
+    rules:
+      - closure_is_not_product_acceptance_without_explicit_authority_evidence
+      - chat_only_official_decisions_require_durable_knowledge_promotion
+      - learning_promotion_is_delegated_to_the_governing_learning_workflow
+
+  quality_gates:
+    - conversation_history_and_model_memory_are_not_authoritative_task_state
+    - material_status_claims_are_source_backed_or_marked_not_verified
+    - planned_attempted_implemented_verified_reviewed_approved_delivered_merged_and_accepted_remain_distinct
+    - checkpoint_identity_objective_acceptance_criteria_and_work_state_are_explicit
+    - checkpoint_version_freshness_and_supersession_are_explicit
+    - missing_or_conflicting_context_is_reported_not_invented
+    - resume_verifies_current_authoritative_sources_before_execution
+    - stale_or_superseded_checkpoints_do_not_silently_override_current_state
+    - handoff_is_portable_without_prior_transcript_and_contains_one_next_exact_action
+    - completed_actions_are_not_repeated_and_pending_gates_are_not_skipped
+    - official_decisions_are_promoted_to_durable_knowledge_when_authorized
+    - closure_does_not_imply_review_approval_merge_delivery_or_product_acceptance
+    - product_runtime_and_provider_specific_persistence_remains_adapter_owned
+
+  boundary:
+    covers:
+      - source_backed_task_checkpoint_creation
+      - portable_cross_session_handoff_creation
+      - checkpoint_freshness_and_supersession_evaluation
+      - current_source_verification_before_resume
+      - continuity_gap_staleness_and_conflict_classification
+      - status_semantic_preservation_across_handoff
+      - exact_next_action_definition
+      - continuity_closure_evaluation
+      - durable_knowledge_promotion_request_for_official_chat_only_decisions
+    does_not_cover:
+      - chat_transcript_storage
+      - provider_specific_memory_api_implementation
+      - product_specific_checkpoint_persistence
+      - repository_issue_branch_or_pull_request_mutation
+      - task_implementation_or_execution
+      - evidence_generation_or_gate_evaluation
+      - review_or_approval_execution
+      - delivery_merge_or_product_acceptance_authority
+      - learning_candidate_evaluation_or_promotion
+      - product_specific_source_priority_policy
+    delegates_to:
+      chat_transcript_storage: product_or_runtime_adapter
+      provider_specific_memory_api_implementation: runtime_adapter
+      product_specific_checkpoint_persistence: native_ai_os_or_product_adapter
+      repository_issue_branch_or_pull_request_mutation: repository_and_task_management_adapters
+      task_implementation_or_execution: governing_workflow_and_execution_adapter
+      evidence_generation_or_gate_evaluation: evidence_and_quality_gate_capabilities
+      review_or_approval_execution: review_and_approval_capabilities
+      delivery_merge_or_product_acceptance_authority: authorized_human_or_product_policy_owner
+      learning_candidate_evaluation_or_promotion: skill_evolution_or_governed_learning_workflow
+      product_specific_source_priority_policy: product_authority
+
+  adapter_requirements:
+    checkpoint_storage_is_product_or_runtime_defined: true
+    source_priority_and_staleness_policy_are_product_defined_but_must_be_explicit: true
+    adapter_must_resolve_current_sources_before_resume: true
+    adapter_must_preserve_status_semantic_separation: true
+    adapter_must_emit_one_next_exact_action: true
+    adapter_must_record_checkpoint_version_freshness_and_supersession: true
+    adapter_must_mark_unavailable_or_conflicting_sources_not_verified_or_blocked: true
+    adapter_must_not_claim_acceptance_from_execution_review_delivery_or_merge_state: true
