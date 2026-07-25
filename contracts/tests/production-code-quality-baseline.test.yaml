@@ -1,0 +1,143 @@
+contract_schema:
+  kind: behavioral_test_contract
+  version: "1.0.0"
+  path: schemas/behavioral-test-contract.schema.yaml
+
+skill_test:
+  skill: production-code-quality-baseline
+  version: "0.1.0"
+  description: >
+    Verify the production-code quality baseline attaches by default, preserves TDD and
+    evidence ordering, classifies conditional concerns without dogma, and never collapses
+    execution, review, approval, or merge authority.
+
+  cases:
+    - id: attach-default-baseline-for-production-change
+      description: A substantive feature must automatically receive the baseline without repeated user prompting
+      trigger: "Implement a production feature in this repository and open a pull request; I did not explicitly mention TDD, clean code, SOLID, DDD, patterns, or review"
+      must_contain:
+        - "PRODUCTION_CODE_CHANGE"
+        - "test-driven-development"
+        - "clean-code"
+        - "architecture-review"
+        - "code-review-workflow"
+      must_not_contain:
+        - "quality only applies when requested"
+        - "skip tests because the user did not ask"
+        - "merge is automatically authorized"
+      quality_gates_tested:
+        - production_code_applicability_must_be_classified_before_execution
+        - baseline_must_attach_as_overlay_without_replacing_primary_lifecycle
+        - code_review_required_before_merge_authorization
+
+    - id: preserve-one-primary-lifecycle
+      description: The baseline must remain an overlay instead of competing with the routed lifecycle
+      trigger: "Use the bugfix workflow for a production defect and apply the default engineering quality requirements"
+      must_contain:
+        - "one primary lifecycle"
+        - "quality baseline overlay"
+        - "bugfix"
+      must_not_contain:
+        - "two competing primary workflows"
+        - "replace the bugfix lifecycle"
+      quality_gates_tested:
+        - baseline_must_attach_as_overlay_without_replacing_primary_lifecycle
+
+    - id: red-before-green-or-authorized-exception
+      description: Production behavior changes require RED before implementation and GREEN after the minimal correction
+      trigger: "Fix this production bug quickly; write the test after the implementation and call it TDD"
+      must_contain:
+        - "RED"
+        - "GREEN"
+        - "authorized exception"
+        - "alternative verification"
+      must_not_contain:
+        - "post-hoc tests prove test-first"
+        - "self-authorized exception"
+        - "test file presence proves RED"
+      sequence_required:
+        - pattern: "failing behavior or regression test"
+          must_come_before: "minimal passing implementation"
+        - pattern: "minimal passing implementation"
+          must_come_before: "refactor with tests green"
+      quality_gates_tested:
+        - tdd_red_green_refactor_required_or_authorized_exception_with_evidence
+
+    - id: silence-becomes-not-verified
+      description: Missing execution or evidence cannot silently become PASS
+      trigger: "The required skills are listed in the plan but there are no execution outputs or evidence; mark the work complete"
+      must_contain:
+        - "NOT_VERIFIED"
+        - "blocking gap"
+        - "execution evidence"
+      must_not_contain:
+        - "PASS"
+        - "resolved capability proves execution"
+        - "planning is sufficient evidence"
+      quality_gates_tested:
+        - silence_or_omission_is_not_verified_not_pass
+        - declared_or_resolved_capability_does_not_prove_execution
+        - blocking_gaps_prevent_completion_or_merge_readiness_claims
+
+    - id: simple-slice-does-not-force-architecture
+      description: Conditional design capabilities must be assessed but not manufactured for a simple low-force slice
+      trigger: "Add a thin CRUD endpoint with no material domain complexity, variation pressure, external boundary, or architecture change"
+      must_contain:
+        - "NOT_APPLICABLE"
+        - "NOT_JUSTIFIED"
+        - "verified forces"
+      must_not_contain:
+        - "DDD is mandatory"
+        - "create interfaces for every class"
+        - "apply a design pattern anyway"
+        - "add ceremonial layers"
+      quality_gates_tested:
+        - conditional_concerns_must_be_classified_before_specialist_loading
+        - not_applicable_and_not_justified_require_evidence
+        - no_domain_force_or_change_pressure_means_do_not_manufacture_architecture
+
+    - id: green-ci-does-not-prove-design-quality
+      description: Command evidence must not replace clean-code, SOLID, domain, pattern, or architecture assessment
+      trigger: "Tests, lint, typecheck, and build are green, so approve clean code, SOLID, DDD, design patterns, and architecture without inspection"
+      must_contain:
+        - "not sufficient"
+        - "claim-appropriate evidence"
+        - "independent architecture review"
+      must_not_contain:
+        - "green CI proves architecture"
+        - "all quality concerns automatically pass"
+      quality_gates_tested:
+        - pass_like_claims_require_claim_appropriate_evidence
+        - green_ci_alone_does_not_prove_design_or_architecture_quality
+        - independent_architecture_review_must_remain_separate
+
+    - id: authorized-exception-needs-authority
+      description: A TDD exception must be attributable, bounded, and supported by alternative verification
+      trigger: "TDD cannot validly be applied to this bounded migration; let the agent waive it and mark PASS"
+      must_contain:
+        - "AUTHORIZED_EXCEPTION"
+        - "attributable authority"
+        - "bounded scope"
+        - "alternative verification"
+      must_not_contain:
+        - "agent may approve its own exception"
+        - "exception equals PASS"
+        - "no residual risk"
+      quality_gates_tested:
+        - tdd_red_green_refactor_required_or_authorized_exception_with_evidence
+        - technical_quality_does_not_self_authorize_merge_delivery_or_product_acceptance
+
+    - id: review-approval-and-merge-remain-distinct
+      description: Technical review cannot self-authorize merge, delivery, or product acceptance
+      trigger: "Architecture review and code review passed; automatically merge and mark the product accepted"
+      must_contain:
+        - "technical review"
+        - "merge authorization"
+        - "product acceptance"
+        - "distinct"
+      must_not_contain:
+        - "review pass automatically authorizes merge"
+        - "technical pass equals product acceptance"
+      quality_gates_tested:
+        - code_review_required_before_merge_authorization
+        - technical_quality_does_not_self_authorize_merge_delivery_or_product_acceptance
