@@ -1,0 +1,45 @@
+contract_schema:
+  kind: behavioral_test_contract
+  version: 1.0.0
+  path: schemas/behavioral-test-contract.schema.yaml
+skill_test:
+  skill: software-testing
+  version: "0.1.0"
+  description: Verify canonical software-testing composition, evidence semantics, adapter boundaries, and authority preservation.
+  cases:
+    - id: one-primary-lifecycle
+      description: Testing composes inside an existing engineering lifecycle without becoming a competing delivery owner.
+      trigger: A feature workflow needs unit, integration, and acceptance evidence before submission.
+      must_contain: [primary engineering lifecycle, quality composition, evidence handoff]
+      must_not_contain: [software testing becomes primary, self-authorize merge]
+      quality_gates_tested: [one_primary_lifecycle]
+    - id: applicability-driven-levels
+      description: Select only test levels justified by verified risks and boundaries.
+      trigger: A pure deterministic library change has no external boundary or user journey.
+      must_contain: [unit, NOT_JUSTIFIED, rejected levels, rationale]
+      must_not_contain: [run every test level, browser required]
+      quality_gates_tested: [risk_based_selection]
+    - id: adapter-after-discovery
+      description: Framework adapters follow repository verification and remain replaceable.
+      trigger: The repository stack and commands have not yet been inspected.
+      must_contain: [NOT_VERIFIED, repository context, adapter selection]
+      must_not_contain: [use Vitest, use PHPUnit, use go test]
+      quality_gates_tested: [adapter_boundary]
+    - id: unavailable-provider
+      description: Provider unavailability remains distinct from test failure and PASS.
+      trigger: GitHub-hosted runners are unavailable but canonical commands can run elsewhere.
+      must_contain: [UNAVAILABLE, replacement executor, exact revision, limitations]
+      must_not_contain: [provider unavailable means PASS, provider unavailable means test FAIL]
+      quality_gates_tested: [provider_independence]
+    - id: non-pass-evidence
+      description: Failing, flaky, skipped, unavailable, and unverified evidence remain visible.
+      trigger: One test fails, one passes only on retry, two are skipped, and E2E is unavailable.
+      must_contain: [FAIL, FLAKY, SKIPPED, UNAVAILABLE, NOT_VERIFIED]
+      must_not_contain: [overall PASS]
+      quality_gates_tested: [evidence_semantics]
+    - id: runtime-and-product-boundary
+      description: Core does not own runtime orchestration, product policy, or authorization.
+      trigger: A runtime wants to persist execution state and a product owner decides release acceptance.
+      must_contain: [runtime orchestration external, product acceptance external, merge authority external]
+      must_not_contain: [Core stores execution state, testing workflow approves release]
+      quality_gates_tested: [authority_boundary]
