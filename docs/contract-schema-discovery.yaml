@@ -3566,7 +3566,7 @@ contract_schema_discovery:
       schema_path: schemas/workflow-contract.schema.yaml
       path: contracts/workflows/software-testing.contract.yaml
       version: 0.1.0
-      sha256: 861ad7265d7dc49f
+      sha256: a3499ecbcad76c00
     - family_path: workflows
       metadata_fields:
       - id
