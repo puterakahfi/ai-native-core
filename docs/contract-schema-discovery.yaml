@@ -1296,7 +1296,7 @@ contract_schema_discovery:
       - phases
     runtime_lifecycle_candidates: []
   manifest_inventory:
-    entry_count: 139
+    entry_count: 140
     family_path_counts:
       compatibility: 1
       ports/capability-composition: 4
@@ -1315,29 +1315,29 @@ contract_schema_discovery:
       skills/runtime: 8
       skills/security: 3
       skills/visual-thinking: 1
-      tests: 14
+      tests: 15
       workflows: 11
     metadata_field_coverage:
       id:
-        count: 139
+        count: 140
         coverage: 1.0
       kind:
-        count: 139
+        count: 140
         coverage: 1.0
       path:
-        count: 139
+        count: 140
         coverage: 1.0
       schema_path:
-        count: 139
+        count: 140
         coverage: 1.0
       schema_version:
-        count: 139
+        count: 140
         coverage: 1.0
       sha256:
-        count: 139
+        count: 140
         coverage: 1.0
       version:
-        count: 139
+        count: 140
         coverage: 1.0
     missing_kind_paths: []
     missing_schema_version_paths: []
@@ -3343,6 +3343,22 @@ contract_schema_discovery:
       path: contracts/tests/skill-evolution.test.yaml
       version: 1.0.0
       sha256: 5524fa8025599be6
+    - family_path: tests
+      metadata_fields:
+      - id
+      - kind
+      - path
+      - schema_path
+      - schema_version
+      - sha256
+      - version
+      id: software-testing
+      kind: behavioral_test_contract
+      schema_version: 1.0.0
+      schema_path: schemas/behavioral-test-contract.schema.yaml
+      path: contracts/tests/software-testing.test.yaml
+      version: 0.1.0
+      sha256: cda85d2267959a20
     - family_path: tests
       metadata_fields:
       - id
@@ -12903,6 +12919,7 @@ contract_schema_discovery:
     path_family: behavioral_test
     expected_id: software-testing
     document_root_keys:
+    - contract_schema
     - skill_test
     parse_status: parsed
     contract_root: skill_test
