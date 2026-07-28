@@ -1,22 +1,22 @@
 contract_schema_discovery:
   version: 0.2.0
   source_root: contracts
-  artifact_count: 139
+  artifact_count: 140
   path_family_counts:
-    behavioral_test: 14
+    behavioral_test: 15
     compatibility: 1
     port: 17
     runtime: 6
     skill: 90
     workflow: 11
   parse_status_counts:
-    parsed: 139
+    parsed: 140
   contract_root_counts:
     compatibility_manifest: 1
     port_contract: 17
     runtime_contract: 6
     skill_contract: 90
-    skill_test: 14
+    skill_test: 15
     workflow_contract: 11
   root_shapes:
     compatibility_manifest:
@@ -833,28 +833,28 @@ contract_schema_discovery:
         skill: 77
       declared_kind_values: {}
     skill_test:
-      artifact_count: 14
+      artifact_count: 15
       field_coverage:
         cases:
-          count: 14
+          count: 15
           coverage: 1.0
           value_type_counts:
-            sequence: 14
+            sequence: 15
         description:
-          count: 14
+          count: 15
           coverage: 1.0
           value_type_counts:
-            string: 14
+            string: 15
         skill:
-          count: 14
+          count: 15
           coverage: 1.0
           value_type_counts:
-            string: 14
+            string: 15
         version:
-          count: 14
+          count: 15
           coverage: 1.0
           value_type_counts:
-            string: 14
+            string: 15
       declared_type_values: {}
       declared_kind_values: {}
     workflow_contract:
@@ -3641,6 +3641,12 @@ contract_schema_discovery:
         path: contracts/tests/skill-evolution.test.yaml
       - family: workflow
         path: contracts/workflows/skill-evolution.contract.yaml
+    - contract_id: software-testing
+      occurrences:
+      - family: behavioral_test
+        path: contracts/tests/software-testing.test.yaml
+      - family: workflow
+        path: contracts/workflows/software-testing.contract.yaml
     - contract_id: solid-design
       occurrences:
       - family: skill
@@ -12884,6 +12890,45 @@ contract_schema_discovery:
           must_not_contain: 4
           quality_gates_tested: 4
           trigger: 4
+      description:
+        value_type: string
+      skill:
+        value_type: string
+      version:
+        value_type: string
+    extension_key_paths: []
+    expected_contract_root: skill_test
+    root_matches_path_family: true
+  - path: contracts/tests/software-testing.test.yaml
+    path_family: behavioral_test
+    expected_id: software-testing
+    document_root_keys:
+    - skill_test
+    parse_status: parsed
+    contract_root: skill_test
+    identifier_field: skill
+    contract_id: software-testing
+    contract_version: 0.1.0
+    declared_type: null
+    declared_kind: null
+    root_fields:
+    - cases
+    - description
+    - skill
+    - version
+    root_field_shapes:
+      cases:
+        value_type: sequence
+        item_type_counts:
+          mapping: 6
+        mapping_item_count: 6
+        mapping_item_field_counts:
+          description: 6
+          id: 6
+          must_contain: 6
+          must_not_contain: 6
+          quality_gates_tested: 6
+          trigger: 6
       description:
         value_type: string
       skill:
