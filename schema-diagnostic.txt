@@ -1,0 +1,14 @@
+Generated contracts/manifest.yaml (140 contracts).
+manifest_status=0
+Generated docs/contract-schema-discovery.yaml (140 artifacts).
+inventory_status=0
+WARN — contracts/skills/design/design-interaction.contract.yaml: legacy type 'port' remains a compatibility source; first-class port is authoritative
+WARN — contracts/skills/design/design-layout.contract.yaml: legacy type 'port' remains a compatibility source; first-class port is authoritative
+WARN — contracts/skills/design/design-strategy.contract.yaml: legacy type 'port' remains a compatibility source; first-class port is authoritative
+WARN — contracts/skills/design/design-visual.contract.yaml: legacy type 'port' remains a compatibility source; first-class port is authoritative
+Unified contract schema validation failed:
+
+- contracts/workflows/software-testing.contract.yaml: skill_load_order[3].phase references unknown phase 'verify'
+
+FAIL — 1 violation(s), 4 warning(s).
+schema_status=1
