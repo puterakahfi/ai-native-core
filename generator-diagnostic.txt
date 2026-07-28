@@ -1,4 +1,0 @@
-Manifest generation failed: contracts/tests/software-testing.test.yaml: missing contract_schema mapping
-generator_status=1
-Generated docs/contract-schema-discovery.yaml (140 artifacts).
-inventory_status=0
