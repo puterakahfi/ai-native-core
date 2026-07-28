@@ -3,9 +3,9 @@ contract_schema:
   version: 1.0.0
   path: schemas/contract-manifest.schema.yaml
 version: 2.0.0
-generated_at: '2026-07-25T05:05:40Z'
+generated_at: '2026-07-28T07:55:36Z'
 description: 'Auto-generated schema-aware contract manifest. Regenerate with: scripts/generate-manifest.sh'
-total_contracts: 138
+total_contracts: 139
 contracts:
   skills:
     architecture:
@@ -837,6 +837,13 @@ contracts:
     path: contracts/workflows/skill-evolution.contract.yaml
     version: 1.0.0
     sha256: aa4b42c9f7d727a0
+  - id: software-testing
+    kind: workflow_contract
+    schema_version: 1.0.0
+    schema_path: schemas/workflow-contract.schema.yaml
+    path: contracts/workflows/software-testing.contract.yaml
+    version: 0.1.0
+    sha256: 861ad7265d7dc49f
   - id: spec-driven
     kind: workflow_contract
     schema_version: 1.0.0
