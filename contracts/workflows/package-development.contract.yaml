@@ -1,0 +1,207 @@
+contract_schema:
+  kind: workflow_contract
+  version: 1.0.0
+  path: schemas/workflow-contract.schema.yaml
+workflow_contract:
+  id: package-development
+  type: workflow
+  version: 0.1.0
+  category: engineering
+  purpose: >
+    Defines the canonical lifecycle, ownership boundaries, evidence vocabulary,
+    compatibility semantics, publication gates, and fresh external-consumer proof
+    required for independently versioned reusable packages, libraries, SDKs,
+    adapters, UI packages, and shared configuration.
+  workflow_kind: engineering_lifecycle
+  skill_load_order:
+    - phase: intent-and-ownership
+      load: [workflow-router, role-switcher, decision-provenance]
+    - phase: implementation-context-discovery
+      load: [implementation-context-discovery]
+    - phase: boundary-and-contract-design
+      load: [domain-driven-design, ports-and-adapters, clean-architecture, solid-design, api-contract]
+    - phase: implementation
+      load: [test-driven-development]
+    - phase: review-and-acceptance
+      load: [architecture-review, code-review-workflow, decision-provenance]
+  status_vocabulary:
+    NOT_STARTED: no evidence collected
+    IN_PROGRESS: work exists but required gates remain open
+    BLOCKED: a required decision, authority, dependency, or evidence source is unavailable
+    NOT_APPLICABLE: gate is demonstrably outside the classified package boundary
+    NOT_JUSTIFIED: optional abstraction or pattern lacks observed forces or change pressure
+    NOT_RUN: executable validation has not been run
+    INCOMPLETE: validation ran but required proof is partial
+    FAIL: executed evidence contradicts the requirement
+    PASS: executed evidence satisfies the named gate only
+    ACCEPTED: all required gates pass and authorized review accepts the package lifecycle result
+  package_classifications:
+    - contract_or_schema_package
+    - pure_domain_library
+    - application_or_use_case_package
+    - sdk_or_client
+    - infrastructure_adapter
+    - framework_adapter
+    - reusable_ui
+    - tooling_configuration
+    - runtime_configuration
+    - platform_local_module_not_publishable
+  required_evidence:
+    - issue_or_project_item_and_acceptance_criteria
+    - canonical_owner_and_bounded_context
+    - implementation_context_profile
+    - package_boundary_classification_and_portability_assessment
+    - public_api_and_documented_export_surface
+    - dependency_peer_optional_and_runtime_dependency_policy
+    - domain_contract_port_and_adapter_design_when_applicable
+    - tdd_red_green_refactor_or_authorized_exception_evidence
+    - compatibility_diff_semver_and_migration_classification
+    - package_build_output
+    - immutable_publication_provenance_when_publication_is_claimed
+    - fresh_external_consumer_install_typecheck_test_build_and_behavior_output
+    - adapter_substitution_evidence
+    - adoption_migration_deprecation_and_rollback_evidence_when_applicable
+    - architecture_and_code_review_verdicts
+    - final_acceptance_authority
+  quality_gates:
+    - canonical_owner_and_bounded_context_must_be_explicit
+    - implementation_context_discovery_must_precede_repository_change
+    - package_boundary_and_publishability_must_be_classified
+    - interface_contract_and_public_api_must_be_explicit_and_stable
+    - domain_and_application_must_not_depend_on_framework_database_provider_environment_or_adapter
+    - adapters_must_depend_inward_and_be_selected_by_application_composition_root
+    - dependency_inversion_and_solid_decisions_must_trace_to_real_forces
+    - design_patterns_require_observed_variation_or_change_pressure
+    - tdd_evidence_or_attributable_authorized_exception_is_required
+    - compatibility_diff_and_semver_classification_are_required
+    - package_artifact_must_not_expose_workspace_source_or_owner_repository_requirements
+    - publication_pass_requires_actual_immutable_registry_publish_evidence
+    - external_consumer_pass_requires_actual_fresh_install_and_execution_evidence
+    - architecture_and_code_review_are_required_before_acceptance
+    - unsupported_pass_or_completion_claims_are_blocking
+  phases:
+    - id: intent-and-ownership
+      order: 1
+      description: Resolve intent, canonical ownership, bounded context, consumers, non-goals, acceptance criteria, authorities, and repository topology.
+      gate: canonical_owner_and_bounded_context_must_be_explicit
+      skills:
+        required: [workflow-router, role-switcher, decision-provenance]
+    - id: implementation-context-discovery
+      order: 2
+      description: Inspect repository instructions, current implementation, manifests, package tooling, tests, publication conventions, and overlapping capabilities before changing files.
+      gate: implementation_context_discovery_must_precede_repository_change
+      skills:
+        required: [implementation-context-discovery]
+    - id: package-boundary-classification
+      order: 3
+      description: Classify the package type, portability, extraction suitability, ownership boundary, consumer model, and reasons a platform-local module must remain local.
+      gate: package_boundary_and_publishability_must_be_classified
+    - id: domain-and-contract-design
+      order: 4
+      description: Define bounded context, domain language, interfaces, ports, dependency direction, application-owned composition root, and framework-neutral contracts when semantics are material.
+      gate: domain_and_application_must_not_depend_on_framework_database_provider_environment_or_adapter
+      skills:
+        required: [api-contract]
+        optional: [domain-driven-design, ports-and-adapters, clean-architecture, solid-design]
+    - id: public-api-design
+      order: 5
+      description: Define documented public exports, stable API policy, dependency categories, error semantics, deprecation policy, and consumer compatibility surface.
+      gate: interface_contract_and_public_api_must_be_explicit_and_stable
+      skills:
+        required: [api-contract]
+    - id: implementation-with-tdd
+      order: 6
+      description: Implement the smallest justified package surface using tests, inward dependency direction, explicit injection, and no product/provider hardcoding.
+      gate: tdd_evidence_or_attributable_authorized_exception_is_required
+      skills:
+        required: [test-driven-development]
+    - id: compatibility-verification
+      order: 7
+      description: Compare the public API and behavior, classify SemVer impact, verify supported consumers, and produce migration or deprecation evidence for incompatible changes.
+      gate: compatibility_diff_and_semver_classification_are_required
+    - id: package-build
+      order: 8
+      description: Build the distributable package and inspect the packed artifact for exports, metadata, files, dependencies, workspace references, and owner-source leakage.
+      gate: package_artifact_must_not_expose_workspace_source_or_owner_repository_requirements
+    - id: immutable-publication
+      order: 9
+      description: Publish an immutable version to the selected public or private registry and record digest, version, registry, source commit, and read-only installation method.
+      gate: publication_pass_requires_actual_immutable_registry_publish_evidence
+    - id: fresh-external-consumer-validation
+      order: 10
+      description: In a fresh independent repository, authenticate with a read-only registry token, install the immutable version, import only documented exports, typecheck, test, build, exercise representative behavior, and substitute an adapter without domain or application changes.
+      gate: external_consumer_pass_requires_actual_fresh_install_and_execution_evidence
+    - id: adoption-and-migration-evidence
+      order: 11
+      description: Record actual or planned adoption, migrations, deprecations, rollback, and unresolved consumer constraints without treating publication as adoption.
+      gate: adoption_evidence_is_explicit_or_not_applicable
+    - id: architecture-and-code-review
+      order: 12
+      description: Independently review boundary direction, API stability, evidence discipline, portability, compatibility, and unrelated changes.
+      gate: architecture_and_code_review_are_required_before_acceptance
+      skills:
+        required: [architecture-review, code-review-workflow]
+    - id: acceptance
+      order: 13
+      description: Map each gate to actual evidence and authorized acceptance; preserve publication and external-consumer states independently.
+      gate: unsupported_pass_or_completion_claims_are_blocking
+  external_consumer_proof:
+    required_sequence:
+      - create_fresh_independent_repository
+      - authenticate_with_read_only_registry_token
+      - install_exact_immutable_package_version
+      - import_only_documented_public_exports
+      - typecheck
+      - run_tests
+      - build
+      - exercise_representative_behavior
+      - substitute_supported_adapter_without_domain_or_application_changes
+    prohibited_requirements:
+      - checkout_package_owner_repository
+      - monorepo_workspace
+      - workspace_protocol_dependency
+      - turborepo
+      - source_path_import
+      - git_submodule
+      - unpublished_local_artifact
+  prohibited_design_and_distribution:
+    - workspace_protocol_in_consumer_artifact
+    - source_import_from_owner_repository
+    - owner_platform_or_repository_clone_requirement
+    - git_submodule_as_distribution
+    - turborepo_as_consumer_runtime_prerequisite
+    - domain_dependency_on_framework_database_provider_or_environment
+    - adapter_implicit_environment_access
+    - hardcoded_product_owner_repository_or_provider
+    - product_specific_policy_in_shared_core
+    - abstraction_or_pattern_without_real_variation_or_change_pressure
+  evidence_boundaries:
+    source_inspection: proves static source observations only
+    unit_test: proves isolated tested behavior only
+    integration_test: proves exercised integration boundary only
+    compatibility_check: proves evaluated compatibility surface only
+    package_build: proves artifact construction only
+    publication: proves immutable registry publication only
+    external_installation: proves installation from registry only
+    consumer_build: proves fresh consumer typecheck_test_build only
+    review: proves reviewer assessment only
+    acceptance: proves authorized lifecycle acceptance only
+  boundary:
+    covers:
+      - canonical_package_lifecycle_and_status_semantics
+      - package_classification_and_ownership_rules
+      - compatibility_publication_and_consumer_proof_gates
+      - evidence_boundaries_and_unsupported_claim_rules
+    does_not_cover:
+      - registry_selection_or_credentials
+      - provider_specific_commands
+      - product_specific_package_implementation
+      - runtime_orchestration_and_persistent_state
+      - merge_release_or_publication_authorization
+  adapter_requirements:
+    repository_topology: repository_defined
+    package_manager_and_build_tool: repository_defined
+    registry_and_authentication: repository_defined
+    compatibility_tooling: repository_defined
+    consumer_fixture_technology: repository_defined
+    approval_and_merge_authority: repository_defined
