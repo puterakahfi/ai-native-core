@@ -5,6 +5,7 @@ on:
     paths:
       - contracts/**
       - docs/contract-schema-discovery.yaml
+      - generator-diagnostic.txt
       - .github/workflows/contract-integrity.yml
 
 permissions:
@@ -21,17 +22,20 @@ jobs:
           fetch-depth: 0
       - name: Install validator dependencies
         run: python3 -m pip install --disable-pip-version-check pyyaml jsonschema
-      - name: Regenerate metadata
+      - name: Capture generator diagnostic
         shell: bash
         run: |
-          ./scripts/generate-manifest.sh || true
-          python3 scripts/inventory-contract-schemas.py
-      - name: Commit generated artifacts
+          set +e
+          ./scripts/generate-manifest.sh > generator-diagnostic.txt 2>&1
+          echo "generator_status=$?" >> generator-diagnostic.txt
+          python3 scripts/inventory-contract-schemas.py >> generator-diagnostic.txt 2>&1
+          echo "inventory_status=$?" >> generator-diagnostic.txt
+          set -e
+      - name: Commit diagnostic
         shell: bash
         run: |
-          git add contracts/manifest.yaml docs/contract-schema-discovery.yaml
-          if git diff --cached --quiet; then exit 0; fi
+          git add generator-diagnostic.txt contracts/manifest.yaml docs/contract-schema-discovery.yaml
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git commit -m 'chore(governance): sync software testing contract metadata'
+          git commit -m 'chore(debug): capture software testing contract generator failure'
           git push origin "HEAD:${{ github.head_ref }}"
