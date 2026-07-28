@@ -1,6 +1,10 @@
+contract_schema:
+  kind: behavioral_test_contract
+  version: 1.0.0
+  path: schemas/behavioral-test-contract.schema.yaml
 skill_test:
   skill: software-testing
-  version: 0.1.0
+  version: "0.1.0"
   description: Verify canonical software-testing composition, evidence semantics, adapter boundaries, and authority preservation.
   cases:
     - id: one-primary-lifecycle
