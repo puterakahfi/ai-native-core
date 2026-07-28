@@ -91,7 +91,7 @@ workflow_contract:
         - acceptance-testing
         - end-to-end-testing
         - behavior-driven-development
-    - phase: verify
+    - phase: verification
       load:
         - code-review-workflow
   phases:
