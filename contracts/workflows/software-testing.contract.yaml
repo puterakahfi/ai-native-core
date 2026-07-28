@@ -1,0 +1,225 @@
+contract_schema:
+  kind: workflow_contract
+  version: "1.0.0"
+  path: schemas/workflow-contract.schema.yaml
+workflow_contract:
+  id: software-testing
+  type: workflow
+  version: 0.1.0
+  category: quality
+  workflow_kind: quality_lifecycle
+  purpose: >
+    Defines runtime-agnostic composition semantics for risk discovery, testing
+    strategy, applicability-driven test-level selection, adapter selection,
+    execution evidence, failure analysis, verification, and evidence handoff
+    inside exactly one primary engineering lifecycle.
+  capability: software_testing_workflow
+  roles:
+    - primary_lifecycle_owner
+    - testing_specialist
+    - independent_reviewer
+    - product_acceptance_authority
+  boundary:
+    covers:
+      - testing_risk_discovery_and_strategy_composition
+      - applicability_driven_test_level_selection
+      - post_discovery_adapter_selection
+      - normalized_testing_evidence_and_non_pass_states
+      - testing_failure_analysis_and_confidence_handoff
+      - preservation_of_one_primary_engineering_lifecycle
+    does_not_cover:
+      - runtime_orchestration_and_persistent_execution_state
+      - provider_specific_commands_or_framework_configuration
+      - product_specific_test_policy_or_acceptance
+      - merge_release_or_production_authorization
+  inputs:
+    required:
+      - primary_workflow
+      - verified_change_context
+      - acceptance_criteria
+      - identified_risks_and_boundaries
+    optional:
+      - repository_commands
+      - existing_test_portfolio
+      - provider_availability
+      - product_defined_acceptance_policy
+  outputs:
+    allowed:
+      - testing_strategy
+      - selected_test_levels
+      - rejected_test_levels_with_rationale
+      - selected_adapters
+      - normalized_testing_evidence
+      - testing_confidence_verdict
+      - acceptance_handoff
+      - unresolved_failures_and_limitations
+  applicability_states:
+    - NOT_APPLICABLE
+    - NOT_JUSTIFIED
+    - NOT_VERIFIED
+    - PASS
+    - FAIL
+  evidence_states:
+    - PASS
+    - FAIL
+    - FLAKY
+    - SKIPPED
+    - UNAVAILABLE
+    - NOT_RUN
+    - NOT_VERIFIED
+  ownership_rules:
+    - exactly_one_primary_engineering_lifecycle_remains_accountable
+    - software_testing_is_a_quality_composition_not_a_competing_delivery_lifecycle
+    - test_levels_are_selected_by_risk_and_applicability_not_loaded_unconditionally
+    - adapter_selection_follows_verified_repository_stack_and_commands
+    - unavailable_or_unsupported_evidence_never_becomes_pass
+    - product_acceptance_and_merge_authority_remain_external
+    - runtime_execution_and_persistence_remain_owned_by_native_ai_os_implementations
+  skill_load_order:
+    - phase: discover
+      load:
+        - implementation-context-discovery
+        - decision-provenance
+    - phase: strategy
+      load:
+        - test-strategy
+    - phase: test-design
+      load:
+        - unit-testing
+        - integration-testing
+        - contract-testing
+        - acceptance-testing
+        - end-to-end-testing
+        - behavior-driven-development
+    - phase: verify
+      load:
+        - code-review-workflow
+  phases:
+    - id: discover
+      order: 1
+      description: Verify the primary lifecycle, change surface, acceptance criteria, risks, boundaries, repository stack, and executable commands.
+      gate: repository_context_risks_boundaries_and_primary_workflow_are_verified
+      skills:
+        required:
+          - implementation-context-discovery
+          - decision-provenance
+    - id: strategy
+      order: 2
+      description: Select a proportionate testing portfolio and record selected and rejected levels with explicit rationale.
+      gate: every_selected_and_rejected_test_level_has_risk_based_rationale
+      skills:
+        required:
+          - test-strategy
+    - id: test-design
+      order: 3
+      description: Define the minimum credible checks, boundaries, fixtures, environments, contracts, behaviors, and journeys for applicable levels.
+      gate: test_design_traces_to_verified_risks_boundaries_contracts_or_acceptance_criteria
+      skills:
+        optional:
+          - unit-testing
+          - integration-testing
+          - contract-testing
+          - acceptance-testing
+          - end-to-end-testing
+          - behavior-driven-development
+    - id: adapter-selection
+      order: 4
+      description: Select framework and provider adapters only after repository stack, commands, and environment constraints are verified.
+      gate: adapters_match_verified_repository_evidence_and_do_not_redefine_canonical_semantics
+      skills:
+        required:
+          - implementation-context-discovery
+    - id: execution
+      order: 5
+      description: Execute applicable repository-defined checks through an attributable provider and preserve exact command and environment evidence.
+      gate: execution_evidence_is_attributable_to_exact_repository_revision_commands_and_executor
+      skills:
+        optional:
+          - unit-testing
+          - integration-testing
+          - contract-testing
+          - acceptance-testing
+          - end-to-end-testing
+          - behavior-driven-development
+    - id: failure-analysis
+      order: 6
+      description: Inspect failures, retries, flakes, skips, unsupported capabilities, and unavailable environments without collapsing them into PASS.
+      gate: all_non_pass_and_unavailable_states_remain_visible
+      skills:
+        required:
+          - systematic-debugging
+    - id: verification
+      order: 7
+      description: Evaluate risk coverage, evidence sufficiency, limitations, and unresolved failures independently of file presence or provider status.
+      gate: sufficient_confidence_requires_credible_risk_coverage_and_no_blocking_unresolved_failure
+      skills:
+        required:
+          - code-review-workflow
+    - id: evidence-handoff
+      order: 8
+      description: Return normalized evidence and a non-authorizing confidence verdict to the primary lifecycle and product acceptance authority.
+      gate: handoff_preserves_primary_lifecycle_product_acceptance_and_merge_authority
+      skills:
+        required:
+          - decision-provenance
+  transitions:
+    - from: discover
+      to: strategy
+      condition: context_verified
+    - from: strategy
+      to: test-design
+      condition: portfolio_selected
+    - from: test-design
+      to: adapter-selection
+      condition: applicable_levels_designed
+    - from: adapter-selection
+      to: execution
+      condition: adapters_and_commands_verified
+    - from: execution
+      to: failure-analysis
+      condition: execution_results_available_or_unavailability_recorded
+    - from: failure-analysis
+      to: verification
+      condition: non_pass_states_classified
+    - from: verification
+      to: evidence-handoff
+      condition: confidence_and_limitations_determined
+  handoffs:
+    - id: primary-lifecycle-handoff
+      to: primary_engineering_lifecycle
+      includes:
+        - normalized_testing_evidence
+        - testing_confidence_verdict
+        - unresolved_failures_and_limitations
+    - id: product-acceptance-handoff
+      to: product_acceptance_authority
+      includes:
+        - acceptance_evidence
+        - rejected_levels_with_rationale
+        - unavailable_evidence
+        - non_authorizing_testing_verdict
+  exit_conditions:
+    - selected_and_rejected_test_levels_have_rationale
+    - adapters_and_commands_trace_to_verified_repository_context
+    - all_failures_flakes_skips_and_unavailable_evidence_remain_visible
+    - evidence_is_attributable_to_an_exact_repository_revision_and_executor
+    - testing_confidence_is_reported_without_claiming_product_or_merge_authority
+  quality_gates:
+    - exactly_one_primary_engineering_lifecycle_remains_in_control
+    - risks_and_boundaries_precede_test_level_and_adapter_selection
+    - test_levels_are_selected_by_applicability_not_dogma
+    - provider_substitution_does_not_weaken_commands_risk_coverage_or_evidence_semantics
+    - unsupported_skipped_flaky_unavailable_and_not_verified_states_never_become_pass
+    - failing_tests_and_blocking_evidence_gaps_remain_visible
+    - review_evaluates_risk_coverage_and_evidence_not_file_presence
+    - runtime_orchestration_and_persistence_remain_external
+    - product_acceptance_release_and_merge_authority_remain_external
+  adapter_requirements:
+    repository_stack: product_defined
+    test_frameworks: product_defined
+    repository_commands: product_defined
+    execution_provider: replaceable_and_attributable
+    environment_provisioning: runtime_defined
+    evidence_storage: runtime_or_product_defined
+    product_acceptance_policy: product_defined
+    merge_authority: product_defined
