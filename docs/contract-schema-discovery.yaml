@@ -916,10 +916,10 @@ contract_schema_discovery:
           value_type_counts:
             mapping: 1
         compatibility:
-          count: 1
-          coverage: 0.0909
+          count: 2
+          coverage: 0.1818
           value_type_counts:
-            mapping: 1
+            mapping: 2
         completion_contract:
           count: 1
           coverage: 0.0909
@@ -1262,7 +1262,7 @@ contract_schema_discovery:
   extension_key_path_counts:
     adapter_requirements: 92
     aliases: 4
-    compatibility: 18
+    compatibility: 19
     compatibility.aliases: 17
     handoffs: 1
     memory_types[].lifecycle: 1
@@ -3517,8 +3517,8 @@ contract_schema_discovery:
       schema_version: 1.0.0
       schema_path: schemas/workflow-contract.schema.yaml
       path: contracts/workflows/product-development.contract.yaml
-      version: 0.3.0
-      sha256: ca0781c8e6aae48f
+      version: 0.4.0
+      sha256: 20eceb9abb9ce9b0
     - family_path: workflows
       metadata_fields:
       - id
@@ -13726,7 +13726,7 @@ contract_schema_discovery:
     contract_root: workflow_contract
     identifier_field: id
     contract_id: product-development
-    contract_version: 0.3.0
+    contract_version: 0.4.0
     declared_type: workflow
     declared_kind: null
     root_fields:
@@ -13734,6 +13734,7 @@ contract_schema_discovery:
     - adapter_requirements
     - category
     - code_review_contract
+    - compatibility
     - decision_provenance_contract
     - design_acceptance_contract
     - id
@@ -13781,6 +13782,13 @@ contract_schema_discovery:
         - required_input
         - rule
         - verdict_mapping
+      compatibility:
+        value_type: mapping
+        mapping_keys:
+        - new_phases
+        - phase_migrations
+        - preserved_semantics
+        - previous_contract_version
       decision_provenance_contract:
         value_type: mapping
         mapping_keys:
@@ -13798,20 +13806,21 @@ contract_schema_discovery:
       phases:
         value_type: sequence
         item_type_counts:
-          mapping: 10
-        mapping_item_count: 10
+          mapping: 12
+        mapping_item_count: 12
         mapping_item_field_counts:
-          description: 10
-          gate: 10
-          id: 10
-          order: 10
-          skills: 10
+          description: 12
+          gate: 12
+          id: 12
+          order: 12
+          outputs: 1
+          skills: 12
       purpose:
         value_type: string
       quality_gates:
         value_type: sequence
         item_type_counts:
-          string: 19
+          string: 24
       release_authorization:
         value_type: mapping
         mapping_keys:
@@ -13828,15 +13837,15 @@ contract_schema_discovery:
       skill_load_order:
         value_type: sequence
         item_type_counts:
-          mapping: 10
-        mapping_item_count: 10
+          mapping: 12
+        mapping_item_count: 12
         mapping_item_field_counts:
-          load: 10
-          phase: 10
+          load: 12
+          phase: 12
       stop_points:
         value_type: sequence
         item_type_counts:
-          string: 9
+          string: 11
       type:
         value_type: string
       version:
@@ -13845,6 +13854,7 @@ contract_schema_discovery:
         value_type: string
     extension_key_paths:
     - adapter_requirements
+    - compatibility
     expected_contract_root: workflow_contract
     root_matches_path_family: true
   - path: contracts/workflows/redesign-workflow.contract.yaml
