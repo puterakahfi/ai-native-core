@@ -1,0 +1,30 @@
+name: Sync Product Development Contract Metadata
+
+on:
+  push:
+    branches:
+      - feat/80-product-development-12-phases
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/80-product-development-12-phases
+          fetch-depth: 0
+      - run: python3 -m pip install --disable-pip-version-check pyyaml jsonschema
+      - run: ./scripts/generate-manifest.sh
+      - run: python3 scripts/inventory-contract-schemas.py
+      - run: rm .github/workflows/sync-product-development-contract-metadata.yml
+      - name: Commit generated metadata
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add contracts/manifest.yaml docs/contract-schema-discovery.yaml .github/workflows/sync-product-development-contract-metadata.yml
+          git commit -m "chore(governance): sync product-development contract metadata"
+          git push origin HEAD:feat/80-product-development-12-phases
