@@ -140,6 +140,8 @@ contracts/domains/<id>.contract.yaml
 domain_contract
 ```
 
+The generated manifest remains authoritative for domain inventory. `company-kernel` is the first active artifact under this family.
+
 A domain contract may reference existing ports for delegated capabilities without redefining their interaction semantics. Domain schema validity establishes structural conformance only; it does not prove implementation, runtime behavior, review, approval, or product acceptance.
 
 ### Runtime contracts
