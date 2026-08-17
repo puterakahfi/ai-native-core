@@ -133,80 +133,80 @@ port_contract:
       - id: company_registration_result
         description: Return the attributable registration result and resulting canonical company state.
         fields:
-          - {id: request_ref, description: Stable request reference for the registration attempt.}
-          - {id: company_ref, description: Canonical immutable company reference.}
-          - {id: company_status, description: Resulting company lifecycle state, expected to be draft on successful registration.}
-          - {id: company_version, description: Registry version of the resulting company record.}
-          - {id: result_disposition, description: Explicit successful, blocked, conflict, or not-checkable registration disposition.}
-          - {id: limitations, description: Known limitations or unresolved evidence affecting the result.}
+          - {id: request_ref, description: "Stable request reference for the registration attempt."}
+          - {id: company_ref, description: "Canonical immutable company reference."}
+          - {id: company_status, description: "Resulting company lifecycle state, expected to be draft on successful registration."}
+          - {id: company_version, description: "Registry version of the resulting company record."}
+          - {id: result_disposition, description: "Explicit successful, blocked, conflict, or not-checkable registration disposition."}
+          - {id: limitations, description: "Known limitations or unresolved evidence affecting the result."}
       - id: company_resolution_result
         description: Return the canonical company identity resolution without mutating registry state.
         fields:
-          - {id: request_ref, description: Stable request reference for the resolution attempt.}
-          - {id: company_ref, description: Canonical company reference resolved from the registered locator.}
-          - {id: company_status, description: Current company lifecycle state.}
-          - {id: company_version, description: Current registry version of the company record.}
-          - {id: result_disposition, description: Explicit resolved, not-found, blocked, stale, or not-checkable disposition.}
-          - {id: limitations, description: Known limitations or unresolved evidence affecting the resolution.}
+          - {id: request_ref, description: "Stable request reference for the resolution attempt."}
+          - {id: company_ref, description: "Canonical company reference resolved from the registered locator."}
+          - {id: company_status, description: "Current company lifecycle state."}
+          - {id: company_version, description: "Current registry version of the company record."}
+          - {id: result_disposition, description: "Explicit resolved, not-found, blocked, stale, or not-checkable disposition."}
+          - {id: limitations, description: "Known limitations or unresolved evidence affecting the resolution."}
       - id: company_read_result
         description: Return one canonical company registry record without mutating its state.
         fields:
-          - {id: request_ref, description: Stable request reference for the read.}
-          - {id: company_ref, description: Canonical company reference.}
-          - {id: company_status, description: Current company lifecycle state.}
-          - {id: company_version, description: Current registry version of the company record.}
-          - {id: identity_descriptor_ref, description: Reference to mutable company identity attributes.}
-          - {id: result_disposition, description: Explicit found, not-found, blocked, stale, or not-checkable disposition.}
-          - {id: limitations, description: Known limitations or unresolved evidence affecting the read.}
+          - {id: request_ref, description: "Stable request reference for the read."}
+          - {id: company_ref, description: "Canonical company reference."}
+          - {id: company_status, description: "Current company lifecycle state."}
+          - {id: company_version, description: "Current registry version of the company record."}
+          - {id: identity_descriptor_ref, description: "Reference to mutable company identity attributes."}
+          - {id: result_disposition, description: "Explicit found, not-found, blocked, stale, or not-checkable disposition."}
+          - {id: limitations, description: "Known limitations or unresolved evidence affecting the read."}
       - id: company_activation_result
         description: Return the attributable activation transition result without granting execution authorization.
         fields:
-          - {id: request_ref, description: Stable request reference for the activation attempt.}
-          - {id: company_ref, description: Canonical company reference.}
-          - {id: previous_company_status, description: Company lifecycle state before the attempted transition.}
-          - {id: company_status, description: Company lifecycle state after the attempted transition.}
-          - {id: company_version, description: Resulting registry version when the transition succeeds.}
-          - {id: result_disposition, description: Explicit transitioned, blocked, conflict, invalid-transition, or not-checkable disposition.}
-          - {id: limitations, description: Known limitations or unresolved evidence affecting the result.}
+          - {id: request_ref, description: "Stable request reference for the activation attempt."}
+          - {id: company_ref, description: "Canonical company reference."}
+          - {id: previous_company_status, description: "Company lifecycle state before the attempted transition."}
+          - {id: company_status, description: "Company lifecycle state after the attempted transition."}
+          - {id: company_version, description: "Resulting registry version when the transition succeeds."}
+          - {id: result_disposition, description: "Explicit transitioned, blocked, conflict, invalid-transition, or not-checkable disposition."}
+          - {id: limitations, description: "Known limitations or unresolved evidence affecting the result."}
       - id: company_suspension_result
         description: Return the attributable suspension transition result without granting execution authorization.
         fields:
-          - {id: request_ref, description: Stable request reference for the suspension attempt.}
-          - {id: company_ref, description: Canonical company reference.}
-          - {id: previous_company_status, description: Company lifecycle state before the attempted transition.}
-          - {id: company_status, description: Company lifecycle state after the attempted transition.}
-          - {id: company_version, description: Resulting registry version when the transition succeeds.}
-          - {id: result_disposition, description: Explicit transitioned, blocked, conflict, invalid-transition, or not-checkable disposition.}
-          - {id: limitations, description: Known limitations or unresolved evidence affecting the result.}
+          - {id: request_ref, description: "Stable request reference for the suspension attempt."}
+          - {id: company_ref, description: "Canonical company reference."}
+          - {id: previous_company_status, description: "Company lifecycle state before the attempted transition."}
+          - {id: company_status, description: "Company lifecycle state after the attempted transition."}
+          - {id: company_version, description: "Resulting registry version when the transition succeeds."}
+          - {id: result_disposition, description: "Explicit transitioned, blocked, conflict, invalid-transition, or not-checkable disposition."}
+          - {id: limitations, description: "Known limitations or unresolved evidence affecting the result."}
       - id: company_archival_result
         description: Return the attributable archival transition result without granting execution authorization.
         fields:
-          - {id: request_ref, description: Stable request reference for the archival attempt.}
-          - {id: company_ref, description: Canonical company reference.}
-          - {id: previous_company_status, description: Company lifecycle state before the attempted transition.}
-          - {id: company_status, description: Company lifecycle state after the attempted transition.}
-          - {id: company_version, description: Resulting registry version when the transition succeeds.}
-          - {id: result_disposition, description: Explicit transitioned, blocked, conflict, invalid-transition, or not-checkable disposition.}
-          - {id: limitations, description: Known limitations or unresolved evidence affecting the result.}
+          - {id: request_ref, description: "Stable request reference for the archival attempt."}
+          - {id: company_ref, description: "Canonical company reference."}
+          - {id: previous_company_status, description: "Company lifecycle state before the attempted transition."}
+          - {id: company_status, description: "Company lifecycle state after the attempted transition."}
+          - {id: company_version, description: "Resulting registry version when the transition succeeds."}
+          - {id: result_disposition, description: "Explicit transitioned, blocked, conflict, invalid-transition, or not-checkable disposition."}
+          - {id: limitations, description: "Known limitations or unresolved evidence affecting the result."}
     events:
-      - {id: company_registered, description: A canonical company identity was registered with attributable request evidence.}
-      - {id: company_resolved, description: A registered company locator was resolved to canonical company identity.}
-      - {id: company_registry_record_read, description: A canonical company registry record was read without mutation.}
-      - {id: company_activated, description: A company lifecycle transition to active completed.}
-      - {id: company_suspended, description: A company lifecycle transition to suspended completed.}
-      - {id: company_archived, description: A company lifecycle transition to archived completed.}
-      - {id: company_registry_request_blocked, description: A registry request was blocked by invalid, missing, stale, or unauthorized evidence.}
+      - {id: company_registered, description: "A canonical company identity was registered with attributable request evidence."}
+      - {id: company_resolved, description: "A registered company locator was resolved to canonical company identity."}
+      - {id: company_registry_record_read, description: "A canonical company registry record was read without mutation."}
+      - {id: company_activated, description: "A company lifecycle transition to active completed."}
+      - {id: company_suspended, description: "A company lifecycle transition to suspended completed."}
+      - {id: company_archived, description: "A company lifecycle transition to archived completed."}
+      - {id: company_registry_request_blocked, description: "A registry request was blocked by invalid, missing, stale, or unauthorized evidence."}
     streams: []
   failures:
     errors:
-      - {code: company_not_found, meaning: The requested canonical company identity or registered locator does not resolve to a company., retryable: false, partial_result_allowed: false}
-      - {code: company_identity_conflict, meaning: The proposed company_ref or registered identity locator conflicts with an existing company identity., retryable: false, partial_result_allowed: false}
-      - {code: invalid_company_state_transition, meaning: The requested lifecycle transition is not permitted from the current Company Kernel state., retryable: false, partial_result_allowed: false}
-      - {code: company_version_conflict, meaning: The expected company version does not match the current authoritative registry version., retryable: true, partial_result_allowed: false}
-      - {code: company_archived, meaning: The requested mutation targets an archived company that is terminal under the current Company Kernel contract., retryable: false, partial_result_allowed: false}
-      - {code: company_registry_input_incomplete, meaning: Required company, request, actor, version, locator, or authority references are incomplete., retryable: false, partial_result_allowed: false}
-      - {code: company_authorization_not_checkable, meaning: Required authorization evidence for a registry mutation is missing, stale, conflicting, or not verifiable., retryable: false, partial_result_allowed: false}
-      - {code: company_registry_state_not_checkable, meaning: Required current company state or version evidence cannot be verified safely., retryable: true, partial_result_allowed: false}
+      - {code: company_not_found, meaning: "The requested canonical company identity or registered locator does not resolve to a company.", retryable: false, partial_result_allowed: false}
+      - {code: company_identity_conflict, meaning: "The proposed company_ref or registered identity locator conflicts with an existing company identity.", retryable: false, partial_result_allowed: false}
+      - {code: invalid_company_state_transition, meaning: "The requested lifecycle transition is not permitted from the current Company Kernel state.", retryable: false, partial_result_allowed: false}
+      - {code: company_version_conflict, meaning: "The expected company version does not match the current authoritative registry version.", retryable: true, partial_result_allowed: false}
+      - {code: company_archived, meaning: "The requested mutation targets an archived company that is terminal under the current Company Kernel contract.", retryable: false, partial_result_allowed: false}
+      - {code: company_registry_input_incomplete, meaning: "Required company, request, actor, version, locator, or authority references are incomplete.", retryable: false, partial_result_allowed: false}
+      - {code: company_authorization_not_checkable, meaning: "Required authorization evidence for a registry mutation is missing, stale, conflicting, or not verifiable.", retryable: false, partial_result_allowed: false}
+      - {code: company_registry_state_not_checkable, meaning: "Required current company state or version evidence cannot be verified safely.", retryable: true, partial_result_allowed: false}
     partial_result_policy: explicit
     unknown_or_not_checkable_policy: Registry mutations fail closed when company state, version, or authorization evidence is missing, stale, conflicting, or unverified. Read and resolution operations return an explicit blocked or not-checkable disposition and never infer a successful company identity or lifecycle state.
   state_transitions: []
