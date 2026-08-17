@@ -1,21 +1,21 @@
 contract_schema_discovery:
   version: 0.2.0
   source_root: contracts
-  artifact_count: 141
+  artifact_count: 142
   path_family_counts:
     behavioral_test: 15
     compatibility: 1
     domain: 1
-    port: 17
+    port: 18
     runtime: 6
     skill: 90
     workflow: 11
   parse_status_counts:
-    parsed: 141
+    parsed: 142
   contract_root_counts:
     compatibility_manifest: 1
     domain_contract: 1
-    port_contract: 17
+    port_contract: 18
     runtime_contract: 6
     skill_contract: 90
     skill_test: 15
@@ -87,107 +87,107 @@ contract_schema_discovery:
       declared_type_values: {}
       declared_kind_values: {}
     port_contract:
-      artifact_count: 17
+      artifact_count: 18
       field_coverage:
         adapter_requirements:
-          count: 17
+          count: 18
           coverage: 1.0
           value_type_counts:
-            mapping: 17
+            mapping: 18
         authorization:
-          count: 17
+          count: 18
           coverage: 1.0
           value_type_counts:
-            mapping: 17
+            mapping: 18
         binding_owner_context:
-          count: 17
+          count: 18
           coverage: 1.0
           value_type_counts:
-            string: 17
+            string: 18
         boundary:
-          count: 17
+          count: 18
           coverage: 1.0
           value_type_counts:
-            mapping: 17
+            mapping: 18
         capability:
-          count: 17
+          count: 18
           coverage: 1.0
           value_type_counts:
-            string: 17
+            string: 18
         compatibility:
-          count: 17
+          count: 18
           coverage: 1.0
           value_type_counts:
-            mapping: 17
+            mapping: 18
         consumer_contexts:
-          count: 17
+          count: 18
           coverage: 1.0
           value_type_counts:
-            sequence: 17
+            sequence: 18
         direction:
-          count: 17
+          count: 18
           coverage: 1.0
           value_type_counts:
-            string: 17
+            string: 18
         failures:
-          count: 17
+          count: 18
           coverage: 1.0
           value_type_counts:
-            mapping: 17
+            mapping: 18
         id:
-          count: 17
+          count: 18
           coverage: 1.0
           value_type_counts:
-            string: 17
+            string: 18
         idempotency:
-          count: 17
+          count: 18
           coverage: 1.0
           value_type_counts:
-            mapping: 17
+            mapping: 18
         interactions:
-          count: 17
+          count: 18
           coverage: 1.0
           value_type_counts:
-            mapping: 17
+            mapping: 18
         kind:
-          count: 17
+          count: 18
           coverage: 1.0
           value_type_counts:
-            string: 17
+            string: 18
         observability:
-          count: 17
+          count: 18
           coverage: 1.0
           value_type_counts:
-            mapping: 17
+            mapping: 18
         purpose:
-          count: 17
+          count: 18
           coverage: 1.0
           value_type_counts:
-            string: 17
+            string: 18
         quality_gates:
-          count: 17
+          count: 18
           coverage: 1.0
           value_type_counts:
-            sequence: 17
+            sequence: 18
         semantic_owner_context:
-          count: 17
+          count: 18
           coverage: 1.0
           value_type_counts:
-            string: 17
+            string: 18
         state_transitions:
-          count: 17
+          count: 18
           coverage: 1.0
           value_type_counts:
-            sequence: 17
+            sequence: 18
         version:
-          count: 17
+          count: 18
           coverage: 1.0
           value_type_counts:
-            string: 17
+            string: 18
       declared_type_values: {}
       declared_kind_values:
         capability_composition_port: 4
-        control_port: 10
+        control_port: 11
         integration_port: 3
     runtime_contract:
       artifact_count: 6
@@ -1302,16 +1302,16 @@ contract_schema_discovery:
       version: []
       aliases: []
   extension_key_path_counts:
-    adapter_requirements: 92
+    adapter_requirements: 93
     aliases: 4
-    compatibility: 19
-    compatibility.aliases: 17
+    compatibility: 20
+    compatibility.aliases: 18
     extensions.lifecycle: 1
     extensions.lifecycle.transitions: 1
     handoffs: 1
     memory_types[].lifecycle: 1
     review_contract.facade: 1
-    state_transitions: 17
+    state_transitions: 18
     transitions: 3
   workflow_representation_inventory:
     canonical_workflow_contract_paths:
@@ -1340,12 +1340,12 @@ contract_schema_discovery:
       - phases
     runtime_lifecycle_candidates: []
   manifest_inventory:
-    entry_count: 141
+    entry_count: 142
     family_path_counts:
       compatibility: 1
       domains: 1
       ports/capability-composition: 4
-      ports/control: 10
+      ports/control: 11
       ports/integration: 3
       runtime: 6
       skills/architecture: 12
@@ -1364,25 +1364,25 @@ contract_schema_discovery:
       workflows: 11
     metadata_field_coverage:
       id:
-        count: 141
+        count: 142
         coverage: 1.0
       kind:
-        count: 141
+        count: 142
         coverage: 1.0
       path:
-        count: 141
+        count: 142
         coverage: 1.0
       schema_path:
-        count: 141
+        count: 142
         coverage: 1.0
       schema_version:
-        count: 141
+        count: 142
         coverage: 1.0
       sha256:
-        count: 141
+        count: 142
         coverage: 1.0
       version:
-        count: 141
+        count: 142
         coverage: 1.0
     missing_kind_paths: []
     missing_schema_version_paths: []
@@ -1532,6 +1532,22 @@ contract_schema_discovery:
       path: contracts/ports/control/authorization-assessment.port.yaml
       version: 0.1.0
       sha256: feb69df10112eb94
+    - family_path: ports/control
+      metadata_fields:
+      - id
+      - kind
+      - path
+      - schema_path
+      - schema_version
+      - sha256
+      - version
+      id: company-registry
+      kind: port_contract
+      schema_version: 1.0.0
+      schema_path: schemas/port-contract.schema.yaml
+      path: contracts/ports/control/company-registry.port.yaml
+      version: 0.1.0
+      sha256: 1341425e70c5fc6d
     - family_path: ports/control
       metadata_fields:
       - id
@@ -4667,6 +4683,125 @@ contract_schema_discovery:
         value_type: sequence
         item_type_counts:
           string: 4
+      semantic_owner_context:
+        value_type: string
+      state_transitions:
+        value_type: sequence
+        item_type_counts: {}
+      version:
+        value_type: string
+    extension_key_paths:
+    - adapter_requirements
+    - compatibility
+    - compatibility.aliases
+    - state_transitions
+    expected_contract_root: port_contract
+    root_matches_path_family: true
+  - path: contracts/ports/control/company-registry.port.yaml
+    path_family: port
+    expected_id: company-registry
+    document_root_keys:
+    - contract_schema
+    - port_contract
+    parse_status: parsed
+    contract_root: port_contract
+    identifier_field: id
+    contract_id: company-registry
+    contract_version: 0.1.0
+    declared_type: null
+    declared_kind: control_port
+    root_fields:
+    - adapter_requirements
+    - authorization
+    - binding_owner_context
+    - boundary
+    - capability
+    - compatibility
+    - consumer_contexts
+    - direction
+    - failures
+    - id
+    - idempotency
+    - interactions
+    - kind
+    - observability
+    - purpose
+    - quality_gates
+    - semantic_owner_context
+    - state_transitions
+    - version
+    root_field_shapes:
+      adapter_requirements:
+        value_type: mapping
+        mapping_keys:
+        - contract_reference
+        - requirements
+      authorization:
+        value_type: mapping
+        mapping_keys:
+        - authority_reference_required
+        - mode
+        - permission_is_not_authority
+        - required_for
+        - review_is_not_approval
+      binding_owner_context:
+        value_type: string
+      boundary:
+        value_type: mapping
+        mapping_keys:
+        - delegates
+        - does_not_own
+        - owns
+      capability:
+        value_type: string
+      compatibility:
+        value_type: mapping
+        mapping_keys:
+        - aliases
+        - breaking_changes
+        - legacy_contract_refs
+        - policy
+        - supersedes
+      consumer_contexts:
+        value_type: sequence
+        item_type_counts:
+          string: 5
+      direction:
+        value_type: string
+      failures:
+        value_type: mapping
+        mapping_keys:
+        - errors
+        - partial_result_policy
+        - unknown_or_not_checkable_policy
+      id:
+        value_type: string
+      idempotency:
+        value_type: mapping
+        mapping_keys:
+        - key_scope
+        - mode
+      interactions:
+        value_type: mapping
+        mapping_keys:
+        - events
+        - requests
+        - responses
+        - streams
+      kind:
+        value_type: string
+      observability:
+        value_type: mapping
+        mapping_keys:
+        - correlation_fields
+        - required_events
+        - sensitive_fields
+      purpose:
+        value_type: string
+      quality_gates:
+        value_type: sequence
+        item_type_counts:
+          string: 9
       semantic_owner_context:
         value_type: string
       state_transitions:

@@ -3,9 +3,9 @@ contract_schema:
   version: 1.0.0
   path: schemas/contract-manifest.schema.yaml
 version: 2.0.0
-generated_at: '2026-08-17T08:03:32Z'
+generated_at: '2026-08-17T10:12:22Z'
 description: 'Auto-generated schema-aware contract manifest. Regenerate with: scripts/generate-manifest.sh'
-total_contracts: 141
+total_contracts: 142
 contracts:
   skills:
     architecture:
@@ -702,6 +702,13 @@ contracts:
       path: contracts/ports/control/authorization-assessment.port.yaml
       version: 0.1.0
       sha256: feb69df10112eb94
+    - id: company-registry
+      kind: port_contract
+      schema_version: 1.0.0
+      schema_path: schemas/port-contract.schema.yaml
+      path: contracts/ports/control/company-registry.port.yaml
+      version: 0.1.0
+      sha256: 1341425e70c5fc6d
     - id: context-resolution
       kind: port_contract
       schema_version: 1.0.0
