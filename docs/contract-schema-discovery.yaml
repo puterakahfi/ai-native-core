@@ -1419,7 +1419,7 @@ contract_schema_discovery:
       schema_path: schemas/domain-contract.schema.yaml
       path: contracts/domains/company-kernel.contract.yaml
       version: 0.1.0
-      sha256: d2ea3fb2687bc4a6
+      sha256: b180189fc344b423
     - family_path: ports/capability-composition
       metadata_fields:
       - id
@@ -3820,6 +3820,7 @@ contract_schema_discovery:
       extensions:
         value_type: mapping
         mapping_keys:
+        - company_scope
         - context_checkpoint
         - identity
         - isolation
@@ -3830,7 +3831,7 @@ contract_schema_discovery:
       invariants:
         value_type: sequence
         item_type_counts:
-          string: 11
+          string: 12
       purpose:
         value_type: string
       version:

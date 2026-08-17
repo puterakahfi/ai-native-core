@@ -3,7 +3,7 @@ contract_schema:
   version: 1.0.0
   path: schemas/contract-manifest.schema.yaml
 version: 2.0.0
-generated_at: '2026-08-17T08:01:24Z'
+generated_at: '2026-08-17T08:03:32Z'
 description: 'Auto-generated schema-aware contract manifest. Regenerate with: scripts/generate-manifest.sh'
 total_contracts: 141
 contracts:
@@ -1016,4 +1016,4 @@ contracts:
     schema_path: schemas/domain-contract.schema.yaml
     path: contracts/domains/company-kernel.contract.yaml
     version: 0.1.0
-    sha256: d2ea3fb2687bc4a6
+    sha256: b180189fc344b423
