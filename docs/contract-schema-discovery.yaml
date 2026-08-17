@@ -1,18 +1,20 @@
 contract_schema_discovery:
   version: 0.2.0
   source_root: contracts
-  artifact_count: 140
+  artifact_count: 141
   path_family_counts:
     behavioral_test: 15
     compatibility: 1
+    domain: 1
     port: 17
     runtime: 6
     skill: 90
     workflow: 11
   parse_status_counts:
-    parsed: 140
+    parsed: 141
   contract_root_counts:
     compatibility_manifest: 1
+    domain_contract: 1
     port_contract: 17
     runtime_contract: 6
     skill_contract: 90
@@ -33,6 +35,46 @@ contract_schema_discovery:
           value_type_counts:
             sequence: 1
         id:
+          count: 1
+          coverage: 1.0
+          value_type_counts:
+            string: 1
+        version:
+          count: 1
+          coverage: 1.0
+          value_type_counts:
+            string: 1
+      declared_type_values: {}
+      declared_kind_values: {}
+    domain_contract:
+      artifact_count: 1
+      field_coverage:
+        boundary:
+          count: 1
+          coverage: 1.0
+          value_type_counts:
+            mapping: 1
+        bounded_context:
+          count: 1
+          coverage: 1.0
+          value_type_counts:
+            string: 1
+        extensions:
+          count: 1
+          coverage: 1.0
+          value_type_counts:
+            mapping: 1
+        id:
+          count: 1
+          coverage: 1.0
+          value_type_counts:
+            string: 1
+        invariants:
+          count: 1
+          coverage: 1.0
+          value_type_counts:
+            sequence: 1
+        purpose:
           count: 1
           coverage: 1.0
           value_type_counts:
@@ -1264,6 +1306,8 @@ contract_schema_discovery:
     aliases: 4
     compatibility: 19
     compatibility.aliases: 17
+    extensions.lifecycle: 1
+    extensions.lifecycle.transitions: 1
     handoffs: 1
     memory_types[].lifecycle: 1
     review_contract.facade: 1
@@ -1296,9 +1340,10 @@ contract_schema_discovery:
       - phases
     runtime_lifecycle_candidates: []
   manifest_inventory:
-    entry_count: 140
+    entry_count: 141
     family_path_counts:
       compatibility: 1
+      domains: 1
       ports/capability-composition: 4
       ports/control: 10
       ports/integration: 3
@@ -1319,25 +1364,25 @@ contract_schema_discovery:
       workflows: 11
     metadata_field_coverage:
       id:
-        count: 140
+        count: 141
         coverage: 1.0
       kind:
-        count: 140
+        count: 141
         coverage: 1.0
       path:
-        count: 140
+        count: 141
         coverage: 1.0
       schema_path:
-        count: 140
+        count: 141
         coverage: 1.0
       schema_version:
-        count: 140
+        count: 141
         coverage: 1.0
       sha256:
-        count: 140
+        count: 141
         coverage: 1.0
       version:
-        count: 140
+        count: 141
         coverage: 1.0
     missing_kind_paths: []
     missing_schema_version_paths: []
@@ -1359,6 +1404,22 @@ contract_schema_discovery:
       path: contracts/compatibility/contract-path-aliases.contract.yaml
       version: 1.0.0
       sha256: 70b9012210ffeefa
+    - family_path: domains
+      metadata_fields:
+      - id
+      - kind
+      - path
+      - schema_path
+      - schema_version
+      - sha256
+      - version
+      id: company-kernel
+      kind: domain_contract
+      schema_version: 1.0.0
+      schema_path: schemas/domain-contract.schema.yaml
+      path: contracts/domains/company-kernel.contract.yaml
+      version: 0.1.0
+      sha256: b180189fc344b423
     - family_path: ports/capability-composition
       metadata_fields:
       - id
@@ -3725,6 +3786,60 @@ contract_schema_discovery:
     extension_key_paths:
     - aliases
     expected_contract_root: compatibility_manifest
+    root_matches_path_family: true
+  - path: contracts/domains/company-kernel.contract.yaml
+    path_family: domain
+    expected_id: company-kernel
+    document_root_keys:
+    - contract_schema
+    - domain_contract
+    parse_status: parsed
+    contract_root: domain_contract
+    identifier_field: id
+    contract_id: company-kernel
+    contract_version: 0.1.0
+    declared_type: null
+    declared_kind: null
+    root_fields:
+    - boundary
+    - bounded_context
+    - extensions
+    - id
+    - invariants
+    - purpose
+    - version
+    root_field_shapes:
+      boundary:
+        value_type: mapping
+        mapping_keys:
+        - delegates
+        - does_not_own
+        - owns
+      bounded_context:
+        value_type: string
+      extensions:
+        value_type: mapping
+        mapping_keys:
+        - company_scope
+        - context_checkpoint
+        - identity
+        - isolation
+        - lifecycle
+        - related_contracts
+      id:
+        value_type: string
+      invariants:
+        value_type: sequence
+        item_type_counts:
+          string: 12
+      purpose:
+        value_type: string
+      version:
+        value_type: string
+    extension_key_paths:
+    - extensions.lifecycle
+    - extensions.lifecycle.transitions
+    expected_contract_root: domain_contract
     root_matches_path_family: true
   - path: contracts/ports/capability-composition/design-strategy-composition.port.yaml
     path_family: port

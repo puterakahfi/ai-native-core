@@ -1,0 +1,124 @@
+contract_schema:
+  kind: domain_contract
+  version: "1.0.0"
+  path: schemas/domain-contract.schema.yaml
+
+domain_contract:
+  id: company-kernel
+  version: "0.1.0"
+  bounded_context: company_kernel
+  purpose: >-
+    Define runtime-agnostic company identity, lifecycle, isolation scope, and
+    attributable company-context checkpoint semantics for systems that operate
+    multiple independent companies.
+  boundary:
+    owns:
+      - company_identity
+      - company_lifecycle_meaning
+      - company_scope_semantics
+      - cross_company_isolation_semantics
+      - company_context_checkpoint_semantics
+    delegates:
+      - context_resolution
+      - authorization_assessment
+      - execution_run_management
+      - review_management
+      - approval_decision
+    does_not_own:
+      - product_identity
+      - organization_structure
+      - sop_policy_evaluation
+      - authority_grants
+      - context_source_retrieval
+      - workflow_selection
+      - workforce_assignment
+      - agent_profile_identity
+      - runtime_execution
+      - runtime_adapter_identity
+      - persistence_implementation
+      - evidence_sufficiency
+      - review_disposition
+      - approval_authority
+      - product_acceptance
+  invariants:
+    - company_ref_is_stable_immutable_and_non_recyclable
+    - company_identity_is_not_inferred_from_display_name_slug_product_runtime_profile_or_agent_identity
+    - company_is_not_product
+    - company_is_not_agent_fleet
+    - material_company_business_objects_resolve_to_exactly_one_company_boundary
+    - cross_company_access_is_denied_by_default
+    - cross_company_sharing_requires_explicit_authorization
+    - missing_company_scope_never_resolves_to_a_default_company
+    - company_context_readiness_does_not_imply_action_authorization
+    - archived_company_is_non_operational
+    - runtime_adapter_does_not_own_company_truth_or_canonical_company_meaning
+    - runtime_is_not_control_plane
+  extensions:
+    identity:
+      company_ref:
+        meaning: Stable opaque identifier for exactly one company boundary.
+        properties:
+          - immutable
+          - non_recyclable
+          - not_derived_from_mutable_company_attributes
+      company:
+        meaning: >-
+          Independently governed company boundary whose stable identity is its
+          company_ref rather than any mutable display or implementation attribute.
+        identity_authority: company_ref
+        mutable_attributes_do_not_redefine_identity:
+          - display_name
+          - slug
+          - product_id
+          - runtime_profile
+          - agent_identity
+    company_scope:
+      meaning: >-
+        Explicit scope binding one material company business object or operation
+        to exactly one company_ref.
+      cardinality: exactly_one_company
+      hidden_default_resolution: forbidden
+      required_for: material_company_business_objects
+    lifecycle:
+      states:
+        draft: Company identity exists, but business execution is not operational.
+        active: Company may operate, while each action remains subject to applicable authorization and approval requirements.
+        suspended: New business execution is blocked; historical access or reporting remains policy-dependent.
+        archived: Company is non-operational and terminal under this contract version.
+      transitions:
+        - from: draft
+          to: active
+        - from: active
+          to: suspended
+        - from: suspended
+          to: active
+        - from: suspended
+          to: archived
+    isolation:
+      default_cross_company_access: deny
+      missing_scope_behavior: deny
+      cross_company_sharing_without_explicit_authorization: deny
+    context_checkpoint:
+      meaning: >-
+        Attributable checkpoint asserting that a context pack was resolved for
+        one company boundary and one named purpose.
+      required_attribution:
+        - company_ref
+        - company_version
+        - purpose_ref
+        - context_pack_ref
+        - resolved_at
+        - source_refs
+        - context_gaps
+        - validation_result
+      does_not_imply:
+        - source_authority_transfer
+        - action_authorization
+        - approval
+        - product_acceptance
+    related_contracts:
+      context_resolution: contracts/ports/control/context-resolution.port.yaml
+      authorization_assessment: contracts/ports/control/authorization-assessment.port.yaml
+      execution_run_management: contracts/ports/control/execution-run-management.port.yaml
+      review_management: contracts/ports/control/review-management.port.yaml
+      approval_decision: contracts/ports/control/approval-decision.port.yaml

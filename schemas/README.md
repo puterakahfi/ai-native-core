@@ -55,8 +55,17 @@ runtime-contract.schema.yaml
 port-contract.schema.yaml
 behavioral-test-contract.schema.yaml
 compatibility-manifest.schema.yaml
+domain-contract.schema.yaml
 contract-manifest.schema.yaml
 ```
+
+`domain-contract.schema.yaml` governs first-class runtime-agnostic domain boundary artifacts under:
+
+```text
+contracts/domains/<id>.contract.yaml
+```
+
+Domain contracts define stable domain meaning, ownership boundaries, and invariants. They do not make product, runtime, adapter, review, approval, or production claims by themselves.
 
 ## Active conformance schemas
 
@@ -77,10 +86,9 @@ Supporting fixture-backed schemas:
 
 ```text
 adapter-manifest.schema.yaml
-domain-contract.schema.yaml
 ```
 
-A supporting schema does not prove an active adapter or domain artifact exists. It defines the required shape for future first-class artifacts and is validated through positive and negative fixtures.
+A supporting schema does not prove an active adapter artifact exists. It defines the required shape for a future first-class artifact and is validated through positive and negative fixtures.
 
 ## Canonical family roots
 
@@ -91,6 +99,7 @@ runtime_contract
 port_contract
 skill_test
 compatibility_manifest
+domain_contract
 adapter_conformance
 conformance_report
 ```
@@ -101,6 +110,12 @@ Canonical workflow location:
 
 ```text
 contracts/workflows/<id>.contract.yaml
+```
+
+Canonical domain location:
+
+```text
+contracts/domains/<id>.contract.yaml
 ```
 
 Lifecycle workflows must not remain serialized as `skill_contract type: workflow` or as runtime contracts owning phase-transition lifecycles.
