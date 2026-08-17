@@ -1547,7 +1547,7 @@ contract_schema_discovery:
       schema_path: schemas/port-contract.schema.yaml
       path: contracts/ports/control/company-registry.port.yaml
       version: 0.1.0
-      sha256: 0b4e8468693dca3e
+      sha256: 1341425e70c5fc6d
     - family_path: ports/control
       metadata_fields:
       - id
