@@ -47,6 +47,7 @@ domain_contract:
     - company_is_not_agent_fleet
     - material_company_business_objects_resolve_to_exactly_one_company_boundary
     - cross_company_access_is_denied_by_default
+    - cross_company_sharing_requires_explicit_authorization
     - missing_company_scope_never_resolves_to_a_default_company
     - company_context_readiness_does_not_imply_action_authorization
     - archived_company_is_non_operational
@@ -60,6 +61,24 @@ domain_contract:
           - immutable
           - non_recyclable
           - not_derived_from_mutable_company_attributes
+      company:
+        meaning: >-
+          Independently governed company boundary whose stable identity is its
+          company_ref rather than any mutable display or implementation attribute.
+        identity_authority: company_ref
+        mutable_attributes_do_not_redefine_identity:
+          - display_name
+          - slug
+          - product_id
+          - runtime_profile
+          - agent_identity
+    company_scope:
+      meaning: >-
+        Explicit scope binding one material company business object or operation
+        to exactly one company_ref.
+      cardinality: exactly_one_company
+      hidden_default_resolution: forbidden
+      required_for: material_company_business_objects
     lifecycle:
       states:
         draft: Company identity exists, but business execution is not operational.
@@ -78,11 +97,20 @@ domain_contract:
     isolation:
       default_cross_company_access: deny
       missing_scope_behavior: deny
-      phase_1_cross_company_sharing: not_supported
+      cross_company_sharing_without_explicit_authorization: deny
     context_checkpoint:
       meaning: >-
         Attributable checkpoint asserting that a context pack was resolved for
         one company boundary and one named purpose.
+      required_attribution:
+        - company_ref
+        - company_version
+        - purpose_ref
+        - context_pack_ref
+        - resolved_at
+        - source_refs
+        - context_gaps
+        - validation_result
       does_not_imply:
         - source_authority_transfer
         - action_authorization
