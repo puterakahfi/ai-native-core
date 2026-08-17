@@ -68,6 +68,7 @@ contracts/
 ├── ports/<kind>/*.port.yaml
 ├── workflows/*.contract.yaml
 ├── runtime/*.contract.yaml
+├── domains/*.contract.yaml
 ├── tests/*.test.yaml
 ├── compatibility/*.contract.yaml
 └── manifest.yaml
@@ -128,6 +129,19 @@ WorkflowCoordinationPort checkpoint
 ≠ WorkflowRun aggregate
 ```
 
+### Domain contracts
+
+[`contracts/domains/`](../contracts/domains/) defines runtime-agnostic domain meaning, ownership boundaries, and invariants that must remain stable across consuming products, control planes, and runtime adapters.
+
+Canonical location and root:
+
+```text
+contracts/domains/<id>.contract.yaml
+domain_contract
+```
+
+A domain contract may reference existing ports for delegated capabilities without redefining their interaction semantics. Domain schema validity establishes structural conformance only; it does not prove implementation, runtime behavior, review, approval, or product acceptance.
+
 ### Runtime contracts
 
 [`contracts/runtime/`](../contracts/runtime/) defines runtime-facing agreements such as core resolution, memory, hooks, tool registration, and operating procedures.
@@ -165,7 +179,7 @@ The canonical target is the only machine authority. Alias resolution does not pr
 ## Finding the right contract
 
 ```text
-1. Identify the stable capability, lifecycle, runtime surface, boundary, or test.
+1. Identify the stable domain, capability, lifecycle, runtime surface, boundary, or test.
 2. Search contracts/manifest.yaml by ID, kind, or path.
 3. Open the declared schema and family body.
 4. Inspect inputs, outputs, interactions, gates, failures, boundaries, and compatibility.
