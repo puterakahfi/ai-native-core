@@ -129,6 +129,8 @@ WorkflowCoordinationPort checkpoint
 ≠ WorkflowRun aggregate
 ```
 
+`company-registry` is the control boundary for company registration, identity resolution, registry reads, and lifecycle-transition requests/results. Canonical company identity and lifecycle meaning remain owned by `company-kernel`; the registry port does not become persistence, authority, execution authorization, or product acceptance.
+
 ### Domain contracts
 
 [`contracts/domains/`](../contracts/domains/) defines runtime-agnostic domain meaning, ownership boundaries, and invariants that must remain stable across consuming products, control planes, and runtime adapters.
